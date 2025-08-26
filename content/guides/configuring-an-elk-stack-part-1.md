@@ -37,8 +37,7 @@ Next, I'm going to configure files that were just created
 
 #### .env
 
-{% code title=".env" %}
-```
+```env
 # Project name (if not set, select cwd)
 #COMPOSE_PROJECT_NAME=elk-stack
 
@@ -71,7 +70,6 @@ LS_MEM_LIMIT=1073741824
 # Sample predefined key only for testing environments
 ENCRYPTION_KEY=c34d38b3a14956121ff2170e5030b471551370178f43e5626eec58b04a30fae2
 ```
-{% endcode %}
 
 Here, I configure all the necessary variables for elastic to work properly, like passwords, ports, memory limits and so on.
 
@@ -83,7 +81,6 @@ All of the variables that can be configured can be found at [Elastic docs](https
 
 _Note: From this point on, make sure syntax is correct in these configuration files. especially spelling and indentation. Otherwise docker will not setup the containers._
 
-{% code title="docker-compose.yml" lineNumbers="true" %}
 ```yml
 version: "3.8" // This is deprecated. you can just remove this line
 
@@ -162,7 +159,7 @@ services:
      timeout: 5s
      retries: 120
 ```
-{% endcode %}
+
 
 This is a base setup for docker compose where storage volume path, network and services are enabled and specified.
 
@@ -174,7 +171,6 @@ Here, I setup elasticsearch
 
 Add the following to `docker-compose.yml`
 
-{% code title="docker-compose.yml" lineNumbers="true" %}
 ```yml
  es01:
    depends_on:
@@ -220,7 +216,7 @@ Add the following to `docker-compose.yml`
      timeout: 10s
      retries: 120
 ```
-{% endcode %}
+
 
 This is docker cluster configuration, where CA certificate and node path is specified. In this case Elasticsearch data and certifications are not stored in docker container. Instead they will be saved in local storage for data persistence and robustness.
 
@@ -299,7 +295,6 @@ Now I can add Kibana container config in `docker-compose.yml` and specify that i
 
 Add the following to `docker-compose.yml`
 
-{% code title="docker-compose.yml" lineNumbers="true" %}
 ```yml
  kibana:
    depends_on:
@@ -333,7 +328,7 @@ Add the following to `docker-compose.yml`
      timeout: 10s
      retries: 120
 ```
-{% endcode %}
+
 
 Now you can either use Docker Desktop to enable Kibana container or just use terminal CTLR+C your container and rerun `docker compose up`
 
@@ -351,7 +346,6 @@ Now that Kibana and Elasticsearch are running and communicating, I can continue 
 
 1. Add the following to `docker-compose.yml`
 
-{% code title="docker-compose.yml" lineNumbers="true" %}
 ```yml
  metricbeat01:
    depends_on:
@@ -376,11 +370,10 @@ Now that Kibana and Elasticsearch are running and communicating, I can continue 
      - KIBANA_HOSTS=http://kibana:5601
      - LOGSTASH_HOSTS=http://logstash01:9600
 ```
-{% endcode %}
+
 
 #### metricbeat.yml
 
-{% code title="metricbeat.yml" lineNumbers="true" %}
 ```yml
 metricbeat.config.modules:
   path: ${path.config}/modules.d/*.yml
@@ -438,7 +431,7 @@ output.elasticsearch:
     certificate_authorities: "certs/ca/ca.crt"
     key: "certs/es01/es01.key"
 ```
-{% endcode %}
+
 
 3. Disable `metricbeat.yml` execution permission and restart composer
 
@@ -467,7 +460,6 @@ Now that this cluster is stable and monitored with Metricbeat, we can install Fi
 
 Append the following to `docker-compose.yml`
 
-{% code title="docker-compose.yml" lineNumbers="true" %}
 ```yml
  filebeat01:
    depends_on:
@@ -489,11 +481,10 @@ Append the following to `docker-compose.yml`
      - KIBANA_HOSTS=http://kibana:5601
      - LOGSTASH_HOSTS=http://logstash01:9600
 ```
-{% endcode %}
+
 
 #### filebeat.yml
 
-{% code title="filebeat.yml" lineNumbers="true" %}
 ```yml
 filebeat.inputs:
 - type: filestream
@@ -523,7 +514,7 @@ output.elasticsearch:
  ssl.enabled: true
  ssl.certificate_authorities: "certs/ca/ca.crt"
 ```
-{% endcode %}
+
 
 disable `filebeat.yml` execution permission and restart container
 
@@ -542,7 +533,6 @@ Final container I'm going to setup is logstash which will help us to manage and 
 
 Add the following to `docker-compose.yml`
 
-{% code title="docker-compose.yml" lineNumbers="true" %}
 ```yml
  logstash01:
    depends_on:
@@ -565,12 +555,11 @@ Add the following to `docker-compose.yml`
      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
      - ELASTIC_HOSTS=https://es01:9200
 ```
-{% endcode %}
+
 
 #### logstash.conf
 
-{% code title="logstash.conf" lineNumbers="true" %}
-```
+```json
 input {
  file {
    #https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html
@@ -594,7 +583,7 @@ output {
  }
 }
 ```
-{% endcode %}
+
 
 Restart composer.
 
