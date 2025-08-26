@@ -1,0 +1,745 @@
+/* Copyright 2024 Oskar Wickström
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+@import url('https://fonts.cdnfonts.com/css/jetbrains-mono-2'); /* Original font */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap');
+
+:root {
+  --font-family: "JetBrains Mono", Courier, monospace;
+  --line-height: 1.20rem;
+  --border-thickness: 2px;
+  --text-color: #000;
+  --text-color-alt: #666;
+  --background-color: #fff;
+  --background-color-alt: #eee;
+
+  --font-weight-normal: 500;
+  --font-weight-medium: 600;
+  --font-weight-bold: 800;
+
+  font-family: var(--font-family);
+  font-optical-sizing: auto;
+  font-weight: var(--font-weight-normal);
+  font-style: normal;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 16px;
+}
+
+/* Default to dark mode */
+html {
+  data-color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    data-color-scheme: light;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: #ddd;
+    --text-color-alt: #aaa;
+    --background-color: #1b1b1b;
+    --background-color-alt: #2e2e2e;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+* + * {
+  margin-top: var(--line-height);
+}
+
+html {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  align-items: center;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+body {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: var(--line-height) 2ch;
+  max-width: calc(min(80ch, round(down, 100%, 1ch)));
+  line-height: var(--line-height);
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 480px) {
+  :root {
+    font-size: 14px;
+  }
+  body {
+    padding: var(--line-height) 1ch;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
+  margin: calc(var(--line-height) * 2) 0 var(--line-height);
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: calc(2 * var(--line-height));
+  margin-bottom: calc(var(--line-height) * 2);
+  text-transform: uppercase;
+}
+h2 {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+hr {
+  position: relative;
+  display: block;
+  height: var(--line-height);
+  margin: calc(var(--line-height) * 1.5) 0;
+  border: none;
+  color: var(--text-color);
+}
+hr:after {
+  display: block;
+  content: "";
+  position: absolute;
+  top: calc(var(--line-height) / 2 - var(--border-thickness));
+  left: 0;
+  width: 100%;
+  border-top: calc(var(--border-thickness) * 3) double var(--text-color);
+  height: 0;
+}
+
+a {
+  text-decoration-thickness: var(--border-thickness);
+}
+
+a:link, a:visited {
+  color: var(--text-color);
+}
+
+p {
+  margin-bottom: var(--line-height);
+}
+
+strong {
+  font-weight: var(--font-weight-bold);
+}
+em {
+  font-style: italic;
+}
+
+sub {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  vertical-align: sub;
+  line-height: 0;
+  width: calc(1ch / 0.75);
+  font-size: .75rem;
+}
+
+table {
+  position: relative;
+  top: calc(var(--line-height) / 2);
+  width: calc(round(down, 100%, 1ch));
+  border-collapse: collapse;
+  margin: 0 0 calc(var(--line-height) * 2);
+}
+
+th, td {
+  border: var(--border-thickness) solid var(--text-color);
+  padding: 
+    calc((var(--line-height) / 2))
+    calc(1ch - var(--border-thickness) / 2)
+    calc((var(--line-height) / 2) - (var(--border-thickness)))
+  ;
+  line-height: var(--line-height);
+  vertical-align: top;
+  text-align: left;
+}
+table tbody tr:first-child > * {
+  padding-top: calc((var(--line-height) / 2) - var(--border-thickness));
+}
+
+
+th {
+  font-weight: 700;
+}
+.width-min {
+  width: 0%;
+}
+.width-auto {
+  width: 100%;
+}
+
+.header {
+  margin-bottom: calc(var(--line-height) * 2);
+}
+.header h1 {
+  margin: 0;
+}
+.header tr td:last-child {
+  text-align: right;
+}
+
+p {
+  word-break: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+img, video {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  overflow: hidden;
+}
+img {
+  font-style: italic;
+  color: var(--text-color-alt);
+}
+
+details {
+  border: var(--border-thickness) solid var(--text-color);
+  padding: calc(var(--line-height) - var(--border-thickness)) 1ch;
+  margin-bottom: var(--line-height);
+}
+
+summary {
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+details[open] summary {
+  margin-bottom: var(--line-height);
+}
+
+details ::marker {
+  display: inline-block;
+  content: '▶';
+  margin: 0;
+}
+details[open] ::marker {
+  content: '▼';
+}
+
+details :last-child {
+  margin-bottom: 0;
+}
+
+pre {
+  white-space: pre;
+  overflow-x: auto;
+  margin: var(--line-height) 0;
+  overflow-y: hidden;
+}
+figure pre {
+  margin: 0;
+}
+
+pre, code {
+  font-family: var(--font-family);
+}
+
+figure {
+  margin: calc(var(--line-height) * 2) 3ch;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+figcaption {
+  display: block;
+  font-style: italic;
+  margin-top: var(--line-height);
+}
+
+ul, ol {
+  padding: 0;
+  margin: 0 0 var(--line-height);
+}
+
+ul {
+  list-style-type: square;
+  padding: 0 0 0 2ch;
+}
+ol {
+  list-style-type: none;
+  counter-reset: item;
+  padding: 0;
+}
+ol ul,
+ol ol,
+ul ol,
+ul ul {
+  padding: 0 0 0 3ch;
+  margin: 0;
+}
+ol li:before { 
+  content: counters(item, ".") ". ";
+  counter-increment: item;
+  font-weight: var(--font-weight-medium);
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}
+
+li::marker {
+  line-height: 0;
+}
+
+::-webkit-scrollbar {
+    height: var(--line-height);
+}
+
+input, button, textarea {
+  border: var(--border-thickness) solid var(--text-color);
+  padding: 
+    calc(var(--line-height) / 2 - var(--border-thickness))
+    calc(1ch - var(--border-thickness));
+  margin: 0;
+  font: inherit;
+  font-weight: inherit;
+  height: calc(var(--line-height) * 2);
+  width: auto;
+  overflow: visible;
+  background: var(--background-color);
+  color: var(--text-color);
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+}
+
+input[type=checkbox] {
+  display: inline-grid;
+  place-content: center;
+  vertical-align: top;
+  width: 2ch;
+  height: var(--line-height);
+  cursor: pointer;
+}
+input[type=checkbox]:checked:before {
+  content: "";
+  width: 1ch;
+  height: calc(var(--line-height) / 2);
+  background: var(--text-color);
+}
+
+button:focus, input:focus {
+  --border-thickness: 3px;
+  outline: none;
+}
+
+input {
+  width: calc(round(down, 100%, 1ch));
+}
+::placeholder {
+  color: var(--text-color-alt);
+  opacity: 1;
+}
+::-ms-input-placeholder {
+  color: var(--text-color-alt);
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0
+}
+
+button {
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--background-color-alt);
+}
+button:active {
+  transform: translate(2px, 2px);
+}
+
+label {
+  display: block;
+  width: calc(round(down, 100%, 1ch));
+  height: auto;
+  line-height: var(--line-height);
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+}
+
+label input {
+  width: 100%;
+}
+
+.tree, .tree ul {
+  position: relative;
+  padding-left: 0;
+  list-style-type: none;
+  line-height: var(--line-height);
+}
+.tree ul {
+  margin: 0;
+}
+.tree ul li {
+  position: relative;
+  padding-left: 1.5ch;
+  margin-left: 1.5ch;
+  border-left: var(--border-thickness) solid var(--text-color);
+}
+.tree ul li:before {
+  position: absolute;
+  display: block;
+  top: calc(var(--line-height) / 2);
+  left: 0;
+  content: "";
+  width: 1ch;
+  border-bottom: var(--border-thickness) solid var(--text-color);
+}
+.tree ul li:last-child {
+  border-left: none;
+}
+.tree ul li:last-child:after {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  content: "";
+  height: calc(var(--line-height) / 2);
+  border-left: var(--border-thickness) solid var(--text-color);
+}
+
+.grid {
+  --grid-cells: 0;
+  display: flex;
+  gap: 1ch;
+  width: calc(round(down, 100%, (1ch * var(--grid-cells)) - (1ch * var(--grid-cells) - 1)));
+  margin-bottom: var(--line-height);
+}
+
+.grid > *,
+.grid > input {
+  flex: 0 0 calc(round(down, (100% - (1ch * (var(--grid-cells) - 1))) / var(--grid-cells), 1ch));
+}
+.grid:has(> :last-child:nth-child(1)) { --grid-cells: 1; }
+.grid:has(> :last-child:nth-child(2)) { --grid-cells: 2; }
+.grid:has(> :last-child:nth-child(3)) { --grid-cells: 3; }
+.grid:has(> :last-child:nth-child(4)) { --grid-cells: 4; }
+.grid:has(> :last-child:nth-child(5)) { --grid-cells: 5; }
+.grid:has(> :last-child:nth-child(6)) { --grid-cells: 6; }
+.grid:has(> :last-child:nth-child(7)) { --grid-cells: 7; }
+.grid:has(> :last-child:nth-child(8)) { --grid-cells: 8; }
+.grid:has(> :last-child:nth-child(9)) { --grid-cells: 9; }
+
+/* DEBUG UTILITIES */
+
+.debug .debug-grid {
+  --color: color-mix(in srgb, var(--text-color) 10%, var(--background-color) 90%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image:
+    repeating-linear-gradient(var(--color) 0 1px, transparent 1px 100%),
+    repeating-linear-gradient(90deg, var(--color) 0 1px, transparent 1px 100%);
+  background-size: 1ch var(--line-height);
+  margin: 0;
+}
+
+.debug .off-grid {
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.debug-toggle-label {
+  text-align: right;
+}
+
+/*
+  Custom Styles
+*/
+
+/* Ensure content doesn't overflow */
+article {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Bibliography Styles */
+.bibliography {
+  padding-left: 3ch; /* Adjust as needed */
+}
+
+.bibliography-list {
+  margin-top: 1em;
+}
+
+.bibliography-item {
+  margin-bottom: 1em;
+}
+
+.bibliography li {
+  position: relative;
+  padding-right: 3ch; /* Space for the back-link */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.bibliography li a {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+/* Base styles for all code blocks */
+/* Reset and override Hugo defaults */
+.highlight,
+.highlight pre,
+.highlight code {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Centered Sections */
+.centered-section {
+  text-align: center;
+}
+
+.centered-section ol {
+  display: inline-block;
+  text-align: left;
+}
+
+pre,
+.highlight {
+  margin: var(--line-height) 0 !important;
+  padding: 1rem !important;
+  background: var(--background-color-alt) !important;
+  border: var(--border-thickness) solid var(--text-color) !important;
+  overflow-x: auto;
+}
+
+pre code,
+.highlight code {
+  display: block;
+  font-family: var(--font-family) !important;
+  white-space: pre;
+}
+
+/* Adjust line height for non-highlighted code */
+
+/* Remove any potential responsiveness issues */
+@media screen and (max-width: 480px) {
+  pre code, .highlight code {
+    font-size: 0.9em !important; /* Force consistent font size on mobile */
+  }
+}
+/* Add a wrapper div for better control */
+.highlight-wrapper {
+  position: relative;
+}
+
+/* Style the pre element inside the wrapper */
+.highlight-wrapper pre {
+  margin: 0 !important;
+}
+
+/* Add pseudo-elements for top and bottom fade effects */
+.highlight-wrapper::before,
+.highlight-wrapper::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0.25rem; /* Reduced from 0.5rem to 0.25rem */
+  pointer-events: none;
+}
+
+.highlight-wrapper::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--background-color-alt), transparent);
+}
+
+.highlight-wrapper::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--background-color-alt), transparent);
+}
+
+/* Syntax highlighting colors */
+
+
+/* Light mode - all syntax black */
+@media (prefers-color-scheme: light) {
+  .highlight span {
+    color: #000000 !important;
+    background-color: transparent !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+  }
+}
+
+/* Dark mode styles */
+
+:root[data-color-scheme="dark"]  .highlight .c { color: #75715e } /* Comment */
+:root[data-color-scheme="dark"]  .highlight .err { color: #960050; background-color: #1e0010 } /* Error */
+:root[data-color-scheme="dark"]  .highlight .k { color: #66d9ef } /* Keyword */
+:root[data-color-scheme="dark"]  .highlight .l { color: #ae81ff } /* Literal */
+:root[data-color-scheme="dark"]  .highlight .n { color: #f8f8f2 } /* Name */
+:root[data-color-scheme="dark"]  .highlight .o { color: #f92672 } /* Operator */
+:root[data-color-scheme="dark"]  .highlight .p { color: #f8f8f2 } /* Punctuation */
+:root[data-color-scheme="dark"]  .highlight .cm { color: #75715e } /* Comment.Multiline */
+:root[data-color-scheme="dark"]  .highlight .cp { color: #75715e } /* Comment.Preproc */
+:root[data-color-scheme="dark"]  .highlight .c1 { color: #75715e } /* Comment.Single */
+:root[data-color-scheme="dark"]  .highlight .cs { color: #75715e } /* Comment.Special */
+:root[data-color-scheme="dark"]  .highlight .ge { font-style: italic } /* Generic.Emph */
+:root[data-color-scheme="dark"]  .highlight .gs { font-weight: bold } /* Generic.Strong */
+:root[data-color-scheme="dark"]  .highlight .kc { color: #66d9ef } /* Keyword.Constant */
+:root[data-color-scheme="dark"]  .highlight .kd { color: #66d9ef } /* Keyword.Declaration */
+:root[data-color-scheme="dark"]  .highlight .kn { color: #f92672 } /* Keyword.Namespace */
+:root[data-color-scheme="dark"]  .highlight .kp { color: #66d9ef } /* Keyword.Pseudo */
+:root[data-color-scheme="dark"]  .highlight .kr { color: #66d9ef } /* Keyword.Reserved */
+:root[data-color-scheme="dark"]  .highlight .kt { color: #66d9ef } /* Keyword.Type */
+:root[data-color-scheme="dark"]  .highlight .ld { color: #e6db74 } /* Literal.Date */
+:root[data-color-scheme="dark"]  .highlight .m { color: #ae81ff } /* Literal.Number */
+:root[data-color-scheme="dark"]  .highlight .s { color: #e6db74 } /* Literal.String */
+:root[data-color-scheme="dark"]  .highlight .na { color: #a6e22e } /* Name.Attribute */
+:root[data-color-scheme="dark"]  .highlight .nb { color: #f8f8f2 } /* Name.Builtin */
+:root[data-color-scheme="dark"]  .highlight .nc { color: #a6e22e } /* Name.Class */
+:root[data-color-scheme="dark"]  .highlight .no { color: #66d9ef } /* Name.Constant */
+:root[data-color-scheme="dark"]  .highlight .nd { color: #a6e22e } /* Name.Decorator */
+:root[data-color-scheme="dark"]  .highlight .ni { color: #f8f8f2 } /* Name.Entity */
+:root[data-color-scheme="dark"]  .highlight .ne { color: #a6e22e } /* Name.Exception */
+:root[data-color-scheme="dark"]  .highlight .nf { color: #a6e22e } /* Name.Function */
+:root[data-color-scheme="dark"]  .highlight .nl { color: #f8f8f2 } /* Name.Label */
+:root[data-color-scheme="dark"]  .highlight .nn { color: #f8f8f2 } /* Name.Namespace */
+:root[data-color-scheme="dark"]  .highlight .nx { color: #a6e22e } /* Name.Other */
+:root[data-color-scheme="dark"]  .highlight .py { color: #f8f8f2 } /* Name.Property */
+:root[data-color-scheme="dark"]  .highlight .nt { color: #f92672 } /* Name.Tag */
+:root[data-color-scheme="dark"]  .highlight .nv { color: #f8f8f2 } /* Name.Variable */
+:root[data-color-scheme="dark"]  .highlight .ow { color: #f92672 } /* Operator.Word */
+:root[data-color-scheme="dark"]  .highlight .w { color: #f8f8f2 } /* Text.Whitespace */
+:root[data-color-scheme="dark"]  .highlight .mf { color: #ae81ff } /* Literal.Number.Float */
+:root[data-color-scheme="dark"]  .highlight .mh { color: #ae81ff } /* Literal.Number.Hex */
+:root[data-color-scheme="dark"]  .highlight .mi { color: #ae81ff } /* Literal.Number.Integer */
+:root[data-color-scheme="dark"]  .highlight .mo { color: #ae81ff } /* Literal.Number.Oct */
+:root[data-color-scheme="dark"]  .highlight .sb { color: #e6db74 } /* Literal.String.Backtick */
+:root[data-color-scheme="dark"]  .highlight .sc { color: #e6db74 } /* Literal.String.Char */
+:root[data-color-scheme="dark"]  .highlight .sd { color: #e6db74 } /* Literal.String.Doc */
+:root[data-color-scheme="dark"]  .highlight .s2 { color: #e6db74 } /* Literal.String.Double */
+:root[data-color-scheme="dark"]  .highlight .se { color: #ae81ff } /* Literal.String.Escape */
+:root[data-color-scheme="dark"]  .highlight .sh { color: #e6db74 } /* Literal.String.Heredoc */
+:root[data-color-scheme="dark"]  .highlight .si { color: #e6db74 } /* Literal.String.Interpol */
+:root[data-color-scheme="dark"]  .highlight .sx { color: #e6db74 } /* Literal.String.Other */
+:root[data-color-scheme="dark"]  .highlight .sr { color: #e6db74 } /* Literal.String.Regex */
+:root[data-color-scheme="dark"]  .highlight .s1 { color: #e6db74 } /* Literal.String.Single */
+:root[data-color-scheme="dark"]  .highlight .ss { color: #e6db74 } /* Literal.String.Symbol */
+:root[data-color-scheme="dark"]  .highlight .bp { color: #f8f8f2 } /* Name.Builtin.Pseudo */
+:root[data-color-scheme="dark"]  .highlight .vc { color: #f8f8f2 } /* Name.Variable.Class */
+:root[data-color-scheme="dark"]  .highlight .vg { color: #f8f8f2 } /* Name.Variable.Global */
+:root[data-color-scheme="dark"]  .highlight .vi { color: #f8f8f2 } /* Name.Variable.Instance */
+:root[data-color-scheme="dark"]  .highlight .il { color: #ae81ff } /* Literal.Number.Integer.Long */
+
+/* Fix for code blocks with language identifiers */
+
+/* Target the problem: code blocks with language identifiers */
+pre[class*="language-"],
+code[class*="language-"],
+.language-powershell,
+.language-bash,
+.language-javascript,
+.language-python,
+.language-css,
+.language-html,
+.language-csharp,
+.language-java,
+/* Add other languages you commonly use */
+[class*="language-"] {
+  font-family: var(--font-family) !important;
+  /* Use the same font size as the document */
+  font-size: inherit !important;
+  font-weight: var(--font-weight-normal) !important; 
+  line-height: var(--line-height) !important; /* Force document line height */
+  font-variant-ligatures: none !important; /* Prevent ligatures from affecting display */
+}
+
+/* Normalize all spans inside code blocks (including $ and special characters) */
+pre code span,
+.highlight span,
+pre[class*="language-"] span,
+code[class*="language-"] span {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  vertical-align: baseline !important;
+}
+
+/* Override any potential syntax highlighter's line height settings */
+.chroma .line,
+.highlight .line,
+pre .line,
+[class*="language-"] .line {
+  line-height: var(--line-height) !important;
+  height: var(--line-height) !important;
+}
+
+/* Ensure all code block elements maintain consistent spacing */
+pre, pre code, code span {
+  padding: 0 !important; 
+  margin: 0 !important;
+  vertical-align: baseline !important;
+}
+
+/* Additional fixes specifically for PowerShell code blocks */
+.language-powershell .token,
+.language-powershell .variable,
+.language-powershell .operator,
+.language-powershell .special,
+.language-powershell .punctuation {
+  font-family: var(--font-family) !important;
+  font-size: inherit !important; 
+  font-weight: var(--font-weight-normal) !important;
+  line-height: var(--line-height) !important;
+}
+
+/* Critical fix: Override any potential tokenizers that might affect $ characters */
+[class*="language-"] .token.variable,
+[class*="language-"] .token.function,
+[class*="language-"] .token.operator {
+  font-weight: var(--font-weight-normal) !important;
+  font-size: inherit !important;
+}
+
+/* Ensure display: inline-block doesn't break line height */
+pre code, pre span, code span {
+  display: inline !important;
+}
+
+/* Fix for tokens with $ and other special characters */
+[class*="language-"] .token {
+  display: inline !important;
+  height: auto !important;
+  font-size: inherit !important;
+}

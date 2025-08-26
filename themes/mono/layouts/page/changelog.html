@@ -1,0 +1,22 @@
+<!-- {{/* layouts/changelog/single.html */}}
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+
+  {{ $githubRepo := "joshfinley/joshfinley.github.io" }}
+  {{ $changelogEntries := 10 }}
+
+  {{ with $data := getJSON (printf "https://api.github.com/repos/%s/commits?per_page=%d" $githubRepo $changelogEntries) }}
+    <ul>
+    {{ range $data }}
+      <li>
+        <strong>{{ .commit.author.date | dateFormat "2006-01-02" }}</strong>: 
+        {{ .commit.message | truncate 80 }} 
+        (<a href="{{ .html_url }}">{{ .sha | truncate 7 "" }}</a>)
+      </li>
+    {{ end }}
+    </ul>
+  {{ else }}
+    <p>Could not fetch the latest changelog entries due to API rate limits. Please try again later.</p>
+  {{ end }}
+{{ end }} -->

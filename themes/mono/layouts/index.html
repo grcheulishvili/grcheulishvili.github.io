@@ -1,0 +1,59 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+ 
+  <!-- Display the content of _index.md -->
+  <div class="about-section">
+    {{ .Content }}
+  </div>
+
+  <!-- Display top 5 most recent posts -->
+  <h2>Recent Posts</h2>
+  <ul>
+    {{ range first 12 .Site.RegularPages.ByDate.Reverse }}
+      <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    {{ end }}
+  </ul>
+
+  <!-- Display TWO most recent posts with preview content -->
+  {{ $latestPosts := first 2 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+  {{ range $index, $post := $latestPosts }}
+  <div class="latest-post">
+    <h2>{{ if eq $index 0 }}Latest Post:{{ else }}Previous Post:{{ end }} {{ $post.Title }}</h2>
+    <div class="post-meta">
+      <time datetime="{{ $post.Date.Format "2006-01-02T15:04:05Z07:00" }}">
+        {{ $post.Date.Format "January 2, 2006" }}
+      </time>
+    </div>
+    <div class="post-preview">
+      {{ $content := $post.Content }}
+      {{ $contentLines := split $content "\n" }}
+      {{ $previewLines := first 30 $contentLines }}
+      {{ $preview := delimit $previewLines "\n" }}
+      {{ $preview | safeHTML }}
+      <p>...</p>
+    </div>
+    <a href="{{ $post.Permalink }}">Read more</a>
+  </div>
+  {{ end }}
+
+  <!-- Display only categories -->
+  {{ with .Site.Taxonomies.categories }}
+    <h2>Categories</h2>
+    {{ range $key, $value := . }}
+      <h4>{{ $key | humanize }}</h4>
+      <ul>
+        {{ range $value.Pages }}
+          <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+        {{ end }}
+      </ul>
+    {{ end }}
+  {{ end }}
+ 
+  <!-- Display all posts -->
+  <h2>All Posts</h2>
+  <ul>
+    {{ range .Site.RegularPages }}
+      <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    {{ end }}
+  </ul>
+{{ end }}
