@@ -1,3 +1,8 @@
++++
+title = 'Configuring an ELK Stack Part 1'
+date = 2024-05-12
+draft = false
++++
 
 # Configuring an ELK Stack Part 1
 
