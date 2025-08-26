@@ -515,7 +515,6 @@ output.elasticsearch:
  ssl.certificate_authorities: "certs/ca/ca.crt"
 ```
 
-
 disable `filebeat.yml` execution permission and restart container
 
 ```bash
