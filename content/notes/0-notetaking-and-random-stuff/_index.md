@@ -11,7 +11,7 @@ Recently, I discovered [Niklas Lünemann's Zettelkasten ](https://zettelkasten.d
 * Each note should contain a single, atomic thought, enabling direct connections between ideas rather than collections of notes.
 * Each note, or 'Zettel,' should have a unique identifier, facilitating interlinking and cross-referencing. For organizational clarity, I will adopt an alphanumeric hierarchical designation.
 
-```ჩანაწერების
+```
 1
 ├── 1a
 │   ├── 1a1

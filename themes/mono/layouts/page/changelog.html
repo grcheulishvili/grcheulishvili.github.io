@@ -3,7 +3,7 @@
   <h1>{{ .Title }}</h1>
   {{ .Content }}
 
-  {{ $githubRepo := "joshfinley/joshfinley.github.io" }}
+  {{ $githubRepo := "grcheulishvili/grcheulishvili.github.io" }}
   {{ $changelogEntries := 10 }}
 
   {{ with $data := getJSON (printf "https://api.github.com/repos/%s/commits?per_page=%d" $githubRepo $changelogEntries) }}

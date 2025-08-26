@@ -1,7 +1,8 @@
----
-cover: ../.gitbook/assets/101.jpg
-coverY: 0
----
++++
+title = 'Configuring an ELK Stack Part 1'
+date = 2024-05-012
+draft = false
++++
 
 # Configuring an ELK Stack Part 1
 

@@ -19,40 +19,40 @@ The posts are my personal notes from my cyber security journey, structured into 
 
 # Table of contents
 
-* [Hacker manifesto](README.md)
-* [ℹ️ About](about.md)
-* [🕷️ Reverse Engineering & Binary Exploitation](reverse-engineering-and-binary-exploitation/README.md)
-  * [🔤 Assembly Basics](reverse-engineering-and-binary-exploitation/assembly-basics.md)
+* [Hacker manifesto](README/)
+* [ℹ️ About](about/)
+* [🕷️ Reverse Engineering & Binary Exploitation](reverse-engineering-and-binary-exploitation/README/)
+  * [🔤 Assembly Basics](reverse-engineering-and-binary-exploitation/assembly-basics/)
 
 ## 📔 Notes
 
-* [0 - Notetaking and random stuff](notes/0-notetaking-and-random-stuff/README.md)
-  * [0a - Thoughts about my Cybersec Journey](notes/0-notetaking-and-random-stuff/0a-thoughts-about-my-cybersec-journey.md)
-  * [0b - Learning Powershell](notes/0-notetaking-and-random-stuff/0b-learning-powershell.md)
-  * [0c - Useful cheatsheet for pentesting](notes/0-notetaking-and-random-stuff/0c-useful-cheatsheet-for-pentesting.md)
-* [1 - Web Applications](notes/1-web-applications/README.md)
-  * [1a - Web Requests](notes/1-web-applications/1a-web-requests/README.md)
-    * [1a1 - HTTP requests](notes/1-web-applications/1a-web-requests/1a1-http-requests.md)
-    * [1a2 - cURL](notes/1-web-applications/1a-web-requests/1a2-curl.md)
-  * [1b - OWASP TOP 10 2021](notes/1-web-applications/1b-owasp-top-10-2021.md)
-  * [1c - Server-Side Vulnerabilities](notes/1-web-applications/1c-server-side-vulnerabilities/README.md)
-    * [1c1 - SSRF against local interface \[Portswigger Lab\]](notes/1-web-applications/1c-server-side-vulnerabilities/1c1-ssrf-against-local-interface-portswigger-lab.md)
-    * [1c2 - SSRF against external back-end system \[PortSwigger Lab\]](notes/1-web-applications/1c-server-side-vulnerabilities/1c2-ssrf-against-external-back-end-system-portswigger-lab.md)
-  * [1d - OS command injection](notes/1-web-applications/1d-os-command-injection/README.md)
-    * [1d1 - OS command injection, simple case \[PortSwigger Lab\]](notes/1-web-applications/1d-os-command-injection/1d1-os-command-injection-simple-case-portswigger-lab.md)
-  * [1e - SQL injection](notes/1-web-applications/1e-sql-injection/README.md)
-    * [1e1 - SQL injection vulnerability allowing retrieval of hidden data \[PortSwigger Lab\]](notes/1-web-applications/1e-sql-injection/1e1-sql-injection-vulnerability-allowing-retrieval-of-hidden-data-portswigger-lab.md)
-    * [1e2 - SQL injection vulnerability allowing login bypass \[PortSwigger Lab\]](notes/1-web-applications/1e-sql-injection/1e2-sql-injection-vulnerability-allowing-login-bypass-portswigger-lab.md)
-  * [1f - File Upload Vulnerabilities](notes/1-web-applications/1f-file-upload-vulnerabilities/README.md)
-    * [1f1 - Remote code execution via web shell upload \[PortSwigger Lab\]](notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab.md)
-    * [1f2 - Web shell upload via Content-Type restriction bypass \[Portswigger Lab\]](notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab.md)
-    * [1f3 - Web shell upload via Path Traversal \[PortSwigger Lab\]](notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab.md)
-    * [1f4 - Web shell upload via extension blacklist bypass \[PortSwigger Lab\]](notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab.md)
+* [0 - Notetaking and random stuff](notes/0-notetaking-and-random-stuff/README/)
+  * [0a - Thoughts about my Cybersec Journey](notes/0-notetaking-and-random-stuff/0a-thoughts-about-my-cybersec-journey/)
+  * [0b - Learning Powershell](notes/0-notetaking-and-random-stuff/0b-learning-powershell/)
+  * [0c - Useful cheatsheet for pentesting](notes/0-notetaking-and-random-stuff/0c-useful-cheatsheet-for-pentesting/)
+* [1 - Web Applications](notes/1-web-applications/README/)
+  * [1a - Web Requests](notes/1-web-applications/1a-web-requests/README/)
+    * [1a1 - HTTP requests](notes/1-web-applications/1a-web-requests/1a1-http-requests/)
+    * [1a2 - cURL](notes/1-web-applications/1a-web-requests/1a2-curl/)
+  * [1b - OWASP TOP 10 2021](notes/1-web-applications/1b-owasp-top-10-2021/)
+  * [1c - Server-Side Vulnerabilities](notes/1-web-applications/1c-server-side-vulnerabilities/README/)
+    * [1c1 - SSRF against local interface \[Portswigger Lab\]](notes/1-web-applications/1c-server-side-vulnerabilities/1c1-ssrf-against-local-interface-portswigger-lab/)
+    * [1c2 - SSRF against external back-end system \[PortSwigger Lab\]](notes/1-web-applications/1c-server-side-vulnerabilities/1c2-ssrf-against-external-back-end-system-portswigger-lab/)
+  * [1d - OS command injection](notes/1-web-applications/1d-os-command-injection/README/)
+    * [1d1 - OS command injection, simple case \[PortSwigger Lab\]](notes/1-web-applications/1d-os-command-injection/1d1-os-command-injection-simple-case-portswigger-lab/)
+  * [1e - SQL injection](notes/1-web-applications/1e-sql-injection/README/)
+    * [1e1 - SQL injection vulnerability allowing retrieval of hidden data \[PortSwigger Lab\]](notes/1-web-applications/1e-sql-injection/1e1-sql-injection-vulnerability-allowing-retrieval-of-hidden-data-portswigger-lab/)
+    * [1e2 - SQL injection vulnerability allowing login bypass \[PortSwigger Lab\]](notes/1-web-applications/1e-sql-injection/1e2-sql-injection-vulnerability-allowing-login-bypass-portswigger-lab/)
+  * [1f - File Upload Vulnerabilities](notes/1-web-applications/1f-file-upload-vulnerabilities/README/)
+    * [1f1 - Remote code execution via web shell upload \[PortSwigger Lab\]](notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab/)
+    * [1f2 - Web shell upload via Content-Type restriction bypass \[Portswigger Lab\]](notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/)
+    * [1f3 - Web shell upload via Path Traversal \[PortSwigger Lab\]](notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/)
+    * [1f4 - Web shell upload via extension blacklist bypass \[PortSwigger Lab\]](notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/)
 
 ## 📖 Guides
 
-* [Configuring an ELK Stack Part 1](guides/configuring-an-elk-stack-part-1.md)
+* [Configuring an ELK Stack Part 1](guides/configuring-an-elk-stack-part-1/)
 
 ## ✍️ Write-Ups
 
-* [HackTheBox Machine - Cicada](write-ups/hackthebox-machine-cicada.md)
+* [HackTheBox Machine - Cicada](write-ups/hackthebox-machine-cicada/)
