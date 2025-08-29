@@ -161,7 +161,6 @@ services:
      retries: 120
 ```
 
-
 This is a base setup for docker compose where storage volume path, network and services are enabled and specified.
 
 ### Elasticsearch
@@ -218,7 +217,6 @@ Add the following to `docker-compose.yml`
      retries: 120
 ```
 
-
 This is docker cluster configuration, where CA certificate and node path is specified. In this case Elasticsearch data and certifications are not stored in docker container. Instead they will be saved in local storage for data persistence and robustness.
 
 ```
@@ -233,7 +231,7 @@ _Note: `docker compose up` command should be run in the folder where `docker-com
 
 Here's my example:
 
-<figure><img src="../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pasted image 20241205120451.png" alt=""><figcaption></figcaption></figure>
 
 Here you can see that `elastic-network` and container has successfully run.
 
@@ -330,12 +328,11 @@ Add the following to `docker-compose.yml`
      retries: 120
 ```
 
-
 Now you can either use Docker Desktop to enable Kibana container or just use terminal CTLR+C your container and rerun `docker compose up`
 
 Now, open up browser and go to `localhost:5601` to see your elastic up and running.
 
-<figure><img src="../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pasted image 20241205123325.png" alt=""><figcaption></figcaption></figure>
 
 Awesome! Now try logging in with credentials that was specified in `.env` file. It should log in without any problems.
 
@@ -371,7 +368,6 @@ Now that Kibana and Elasticsearch are running and communicating, I can continue 
      - KIBANA_HOSTS=http://kibana:5601
      - LOGSTASH_HOSTS=http://logstash01:9600
 ```
-
 
 #### metricbeat.yml
 
@@ -433,7 +429,6 @@ output.elasticsearch:
     key: "certs/es01/es01.key"
 ```
 
-
 3. Disable `metricbeat.yml` execution permission and restart composer
 
 ```bash
@@ -445,13 +440,13 @@ Now add out-of-the-box rules.
 
 Go to: Menu > Management > Stack Monitoring
 
-<figure><img src="../.gitbook/assets/image (24).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pasted image 20241205125023.png" alt=""><figcaption></figcaption></figure>
 
 Here, official guide suggests `Set up monitoring with Metricbeat` but it didn't find anything automatically, so I went with manual configuration.
 
 after configuring this step you should see the following in monitoring tab
 
-<figure><img src="../.gitbook/assets/image (26).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pasted image 20241205125211.png" alt=""><figcaption></figcaption></figure>
 
 ### Filebeat
 
@@ -482,7 +477,6 @@ Append the following to `docker-compose.yml`
      - KIBANA_HOSTS=http://kibana:5601
      - LOGSTASH_HOSTS=http://logstash01:9600
 ```
-
 
 #### filebeat.yml
 
@@ -523,7 +517,7 @@ chmod go-w filebeat.yml
 docker compose up
 ```
 
-<figure><img src="../.gitbook/assets/image (27).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pasted image 20241205131216.png" alt=""><figcaption></figcaption></figure>
 
 ### Logstash
 
@@ -556,7 +550,6 @@ Add the following to `docker-compose.yml`
      - ELASTIC_HOSTS=https://es01:9200
 ```
 
-
 #### logstash.conf
 
 ```json
@@ -583,7 +576,6 @@ output {
  }
 }
 ```
-
 
 Restart composer.
 
@@ -615,7 +607,7 @@ Which I dropped in `logstash_ingest_data`/ and `filebeat_ingest_data/`.
 
 Now it'll take a few seconds for Elastic to see the changes in `Menu > Stack management > Index management > Reload Indices`
 
-<figure><img src="../.gitbook/assets/image (28).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pasted image 20241210232627.png" alt=""><figcaption></figcaption></figure>
 
 And here should be logstash data logs.
 
@@ -623,15 +615,15 @@ Now, to see the data, I need to create Data View for the "logstash- \*" pattern.
 
 Go to: Menu > Analytics > Discover > Create data view
 
-<figure><img src="../.gitbook/assets/image (29).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pasted image 20241205132331.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (30).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pasted image 20241210232040.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pasted image 20241210232739.png" alt=""><figcaption></figcaption></figure>
 
 If you finished all the steps successfuly, you should see the following stack setup in the Stack Monitoring tab
 
-<figure><img src="../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Pasted image 20241219004800.png" alt=""><figcaption></figcaption></figure>
 
 ## Conclusion
 

