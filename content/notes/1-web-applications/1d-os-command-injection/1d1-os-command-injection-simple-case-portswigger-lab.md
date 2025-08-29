@@ -12,7 +12,7 @@ So we got the application url `https://0a1a008c030d74ae82cb6698003a004a.web-secu
 
 Once again, it has a product page where 'Check stock' function is implemented.
 
-<figure><img src="../../../.gitbook/assets/Pasted image 20240719175357.png" alt=""><figcaption><p>stock check interface</p></figcaption></figure>
+<figure><img src="/.gitbook/assets/Pasted image 20240719175357.png" alt=""><figcaption><p>stock check interface</p></figcaption></figure>
 
 By checking HTPP request made by that button is as follows
 
@@ -43,16 +43,16 @@ on the bottom we got `productId=2&storeId=1` which makes a request to an API wit
 
 Let's change productID argument to `& echo hello &` but with url encoding enabled
 
-<figure><img src="../../../.gitbook/assets/Pasted image 20240719183331.png" alt=""><figcaption><p>changing parameters to command injection</p></figcaption></figure>
+<figure><img src="/.gitbook/assets/Pasted image 20240719183331.png" alt=""><figcaption><p>changing parameters to command injection</p></figcaption></figure>
 
 This request gives out the following output !\[\[Pasted image 20240719183415.png]] although it resulted in error, now we know the username `peter-3vyaW3`
 
 or the second way&#x20;
 
-<figure><img src="../../../.gitbook/assets/Pasted image 20240719183446.png" alt=""><figcaption><p>another example of command injection</p></figcaption></figure>
+<figure><img src="/.gitbook/assets/Pasted image 20240719183446.png" alt=""><figcaption><p>another example of command injection</p></figcaption></figure>
 
 which yields the same response:
 
-<figure><img src="../../../.gitbook/assets/Pasted image 20240719183502.png" alt=""><figcaption><p>retrieved data</p></figcaption></figure>
+<figure><img src="/.gitbook/assets/Pasted image 20240719183502.png" alt=""><figcaption><p>retrieved data</p></figcaption></figure>
 
 ***

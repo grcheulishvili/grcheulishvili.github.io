@@ -16,7 +16,7 @@ This means that in the server configuration `php` file extension uploads are blo
 
 trying to upload a `mal.php` file shows in Burp Proxy HTTP History that we are talking to an Apache server.  Which means there's a top-level `.htaccess` and we can override it with directory-specific one.
 
-<figure><img src="../../../.gitbook/assets/Pasted image 20240720184545.png" alt=""><figcaption><p>identified Apache server</p></figcaption></figure>
+<figure><img src="/.gitbook/assets/Pasted image 20240720184545.png" alt=""><figcaption><p>identified Apache server</p></figcaption></figure>
 
 so what I did was uploaded an `.htaccess` file to default location with following contents:
 

