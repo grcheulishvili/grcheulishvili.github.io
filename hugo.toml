@@ -9,8 +9,8 @@ theme = "mono"
     url = "/"
     weight = 1
   [[menu.main]]
-    name = "Blog"
-    url = "/posts/"
+    name = "Philosophy"
+    url = "/manifesto/"
     weight = 2
 
 [outputs]
