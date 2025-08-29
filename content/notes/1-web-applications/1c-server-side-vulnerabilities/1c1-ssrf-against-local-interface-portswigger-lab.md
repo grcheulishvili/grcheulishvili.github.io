@@ -26,4 +26,4 @@ Changing a `stockApi` URL to a `loopback` URL such as `http://localhost/admin` a
 
 Pointing to User `delete` link points to `https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/admin/delete?username=wiener`, so if we modify the HTTP request once again to `stockApi=http://localhost/admin/delete?username=wiener` it will make a `SSRF` call against the local server and issue a command to delete an user 'wiener'
 
-{{< figure src="/.gitbook/assets/Pasted image 20240718171429.png" alt="removing user "weiner"" >}}
+{{< figure src="/.gitbook/assets/Pasted image 20240718171429.png" alt="removing user weiner" >}}
