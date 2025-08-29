@@ -332,7 +332,8 @@ Now you can either use Docker Desktop to enable Kibana container or just use ter
 
 Now, open up browser and go to `localhost:5601` to see your elastic up and running.
 
-<figure><img src="/.gitbook/assets/Pasted image 20241205123325.png" alt=""><figcaption></figcaption></figure>
+{{< figure src="/.gitbook/assets/Pasted image 20241205123325.png" alt="" >}}
+
 
 Awesome! Now try logging in with credentials that was specified in `.env` file. It should log in without any problems.
 
@@ -440,13 +441,13 @@ Now add out-of-the-box rules.
 
 Go to: Menu > Management > Stack Monitoring
 
-<figure><img src="/.gitbook/assets/Pasted image 20241205125023.png" alt=""><figcaption></figcaption></figure>
+{{< figure src="/.gitbook/assets/Pasted image 20241205125023.png" alt="" >}}
 
 Here, official guide suggests `Set up monitoring with Metricbeat` but it didn't find anything automatically, so I went with manual configuration.
 
 after configuring this step you should see the following in monitoring tab
 
-<figure><img src="/.gitbook/assets/Pasted image 20241205125211.png" alt=""><figcaption></figcaption></figure>
+{{< figure src="/.gitbook/assets/Pasted image 20241205125211.png" alt="" >}}
 
 ### Filebeat
 
@@ -517,7 +518,7 @@ chmod go-w filebeat.yml
 docker compose up
 ```
 
-<figure><img src="/.gitbook/assets/Pasted image 20241205131216.png" alt=""><figcaption></figcaption></figure>
+{{< figure src="/.gitbook/assets/Pasted image 20241205131216.png" alt="" >}}
 
 ### Logstash
 
@@ -607,7 +608,7 @@ Which I dropped in `logstash_ingest_data`/ and `filebeat_ingest_data/`.
 
 Now it'll take a few seconds for Elastic to see the changes in `Menu > Stack management > Index management > Reload Indices`
 
-<figure><img src="/.gitbook/assets/Pasted image 20241210232627.png" alt=""><figcaption></figcaption></figure>
+{{< figure src="/.gitbook/assets/Pasted image 20241210232627.png" alt="" >}}
 
 And here should be logstash data logs.
 
@@ -615,15 +616,15 @@ Now, to see the data, I need to create Data View for the "logstash- \*" pattern.
 
 Go to: Menu > Analytics > Discover > Create data view
 
-<figure><img src="/.gitbook/assets/Pasted image 20241205132331.png" alt=""><figcaption></figcaption></figure>
+{{< figure src="/.gitbook/assets/Pasted image 20241205132331.png" alt="" >}}
 
-<figure><img src="/.gitbook/assets/Pasted image 20241210232040.png" alt=""><figcaption></figcaption></figure>
+{{< figure src="/.gitbook/assets/Pasted image 20241210232040.png" alt="" >}}
 
-<figure><img src="/.gitbook/assets/Pasted image 20241210232739.png" alt=""><figcaption></figcaption></figure>
+{{< figure src="/.gitbook/assets/Pasted image 20241210232739.png" alt="" >}}
 
 If you finished all the steps successfuly, you should see the following stack setup in the Stack Monitoring tab
 
-<figure><img src="/.gitbook/assets/Pasted image 20241219004800.png" alt=""><figcaption></figcaption></figure>
+{{< figure src="/.gitbook/assets/Pasted image 20241219004800.png" alt="" >}}
 
 ## Conclusion
 
