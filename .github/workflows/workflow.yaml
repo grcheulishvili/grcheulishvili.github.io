@@ -32,12 +32,6 @@ jobs:
       - name: Install Dart Sass
         run: sudo snap install dart-sass
       
-      # Step to copy images from content/.gitbook/assets to static/
-      - name: Copy images to static directory
-        run: |
-          mkdir -p static/images
-          cp -r ./content/.gitbook/assets/* static/images/
-          
       - name: Build the site with Hugo
         env:
           HUGO_ENVIRONMENT: production
