@@ -1,20 +1,10 @@
-/* Copyright 2024 Oskar Wickström
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&display=swap');
-
 @import url('https://fonts.cdnfonts.com/css/jetbrains-mono-2'); /* Original font */
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap');
 
 :root {
-  --font-family: "Source Serif 4", serif;
-  --line-height: 1.5rem;
+  --font-family: "JetBrains Mono", Courier, monospace;
+  --line-height: 1.20rem;
   --border-thickness: 2px;
   --text-color: #000;
   --text-color-alt: #666;
@@ -78,7 +68,7 @@ body {
   width: 100%;
   margin: 0;
   padding: var(--line-height) 2ch;
-  max-width: 90ch; /* Or a value you prefer */
+  max-width: calc(min(80ch, round(down, 100%, 1ch)));
   line-height: var(--line-height);
   overflow-x: hidden;
 }
@@ -129,11 +119,15 @@ hr:after {
 }
 
 a {
-  text-decoration-thickness: var(--border-thickness);
+  text-decoration: none; /* Remove underline from all links */
 }
 
 a:link, a:visited {
   color: var(--text-color);
+}
+
+a:hover {
+  text-decoration: underline; /* Add underline on hover for better UX */
 }
 
 p {
@@ -256,7 +250,7 @@ figure pre {
 }
 
 pre, code {
-  font-family: "JetBrains Mono", Courier, monospace;
+  font-family: var(--font-family);
 }
 
 figure {

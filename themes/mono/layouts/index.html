@@ -1,31 +1,35 @@
 {{ define "main" }}
-  <div class="about-section">
-    {{ .Content }}
+  <div class="container">
+    <div class="intro">
+      {{ .Content }}
+    </div>
+
+    {{ $featured := where .Site.RegularPages "Params.featured" true }}
+    {{ if $featured }}
+      <div class="featured-post">
+        <h2>Featured Post</h2>
+        {{ range first 1 $featured }}
+          <article>
+            <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+            <p>{{ .Summary }}</p>
+            <a href="{{ .Permalink }}" class="read-more">Read more...</a>
+          </article>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    <div class="recent-posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        {{ range first 5 (where .Site.RegularPages "Type" "in" .Site.Params.mainSections).ByDate.Reverse }}
+          <li>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            <div class="post-meta">
+              <span>{{ .Date.Format "January 2, 2006" }}</span> | <span>{{ .ReadingTime }} min read</span>
+            </div>
+          </li>
+        {{ end }}
+      </ul>
+    </div>
   </div>
-
-  <hr>
-
-  <h2>Featured Posts</h2>
-  <ul>
-    {{/* You can add a "featured: true" to the front matter of your best posts */}}
-    {{ range where .Site.RegularPages "Params.featured" true }}
-        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-    {{ end }}
-  </ul>
-
-  <hr>
-
-  <h2>Recent Posts</h2>
-  <ul>
-    {{ range first 5 .Site.RegularPages.ByDate.Reverse }}
-      <li>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
-        <br>
-        <small>{{ .Date.Format "January 2, 2006" }} &middot; {{ .ReadingTime }} min read</small>
-      </li>
-    {{ end }}
-  </ul>
-
-  <a href="/notes">See all posts...</a>
-
 {{ end }}
