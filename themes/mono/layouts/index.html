@@ -1,35 +1,13 @@
 {{ define "main" }}
-  <div class="container">
-    <div class="intro">
-      {{ .Content }}
-    </div>
-
-    {{ $featured := where .Site.RegularPages "Params.featured" true }}
-    {{ if $featured }}
-      <div class="featured-post">
-        <h2>Featured Post</h2>
-        {{ range first 1 $featured }}
-          <article>
-            <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-            <p>{{ .Summary }}</p>
-            <a href="{{ .Permalink }}" class="read-more">Read more...</a>
-          </article>
-        {{ end }}
-      </div>
-    {{ end }}
-
-    <div class="recent-posts">
-      <h2>Recent Posts</h2>
-      <ul>
-        {{ range first 5 (where .Site.RegularPages "Type" "in" .Site.Params.mainSections).ByDate.Reverse }}
-          <li>
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-            <div class="post-meta">
-              <span>{{ .Date.Format "January 2, 2006" }}</span> | <span>{{ .ReadingTime }} min read</span>
-            </div>
-          </li>
-        {{ end }}
-      </ul>
-    </div>
+<div class="container">
+  <div class="intro">
+    {{ .Content }}
   </div>
+
+  <div class="post-list">
+    {{ range first 5 (where .Site.RegularPages "Type" "in" .Site.Params.mainSections).ByDate.Reverse }}
+      {{ partial "post-entry.html" . }}
+    {{ end }}
+  </div>
+</div>
 {{ end }}

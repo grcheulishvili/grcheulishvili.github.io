@@ -739,3 +739,37 @@ pre code, pre span, code span {
   height: auto !important;
   font-size: inherit !important;
 }
+/* Post Entry Styles */
+.post-entry {
+  margin-bottom: calc(var(--line-height) * 3);
+  padding-bottom: calc(var(--line-height) * 2);
+  border-bottom: var(--border-thickness) solid var(--background-color-alt);
+}
+
+.post-entry:last-of-type {
+  border-bottom: none;
+}
+
+.post-header h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-transform: none; /* Keep post titles in their original case */
+}
+
+.post-header h2 a {
+  text-decoration: none;
+}
+
+.post-header h2 a:hover {
+  text-decoration: underline;
+}
+
+.post-summary p {
+  margin-top: 0.5rem;
+  color: var(--text-color-alt);
+}
+
+.post-meta {
+  font-size: 0.9rem;
+  color: var(--text-color-alt);
+}
