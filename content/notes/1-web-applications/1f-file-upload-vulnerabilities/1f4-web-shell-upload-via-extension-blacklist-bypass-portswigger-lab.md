@@ -1,4 +1,9 @@
-# 1f4 - Web shell upload via extension blacklist bypass \[PortSwigger Lab]
++++
+title = '1f4 - Web shell upload via extension blacklist bypass \[PortSwigger Lab]'
+date = 2024-07-16
+draft = false
++++
+
 
 This lab contains a vulnerable image upload function. Certain file extensions are blacklisted, but this defense can be bypassed due to a fundamental flaw in the configuration of this blacklist.
 

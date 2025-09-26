@@ -1,4 +1,9 @@
-# 1f2 - Web shell upload via Content-Type restriction bypass \[Portswigger Lab]
++++
+title = '1f2 - Web shell upload via Content-Type restriction bypass \[Portswigger Lab]'
+date = 2024-07-6
+draft = false
++++
+
 
 This lab contains a vulnerable image upload function. It attempts to prevent users from uploading unexpected file types, but relies on checking user-controllable input to verify this.
 

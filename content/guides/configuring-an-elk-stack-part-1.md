@@ -4,8 +4,6 @@ date = 2024-05-12
 draft = false
 +++
 
-# Configuring an ELK Stack Part 1
-
 In this article, I'll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff.
 
 I'm following the official [Elastic guide](https://www.elastic.co/blog/getting-started-with-the-elastic-stack-and-docker-compose) on setting it up in docker using docker-compose.

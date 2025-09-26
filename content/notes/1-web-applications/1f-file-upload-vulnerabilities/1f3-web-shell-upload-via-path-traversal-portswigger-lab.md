@@ -1,4 +1,8 @@
-# 1f3 - Web shell upload via Path Traversal \[PortSwigger Lab]
++++
+title = '1f3 - Web shell upload via Path Traversal \[PortSwigger Lab]'
+date = 2024-07-9
+draft = false
++++
 
 This lab contains a vulnerable image upload function. The server is configured to prevent execution of user-supplied files, but this restriction can be bypassed by exploiting a secondary vulnerability.
 

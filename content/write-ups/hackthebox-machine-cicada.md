@@ -4,8 +4,6 @@ date = 2024-11-20
 draft = false
 +++
 
-# HackTheBox Machine - Cicada
-
 IP: 10.10.11.35
 
 Nmap scan results for 10.10.11.35 machine.&#x20;
