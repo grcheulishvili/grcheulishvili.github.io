@@ -1,6 +1,8 @@
----
-description: 20 Nov, 2024
----
++++
+title = 'HackTheBox Machine - Cicada'
+date = 2024-11-20
+draft = false
++++
 
 # HackTheBox Machine - Cicada
 
