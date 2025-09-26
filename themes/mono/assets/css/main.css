@@ -6,13 +6,15 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&display=swap');
+
 @import url('https://fonts.cdnfonts.com/css/jetbrains-mono-2'); /* Original font */
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap');
 
 :root {
-  --font-family: "JetBrains Mono", Courier, monospace;
-  --line-height: 1.20rem;
+  --font-family: "Source Serif 4", serif;
+  --line-height: 1.5rem;
   --border-thickness: 2px;
   --text-color: #000;
   --text-color-alt: #666;
@@ -76,7 +78,7 @@ body {
   width: 100%;
   margin: 0;
   padding: var(--line-height) 2ch;
-  max-width: calc(min(80ch, round(down, 100%, 1ch)));
+  max-width: 90ch; /* Or a value you prefer */
   line-height: var(--line-height);
   overflow-x: hidden;
 }
@@ -254,7 +256,7 @@ figure pre {
 }
 
 pre, code {
-  font-family: var(--font-family);
+  font-family: "JetBrains Mono", Courier, monospace;
 }
 
 figure {
