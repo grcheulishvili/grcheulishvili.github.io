@@ -4,6 +4,7 @@
     {{ .Content }}
   </div>
 
+  <h2>Recent Posts</h2>
   <div class="post-list">
     {{ range first 5 (where .Site.RegularPages "Type" "in" .Site.Params.mainSections).ByDate.Reverse }}
       {{ partial "post-entry.html" . }}

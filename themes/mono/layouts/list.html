@@ -10,16 +10,9 @@
   </header>
 
   <div class="post-list">
-    <ul>
-      {{ range .Pages.ByDate.Reverse }}
-      <li>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
-        <div class="post-meta">
-          <span>{{ .Date.Format "January 2, 2006" }}</span> | <span>{{ .ReadingTime }} min read</span>
-        </div>
-      </li>
-      {{ end }}
-    </ul>
+    {{ range .Pages.ByDate.Reverse }}
+      {{ partial "post-entry.html" . }}
+    {{ end }}
   </div>
 </div>
 {{ end }}

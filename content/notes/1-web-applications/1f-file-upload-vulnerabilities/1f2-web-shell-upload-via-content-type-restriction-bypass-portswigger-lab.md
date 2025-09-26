@@ -1,6 +1,6 @@
 +++
 title = '1f2 - Web shell upload via Content-Type restriction bypass \[Portswigger Lab]'
-date = 2024-07-6
+date = 2024-07-06
 draft = false
 +++
 

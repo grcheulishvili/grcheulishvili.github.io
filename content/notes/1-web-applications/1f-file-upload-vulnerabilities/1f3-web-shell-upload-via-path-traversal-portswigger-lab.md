@@ -1,6 +1,6 @@
 +++
 title = '1f3 - Web shell upload via Path Traversal \[PortSwigger Lab]'
-date = 2024-07-9
+date = 2024-07-09
 draft = false
 +++
 
