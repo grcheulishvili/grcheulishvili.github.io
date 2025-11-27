@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>learning-powershell :: user@cybrealm:~$</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content=" 0b - Learning Powershell Getting available modules on the system
+Lang: powershell Copy Get-Module -ListAvailable Getting only loaded modules on the system
+Lang: powershell Copy Get-Module Loading Module on the system
+Lang: powershell Copy Import-Module PowershellGet Getting available functions provided by modules
+Lang: powershell Copy Get-Command -module &lt;Module_Name&gt; Output:
+Lang: powershell Copy PS C:\Users\George&gt; Get-command -module powershellget CommandType Name Version Source ----------- ---- ------- ------ Function Find-Command 2.2.5 powershellget Function Find-DscResource 2.2.5 powershellget Function Find-Module 2.2.5 powershellget Function Find-RoleCapability 2.2.5 powershellget Function Find-Script 2.2.5 powershellget Function Get-CredsFromCredentialProvider 2.2.5 powershellget Function Get-InstalledModule 2.2.5 powershellget Function Get-InstalledScript 2.2.5 powershellget Function Get-PSRepository 2.2.5 powershellget Function Install-Module 2.2.5 powershellget Function Install-Script 2.2.5 powershellget Function New-ScriptFileInfo 2.2.5 powershellget Function Publish-Module 2.2.5 powershellget Function Publish-Script 2.2.5 powershellget Function Register-PSRepository 2.2.5 powershellget Function Save-Module 2.2.5 powershellget Function Save-Script 2.2.5 powershellget Function Set-PSRepository 2.2.5 powershellget Function Test-ScriptFileInfo 2.2.5 powershellget Function Uninstall-Module 2.2.5 powershellget Function Uninstall-Script 2.2.5 powershellget Function Unregister-PSRepository 2.2.5 powershellget Function Update-Module 2.2.5 powershellget Function Update-ModuleManifest 2.2.5 powershellget Function Update-Script 2.2.5 powershellget Function Update-ScriptFileInfo 2.2.5 powershellget Finding and installing modules from [powershell gallery](PowerShell Gallery | Home)
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/archive/learning-powershell/" />
+<meta property="og:locale" content="en" />
+<meta property="og:title" content="learning-powershell :: user@cybrealm:~$" />
+<meta property="og:description" content=" 0b - Learning Powershell Getting available modules on the system
+Lang: powershell Copy Get-Module -ListAvailable Getting only loaded modules on the system
+Lang: powershell Copy Get-Module Loading Module on the system
+Lang: powershell Copy Import-Module PowershellGet Getting available functions provided by modules
+Lang: powershell Copy Get-Command -module &lt;Module_Name&gt; Output:
+Lang: powershell Copy PS C:\Users\George&gt; Get-command -module powershellget CommandType Name Version Source ----------- ---- ------- ------ Function Find-Command 2.2.5 powershellget Function Find-DscResource 2.2.5 powershellget Function Find-Module 2.2.5 powershellget Function Find-RoleCapability 2.2.5 powershellget Function Find-Script 2.2.5 powershellget Function Get-CredsFromCredentialProvider 2.2.5 powershellget Function Get-InstalledModule 2.2.5 powershellget Function Get-InstalledScript 2.2.5 powershellget Function Get-PSRepository 2.2.5 powershellget Function Install-Module 2.2.5 powershellget Function Install-Script 2.2.5 powershellget Function New-ScriptFileInfo 2.2.5 powershellget Function Publish-Module 2.2.5 powershellget Function Publish-Script 2.2.5 powershellget Function Register-PSRepository 2.2.5 powershellget Function Save-Module 2.2.5 powershellget Function Save-Script 2.2.5 powershellget Function Set-PSRepository 2.2.5 powershellget Function Test-ScriptFileInfo 2.2.5 powershellget Function Uninstall-Module 2.2.5 powershellget Function Uninstall-Script 2.2.5 powershellget Function Unregister-PSRepository 2.2.5 powershellget Function Update-Module 2.2.5 powershellget Function Update-ModuleManifest 2.2.5 powershellget Function Update-Script 2.2.5 powershellget Function Update-ScriptFileInfo 2.2.5 powershellget Finding and installing modules from [powershell gallery](PowerShell Gallery | Home)
+" />
+  <meta property="og:type" content="article" />
+  <meta property="article:author" content="user@cybrealm:~$" />
+<meta property="og:url" content="http://localhost:1313/archive/learning-powershell/" />
+<meta property="og:site_name" content="user@cybrealm:~$" />
+<meta property="og:image" content="" />
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+<link rel="shortcut icon" href="" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Roboto+Slab:wght@300;400;500&family=Ubuntu+Mono:ital@0;1&display=swap"
+  rel="stylesheet"
+/>
+<link href="/archive/learning-powershell/" rel="alternate" type="application/rss+xml" title="user@cybrealm:~$" />
+<link rel="stylesheet" href="http://localhost:1313/styles.css" />
+</head>
+
+  <body>
+    <div class="theme-container">
+      <div class="container center">
+        <header class="site-header">
+<nav class="navbar">
+  <div class="navbar__first">
+    <ul class="navbar__list borders">
+      <li><a href="http://localhost:1313/">Home</a></li>
+      <li>
+        <button class="theme-toggle transparent"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+</button>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar__separator"></div>
+</nav>
+</header>
+        <main class="site-main"><article class="post">
+    <header class="post-header">
+    </header>
+      <div class="post-content">
+        
+<h1 id="0b---learning-powershell">
+  0b - Learning Powershell
+  <a href="#0b---learning-powershell" class="hanchor" ariaLabel="Anchor"></a>
+</h1>
+<p>Getting available modules on the system</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-Module -ListAvailable</span></span></code></pre></div></div>
+<p>Getting only loaded modules on the system</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-Module</span></span></code></pre></div></div>
+<p>Loading Module on the system</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Import-Module PowershellGet</span></span></code></pre></div></div>
+<p>Getting available functions provided by modules</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-Command -module &lt;Module_Name&gt;</span></span></code></pre></div></div>
+<p>Output:</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>PS C:\Users\George&gt; Get-command -module powershellget
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CommandType     Name                                               Version    Source
+</span></span><span style="display:flex;"><span>-----------     ----                                               -------    ------
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Find-Command                                       <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Find-DscResource                                   <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Find-Module                                        <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Find-RoleCapability                                <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Find-Script                                        <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Get-CredsFromCredentialProvider                    <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Get-InstalledModule                                <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Get-InstalledScript                                <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Get-PSRepository                                   <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Install-Module                                     <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Install-Script                                     <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        New-ScriptFileInfo                                 <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Publish-Module                                     <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Publish-Script                                     <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Register-PSRepository                              <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Save-Module                                        <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Save-Script                                        <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Set-PSRepository                                   <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Test-ScriptFileInfo                                <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Uninstall-Module                                   <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Uninstall-Script                                   <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Unregister-PSRepository                            <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Update-Module                                      <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Update-ModuleManifest                              <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Update-Script                                      <span style="color:#ae81ff">2.2</span>.5      powershellget
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Function</span>        Update-ScriptFileInfo                              <span style="color:#ae81ff">2.2</span>.5      powershellget</span></span></code></pre></div></div>
+<p>Finding and installing modules from [powershell gallery](<a href="https://www.powershellgallery.com/">PowerShell Gallery | Home</a>)</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Find-Module -Name admintoolbox | Install-Module</span></span></code></pre></div></div>
+<p>Installing module from local files</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>    Directory<span style="color:#960050;background-color:#1e0010">:</span> C:\Users\George\Desktop\PowerSploit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                 LastWriteTime         Length Name
+</span></span><span style="display:flex;"><span>----                 -------------         ------ ----
+</span></span><span style="display:flex;"><span>d----            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM                AntivirusBypass
+</span></span><span style="display:flex;"><span>d----            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM                CodeExecution
+</span></span><span style="display:flex;"><span>d----            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM                docs
+</span></span><span style="display:flex;"><span>d----            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM                Exfiltration
+</span></span><span style="display:flex;"><span>d----            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM                Mayhem
+</span></span><span style="display:flex;"><span>d----            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM                Persistence
+</span></span><span style="display:flex;"><span>d----            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM                Privesc
+</span></span><span style="display:flex;"><span>d----            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM                Recon
+</span></span><span style="display:flex;"><span>d----            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM                ScriptModification
+</span></span><span style="display:flex;"><span>d----            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM                Tests
+</span></span><span style="display:flex;"><span>-a---            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM           <span style="color:#ae81ff">2852</span> .gitignore
+</span></span><span style="display:flex;"><span>-a---            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM           <span style="color:#ae81ff">1590</span> LICENSE
+</span></span><span style="display:flex;"><span>-a---            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM           <span style="color:#ae81ff">8652</span> mkdocs.yml
+</span></span><span style="display:flex;"><span>-a---            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM           <span style="color:#ae81ff">5452</span> PowerSploit.psd1
+</span></span><span style="display:flex;"><span>-a---            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM            <span style="color:#ae81ff">150</span> PowerSploit.psm1
+</span></span><span style="display:flex;"><span>-a---            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM          <span style="color:#ae81ff">15855</span> PowerSploit.pssproj
+</span></span><span style="display:flex;"><span>-a---            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM            <span style="color:#ae81ff">993</span> PowerSploit.sln
+</span></span><span style="display:flex;"><span>-a---            <span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">3</span>/<span style="color:#ae81ff">2025</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">42</span> AM          <span style="color:#ae81ff">10491</span> README.md</span></span></code></pre></div></div>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Module .\Powersploit.psd1</span></span></code></pre></div></div>
+<p>Getting help for commands with examples</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-Help &lt;PS-module&gt; -Examples</span></span></code></pre></div></div>
+<p>Creating new Directory or File</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>New-Item -Name <span style="color:#e6db74">&#34;Folder&#34;</span> -Type Directory
+</span></span><span style="display:flex;"><span>New-Item -Name <span style="color:#e6db74">&#34;file.txt&#34;</span> -Type File</span></span></code></pre></div></div>
+<p>Adding contents to a file</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Add-Content file.txt <span style="color:#e6db74">&#34;First line
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Second Line
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Third line&#34;</span></span></span></code></pre></div></div>
+<p>Renaming folders/files at once</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-ChildItem -path *.txt | Rename-Item -NewName {$_.name <span style="color:#f92672">-replace</span> <span style="color:#e6db74">&#34;.txt&#34;</span>, <span style="color:#e6db74">&#34;.md&#34;</span>}</span></span></code></pre></div></div>
+<p>after the dot in <code>$_.</code> comes the property name like <code>Name</code>, <code>Status</code> etc.</p>
+<p>Filtering PowerShell object output. In this example I&rsquo;m getting all local users, displaying their name, last login date, if password is required or not and sorting them alphabetically with their names</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-LocalUser * | Select-Object -Property Name,LastLogon,PasswordRequired,Enabled | Sort-Object Name</span></span></code></pre></div></div>
+<p>all of the above is possible because PowerShell is made up of objects.</p>
+<p>Getting service based on string search</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-Service | where DisplayName <span style="color:#f92672">-like</span> <span style="color:#e6db74">&#34;*defend*&#34;</span> | select-object -Property *</span></span></code></pre></div></div>
+<ul>
+<li>like</li>
+<li>contains</li>
+<li>equal</li>
+<li>match</li>
+<li>not</li>
+</ul>
+<p>The results of above command show every service associated with Windows Defender and their properties.</p>
+<p>Getting count of unique items of whatever.</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-Process | sort |  uniq | Measure-Object | select -Property Count | fl</span></span></code></pre></div></div>
+<p><code>&amp;&amp;</code> Pipeline operator ensures that if current operation succeeds it then runs next command <code>||</code> Pipeline operator ensures that if current operation doesn&rsquo;t run the next one will run <code>|</code> Pipeline operator runs whether or not previous command fails</p>
+<p>Searching for specific file in a directory</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-ChildItem -Path D:\ <span style="color:#f92672">-File</span> -Recurse | where {$_.name <span style="color:#f92672">-like</span> <span style="color:#e6db74">&#34;*.txt&#34;</span>}</span></span></code></pre></div></div>
+<p>searching for sensitive strings in files</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-ChildItem -Path C:\Users\ -Filter <span style="color:#e6db74">&#34;*.txt&#34;</span> -Recurse <span style="color:#f92672">-File</span> | sls <span style="color:#e6db74">&#34;Password&#34;</span>,<span style="color:#e6db74">&#34;credential&#34;</span>,<span style="color:#e6db74">&#34;key&#34;</span></span></span></code></pre></div></div>
+<p>Get Properties and methods of an object</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-LocalUser administrator | get-member</span></span></code></pre></div></div>
+<p>Getting structured contents of a website and what can be retrieved from the website</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Invoke-WebRequest -Uri <span style="color:#e6db74">&#34;https://www.hackthebox.com/&#34;</span> -Method GET | Get-Member
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   TypeName<span style="color:#960050;background-color:#1e0010">:</span> Microsoft.PowerShell.Commands.BasicHtmlWebResponseObject
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Name              MemberType Definition
+</span></span><span style="display:flex;"><span>----              ---------- ----------
+</span></span><span style="display:flex;"><span>Equals            Method     bool Equals(System.Object obj)
+</span></span><span style="display:flex;"><span>GetHashCode       Method     int GetHashCode()
+</span></span><span style="display:flex;"><span>GetType           Method     type GetType()
+</span></span><span style="display:flex;"><span>ToString          Method     string ToString()
+</span></span><span style="display:flex;"><span>BaseResponse      Property   System.Net.Http.HttpResponseMessage BaseResponse {get;set;}
+</span></span><span style="display:flex;"><span>Content           Property   string Content {get;}
+</span></span><span style="display:flex;"><span>Encoding          Property   System.Text.Encoding Encoding {get;}
+</span></span><span style="display:flex;"><span>Headers           Property   System.Collections.Generic.Dictionary[string,System.Collections.Generic.IEnumerable[strin<span style="color:#960050;background-color:#1e0010">…</span>
+</span></span><span style="display:flex;"><span>Images            Property   Microsoft.PowerShell.Commands.WebCmdletElementCollection Images {get;}
+</span></span><span style="display:flex;"><span>InputFields       Property   Microsoft.PowerShell.Commands.WebCmdletElementCollection InputFields {get;}
+</span></span><span style="display:flex;"><span>Links             Property   Microsoft.PowerShell.Commands.WebCmdletElementCollection Links {get;}
+</span></span><span style="display:flex;"><span>RawContent        Property   string RawContent {get;set;}
+</span></span><span style="display:flex;"><span>RawContentLength  Property   long RawContentLength {get;}
+</span></span><span style="display:flex;"><span>RawContentStream  Property   System.IO.MemoryStream RawContentStream {get;set;}
+</span></span><span style="display:flex;"><span>RelationLink      Property   System.Collections.Generic.Dictionary[<span style="color:#66d9ef">string,string</span>] RelationLink {get;}
+</span></span><span style="display:flex;"><span>StatusCode        Property   int StatusCode {get;}
+</span></span><span style="display:flex;"><span>StatusDescription Property   string StatusDescription {get;}</span></span></code></pre></div></div>
+<p>Filtering element details from website</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Invoke-WebRequest -Uri <span style="color:#e6db74">&#34;https://www.hackthebox.com/&#34;</span> -Method GET | fl StatusCode</span></span></code></pre></div></div>
+<p>Downloading a file</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Invoke-WebRequest -Uri <span style="color:#e6db74">&#34;https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1&#34;</span> -OutFile <span style="color:#e6db74">&#34;C:\PowerView.ps1&#34;</span></span></span></code></pre></div></div>
+<p> If we already had <code>PowerView.ps1</code> stored on our <code>attack host</code> we could use a simple python web server to host PowerView.ps1 and download it from the target.</p>
+<p>In case <code>Invoke-WebRequest</code> method is restricted on victim machine</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>(New-Object Net.WebClient).DownloadFile(<span style="color:#e6db74">&#34;https://github.com/BloodHoundAD/BloodHound/releases/download/4.2.0/BloodHound-win32-x64.zip&#34;</span>, <span style="color:#e6db74">&#34;Bloodhound.zip&#34;</span>)</span></span></code></pre></div></div>
+<p>Getting filtered AD users</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-ADUser -Filter <span style="color:#e6db74">&#39;Name -like &#34;*SvcAccount&#34;&#39;</span> | Format-Table Name,SamAccountName -A</span></span></code></pre></div></div>
+<p>Get all users in a domain</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-ADUser -Filter * -SearchBase <span style="color:#e6db74">&#34;OU=Finance,OU=UserAccounts,DC=FABRIKAM,DC=COM&#34;</span></span></span></code></pre></div></div>
+<p>Filter failed logon attempts using <code>Get-EventLog</code></p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">powershell</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-EventLog Security | where {$_.EventID <span style="color:#f92672">-eq</span> <span style="color:#e6db74">&#34;4625&#34;</span>} | select -ExpandProperty Message | findstr <span style="color:#e6db74">&#34;Ac
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">count Name&#34;</span> | sort</span></span></code></pre></div></div>
+
+      </div>
+
+
+    <footer class="post-footer">
+    </footer>
+  </article>
+        </main>
+        <footer class="site-footer">
+<p class="buildinfo">
+  <time datetime="2025-11-27 21:52:36 &#43;04">Site built on: 2025-11-27 21:52:36 &#43;04</time>
+</p>
+<div class="copyright">
+  <p></p>
+  <nav class="navbar">
+    <ul class="navbar__list">
+      <li><a href="http://localhost:1313/posts/index.xml">RSS</a></li>
+      <li><a href="http://localhost:1313/sitemap.xml">Sitemap</a></li>
+    </ul>
+  </nav>
+</div>
+<p class="themeinfo">Powered by <a href="https://gohugo.io">Hugo</a>, using theme <a href="https://manid2.github.io/hugo-xterm/">Hugo Xterm</a>.</p>
+</footer>
+      </div>
+    </div><script type="text/javascript" src="/bundle.js"></script>
+</body>
+</html>

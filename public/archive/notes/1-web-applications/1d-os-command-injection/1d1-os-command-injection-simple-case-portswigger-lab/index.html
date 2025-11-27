@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>1d1-os-command-injection-simple-case-portswigger-lab :: user@cybrealm:~$</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content=" 1d1 - OS command injection, simple case [PortSwigger Lab] This lab contains an OS command injection vulnerability in the product stock checker.
+The application executes a shell command containing user-supplied product and store IDs, and returns the raw output from the command in its response.
+To solve the lab, execute the whoami command to determine the name of the current user.
+Solution: So we got the application url https://0a1a008c030d74ae82cb6698003a004a.web-security-academy.net/
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/archive/notes/1-web-applications/1d-os-command-injection/1d1-os-command-injection-simple-case-portswigger-lab/" />
+<meta property="og:locale" content="en" />
+<meta property="og:title" content="1d1-os-command-injection-simple-case-portswigger-lab :: user@cybrealm:~$" />
+<meta property="og:description" content=" 1d1 - OS command injection, simple case [PortSwigger Lab] This lab contains an OS command injection vulnerability in the product stock checker.
+The application executes a shell command containing user-supplied product and store IDs, and returns the raw output from the command in its response.
+To solve the lab, execute the whoami command to determine the name of the current user.
+Solution: So we got the application url https://0a1a008c030d74ae82cb6698003a004a.web-security-academy.net/
+" />
+  <meta property="og:type" content="article" />
+  <meta property="article:author" content="user@cybrealm:~$" />
+<meta property="og:url" content="http://localhost:1313/archive/notes/1-web-applications/1d-os-command-injection/1d1-os-command-injection-simple-case-portswigger-lab/" />
+<meta property="og:site_name" content="user@cybrealm:~$" />
+<meta property="og:image" content="" />
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+<link rel="shortcut icon" href="" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Roboto+Slab:wght@300;400;500&family=Ubuntu+Mono:ital@0;1&display=swap"
+  rel="stylesheet"
+/>
+<link href="/archive/notes/1-web-applications/1d-os-command-injection/1d1-os-command-injection-simple-case-portswigger-lab/" rel="alternate" type="application/rss+xml" title="user@cybrealm:~$" />
+<link rel="stylesheet" href="http://localhost:1313/styles.css" />
+</head>
+
+  <body>
+    <div class="theme-container">
+      <div class="container center">
+        <header class="site-header">
+<nav class="navbar">
+  <div class="navbar__first">
+    <ul class="navbar__list borders">
+      <li><a href="http://localhost:1313/">Home</a></li>
+      <li>
+        <button class="theme-toggle transparent"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+</button>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar__separator"></div>
+</nav>
+</header>
+        <main class="site-main"><article class="post">
+    <header class="post-header">
+    </header>
+      <div class="post-content">
+        
+<h1 id="1d1---os-command-injection-simple-case-portswigger-lab">
+  1d1 - OS command injection, simple case [PortSwigger Lab]
+  <a href="#1d1---os-command-injection-simple-case-portswigger-lab" class="hanchor" ariaLabel="Anchor"></a>
+</h1>
+<p>This lab contains an OS command injection vulnerability in the product stock checker.</p>
+<p>The application executes a shell command containing user-supplied product and store IDs, and returns the raw output from the command in its response.</p>
+<p>To solve the lab, execute the <code>whoami</code> command to determine the name of the current user.</p>
+
+<h3 id="solution">
+  Solution:
+  <a href="#solution" class="hanchor" ariaLabel="Anchor"></a>
+</h3>
+<p>So we got the application url <code>https://0a1a008c030d74ae82cb6698003a004a.web-security-academy.net/</code></p>
+<p>Once again, it has a product page where &lsquo;Check stock&rsquo; function is implemented.</p>
+
+  <figure class="left">
+    <img src="/.gitbook/assets/Pasted%20image%2020240719175357.png"   />
+  </figure>
+
+<p>By checking HTPP request made by that button is as follows</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name"></span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><pre tabindex="0"><code>POST /product/stock HTTP/2
+Host: 0a1a008c030d74ae82cb6698003a004a.web-security-academy.net
+Cookie: session=SMwTtluydKMmnOH4phL6G00iGAwD2J9Q
+Content-Length: 21
+Sec-Ch-Ua: &#34;Not/A)Brand&#34;;v=&#34;8&#34;, &#34;Chromium&#34;;v=&#34;126&#34;
+Sec-Ch-Ua-Platform: &#34;Windows&#34;
+Accept-Language: en-US
+Sec-Ch-Ua-Mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.127 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: https://0a1a008c030d74ae82cb6698003a004a.web-security-academy.net
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://0a1a008c030d74ae82cb6698003a004a.web-security-academy.net/product?productId=2
+Accept-Encoding: gzip, deflate, br
+Priority: u=1, i
+
+productId=2&amp;storeId=1</code></pre></div>
+<p>on the bottom we got <code>productId=2&amp;storeId=1</code> which makes a request to an API with these parameters.</p>
+<p>Let&rsquo;s change productID argument to <code>&amp; echo hello &amp;</code> but with url encoding enabled</p>
+
+  <figure class="left">
+    <img src="/.gitbook/assets/Pasted%20image%2020240719183331.png"   />
+  </figure>
+
+<p>This request gives out the following output ![[Pasted image 20240719183415.png]] although it resulted in error, now we know the username <code>peter-3vyaW3</code></p>
+<p>or the second way </p>
+
+  <figure class="left">
+    <img src="/.gitbook/assets/Pasted%20image%2020240719183446.png"   />
+  </figure>
+
+<p>which yields the same response:</p>
+
+  <figure class="left">
+    <img src="/.gitbook/assets/Pasted%20image%2020240719183502.png"   />
+  </figure>
+
+<hr>
+
+      </div>
+
+
+    <footer class="post-footer">
+    </footer>
+  </article>
+        </main>
+        <footer class="site-footer">
+<p class="buildinfo">
+  <time datetime="2025-11-27 21:40:09 &#43;04">Site built on: 2025-11-27 21:40:09 &#43;04</time>
+</p>
+<div class="copyright">
+  <p></p>
+  <nav class="navbar">
+    <ul class="navbar__list">
+      <li><a href="http://localhost:1313/posts/index.xml">RSS</a></li>
+      <li><a href="http://localhost:1313/sitemap.xml">Sitemap</a></li>
+    </ul>
+  </nav>
+</div>
+<p class="themeinfo">Powered by <a href="https://gohugo.io">Hugo</a>, using theme <a href="https://manid2.github.io/hugo-xterm/">Hugo Xterm</a>.</p>
+</footer>
+      </div>
+    </div><script type="text/javascript" src="/bundle.js"></script>
+</body>
+</html>

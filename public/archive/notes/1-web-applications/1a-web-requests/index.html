@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>_index :: user@cybrealm:~$</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content=" 1a - Web Requests In this module, I learned that HTTP is an application-level protocol used to exchange information between information systems.
+This protocol works in a request-response mode.
+It has 8 request types:
+GET - Requests a specific resource from the server HEAD - Requests only general data POST - Requests to process the sent information and return the corresponding response PUT - Requests to upload the sent information DELETE - Requests to delete existing information from the server CONNECT - This term is reserved for future versions of HTTP TRACE - Requests feedback from the server regarding the status of the information OPTIONS - Requests information about the connection to the server The response has status codes that reflect information about the satisfaction of the request. It provides a short text description using a 3-digit status code. The status code is used by the computer and the text description is used by a human.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/" />
+<meta property="og:locale" content="en" />
+<meta property="og:title" content="_index :: user@cybrealm:~$" />
+<meta property="og:description" content=" 1a - Web Requests In this module, I learned that HTTP is an application-level protocol used to exchange information between information systems.
+This protocol works in a request-response mode.
+It has 8 request types:
+GET - Requests a specific resource from the server HEAD - Requests only general data POST - Requests to process the sent information and return the corresponding response PUT - Requests to upload the sent information DELETE - Requests to delete existing information from the server CONNECT - This term is reserved for future versions of HTTP TRACE - Requests feedback from the server regarding the status of the information OPTIONS - Requests information about the connection to the server The response has status codes that reflect information about the satisfaction of the request. It provides a short text description using a 3-digit status code. The status code is used by the computer and the text description is used by a human.
+" />
+  <meta property="og:type" content="website" />
+<meta property="og:url" content="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/" />
+<meta property="og:site_name" content="user@cybrealm:~$" />
+<meta property="og:image" content="" />
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+<link rel="shortcut icon" href="" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Roboto+Slab:wght@300;400;500&family=Ubuntu+Mono:ital@0;1&display=swap"
+  rel="stylesheet"
+/>
+<link href="/archive/notes/1-web-applications/1a-web-requests/" rel="alternate" type="application/rss+xml" title="user@cybrealm:~$" />
+<link rel="stylesheet" href="http://localhost:1313/styles.css" />
+</head>
+
+  <body>
+    <div class="theme-container">
+      <div class="container center">
+        <header class="site-header">
+<nav class="navbar">
+  <div class="navbar__first">
+    <ul class="navbar__list borders">
+      <li><a href="http://localhost:1313/">Home</a></li>
+      <li>
+        <button class="theme-toggle transparent"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+</button>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar__separator"></div>
+</nav>
+</header>
+        <main class="site-main">
+  <article class="post">
+    <header class="post-header"></header>
+
+    <div class="post-content">
+        
+<h1 id="1a---web-requests">
+  1a - Web Requests
+  <a href="#1a---web-requests" class="hanchor" ariaLabel="Anchor"></a>
+</h1>
+<p>In this module, I learned that <a href="https://datatracker.ietf.org/doc/html/rfc2616#autoid-1">HTTP</a> is an application-level protocol used to exchange information between information systems.</p>
+<p>This protocol works in a request-response mode.</p>
+<p>It has 8 request types:</p>
+<ul>
+<li>GET - Requests a specific resource from the server</li>
+<li><a href="1a1-http-requests.md">HEAD</a> - Requests only general data</li>
+<li>POST - Requests to process the sent information and return the corresponding response</li>
+<li>PUT - Requests to upload the sent information</li>
+<li>DELETE - Requests to delete existing information from the server</li>
+<li>CONNECT - This term is reserved for future versions of HTTP</li>
+<li>TRACE - Requests feedback from the server regarding the status of the information</li>
+<li>OPTIONS - Requests information about the connection to the server</li>
+</ul>
+<p>The response has <strong>status codes</strong> that reflect information about the satisfaction of the request. It provides a short text description using a 3-digit status code. The status code is used by the computer and the text description is used by a human.</p>
+<p>Status codes:</p>
+<ul>
+<li>1xx - Informational
+<ul>
+<li>100 Continue</li>
+<li>101 Switching Protocols</li>
+</ul>
+</li>
+<li>2xx - Successful
+<ul>
+<li>200 OK</li>
+<li>201 Created</li>
+<li>202 Accepted</li>
+<li>203 Non-Authoritative Information</li>
+<li>204 No Content</li>
+<li>205 Reset Content</li>
+<li>206 Partial Content</li>
+</ul>
+</li>
+<li>3xx - Redirect
+<ul>
+<li>300 Multiple Choices</li>
+<li>301 Moved Permanently</li>
+<li>302 Found</li>
+<li>303 See Other</li>
+<li>304 Not Modified</li>
+<li>305 Use Proxy</li>
+<li>306 Unused</li>
+<li>307 Temporary Redirect</li>
+</ul>
+</li>
+<li>4xx - Client Error
+<ul>
+<li>400 Bad Request</li>
+<li>401 Unauthorized</li>
+<li>402 Payment Required</li>
+<li>403 Forbidden</li>
+<li>404 Not Found</li>
+<li>405 Method Not Allowed</li>
+<li>406 Not Acceptable</li>
+<li>407 Proxy Authentication Required</li>
+<li>408 Request Timeout</li>
+<li>409 Conflict</li>
+<li>410 Gone</li>
+<li>411 Length Required</li>
+<li>412 Precondition Failed</li>
+<li>413 Request Entity Too Large</li>
+<li>414 Request-URI Too Long</li>
+<li>415 Unsupported Media Type</li>
+<li>416 Requested Range Not Satisfiable</li>
+<li>417 Expectation Failed</li>
+</ul>
+</li>
+<li>5xx - Server Error
+<ul>
+<li>500 Internal Server Error</li>
+<li>501 Not Implemented</li>
+<li>502 Bad Gateway</li>
+<li>503 Service Unavailable</li>
+<li>504 Gateway Timeout</li>
+<li>505 HTTP Version Not Supported</li>
+</ul>
+</li>
+</ul>
+
+      <h2>See</h2><div class="post-entries">
+    <div class="item"><a href="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/">1a1-http-requests</a></div>
+    <div class="item"><a href="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a2-curl/">1a2-curl</a></div>
+</div>
+
+    </div>
+
+    <footer class="post-footer"></footer>
+  </article>
+        </main>
+        <footer class="site-footer">
+<p class="buildinfo">
+  <time datetime="2025-11-27 21:40:09 &#43;04">Site built on: 2025-11-27 21:40:09 &#43;04</time>
+</p>
+<div class="copyright">
+  <p></p>
+  <nav class="navbar">
+    <ul class="navbar__list">
+      <li><a href="http://localhost:1313/posts/index.xml">RSS</a></li>
+      <li><a href="http://localhost:1313/sitemap.xml">Sitemap</a></li>
+    </ul>
+  </nav>
+</div>
+<p class="themeinfo">Powered by <a href="https://gohugo.io">Hugo</a>, using theme <a href="https://manid2.github.io/hugo-xterm/">Hugo Xterm</a>.</p>
+</footer>
+      </div>
+    </div><script type="text/javascript" src="/bundle.js"></script>
+</body>
+</html>

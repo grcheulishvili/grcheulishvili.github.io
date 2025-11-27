@@ -1,32 +1,43 @@
 baseURL = 'https://grcheulishvili.github.io/'
 languageCode = 'en-us'
-title = "grcheulishvili.github.io"
-theme = "mono"
+title = "user@cybrealm:~$"
+theme = "hugo-xterm"
+
+
+[params]
+  description = "Security Engineer | MalDev | Go"
+  prompt = "[user@cybrealm] ~ $ "
+  centerTheme = true  # <--- ADD THIS LINE  
+  # Social links (appear as 'contacts' or similar in terminal themes)
+  # github = "grcheulishvili"
+  # linkedin = "your-linkedin"
 
 [menu]
   [[menu.main]]
     name = "Home"
     url = "/"
     weight = 1
+
   [[menu.main]]
-    name = "Philosophy"
-    url = "/manifesto/"
+    name = "Projects"
+    url = "/projects/"
     weight = 2
+
   [[menu.main]]
-    name = "Notes"
-    url = "/notes/"
+    name = "Research"
+    url = "/research/"
     weight = 3
+
   [[menu.main]]
-    name = "About"
-    url = "/about/"
+    name = "Engineering"
+    url = "/engineering/"
     weight = 4
 
-[params]
-  mainSections = ["notes", "guides", "write-ups"]
+  [[menu.main]]
+    name = "Whoami"
+    url = "/about/"
+    weight = 5
 
-[outputs]
-  home = ["HTML", "RSS"]
-  section = ["HTML", "RSS"]
-  taxonomy = ["HTML"]
-  term = ["HTML", "RSS"]
-  page = ["HTML"]
+[params.terminal]
+  # Color scheme settings often go here depending on the specific xterm fork
+  # cursor = "_"

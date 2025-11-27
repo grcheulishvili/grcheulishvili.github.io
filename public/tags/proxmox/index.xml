@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Proxmox on user@cybrealm:~$</title>
+    <link>http://localhost:1313/tags/proxmox/</link>
+    <description>Recent content in Proxmox on user@cybrealm:~$</description>
+    <generator>Hugo -- gohugo.io</generator>
+      <language>en-us</language>
+      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/proxmox/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Enterprise Cyber Range &amp; CTF Platform</title>
+      <link>http://localhost:1313/projects/local-ctf-platform/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/projects/local-ctf-platform/</guid>
+      <description>&lt;h1 id=&#34;project-status-production--maintenance&#34;&gt;
+  Project Status: [Production / Maintenance]
+  &lt;a href=&#34;#project-status-production--maintenance&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;
+  Overview
+  &lt;a href=&#34;#overview&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;To reduce reliance on external vendors (HackTheBox, TryHackMe) for internal team training, I architected a local Cyber Range. This platform allows for the deployment of vulnerable-by-design infrastructure that mimics our actual corporate environment.&lt;/p&gt;
+
+&lt;h2 id=&#34;architecture&#34;&gt;
+  Architecture
+  &lt;a href=&#34;#architecture&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Hypervisor:&lt;/strong&gt; Proxmox VE managing Windows Active Directory targets.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Containerization:&lt;/strong&gt; Docker for ephemeral web challenges (OWASP juice shop, custom apps).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Network:&lt;/strong&gt; Segregated VLANs to isolate vulnerable machines from the corporate network while allowing VPN access for the security team.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;key-features&#34;&gt;
+  Key Features
+  &lt;a href=&#34;#key-features&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Automated Deployment:&lt;/strong&gt; Ansible scripts to spin up a fresh &amp;ldquo;Red Team Scenario&amp;rdquo; in under 10 minutes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Scoreboard:&lt;/strong&gt; Custom Python/Flask application to track team progress and flag captures.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Traffic Simulation:&lt;/strong&gt; Noise generators to simulate user activity, making &amp;ldquo;stealth&amp;rdquo; a requirement for the attackers.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Documentation on specific challenge design is available internally.&lt;/em&gt;&lt;/p&gt;</description>
+      <content>
+&lt;h1 id=&#34;project-status-production--maintenance&#34;&gt;
+  Project Status: [Production / Maintenance]
+  &lt;a href=&#34;#project-status-production--maintenance&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;
+  Overview
+  &lt;a href=&#34;#overview&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;To reduce reliance on external vendors (HackTheBox, TryHackMe) for internal team training, I architected a local Cyber Range. This platform allows for the deployment of vulnerable-by-design infrastructure that mimics our actual corporate environment.&lt;/p&gt;
+
+&lt;h2 id=&#34;architecture&#34;&gt;
+  Architecture
+  &lt;a href=&#34;#architecture&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Hypervisor:&lt;/strong&gt; Proxmox VE managing Windows Active Directory targets.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Containerization:&lt;/strong&gt; Docker for ephemeral web challenges (OWASP juice shop, custom apps).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Network:&lt;/strong&gt; Segregated VLANs to isolate vulnerable machines from the corporate network while allowing VPN access for the security team.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;key-features&#34;&gt;
+  Key Features
+  &lt;a href=&#34;#key-features&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Automated Deployment:&lt;/strong&gt; Ansible scripts to spin up a fresh &amp;ldquo;Red Team Scenario&amp;rdquo; in under 10 minutes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Scoreboard:&lt;/strong&gt; Custom Python/Flask application to track team progress and flag captures.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Traffic Simulation:&lt;/strong&gt; Noise generators to simulate user activity, making &amp;ldquo;stealth&amp;rdquo; a requirement for the attackers.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Documentation on specific challenge design is available internally.&lt;/em&gt;&lt;/p&gt;
+</content>
+    </item>
+  </channel>
+</rss>

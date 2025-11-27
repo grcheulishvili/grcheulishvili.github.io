@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Research on user@cybrealm:~$</title>
+    <link>http://localhost:1313/tags/research/</link>
+    <description>Recent content in Research on user@cybrealm:~$</description>
+    <generator>Hugo -- gohugo.io</generator>
+      <language>en-us</language>
+      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/research/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Research: Bypassing Modern File Upload Filters</title>
+      <link>http://localhost:1313/research/bypassing-file-upload-filters/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/research/bypassing-file-upload-filters/</guid>
+      <description>&lt;h2 id=&#34;abstract&#34;&gt;
+  Abstract
+  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;File upload vulnerabilities remain a critical vector for Remote Code Execution (RCE). While developers often implement validation mechanisms (MIME type checks, blacklists), these are frequently based on &amp;ldquo;trusting user input.&amp;rdquo; This report documents specific bypass techniques I analyzed during recent research.&lt;/p&gt;
+
+&lt;h2 id=&#34;1-content-type-spoofing&#34;&gt;
+  1. Content-Type Spoofing
+  &lt;a href=&#34;#1-content-type-spoofing&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Many applications validate the &lt;code&gt;Content-Type&lt;/code&gt; header sent by the browser but fail to validate the actual file magic bytes.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The Flaw:&lt;/strong&gt; The server trusts the client-side header &lt;code&gt;image/jpeg&lt;/code&gt; but processes the file as PHP.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Bypass:&lt;/strong&gt; Intercepting the request and changing &lt;code&gt;Content-Type: text/plain&lt;/code&gt; to &lt;code&gt;Content-Type: image/jpeg&lt;/code&gt; allows the upload of arbitrary code.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Impact:&lt;/strong&gt; Complete RCE if the server is configured to execute PHP in the upload directory.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;2-path-traversal-in-filenames&#34;&gt;
+  2. Path Traversal in Filenames
+  &lt;a href=&#34;#2-path-traversal-in-filenames&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Servers often use the provided filename to determine the save location. If this input is not sanitized, it allows escaping the intended upload directory.&lt;/p&gt;</description>
+      <content>
+&lt;h2 id=&#34;abstract&#34;&gt;
+  Abstract
+  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;File upload vulnerabilities remain a critical vector for Remote Code Execution (RCE). While developers often implement validation mechanisms (MIME type checks, blacklists), these are frequently based on &amp;ldquo;trusting user input.&amp;rdquo; This report documents specific bypass techniques I analyzed during recent research.&lt;/p&gt;
+
+&lt;h2 id=&#34;1-content-type-spoofing&#34;&gt;
+  1. Content-Type Spoofing
+  &lt;a href=&#34;#1-content-type-spoofing&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Many applications validate the &lt;code&gt;Content-Type&lt;/code&gt; header sent by the browser but fail to validate the actual file magic bytes.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The Flaw:&lt;/strong&gt; The server trusts the client-side header &lt;code&gt;image/jpeg&lt;/code&gt; but processes the file as PHP.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Bypass:&lt;/strong&gt; Intercepting the request and changing &lt;code&gt;Content-Type: text/plain&lt;/code&gt; to &lt;code&gt;Content-Type: image/jpeg&lt;/code&gt; allows the upload of arbitrary code.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Impact:&lt;/strong&gt; Complete RCE if the server is configured to execute PHP in the upload directory.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;2-path-traversal-in-filenames&#34;&gt;
+  2. Path Traversal in Filenames
+  &lt;a href=&#34;#2-path-traversal-in-filenames&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Servers often use the provided filename to determine the save location. If this input is not sanitized, it allows escaping the intended upload directory.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Technique:&lt;/strong&gt; Modifying the filename parameter:
+
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;http&lt;/span&gt;
+    &lt;/span&gt;
+
+
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;Content-Disposition: form-data; name=&amp;#34;avatar&amp;#34;; filename=&amp;#34;..%2Fmal.php&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Result:&lt;/strong&gt; The file is saved to &lt;code&gt;/files/mal.php&lt;/code&gt; instead of &lt;code&gt;/files/avatars/mal.php&lt;/code&gt;, potentially bypassing &lt;code&gt;.htaccess&lt;/code&gt; restrictions placed on the images folder.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;3-blacklist-evasion--configuration-overrides&#34;&gt;
+  3. Blacklist Evasion &amp;amp; Configuration Overrides
+  &lt;a href=&#34;#3-blacklist-evasion--configuration-overrides&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Blacklisting extensions (blocking &lt;code&gt;.php&lt;/code&gt;) is notoriously difficult to maintain.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Apache .htaccess Override:&lt;/strong&gt; If the server allows uploading &lt;code&gt;.htaccess&lt;/code&gt; files, an attacker can redefine executable extensions.
+
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;apache&lt;/span&gt;
+    &lt;/span&gt;
+
+
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-apache&#34; data-lang=&#34;apache&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;AddType application/x-httpd-php .hack&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Effect:&lt;/em&gt; Uploading a shell named &lt;code&gt;shell.hack&lt;/code&gt; will now execute as PHP.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Obfuscation:&lt;/strong&gt; Using alternative extensions (&lt;code&gt;.php5&lt;/code&gt;, &lt;code&gt;.phtml&lt;/code&gt;) or casing (&lt;code&gt;.pHp&lt;/code&gt;) often bypasses weak regex filters.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;conclusion&#34;&gt;
+  Conclusion
+  &lt;a href=&#34;#conclusion&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Robust file upload security requires a defense-in-depth approach:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Rename files&lt;/strong&gt; on the server (do not use user-provided names).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Validate Magic Bytes&lt;/strong&gt;, not just headers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Store uploads outside the web root&lt;/strong&gt; or on a separate cloud bucket (S3).&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    </item>
+  </channel>
+</rss>

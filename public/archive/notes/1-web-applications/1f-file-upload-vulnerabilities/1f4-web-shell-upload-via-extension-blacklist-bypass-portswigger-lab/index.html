@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>1f4 - Web shell upload via extension blacklist bypass \[PortSwigger Lab] :: user@cybrealm:~$</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="This lab contains a vulnerable image upload function. Certain file extensions are blacklisted, but this defense can be bypassed due to a fundamental flaw in the configuration of this blacklist.
+To solve the lab, upload a basic PHP web shell, then use it to exfiltrate the contents of the file /home/carlos/secret. Submit this secret.
+You can log in to your own account using the following credentials: wiener:peter
+Solution:
+So once again User&rsquo;s page has an avatar upload function which uploads an image at /files/avatars directory.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/" />
+<meta property="og:locale" content="en" />
+<meta property="og:title" content="1f4 - Web shell upload via extension blacklist bypass \[PortSwigger Lab] :: user@cybrealm:~$" />
+<meta property="og:description" content="This lab contains a vulnerable image upload function. Certain file extensions are blacklisted, but this defense can be bypassed due to a fundamental flaw in the configuration of this blacklist.
+To solve the lab, upload a basic PHP web shell, then use it to exfiltrate the contents of the file /home/carlos/secret. Submit this secret.
+You can log in to your own account using the following credentials: wiener:peter
+Solution:
+So once again User&rsquo;s page has an avatar upload function which uploads an image at /files/avatars directory.
+" />
+  <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2024-07-16 00:00:00 &#43;0000 UTC" />
+    <meta property="article:modified_time" content="2024-07-16 00:00:00 UTC" />
+  <meta property="article:author" content="user@cybrealm:~$" />
+<meta property="og:url" content="http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/" />
+<meta property="og:site_name" content="user@cybrealm:~$" />
+<meta property="og:image" content="" />
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+<link rel="shortcut icon" href="" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Roboto+Slab:wght@300;400;500&family=Ubuntu+Mono:ital@0;1&display=swap"
+  rel="stylesheet"
+/>
+<link href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/" rel="alternate" type="application/rss+xml" title="user@cybrealm:~$" />
+<link rel="stylesheet" href="http://localhost:1313/styles.css" />
+</head>
+
+  <body>
+    <div class="theme-container">
+      <div class="container center">
+        <header class="site-header">
+<nav class="navbar">
+  <div class="navbar__first">
+    <ul class="navbar__list borders">
+      <li><a href="http://localhost:1313/">Home</a></li>
+      <li>
+        <button class="theme-toggle transparent"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+</button>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar__separator"></div>
+</nav>
+</header>
+        <main class="site-main"><article class="post">
+    <header class="post-header">
+        <h1 class="post-title"><a href="http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/">1f4 - Web shell upload via extension blacklist bypass [PortSwigger Lab]</a></h1>
+        <div class="post-meta">
+            <time pubdate datetime="2024-07-16 00:00:00 UTC">
+              Published on
+              2024-07-16 00:00:00 UTC
+            </time>
+            <time pubdate datetime="2024-07-16 00:00:00 UTC"> last modified 2024-07-16 00:00:00 UTC. </time>
+        </div>
+    </header>
+      <div class="post-content">
+        <p>This lab contains a vulnerable image upload function. Certain file extensions are blacklisted, but this defense can be bypassed due to a fundamental flaw in the configuration of this blacklist.</p>
+<p>To solve the lab, upload a basic PHP web shell, then use it to exfiltrate the contents of the file <code>/home/carlos/secret</code>. Submit this secret.</p>
+<p>You can log in to your own account using the following credentials: <code>wiener:peter</code></p>
+<p>Solution:</p>
+<p>So once again User&rsquo;s page has an avatar upload function which uploads an image at <code>/files/avatars</code> directory.</p>
+<p>Uploading <code>mal.php</code> file gives out an error <code>Sorry, php files are not allowed Sorry, there was an error uploading your file.</code></p>
+<p>This means that in the server configuration <code>php</code> file extension uploads are blocked.</p>
+<p>trying to upload a <code>mal.php</code> file shows in Burp Proxy HTTP History that we are talking to an Apache server.  Which means there&rsquo;s a top-level <code>.htaccess</code> and we can override it with directory-specific one.</p>
+
+  <figure class="left">
+    <img src="/.gitbook/assets/Pasted%20image%2020240720184545.png"   />
+  </figure>
+
+<p>so what I did was uploaded an <code>.htaccess</code> file to default location with following contents:</p>
+<p><code>AddType application/x-httpd-php .hack</code></p>
+<p>where we are giving directory permission to execute <code>php</code> files with an arbitrary extension <code>.hack</code>.</p>
+<p>Once uploaded we can call it using cURl and retrieve data.</p>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name"></span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><pre tabindex="0"><code>curl -X GET &#34;https://0ab9001703efe22d847cce3d003a000a.web-security-academy.net/files/avatars/mal.hack?command=cat%20/home/carlos/secret&#34;
+
+DTFL****************************DTFL****************************</code></pre></div>
+<p>The secret: <code>DTFL****************************</code></p>
+<hr>
+<p>Bypassing blacklists is also possible using <strong>Obfuscating file extensions</strong>. For example, if a filename is <code>executable.pHP</code> and the validation code is case-sensitive, then it won&rsquo;t recognize this as <code>php</code> and let it bypass the defenses.</p>
+<p>Similar result can be achieved using the following techniques:</p>
+<ul>
+<li>Provide multiple extensions. Depending on how validation happens, it could let in a file like <code>executable.php.jpg</code>.</li>
+<li>Add additional trailing character like <code>executable.php.</code>. some algorithms just ignore or strip trailing characters</li>
+<li>Use URL encoding for filenames, dots, forward or backward characters. if the value is not checked during validation, the filename will be interpreted server-side.</li>
+<li>Add semicolons or URL-encoded null byte characters before the file extension. If validation is written in a high-level language like PHP or Java, but the server processes the file using lower-level functions in C/C++, for example, this can cause discrepancies in what is treated as the end of the filename: <code>executable.php;.jpg</code> or <code>executable.php%00.jpg</code></li>
+<li>Try using multibyte unicode characters, which may be converted to null bytes and dots after unicode conversion or normalization. Sequences like <code>xC0 x2E</code>, <code>xC4 xAE</code> or <code>xC0 xAE</code> may be translated to <code>x2E</code> if the filename parsed as a UTF-8 string, but then converted to ASCII characters before being used in a path.</li>
+</ul>
+<p>Some defenses include stripping or replacing dangerous extensions to prevent it from executing. If this doesn&rsquo;t happen recursively, you can place the prohibited extension such a way that after it is removed, valid extension will still be left in place. for example:</p>
+<p><code>exploit.p.**php**hp</code></p>
+<p>striping <code>.php</code> from this still leaves valid extension behind.</p>
+
+      </div>
+
+
+    <footer class="post-footer">
+    </footer>
+  </article>
+        </main>
+        <footer class="site-footer">
+<p class="buildinfo">
+  <time datetime="2025-11-27 21:40:09 &#43;04">Site built on: 2025-11-27 21:40:09 &#43;04</time>
+</p>
+<div class="copyright">
+  <p></p>
+  <nav class="navbar">
+    <ul class="navbar__list">
+      <li><a href="http://localhost:1313/posts/index.xml">RSS</a></li>
+      <li><a href="http://localhost:1313/sitemap.xml">Sitemap</a></li>
+    </ul>
+  </nav>
+</div>
+<p class="themeinfo">Powered by <a href="https://gohugo.io">Hugo</a>, using theme <a href="https://manid2.github.io/hugo-xterm/">Hugo Xterm</a>.</p>
+</footer>
+      </div>
+    </div><script type="text/javascript" src="/bundle.js"></script>
+</body>
+</html>

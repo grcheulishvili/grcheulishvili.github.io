@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SSRF on user@cybrealm:~$</title>
+    <link>http://localhost:1313/tags/ssrf/</link>
+    <description>Recent content in SSRF on user@cybrealm:~$</description>
+    <generator>Hugo -- gohugo.io</generator>
+      <language>en-us</language>
+      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/ssrf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Research: Server-Side Request Forgery (SSRF)</title>
+      <link>http://localhost:1313/research/ssrf-exploitation/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/research/ssrf-exploitation/</guid>
+      <description>&lt;h2 id=&#34;abstract&#34;&gt;
+  Abstract
+  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Server-Side Request Forgery (SSRF) allows an attacker to induce the server-side application to make HTTP requests to an arbitrary domain of the attacker&amp;rsquo;s choosing. This is particularly dangerous in cloud environments where servers often have access to metadata services or internal admin panels.&lt;/p&gt;
+
+&lt;h2 id=&#34;1-localhost-bypass&#34;&gt;
+  1. Localhost Bypass
+  &lt;a href=&#34;#1-localhost-bypass&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Many applications trust requests coming from &lt;code&gt;localhost&lt;/code&gt; (127.0.0.1).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Scenario:&lt;/strong&gt;
+A stock check API takes a URL parameter:
+&lt;code&gt;stockApi=http://stock.weliketoshop.net:8080/product/stock&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The Attack:&lt;/strong&gt;
+By changing the URL to the loopback address, we can access services listening on the local server that are blocked from the outside world (like an Admin Interface).&lt;/p&gt;</description>
+      <content>
+&lt;h2 id=&#34;abstract&#34;&gt;
+  Abstract
+  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Server-Side Request Forgery (SSRF) allows an attacker to induce the server-side application to make HTTP requests to an arbitrary domain of the attacker&amp;rsquo;s choosing. This is particularly dangerous in cloud environments where servers often have access to metadata services or internal admin panels.&lt;/p&gt;
+
+&lt;h2 id=&#34;1-localhost-bypass&#34;&gt;
+  1. Localhost Bypass
+  &lt;a href=&#34;#1-localhost-bypass&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Many applications trust requests coming from &lt;code&gt;localhost&lt;/code&gt; (127.0.0.1).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Scenario:&lt;/strong&gt;
+A stock check API takes a URL parameter:
+&lt;code&gt;stockApi=http://stock.weliketoshop.net:8080/product/stock&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The Attack:&lt;/strong&gt;
+By changing the URL to the loopback address, we can access services listening on the local server that are blocked from the outside world (like an Admin Interface).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Payload:&lt;/strong&gt;
+&lt;code&gt;stockApi=http://localhost/admin&lt;/code&gt;&lt;/p&gt;
+
+  &lt;figure class=&#34;left&#34;&gt;
+    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240718170954.png&#34;   /&gt;
+      &lt;figcaption class=&#34;center&#34; &gt;
+        Accessing the internal Admin panel via SSRF
+      &lt;/figcaption&gt;
+  &lt;/figure&gt;
+
+&lt;p&gt;Once access is confirmed, we can execute administrative actions (e.g., deleting users) by crafting the full path:
+&lt;code&gt;http://localhost/admin/delete?username=carlos&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;2-scanning-internal-networks&#34;&gt;
+  2. Scanning Internal Networks
+  &lt;a href=&#34;#2-scanning-internal-networks&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;If the server can connect to other machines in the internal network, SSRF can be used as a port scanner.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Technique:&lt;/strong&gt;
+We can fuzz the last octet of the IP address to discover other active hosts on the subnet.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Target:&lt;/strong&gt; &lt;code&gt;192.168.0.X:8080/admin&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Automation:&lt;/strong&gt; Using Burp Intruder to iterate X from 1 to 255.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Findings:&lt;/strong&gt;
+In this assessment, the internal admin panel was discovered at &lt;code&gt;192.168.0.30&lt;/code&gt;. This confirms the vulnerability allows for lateral movement discovery within the DMZ.&lt;/p&gt;
+
+&lt;h2 id=&#34;impact&#34;&gt;
+  Impact
+  &lt;a href=&#34;#impact&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Cloud Metadata Access:&lt;/strong&gt; (AWS: &lt;code&gt;http://169.254.169.254/latest/meta-data/&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Internal Port Scanning:&lt;/strong&gt; Mapping the internal network topology.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Access to Internal APIs:&lt;/strong&gt; Interacting with microservices that lack authentication.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+  </channel>
+</rss>

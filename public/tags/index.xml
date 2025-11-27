@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on user@cybrealm:~$</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on user@cybrealm:~$</description>
+    <generator>Hugo -- gohugo.io</generator>
+      <language>en-us</language>
+      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CTFd</title>
+      <link>http://localhost:1313/tags/ctfd/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/ctfd/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>CTI</title>
+      <link>http://localhost:1313/tags/cti/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/cti/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Databases</title>
+      <link>http://localhost:1313/tags/databases/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/databases/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>http://localhost:1313/tags/docker/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/docker/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>EDR Evasion</title>
+      <link>http://localhost:1313/tags/edr-evasion/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/edr-evasion/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Go</title>
+      <link>http://localhost:1313/tags/go/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/go/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Grafana</title>
+      <link>http://localhost:1313/tags/grafana/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/grafana/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Infrastructure</title>
+      <link>http://localhost:1313/tags/infrastructure/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/infrastructure/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>MalDev</title>
+      <link>http://localhost:1313/tags/maldev/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/maldev/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Network Security</title>
+      <link>http://localhost:1313/tags/network-security/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/network-security/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>OSINT</title>
+      <link>http://localhost:1313/tags/osint/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/osint/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Pentesting</title>
+      <link>http://localhost:1313/tags/pentesting/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/pentesting/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>PortSwigger</title>
+      <link>http://localhost:1313/tags/portswigger/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/portswigger/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>http://localhost:1313/tags/python/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/python/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>RCE</title>
+      <link>http://localhost:1313/tags/rce/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/rce/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Research</title>
+      <link>http://localhost:1313/tags/research/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/research/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>SQLi</title>
+      <link>http://localhost:1313/tags/sqli/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/sqli/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>SSRF</title>
+      <link>http://localhost:1313/tags/ssrf/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/ssrf/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Training</title>
+      <link>http://localhost:1313/tags/training/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/training/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Web Security</title>
+      <link>http://localhost:1313/tags/web-security/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/web-security/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    <item>
+      <title>Windows Internals</title>
+      <link>http://localhost:1313/tags/windows-internals/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/tags/windows-internals/</guid>
+      <description></description>
+      <content></content>
+    </item>
+  </channel>
+</rss>

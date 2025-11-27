@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RCE on user@cybrealm:~$</title>
+    <link>http://localhost:1313/tags/rce/</link>
+    <description>Recent content in RCE on user@cybrealm:~$</description>
+    <generator>Hugo -- gohugo.io</generator>
+      <language>en-us</language>
+      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/rce/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Research: Practical OS Command Injection</title>
+      <link>http://localhost:1313/research/os-command-injection-patterns/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/research/os-command-injection-patterns/</guid>
+      <description>&lt;h2 id=&#34;abstract&#34;&gt;
+  Abstract
+  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;OS Command Injection remains one of the most critical web vulnerabilities (OWASP Top 10), allowing attackers to execute arbitrary system commands via unsanitized input. This report details specific injection vectors found in inventory management systems.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-injection-vector&#34;&gt;
+  The Injection Vector
+  &lt;a href=&#34;#the-injection-vector&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Many legacy applications execute shell commands to interact with backend scripts (e.g., Perl or Python scripts) using user-supplied arguments.&lt;/p&gt;
+
+&lt;h3 id=&#34;scenario-stock-checker&#34;&gt;
+  Scenario: Stock Checker
+  &lt;a href=&#34;#scenario-stock-checker&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;An application retrieves stock using a shell command:
+&lt;code&gt;stockreport.pl &amp;lt;productID&amp;gt; &amp;lt;storeID&amp;gt;&lt;/code&gt;&lt;/p&gt;</description>
+      <content>
+&lt;h2 id=&#34;abstract&#34;&gt;
+  Abstract
+  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;OS Command Injection remains one of the most critical web vulnerabilities (OWASP Top 10), allowing attackers to execute arbitrary system commands via unsanitized input. This report details specific injection vectors found in inventory management systems.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-injection-vector&#34;&gt;
+  The Injection Vector
+  &lt;a href=&#34;#the-injection-vector&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Many legacy applications execute shell commands to interact with backend scripts (e.g., Perl or Python scripts) using user-supplied arguments.&lt;/p&gt;
+
+&lt;h3 id=&#34;scenario-stock-checker&#34;&gt;
+  Scenario: Stock Checker
+  &lt;a href=&#34;#scenario-stock-checker&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;An application retrieves stock using a shell command:
+&lt;code&gt;stockreport.pl &amp;lt;productID&amp;gt; &amp;lt;storeID&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If the application fails to sanitize the &lt;code&gt;productID&lt;/code&gt;, we can inject shell operators to chain commands.&lt;/p&gt;
+
+&lt;h2 id=&#34;exploitation-operators&#34;&gt;
+  Exploitation Operators
+  &lt;a href=&#34;#exploitation-operators&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The choice of operator depends on the target OS:&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;Operator&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;Description&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;Linux&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;Windows&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;;&lt;/code&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Sequential execution&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Yes&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;No&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;&amp;amp;&lt;/code&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Background execution&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Yes&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Yes&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;AND (Execute if previous succeeds)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Yes&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Yes&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;`&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;`&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;OR (Execute if previous fails)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;`&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;`&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Pipe output&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;Yes&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;case-study-retrieving-current-user&#34;&gt;
+  Case Study: Retrieving Current User
+  &lt;a href=&#34;#case-study-retrieving-current-user&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;In a recent assessment (PortSwigger Lab), I encountered a blind injection point in the &lt;code&gt;productId&lt;/code&gt; parameter.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;http&lt;/span&gt;
+    &lt;/span&gt;
+
+
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;productId=1 &amp;amp; whoami &amp;amp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Resulting Command on Server:&lt;/strong&gt;
+&lt;code&gt;stockreport.pl 1 &amp;amp; whoami &amp;amp; 29&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The server executes the stock check, then executes &lt;code&gt;whoami&lt;/code&gt;, and finally tries to execute &lt;code&gt;29&lt;/code&gt; (which fails). The output of &lt;code&gt;whoami&lt;/code&gt; is returned in the HTTP response body.&lt;/p&gt;
+
+  &lt;figure class=&#34;left&#34;&gt;
+    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240719183446.png&#34;   /&gt;
+      &lt;figcaption class=&#34;center&#34; &gt;
+        Burp Suite showing the injected payload returning the user &#39;peter-3vyaW3&#39;
+      &lt;/figcaption&gt;
+  &lt;/figure&gt;
+
+
+&lt;h2 id=&#34;remediation&#34;&gt;
+  Remediation
+  &lt;a href=&#34;#remediation&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Avoid Shell Calls:&lt;/strong&gt; Use native language APIs (e.g., Python&amp;rsquo;s &lt;code&gt;os.exec&lt;/code&gt;, Java&amp;rsquo;s &lt;code&gt;ProcessBuilder&lt;/code&gt;) instead of calling the shell.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Input Validation:&lt;/strong&gt; Whitelist allowed characters (e.g., alphanumeric only) for IDs.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Least Privilege:&lt;/strong&gt; Ensure the web server user cannot access sensitive system files or execute dangerous binaries.&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    </item>
+  </channel>
+</rss>

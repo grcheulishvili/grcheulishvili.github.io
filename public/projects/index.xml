@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on user@cybrealm:~$</title>
+    <link>http://localhost:1313/projects/</link>
+    <description>Recent content in Projects on user@cybrealm:~$</description>
+    <generator>Hugo -- gohugo.io</generator>
+      <language>en-us</language>
+      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Enterprise Cyber Range (Customized CTFd)</title>
+      <link>http://localhost:1313/projects/local-ctf-platform/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/projects/local-ctf-platform/</guid>
+      <description>&lt;h1 id=&#34;project-status-production&#34;&gt;
+  Project Status: [Production]
+  &lt;a href=&#34;#project-status-production&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;
+  Overview
+  &lt;a href=&#34;#overview&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;To upskill the internal security team, I deployed and heavily customized a &lt;strong&gt;CTFd&lt;/strong&gt; instance. Unlike standard CTFs which often focus on &amp;ldquo;guessing,&amp;rdquo; this platform is designed to simulate real-world vulnerabilities found in our corporate environment.&lt;/p&gt;
+
+&lt;h2 id=&#34;custom-engineering&#34;&gt;
+  Custom Engineering
+  &lt;a href=&#34;#custom-engineering&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Interface Redesign:&lt;/strong&gt; Modified the default CTFd Jinja2 templates and CSS to match corporate branding and improve the UX for non-gamers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Challenge Architecture:&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Web Security:&lt;/strong&gt; Custom Docker containers running vulnerable apps (SQLi, SSRF, Insecure Deserialization).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux Skills:&lt;/strong&gt; SSH-based challenges testing grep/awk/sed proficiency and log analysis.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reversing &amp;amp; Forensics:&lt;/strong&gt; Artifact analysis challenges based on real malware samples.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Crypto:&lt;/strong&gt; Practical cryptography failures (e.g., weak RSA keys, padding oracles).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;impact&#34;&gt;
+  Impact
+  &lt;a href=&#34;#impact&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Reduced reliance on expensive external training vendors.&lt;/li&gt;
+&lt;li&gt;Allows the team to practice &amp;ldquo;Red vs Blue&amp;rdquo; scenarios in a safe, isolated environment.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Documentation on specific challenge design is available internally.&lt;/em&gt;&lt;/p&gt;</description>
+      <content>
+&lt;h1 id=&#34;project-status-production&#34;&gt;
+  Project Status: [Production]
+  &lt;a href=&#34;#project-status-production&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;
+  Overview
+  &lt;a href=&#34;#overview&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;To upskill the internal security team, I deployed and heavily customized a &lt;strong&gt;CTFd&lt;/strong&gt; instance. Unlike standard CTFs which often focus on &amp;ldquo;guessing,&amp;rdquo; this platform is designed to simulate real-world vulnerabilities found in our corporate environment.&lt;/p&gt;
+
+&lt;h2 id=&#34;custom-engineering&#34;&gt;
+  Custom Engineering
+  &lt;a href=&#34;#custom-engineering&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Interface Redesign:&lt;/strong&gt; Modified the default CTFd Jinja2 templates and CSS to match corporate branding and improve the UX for non-gamers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Challenge Architecture:&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Web Security:&lt;/strong&gt; Custom Docker containers running vulnerable apps (SQLi, SSRF, Insecure Deserialization).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux Skills:&lt;/strong&gt; SSH-based challenges testing grep/awk/sed proficiency and log analysis.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reversing &amp;amp; Forensics:&lt;/strong&gt; Artifact analysis challenges based on real malware samples.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Crypto:&lt;/strong&gt; Practical cryptography failures (e.g., weak RSA keys, padding oracles).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;impact&#34;&gt;
+  Impact
+  &lt;a href=&#34;#impact&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Reduced reliance on expensive external training vendors.&lt;/li&gt;
+&lt;li&gt;Allows the team to practice &amp;ldquo;Red vs Blue&amp;rdquo; scenarios in a safe, isolated environment.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Documentation on specific challenge design is available internally.&lt;/em&gt;&lt;/p&gt;
+</content>
+    </item>
+    <item>
+      <title>Project Mantis: Evasion Research</title>
+      <link>http://localhost:1313/projects/mantis-c2/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/projects/mantis-c2/</guid>
+      <description>&lt;h1 id=&#34;status-research-phase&#34;&gt;
+  Status: [Research Phase]
+  &lt;a href=&#34;#status-research-phase&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;concept&#34;&gt;
+  Concept
+  &lt;a href=&#34;#concept&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Mantis is a codebase I use to experiment with Windows API interaction in Golang. It serves as a testbed for understanding how modern EDRs hook specific syscalls and how static signatures are generated for Go binaries.&lt;/p&gt;
+
+&lt;h2 id=&#34;current-research-focus&#34;&gt;
+  Current Research Focus
+  &lt;a href=&#34;#current-research-focus&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Syscall Unhooking:&lt;/strong&gt; Analyzing how direct syscalls can bypass userland hooks.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sandbox Heuristics:&lt;/strong&gt; Implementing checks for CPU cores and uptime to detect analysis environments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;This is a private research project.&lt;/em&gt;&lt;/p&gt;</description>
+      <content>
+&lt;h1 id=&#34;status-research-phase&#34;&gt;
+  Status: [Research Phase]
+  &lt;a href=&#34;#status-research-phase&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;concept&#34;&gt;
+  Concept
+  &lt;a href=&#34;#concept&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Mantis is a codebase I use to experiment with Windows API interaction in Golang. It serves as a testbed for understanding how modern EDRs hook specific syscalls and how static signatures are generated for Go binaries.&lt;/p&gt;
+
+&lt;h2 id=&#34;current-research-focus&#34;&gt;
+  Current Research Focus
+  &lt;a href=&#34;#current-research-focus&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Syscall Unhooking:&lt;/strong&gt; Analyzing how direct syscalls can bypass userland hooks.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sandbox Heuristics:&lt;/strong&gt; Implementing checks for CPU cores and uptime to detect analysis environments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;This is a private research project.&lt;/em&gt;&lt;/p&gt;
+</content>
+    </item>
+    <item>
+      <title>Regional Threat Intelligence Aggregator</title>
+      <link>http://localhost:1313/projects/regional-threat-intel/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/projects/regional-threat-intel/</guid>
+      <description>&lt;h1 id=&#34;project-status-active-development&#34;&gt;
+  Project Status: [Active Development]
+  &lt;a href=&#34;#project-status-active-development&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;the-problem&#34;&gt;
+  The Problem
+  &lt;a href=&#34;#the-problem&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Global threat feeds are noisy. A &amp;ldquo;High Severity&amp;rdquo; C2 alert for a US-based bank is irrelevant noise for infrastructure in Georgia. This noise causes alert fatigue in the SOC, leading to missed detections of regionally relevant threats.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-solution&#34;&gt;
+  The Solution
+  &lt;a href=&#34;#the-solution&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;A custom aggregation engine that pulls from high-fidelity sources, filters data against a &amp;ldquo;Regional Relevance&amp;rdquo; dictionary, and visualizes active campaigns on a custom dashboard.&lt;/p&gt;</description>
+      <content>
+&lt;h1 id=&#34;project-status-active-development&#34;&gt;
+  Project Status: [Active Development]
+  &lt;a href=&#34;#project-status-active-development&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;the-problem&#34;&gt;
+  The Problem
+  &lt;a href=&#34;#the-problem&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Global threat feeds are noisy. A &amp;ldquo;High Severity&amp;rdquo; C2 alert for a US-based bank is irrelevant noise for infrastructure in Georgia. This noise causes alert fatigue in the SOC, leading to missed detections of regionally relevant threats.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-solution&#34;&gt;
+  The Solution
+  &lt;a href=&#34;#the-solution&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;A custom aggregation engine that pulls from high-fidelity sources, filters data against a &amp;ldquo;Regional Relevance&amp;rdquo; dictionary, and visualizes active campaigns on a custom dashboard.&lt;/p&gt;
+
+&lt;h2 id=&#34;tech-stack&#34;&gt;
+  Tech Stack
+  &lt;a href=&#34;#tech-stack&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Core Logic:&lt;/strong&gt; Python (API Glue &amp;amp; Filtering Engine).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Feeds:&lt;/strong&gt; AlienVault OTX, ThreatFox (C2 Intel), and 100+ Security Blog RSS feeds.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Visualization:&lt;/strong&gt; Grafana (Real-time dashboarding of active threats).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;key-modules&#34;&gt;
+  Key Modules
+  &lt;a href=&#34;#key-modules&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;The Collector:&lt;/strong&gt; Async Python workers polling OTX and ThreatFox APIs.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Filter:&lt;/strong&gt; A keyword/ASN matching engine that discards 99% of global noise to focus on threats targeting the region.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The UI:&lt;/strong&gt; Custom Grafana panels tracking &amp;ldquo;Active C2s in Region&amp;rdquo; and &amp;ldquo;Emerging Blog Topics.&amp;rdquo;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Codebase currently private. Deployment requires API keys for OTX.&lt;/em&gt;&lt;/p&gt;
+</content>
+    </item>
+  </channel>
+</rss>

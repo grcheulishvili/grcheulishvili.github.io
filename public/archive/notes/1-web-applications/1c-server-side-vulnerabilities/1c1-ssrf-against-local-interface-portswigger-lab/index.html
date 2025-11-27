@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>1c1-ssrf-against-local-interface-portswigger-lab :: user@cybrealm:~$</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content=" 1c1 - SSRF against local interface [Portswigger Lab] Problem Lang: Copy This lab has a stock check feature which fetches data from an internal system. To solve the lab, change the stock check URL to access the admin interface at `http://localhost/admin` and delete the user `carlos`. URL: https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/
+Solution So each product page has a functionality to check stock for an item. Clicking &ldquo;Check stock&rdquo; displays number of items in stock
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/archive/notes/1-web-applications/1c-server-side-vulnerabilities/1c1-ssrf-against-local-interface-portswigger-lab/" />
+<meta property="og:locale" content="en" />
+<meta property="og:title" content="1c1-ssrf-against-local-interface-portswigger-lab :: user@cybrealm:~$" />
+<meta property="og:description" content=" 1c1 - SSRF against local interface [Portswigger Lab] Problem Lang: Copy This lab has a stock check feature which fetches data from an internal system. To solve the lab, change the stock check URL to access the admin interface at `http://localhost/admin` and delete the user `carlos`. URL: https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/
+Solution So each product page has a functionality to check stock for an item. Clicking &ldquo;Check stock&rdquo; displays number of items in stock
+" />
+  <meta property="og:type" content="article" />
+  <meta property="article:author" content="user@cybrealm:~$" />
+<meta property="og:url" content="http://localhost:1313/archive/notes/1-web-applications/1c-server-side-vulnerabilities/1c1-ssrf-against-local-interface-portswigger-lab/" />
+<meta property="og:site_name" content="user@cybrealm:~$" />
+<meta property="og:image" content="" />
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+<link rel="shortcut icon" href="" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Roboto+Slab:wght@300;400;500&family=Ubuntu+Mono:ital@0;1&display=swap"
+  rel="stylesheet"
+/>
+<link href="/archive/notes/1-web-applications/1c-server-side-vulnerabilities/1c1-ssrf-against-local-interface-portswigger-lab/" rel="alternate" type="application/rss+xml" title="user@cybrealm:~$" />
+<link rel="stylesheet" href="http://localhost:1313/styles.css" />
+</head>
+
+  <body>
+    <div class="theme-container">
+      <div class="container center">
+        <header class="site-header">
+<nav class="navbar">
+  <div class="navbar__first">
+    <ul class="navbar__list borders">
+      <li><a href="http://localhost:1313/">Home</a></li>
+      <li>
+        <button class="theme-toggle transparent"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+</button>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar__separator"></div>
+</nav>
+</header>
+        <main class="site-main"><article class="post">
+    <header class="post-header">
+    </header>
+      <div class="post-content">
+        
+<h1 id="1c1---ssrf-against-local-interface-portswigger-lab">
+  1c1 - SSRF against local interface [Portswigger Lab]
+  <a href="#1c1---ssrf-against-local-interface-portswigger-lab" class="hanchor" ariaLabel="Anchor"></a>
+</h1>
+
+<h3 id="problem">
+  <strong>Problem</strong>
+  <a href="#problem" class="hanchor" ariaLabel="Anchor"></a>
+</h3>
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name"></span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><pre tabindex="0"><code>This lab has a stock check feature which fetches data from an internal system.
+
+To solve the lab, change the stock check URL to access the admin interface at `http://localhost/admin` and delete the user `carlos`.</code></pre></div>
+<p>URL: <a href="https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/">https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/</a></p>
+
+<h3 id="solution">
+  Solution
+  <a href="#solution" class="hanchor" ariaLabel="Anchor"></a>
+</h3>
+<p>So each product page has a functionality to check stock for an item. Clicking &ldquo;Check stock&rdquo; displays number of items in stock</p>
+
+  <figure class="left">
+    <img src="/.gitbook/assets/Pasted%20image%2020240718170709.png" alt="Check Stock functionality"  />
+  </figure>
+
+<p>Upon checking in BurpSuite, the application makes an API call to some <code>stockApi</code> URL </p>
+
+  <figure class="left">
+    <img src="/.gitbook/assets/Pasted%20image%2020240718170830.png" alt="BurpSuite - API call for stock check"  />
+  </figure>
+
+<p>Changing a <code>stockApi</code> URL to a <code>loopback</code> URL such as <code>http://localhost/admin</code> and then sending a request causes the web application to return an admin interface instead of number of stock items.</p>
+
+  <figure class="left">
+    <img src="/.gitbook/assets/Pasted%20image%2020240718170954.png" alt="admin interface returned"  />
+  </figure>
+
+<p>Pointing to User <code>delete</code> link points to <code>https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/admin/delete?username=wiener</code>, so if we modify the HTTP request once again to <code>stockApi=http://localhost/admin/delete?username=wiener</code> it will make a <code>SSRF</code> call against the local server and issue a command to delete an user &lsquo;wiener&rsquo;</p>
+
+  <figure class="left">
+    <img src="/.gitbook/assets/Pasted%20image%2020240718171429.png" alt="removing user weiner"  />
+  </figure>
+
+
+      </div>
+
+
+    <footer class="post-footer">
+    </footer>
+  </article>
+        </main>
+        <footer class="site-footer">
+<p class="buildinfo">
+  <time datetime="2025-11-27 21:40:09 &#43;04">Site built on: 2025-11-27 21:40:09 &#43;04</time>
+</p>
+<div class="copyright">
+  <p></p>
+  <nav class="navbar">
+    <ul class="navbar__list">
+      <li><a href="http://localhost:1313/posts/index.xml">RSS</a></li>
+      <li><a href="http://localhost:1313/sitemap.xml">Sitemap</a></li>
+    </ul>
+  </nav>
+</div>
+<p class="themeinfo">Powered by <a href="https://gohugo.io">Hugo</a>, using theme <a href="https://manid2.github.io/hugo-xterm/">Hugo Xterm</a>.</p>
+</footer>
+      </div>
+    </div><script type="text/javascript" src="/bundle.js"></script>
+</body>
+</html>

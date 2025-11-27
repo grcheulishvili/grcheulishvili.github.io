@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>_index :: user@cybrealm:~$</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content=" 1e - SQL injection SQLi is a web security vulnerability that allows an attacker to interfere with the queries that an application makes with its database. This enables to see the sensitive data. In many cases it is also possible to meddle with that data and delete or modify them.
+It may even enable an attacker to perform either DDOs or compromise who database infrastructure.
+Typically there are manual ways to SQLi vulnerability in an application
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/archive/raw-notes-sqli/" />
+<meta property="og:locale" content="en" />
+<meta property="og:title" content="_index :: user@cybrealm:~$" />
+<meta property="og:description" content=" 1e - SQL injection SQLi is a web security vulnerability that allows an attacker to interfere with the queries that an application makes with its database. This enables to see the sensitive data. In many cases it is also possible to meddle with that data and delete or modify them.
+It may even enable an attacker to perform either DDOs or compromise who database infrastructure.
+Typically there are manual ways to SQLi vulnerability in an application
+" />
+  <meta property="og:type" content="website" />
+<meta property="og:url" content="http://localhost:1313/archive/raw-notes-sqli/" />
+<meta property="og:site_name" content="user@cybrealm:~$" />
+<meta property="og:image" content="" />
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+<link rel="shortcut icon" href="" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Roboto+Slab:wght@300;400;500&family=Ubuntu+Mono:ital@0;1&display=swap"
+  rel="stylesheet"
+/>
+<link href="/archive/raw-notes-sqli/" rel="alternate" type="application/rss+xml" title="user@cybrealm:~$" />
+<link rel="stylesheet" href="http://localhost:1313/styles.css" />
+</head>
+
+  <body>
+    <div class="theme-container">
+      <div class="container center">
+        <header class="site-header">
+<nav class="navbar">
+  <div class="navbar__first">
+    <ul class="navbar__list borders">
+      <li><a href="http://localhost:1313/">Home</a></li>
+      <li>
+        <button class="theme-toggle transparent"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+</button>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar__separator"></div>
+</nav>
+</header>
+        <main class="site-main">
+  <article class="post">
+    <header class="post-header"></header>
+
+    <div class="post-content">
+        
+<h1 id="1e---sql-injection">
+  1e - SQL injection
+  <a href="#1e---sql-injection" class="hanchor" ariaLabel="Anchor"></a>
+</h1>
+<p>SQLi is a web security vulnerability that allows an attacker to interfere with the queries that an application makes with its database. This enables to see the sensitive data. In many cases it is also possible to meddle with that data and delete or modify them.</p>
+<p>It may even enable an attacker to perform either DDOs or compromise who database infrastructure.</p>
+<p>Typically there are manual ways to SQLi vulnerability in an application</p>
+<ol>
+<li>look for errors or anomalies when using <code>'</code></li>
+<li>Boolean conditions and web applications reaction to it. <code>OR 1=1</code> and <code>OR 1=2</code></li>
+<li>Payloads designed to trigger time delays within a SQL query. look for time differences</li>
+<li>OAST payloads deigned to trigger out-of-band network interaction when executed</li>
+<li>some SQL-specific syntax that returns to original value and to different values</li>
+</ol>
+<p>Or to find these vulnerabilities automatically, use Burp Scanner.</p>
+<p><strong>As an example</strong>, imagine there is a shopping application that displays products in different categories. When user clicks Gifts category, the browser request a URL:</p>
+<p><code>https://insecure-website.com/products?category=Gifts</code></p>
+<p>This causes the application to make a SQL query to retrieve further details about products</p>
+<p><code>SELECT * FROM products WHERE category = 'Gifts' AND released = 1</code></p>
+<p>I&rsquo;m guessing the existence of <code>released=1</code> implies the existence of <code>released=0</code>, huh?</p>
+<p>This application doesn&rsquo;t have a protection mechanisms against SQLi. This means that something like this could be constructed</p>
+<p><code>https://insecure-website.com/products?category=Gifts'--</code></p>
+<p>which would send a following query</p>
+<p><code>SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1</code></p>
+<p>where <code>--</code> is a comment indicator in SQL, which means <code>AND released = 1</code> will be ignored - Therefore, displaying all the data.</p>
+<p>A similar attack:</p>
+<p><code>https://insecure-website.com/products?category=Gifts'+OR+1=1--</code></p>
+<p>The SQL query:</p>
+<p><code>SELECT * FROM products WHERE category = 'Gifts' OR 1=1--' AND released = 1</code></p>
+<p>This query returns all items.</p>
+
+      <h2>See</h2><div class="post-entries">
+    <div class="item"><a href="http://localhost:1313/archive/raw-notes-sqli/1e1-sql-injection-vulnerability-allowing-retrieval-of-hidden-data-portswigger-lab/">1e1-sql-injection-vulnerability-allowing-retrieval-of-hidden-data-portswigger-lab</a><p class="post-description">WHERE clause allowing retrieval of hidden data</p></div>
+    <div class="item"><a href="http://localhost:1313/archive/raw-notes-sqli/1e2-sql-injection-vulnerability-allowing-login-bypass-portswigger-lab/">1e2-sql-injection-vulnerability-allowing-login-bypass-portswigger-lab</a></div>
+</div>
+
+    </div>
+
+    <footer class="post-footer"></footer>
+  </article>
+        </main>
+        <footer class="site-footer">
+<p class="buildinfo">
+  <time datetime="2025-11-27 21:40:44 &#43;04">Site built on: 2025-11-27 21:40:44 &#43;04</time>
+</p>
+<div class="copyright">
+  <p></p>
+  <nav class="navbar">
+    <ul class="navbar__list">
+      <li><a href="http://localhost:1313/posts/index.xml">RSS</a></li>
+      <li><a href="http://localhost:1313/sitemap.xml">Sitemap</a></li>
+    </ul>
+  </nav>
+</div>
+<p class="themeinfo">Powered by <a href="https://gohugo.io">Hugo</a>, using theme <a href="https://manid2.github.io/hugo-xterm/">Hugo Xterm</a>.</p>
+</footer>
+      </div>
+    </div><script type="text/javascript" src="/bundle.js"></script>
+</body>
+</html>

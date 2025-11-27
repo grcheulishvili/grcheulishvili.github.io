@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EDR Evasion on user@cybrealm:~$</title>
+    <link>http://localhost:1313/tags/edr-evasion/</link>
+    <description>Recent content in EDR Evasion on user@cybrealm:~$</description>
+    <generator>Hugo -- gohugo.io</generator>
+      <language>en-us</language>
+      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/edr-evasion/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Project Mantis: Go-Based Evasion Loader</title>
+      <link>http://localhost:1313/projects/mantis-c2/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/projects/mantis-c2/</guid>
+      <description>&lt;h1 id=&#34;project-status-active-development&#34;&gt;
+  Project Status: [Active Development]
+  &lt;a href=&#34;#project-status-active-development&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;abstract&#34;&gt;
+  Abstract
+  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Mantis is a research project focused on bypassing modern EDR static analysis and userland hooking. Unlike C++ based loaders which are heavily signatured, Mantis leverages the Go runtime&amp;rsquo;s structure to obfuscate shellcode execution.&lt;/p&gt;
+
+&lt;h2 id=&#34;core-objectives&#34;&gt;
+  Core Objectives
+  &lt;a href=&#34;#core-objectives&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Syscall Unhooking:&lt;/strong&gt; Implementing direct syscalls to bypass AV/EDR hooks in &lt;code&gt;ntdll.dll&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sandbox Evasion:&lt;/strong&gt; Heuristic checks (CPU cores, RAM, Uptime) to detect analysis environments before payload decryption.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Obfuscation:&lt;/strong&gt; Using Go&amp;rsquo;s massive binary size and custom packers to lower entropy and evade static signatures.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;technical-architecture&#34;&gt;
+  Technical Architecture
+  &lt;a href=&#34;#technical-architecture&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Language:&lt;/strong&gt; Go (Golang) + C (cgo for specific API calls)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Encryption:&lt;/strong&gt; AES-256-GCM for payload protection.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Method:&lt;/strong&gt; &lt;code&gt;VirtualAlloc&lt;/code&gt; -&amp;gt; &lt;code&gt;RtlMoveMemory&lt;/code&gt; -&amp;gt; &lt;code&gt;CreateThread&lt;/code&gt; (Classic injection, currently being refactored for Halo&amp;rsquo;s Gate).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;development-log&#34;&gt;
+  Development Log
+  &lt;a href=&#34;#development-log&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[2025-11-20]:&lt;/strong&gt; Initial repository setup. Validating AES decryption routine.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[Todo]:&lt;/strong&gt; Implement Halo&amp;rsquo;s Gate for dynamic syscall resolution.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Source code will be released upon completion of the evasion module.&lt;/em&gt;&lt;/p&gt;</description>
+      <content>
+&lt;h1 id=&#34;project-status-active-development&#34;&gt;
+  Project Status: [Active Development]
+  &lt;a href=&#34;#project-status-active-development&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;abstract&#34;&gt;
+  Abstract
+  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Mantis is a research project focused on bypassing modern EDR static analysis and userland hooking. Unlike C++ based loaders which are heavily signatured, Mantis leverages the Go runtime&amp;rsquo;s structure to obfuscate shellcode execution.&lt;/p&gt;
+
+&lt;h2 id=&#34;core-objectives&#34;&gt;
+  Core Objectives
+  &lt;a href=&#34;#core-objectives&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Syscall Unhooking:&lt;/strong&gt; Implementing direct syscalls to bypass AV/EDR hooks in &lt;code&gt;ntdll.dll&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sandbox Evasion:&lt;/strong&gt; Heuristic checks (CPU cores, RAM, Uptime) to detect analysis environments before payload decryption.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Obfuscation:&lt;/strong&gt; Using Go&amp;rsquo;s massive binary size and custom packers to lower entropy and evade static signatures.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;technical-architecture&#34;&gt;
+  Technical Architecture
+  &lt;a href=&#34;#technical-architecture&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Language:&lt;/strong&gt; Go (Golang) + C (cgo for specific API calls)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Encryption:&lt;/strong&gt; AES-256-GCM for payload protection.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Method:&lt;/strong&gt; &lt;code&gt;VirtualAlloc&lt;/code&gt; -&amp;gt; &lt;code&gt;RtlMoveMemory&lt;/code&gt; -&amp;gt; &lt;code&gt;CreateThread&lt;/code&gt; (Classic injection, currently being refactored for Halo&amp;rsquo;s Gate).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;development-log&#34;&gt;
+  Development Log
+  &lt;a href=&#34;#development-log&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[2025-11-20]:&lt;/strong&gt; Initial repository setup. Validating AES decryption routine.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[Todo]:&lt;/strong&gt; Implement Halo&amp;rsquo;s Gate for dynamic syscall resolution.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Source code will be released upon completion of the evasion module.&lt;/em&gt;&lt;/p&gt;
+</content>
+    </item>
+  </channel>
+</rss>

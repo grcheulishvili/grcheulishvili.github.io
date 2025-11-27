@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>Research: Bypassing Modern File Upload Filters :: user@cybrealm:~$</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="A consolidated analysis of Content-Type spoofing, Path Traversal, and Blacklist evasion based on recent lab research." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/research/bypassing-file-upload-filters/" />
+<meta property="og:locale" content="en" />
+<meta property="og:title" content="Research: Bypassing Modern File Upload Filters :: user@cybrealm:~$" />
+<meta property="og:description" content="A consolidated analysis of Content-Type spoofing, Path Traversal, and Blacklist evasion based on recent lab research." />
+  <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2025-11-27 00:00:00 &#43;0000 UTC" />
+    <meta property="article:modified_time" content="2025-11-27 00:00:00 UTC" />
+  <meta property="article:author" content="user@cybrealm:~$" />
+<meta property="og:url" content="http://localhost:1313/research/bypassing-file-upload-filters/" />
+<meta property="og:site_name" content="user@cybrealm:~$" />
+<meta property="og:image" content="" />
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+<link rel="shortcut icon" href="" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Roboto+Slab:wght@300;400;500&family=Ubuntu+Mono:ital@0;1&display=swap"
+  rel="stylesheet"
+/>
+<link href="/research/bypassing-file-upload-filters/" rel="alternate" type="application/rss+xml" title="user@cybrealm:~$" />
+<link rel="stylesheet" href="http://localhost:1313/styles.css" />
+</head>
+
+  <body>
+    <div class="theme-container">
+      <div class="container center">
+        <header class="site-header">
+<nav class="navbar">
+  <div class="navbar__first">
+    <ul class="navbar__list borders">
+      <li><a href="http://localhost:1313/">Home</a></li>
+      <li>
+        <button class="theme-toggle transparent"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+</button>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar__separator"></div>
+</nav>
+</header>
+        <main class="site-main"><article class="post">
+    <header class="post-header">
+        <h1 class="post-title"><a href="http://localhost:1313/research/bypassing-file-upload-filters/">Research: Bypassing Modern File Upload Filters</a></h1>
+        <div class="post-meta">
+            <time pubdate datetime="2025-11-27 00:00:00 UTC">
+              Published on
+              2025-11-27 00:00:00 UTC
+            </time>
+            <time pubdate datetime="2025-11-27 00:00:00 UTC"> last modified 2025-11-27 00:00:00 UTC. </time>
+        </div>
+        <p class="post-tags">Tags:&nbsp;#<a href="http://localhost:1313/tags/web-security/">Web Security</a>&nbsp;#<a href="http://localhost:1313/tags/research/">Research</a>&nbsp;#<a href="http://localhost:1313/tags/pentesting/">Pentesting</a>&nbsp;</p>
+        <p class="post-description">A consolidated analysis of Content-Type spoofing, Path Traversal, and Blacklist evasion based on recent lab research.</p>
+    </header>
+      <div class="post-content">
+        
+<h2 id="abstract">
+  Abstract
+  <a href="#abstract" class="hanchor" ariaLabel="Anchor"></a>
+</h2>
+<p>File upload vulnerabilities remain a critical vector for Remote Code Execution (RCE). While developers often implement validation mechanisms (MIME type checks, blacklists), these are frequently based on &ldquo;trusting user input.&rdquo; This report documents specific bypass techniques I analyzed during recent research.</p>
+
+<h2 id="1-content-type-spoofing">
+  1. Content-Type Spoofing
+  <a href="#1-content-type-spoofing" class="hanchor" ariaLabel="Anchor"></a>
+</h2>
+<p>Many applications validate the <code>Content-Type</code> header sent by the browser but fail to validate the actual file magic bytes.</p>
+<ul>
+<li><strong>The Flaw:</strong> The server trusts the client-side header <code>image/jpeg</code> but processes the file as PHP.</li>
+<li><strong>The Bypass:</strong> Intercepting the request and changing <code>Content-Type: text/plain</code> to <code>Content-Type: image/jpeg</code> allows the upload of arbitrary code.</li>
+<li><strong>Impact:</strong> Complete RCE if the server is configured to execute PHP in the upload directory.</li>
+</ul>
+
+<h2 id="2-path-traversal-in-filenames">
+  2. Path Traversal in Filenames
+  <a href="#2-path-traversal-in-filenames" class="hanchor" ariaLabel="Anchor"></a>
+</h2>
+<p>Servers often use the provided filename to determine the save location. If this input is not sanitized, it allows escaping the intended upload directory.</p>
+<ul>
+<li><strong>Technique:</strong> Modifying the filename parameter:
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">http</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">Content-Disposition: form-data; name=&#34;avatar&#34;; filename=&#34;..%2Fmal.php&#34;</span></span></span></code></pre></div></div>
+</li>
+<li><strong>Result:</strong> The file is saved to <code>/files/mal.php</code> instead of <code>/files/avatars/mal.php</code>, potentially bypassing <code>.htaccess</code> restrictions placed on the images folder.</li>
+</ul>
+
+<h2 id="3-blacklist-evasion--configuration-overrides">
+  3. Blacklist Evasion &amp; Configuration Overrides
+  <a href="#3-blacklist-evasion--configuration-overrides" class="hanchor" ariaLabel="Anchor"></a>
+</h2>
+<p>Blacklisting extensions (blocking <code>.php</code>) is notoriously difficult to maintain.</p>
+<ul>
+<li><strong>Apache .htaccess Override:</strong> If the server allows uploading <code>.htaccess</code> files, an attacker can redefine executable extensions.
+
+<div class="highlight-wrapper">
+  <div class="highlight-toolbar">
+    <span class="item">
+      <span class="label">Lang:</span>
+      <span class="name">apache</span>
+    </span>
+
+
+    <button class="item right outline brighter hide js-btn-copy-code">Copy</button>
+  </div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-apache" data-lang="apache"><span style="display:flex;"><span>AddType application/x-httpd-php .hack</span></span></code></pre></div></div>
+<ul>
+<li><em>Effect:</em> Uploading a shell named <code>shell.hack</code> will now execute as PHP.</li>
+</ul>
+</li>
+<li><strong>Obfuscation:</strong> Using alternative extensions (<code>.php5</code>, <code>.phtml</code>) or casing (<code>.pHp</code>) often bypasses weak regex filters.</li>
+</ul>
+
+<h2 id="conclusion">
+  Conclusion
+  <a href="#conclusion" class="hanchor" ariaLabel="Anchor"></a>
+</h2>
+<p>Robust file upload security requires a defense-in-depth approach:</p>
+<ol>
+<li><strong>Rename files</strong> on the server (do not use user-provided names).</li>
+<li><strong>Validate Magic Bytes</strong>, not just headers.</li>
+<li><strong>Store uploads outside the web root</strong> or on a separate cloud bucket (S3).</li>
+</ol>
+
+      </div>
+
+
+    <footer class="post-footer">
+    </footer>
+  </article>
+        </main>
+        <footer class="site-footer">
+<p class="buildinfo">
+  <time datetime="2025-11-27 21:54:22 &#43;04">Site built on: 2025-11-27 21:54:22 &#43;04</time>
+</p>
+<div class="copyright">
+  <p></p>
+  <nav class="navbar">
+    <ul class="navbar__list">
+      <li><a href="http://localhost:1313/posts/index.xml">RSS</a></li>
+      <li><a href="http://localhost:1313/sitemap.xml">Sitemap</a></li>
+    </ul>
+  </nav>
+</div>
+<p class="themeinfo">Powered by <a href="https://gohugo.io">Hugo</a>, using theme <a href="https://manid2.github.io/hugo-xterm/">Hugo Xterm</a>.</p>
+</footer>
+      </div>
+    </div><script type="text/javascript" src="/bundle.js"></script>
+</body>
+</html>

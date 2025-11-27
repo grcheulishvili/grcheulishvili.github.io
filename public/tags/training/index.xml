@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Training on user@cybrealm:~$</title>
+    <link>http://localhost:1313/tags/training/</link>
+    <description>Recent content in Training on user@cybrealm:~$</description>
+    <generator>Hugo -- gohugo.io</generator>
+      <language>en-us</language>
+      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/training/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Enterprise Cyber Range (Customized CTFd)</title>
+      <link>http://localhost:1313/projects/local-ctf-platform/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/projects/local-ctf-platform/</guid>
+      <description>&lt;h1 id=&#34;project-status-production&#34;&gt;
+  Project Status: [Production]
+  &lt;a href=&#34;#project-status-production&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;
+  Overview
+  &lt;a href=&#34;#overview&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;To upskill the internal security team, I deployed and heavily customized a &lt;strong&gt;CTFd&lt;/strong&gt; instance. Unlike standard CTFs which often focus on &amp;ldquo;guessing,&amp;rdquo; this platform is designed to simulate real-world vulnerabilities found in our corporate environment.&lt;/p&gt;
+
+&lt;h2 id=&#34;custom-engineering&#34;&gt;
+  Custom Engineering
+  &lt;a href=&#34;#custom-engineering&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Interface Redesign:&lt;/strong&gt; Modified the default CTFd Jinja2 templates and CSS to match corporate branding and improve the UX for non-gamers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Challenge Architecture:&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Web Security:&lt;/strong&gt; Custom Docker containers running vulnerable apps (SQLi, SSRF, Insecure Deserialization).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux Skills:&lt;/strong&gt; SSH-based challenges testing grep/awk/sed proficiency and log analysis.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reversing &amp;amp; Forensics:&lt;/strong&gt; Artifact analysis challenges based on real malware samples.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Crypto:&lt;/strong&gt; Practical cryptography failures (e.g., weak RSA keys, padding oracles).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;impact&#34;&gt;
+  Impact
+  &lt;a href=&#34;#impact&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Reduced reliance on expensive external training vendors.&lt;/li&gt;
+&lt;li&gt;Allows the team to practice &amp;ldquo;Red vs Blue&amp;rdquo; scenarios in a safe, isolated environment.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Documentation on specific challenge design is available internally.&lt;/em&gt;&lt;/p&gt;</description>
+      <content>
+&lt;h1 id=&#34;project-status-production&#34;&gt;
+  Project Status: [Production]
+  &lt;a href=&#34;#project-status-production&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;
+  Overview
+  &lt;a href=&#34;#overview&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;To upskill the internal security team, I deployed and heavily customized a &lt;strong&gt;CTFd&lt;/strong&gt; instance. Unlike standard CTFs which often focus on &amp;ldquo;guessing,&amp;rdquo; this platform is designed to simulate real-world vulnerabilities found in our corporate environment.&lt;/p&gt;
+
+&lt;h2 id=&#34;custom-engineering&#34;&gt;
+  Custom Engineering
+  &lt;a href=&#34;#custom-engineering&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Interface Redesign:&lt;/strong&gt; Modified the default CTFd Jinja2 templates and CSS to match corporate branding and improve the UX for non-gamers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Challenge Architecture:&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Web Security:&lt;/strong&gt; Custom Docker containers running vulnerable apps (SQLi, SSRF, Insecure Deserialization).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux Skills:&lt;/strong&gt; SSH-based challenges testing grep/awk/sed proficiency and log analysis.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reversing &amp;amp; Forensics:&lt;/strong&gt; Artifact analysis challenges based on real malware samples.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Crypto:&lt;/strong&gt; Practical cryptography failures (e.g., weak RSA keys, padding oracles).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;impact&#34;&gt;
+  Impact
+  &lt;a href=&#34;#impact&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Reduced reliance on expensive external training vendors.&lt;/li&gt;
+&lt;li&gt;Allows the team to practice &amp;ldquo;Red vs Blue&amp;rdquo; scenarios in a safe, isolated environment.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Documentation on specific challenge design is available internally.&lt;/em&gt;&lt;/p&gt;
+</content>
+    </item>
+  </channel>
+</rss>

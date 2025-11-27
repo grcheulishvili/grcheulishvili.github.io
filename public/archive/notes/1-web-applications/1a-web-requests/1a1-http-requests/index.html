@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<title>1a1-http-requests :: user@cybrealm:~$</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content=" 1a1 - HTTP requests HTTP headers are used to transfer information from the client or server. The client function can be implemented by the cURL program, which is a good tool for pentesting. We have the following categories of headers
+General Headers Entity Headers Request Headers Response Headers Security Headers General Headers are used to describe the message, not its content. They are found in HTTP requests and responses.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/" />
+<meta property="og:locale" content="en" />
+<meta property="og:title" content="1a1-http-requests :: user@cybrealm:~$" />
+<meta property="og:description" content=" 1a1 - HTTP requests HTTP headers are used to transfer information from the client or server. The client function can be implemented by the cURL program, which is a good tool for pentesting. We have the following categories of headers
+General Headers Entity Headers Request Headers Response Headers Security Headers General Headers are used to describe the message, not its content. They are found in HTTP requests and responses.
+" />
+  <meta property="og:type" content="article" />
+  <meta property="article:author" content="user@cybrealm:~$" />
+<meta property="og:url" content="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/" />
+<meta property="og:site_name" content="user@cybrealm:~$" />
+<meta property="og:image" content="" />
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1024" />
+<link rel="shortcut icon" href="" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Roboto+Slab:wght@300;400;500&family=Ubuntu+Mono:ital@0;1&display=swap"
+  rel="stylesheet"
+/>
+<link href="/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/" rel="alternate" type="application/rss+xml" title="user@cybrealm:~$" />
+<link rel="stylesheet" href="http://localhost:1313/styles.css" />
+</head>
+
+  <body>
+    <div class="theme-container">
+      <div class="container center">
+        <header class="site-header">
+<nav class="navbar">
+  <div class="navbar__first">
+    <ul class="navbar__list borders">
+      <li><a href="http://localhost:1313/">Home</a></li>
+      <li>
+        <button class="theme-toggle transparent"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+</button>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar__separator"></div>
+</nav>
+</header>
+        <main class="site-main"><article class="post">
+    <header class="post-header">
+    </header>
+      <div class="post-content">
+        
+<h1 id="1a1---http-requests">
+  1a1 - HTTP requests
+  <a href="#1a1---http-requests" class="hanchor" ariaLabel="Anchor"></a>
+</h1>
+<p>HTTP headers are used to transfer information from the client or server. </p>
+<p>The client function can be implemented by the <a href="1a2-curl.md">cURL </a>program, which is a good tool for pentesting. </p>
+<p>We have the following categories of headers</p>
+<ul>
+<li>General Headers</li>
+<li>Entity Headers</li>
+<li>Request Headers</li>
+<li>Response Headers</li>
+<li>Security Headers</li>
+</ul>
+<p><strong><code>General Headers</code></strong> are used to describe the message, not its content. They are found in HTTP requests and responses.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Header</th>
+          <th>Example</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Date</td>
+          <td>Date: Wed, 16 Feb 2022 10:38:44 GMT</td>
+          <td>Message creation date</td>
+      </tr>
+      <tr>
+          <td>Connection</td>
+          <td>Connection: Keep-Alive</td>
+          <td>Determines whether the connection should remain open or be closed with the following tags: <code>close</code> or <code>Keep-Alive</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong><code>Entity Headers</code></strong> are used to describe the content of a message and are found in POST and PUT headers.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Header</th>
+          <th>Example</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Content-Type</td>
+          <td>Content-Type: text/html</td>
+          <td>Describes the type of resource being transferred.</td>
+      </tr>
+      <tr>
+          <td>Media-Type</td>
+          <td>Media-Type: application/pdf</td>
+          <td>Similar to the content type, but directly conveys the type of information.</td>
+      </tr>
+      <tr>
+          <td>Boundary</td>
+          <td>boundary=&ldquo;b4e4fbd93540&rdquo;</td>
+          <td>Used to separate multiple pieces of data in a single message.</td>
+      </tr>
+      <tr>
+          <td>Content-Length</td>
+          <td>Content-Length: 385</td>
+          <td>Contains the size of the information to be transmitted.</td>
+      </tr>
+      <tr>
+          <td>Content-Encoding</td>
+          <td>Content-Encoding: gzip</td>
+          <td>It transmits a way of encoding information.</td>
+      </tr>
+  </tbody>
+</table>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc7231#autoid-42"><code>Request Headers</code></a> are used for HTTP requests and has no connection to the content of the information. It has the following headers</p>
+<table>
+  <thead>
+      <tr>
+          <th>Header</th>
+          <th>Example</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Host</td>
+          <td>Host: <a href="https://www.inlanefreight.com">www.inlanefreight.com</a></td>
+          <td>Describes the address of the server to which the request is sent.</td>
+      </tr>
+      <tr>
+          <td>User-Agent</td>
+          <td>User-Agent: curl/7.77.0</td>
+          <td>It is used to describe the client agent. This header can be used to determine what program the client is using to connect to the server.</td>
+      </tr>
+      <tr>
+          <td>Referer</td>
+          <td>Referer: <a href="http://www.inlanefreight.com/">http://www.inlanefreight.com/</a></td>
+          <td>Describes where the current demand is coming from.</td>
+      </tr>
+      <tr>
+          <td>Accept</td>
+          <td>Accept: */*</td>
+          <td>Describes what types of information the client can accept. <code>*</code><em><code>/</code></em><code>*</code> means all types of data are allowed.</td>
+      </tr>
+      <tr>
+          <td>Cookie</td>
+          <td>Cookie: PHPSESSID=b4e4fbd93540</td>
+          <td>A cookie record consists of a name=value pair. It is data that is stored on the client and server and serves as an identifier. It is sent to the server on each request to identify the client. It can also be used for session tracking. Multiple cookies can be contained in one header and are separated by a <code>;</code> .</td>
+      </tr>
+      <tr>
+          <td>Authorization</td>
+          <td>Authorization: BASIC cGFzc3dvcmQK</td>
+          <td>One way to identify a client. After authentication, the server assigns the client a unique token, which is stored on the client side and will be retrieved by the server on each request.</td>
+      </tr>
+  </tbody>
+</table>
+<p><code>Response Headers</code> are used in the HTTP response header and is also unrelated to context. Age, location, and server data are used in the response header to create context.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Header</th>
+          <th>Example</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Server</td>
+          <td>Server: Apache/2.2.14 (Win32)</td>
+          <td>Contains information about the server</td>
+      </tr>
+      <tr>
+          <td>Set-Cookie</td>
+          <td>Set-Cookie: PHPSESSID=b4e4fbd93540</td>
+          <td>Contains a cookie record about the user.</td>
+      </tr>
+      <tr>
+          <td>WWW-Authenticate</td>
+          <td>WWW-Authenticate: BASIC realm=&ldquo;localhost&rdquo;</td>
+          <td>Informs the client about the possible authentication type</td>
+      </tr>
+  </tbody>
+</table>
+<p><code>Security Headers</code> are used to set rules and policies for the browser.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Header</th>
+          <th>Example</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Content-Security-Policy</td>
+          <td>Content-Security-Policy: script-src &lsquo;self&rsquo;</td>
+      </tr>
+      <tr>
+          <td>Strict-Transport-Security</td>
+          <td>Strict-Transport-Security: max-age=31536000</td>
+      </tr>
+      <tr>
+          <td>Referrer-Policy</td>
+          <td>Referrer-Policy: origin</td>
+      </tr>
+  </tbody>
+</table>
+
+      </div>
+
+
+    <footer class="post-footer">
+    </footer>
+  </article>
+        </main>
+        <footer class="site-footer">
+<p class="buildinfo">
+  <time datetime="2025-11-27 21:40:09 &#43;04">Site built on: 2025-11-27 21:40:09 &#43;04</time>
+</p>
+<div class="copyright">
+  <p></p>
+  <nav class="navbar">
+    <ul class="navbar__list">
+      <li><a href="http://localhost:1313/posts/index.xml">RSS</a></li>
+      <li><a href="http://localhost:1313/sitemap.xml">Sitemap</a></li>
+    </ul>
+  </nav>
+</div>
+<p class="themeinfo">Powered by <a href="https://gohugo.io">Hugo</a>, using theme <a href="https://manid2.github.io/hugo-xterm/">Hugo Xterm</a>.</p>
+</footer>
+      </div>
+    </div><script type="text/javascript" src="/bundle.js"></script>
+</body>
+</html>

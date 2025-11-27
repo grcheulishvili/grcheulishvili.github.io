@@ -1,18 +1,20 @@
 ---
-description: A student creates a teacher, by introducing a problem.
+title: "whoami"
+date: 2025-11-27
+draft: false
 ---
 
-# ℹ️ About
+## The Operator
+I am a Security Engineer and hobbyist developer with a focus on **Offensive Security** and **Infrastructure Automation**. 
 
-### ..myself
+My background is rooted in general computing and cybersecurity, a passion I have pursued since childhood. Unlike the theoretical approach of academia, I learn by **problem-oriented engineering**: breaking complex concepts down into bite-sized coding tasks.
 
-I'm a tech enthusiast and hobby writer, driven by an almost pathological need to connect the dots. My journey through life is less a straight line, more a sprawling network of interconnected ideas.&#x20;
+## Technical Philosophy
+* **Code First:** Theory is necessary, but implementation is proof. I prefer writing a tool to understand a vulnerability over reading a paper about it.
+* **Deep Dives:** I do not settle for high-level abstractions. Whether it's understanding the Windows API for malware development or dissecting network packets for CTI, I aim for the fundamental level.
 
-My curiosity, a restless companion, guides me through the labyrinth of existence, one cobbled-together project at a time.
-
-### ...my writing
-
-Why this mountain of a text? Simple: I learn best by explaining, and I explain best by writing. Consider it a form of self-administered dialogue, conducted in the public domain of the internet.
-
-Consider these words my digital daisy chain, a trail of thought left for myself (and anyone else curious enough to follow). Writing, for me, is the process of mapping the uncharted territories of my own understanding.
+## Core Competencies
+* **Languages:** Go, C++, Python
+* **Infrastructure:** AWS, Proxmox, Docker, Wazuh.
+* **Focus:** Malware Development, Reverse Engineering, Threat Intelligence, System Architecture
 
