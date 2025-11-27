@@ -44,15 +44,6 @@
       <content></content>
     </item>
     <item>
-      <title>EDR Evasion</title>
-      <link>http://localhost:1313/tags/edr-evasion/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-
-      <guid>http://localhost:1313/tags/edr-evasion/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    <item>
       <title>Go</title>
       <link>http://localhost:1313/tags/go/</link>
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
@@ -184,15 +175,6 @@
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
 
       <guid>http://localhost:1313/tags/web-security/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    <item>
-      <title>Windows Internals</title>
-      <link>http://localhost:1313/tags/windows-internals/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-
-      <guid>http://localhost:1313/tags/windows-internals/</guid>
       <description></description>
       <content></content>
     </item>

@@ -14,9 +14,6 @@
     <loc>http://localhost:1313/tags/docker/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/edr-evasion/</loc>
-    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/projects/local-ctf-platform/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
@@ -24,6 +21,9 @@
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/grafana/</loc>
+    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/infrastructure/</loc>
@@ -62,6 +62,9 @@
     <loc>http://localhost:1313/tags/research/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/research/sql-injection-patterns/</loc>
+    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/research/bypassing-file-upload-filters/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
@@ -69,9 +72,6 @@
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/research/ssrf-exploitation/</loc>
-    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/research/sql-injection-patterns/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/research/</loc>
@@ -92,11 +92,8 @@
     <loc>http://localhost:1313/tags/web-security/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/windows-internals/</loc>
+    <loc>http://localhost:1313/about/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2025-11-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/archive/reverse-engineering-and-binary-exploitation/</loc>
     <lastmod>2025-07-12T00:00:00+00:00</lastmod>
@@ -131,8 +128,6 @@
     <loc>http://localhost:1313/engineering/</loc>
     <lastmod>2024-05-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
-  </url><url>
     <loc>http://localhost:1313/archive/learning-powershell/</loc>
   </url><url>
     <loc>http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/</loc>
@@ -143,32 +138,30 @@
   </url><url>
     <loc>http://localhost:1313/archive/notes/1-web-applications/1b-owasp-top-10-2021/</loc>
   </url><url>
-    <loc>http://localhost:1313/archive/notes/1-web-applications/1c-server-side-vulnerabilities/1c1-ssrf-against-local-interface-portswigger-lab/</loc>
-  </url><url>
-    <loc>http://localhost:1313/archive/notes/1-web-applications/1c-server-side-vulnerabilities/1c2-ssrf-against-external-back-end-system-portswigger-lab/</loc>
-  </url><url>
-    <loc>http://localhost:1313/archive/notes/1-web-applications/1c-server-side-vulnerabilities/</loc>
-  </url><url>
-    <loc>http://localhost:1313/archive/notes/1-web-applications/1d-os-command-injection/1d1-os-command-injection-simple-case-portswigger-lab/</loc>
-  </url><url>
-    <loc>http://localhost:1313/archive/notes/1-web-applications/1d-os-command-injection/</loc>
-  </url><url>
-    <loc>http://localhost:1313/archive/notes/1-web-applications/1e-sql-injection/1e1-sql-injection-vulnerability-allowing-retrieval-of-hidden-data-portswigger-lab/</loc>
-  </url><url>
-    <loc>http://localhost:1313/archive/notes/1-web-applications/1e-sql-injection/1e2-sql-injection-vulnerability-allowing-login-bypass-portswigger-lab/</loc>
-  </url><url>
-    <loc>http://localhost:1313/archive/notes/1-web-applications/1e-sql-injection/</loc>
-  </url><url>
     <loc>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab/</loc>
   </url><url>
     <loc>http://localhost:1313/archive/notetaking-and-random-stuff/thoughts-about-my-cybersec-journey/</loc>
+  </url><url>
+    <loc>http://localhost:1313/archive/raw-notes-command-injection/1d1-os-command-injection-simple-case-portswigger-lab/</loc>
+  </url><url>
+    <loc>http://localhost:1313/archive/raw-notes-command-injection/</loc>
+  </url><url>
+    <loc>http://localhost:1313/archive/raw-notes-sqli/1e1-sql-injection-vulnerability-allowing-retrieval-of-hidden-data-portswigger-lab/</loc>
+  </url><url>
+    <loc>http://localhost:1313/archive/raw-notes-sqli/1e2-sql-injection-vulnerability-allowing-login-bypass-portswigger-lab/</loc>
+  </url><url>
+    <loc>http://localhost:1313/archive/raw-notes-sqli/</loc>
+  </url><url>
+    <loc>http://localhost:1313/archive/raw-notes-ssrf/1c1-ssrf-against-local-interface-portswigger-lab/</loc>
+  </url><url>
+    <loc>http://localhost:1313/archive/raw-notes-ssrf/1c2-ssrf-against-external-back-end-system-portswigger-lab/</loc>
+  </url><url>
+    <loc>http://localhost:1313/archive/raw-notes-ssrf/</loc>
   </url><url>
     <loc>http://localhost:1313/archive/useful-cheatsheet-for-pentesting/</loc>
   </url><url>
     <loc>http://localhost:1313/manifesto/</loc>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
-  </url><url>
-    <loc>http://localhost:1313/changelog/</loc>
   </url>
 </urlset>

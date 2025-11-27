@@ -8,6 +8,57 @@
       <language>en-us</language>
       <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/research/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Project Mantis: Evasion Research</title>
+      <link>http://localhost:1313/projects/mantis-c2/</link>
+      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+
+      <guid>http://localhost:1313/projects/mantis-c2/</guid>
+      <description>&lt;h1 id=&#34;status-research-phase&#34;&gt;
+  Status: [Research Phase]
+  &lt;a href=&#34;#status-research-phase&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;concept&#34;&gt;
+  Concept
+  &lt;a href=&#34;#concept&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Mantis is a codebase I use to experiment with Windows API interaction in Golang. It serves as a testbed for understanding how modern EDRs hook specific syscalls and how static signatures are generated for Go binaries.&lt;/p&gt;
+
+&lt;h2 id=&#34;current-research-focus&#34;&gt;
+  Current Research Focus
+  &lt;a href=&#34;#current-research-focus&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Syscall Unhooking:&lt;/strong&gt; Analyzing how direct syscalls can bypass userland hooks.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sandbox Heuristics:&lt;/strong&gt; Implementing checks for CPU cores and uptime to detect analysis environments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;This is a private research project.&lt;/em&gt;&lt;/p&gt;</description>
+      <content>
+&lt;h1 id=&#34;status-research-phase&#34;&gt;
+  Status: [Research Phase]
+  &lt;a href=&#34;#status-research-phase&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;h2 id=&#34;concept&#34;&gt;
+  Concept
+  &lt;a href=&#34;#concept&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Mantis is a codebase I use to experiment with Windows API interaction in Golang. It serves as a testbed for understanding how modern EDRs hook specific syscalls and how static signatures are generated for Go binaries.&lt;/p&gt;
+
+&lt;h2 id=&#34;current-research-focus&#34;&gt;
+  Current Research Focus
+  &lt;a href=&#34;#current-research-focus&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Syscall Unhooking:&lt;/strong&gt; Analyzing how direct syscalls can bypass userland hooks.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sandbox Heuristics:&lt;/strong&gt; Implementing checks for CPU cores and uptime to detect analysis environments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;This is a private research project.&lt;/em&gt;&lt;/p&gt;
+</content>
+    </item>
+    <item>
       <title>Research: Bypassing Modern File Upload Filters</title>
       <link>http://localhost:1313/research/bypassing-file-upload-filters/</link>
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>

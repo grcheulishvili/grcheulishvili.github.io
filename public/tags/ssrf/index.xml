@@ -8,80 +8,105 @@
       <language>en-us</language>
       <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/ssrf/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Research: Server-Side Request Forgery (SSRF)</title>
+      <title>Research: Server-Side Request Forgery (SSRF) Mechanics</title>
       <link>http://localhost:1313/research/ssrf-exploitation/</link>
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
 
       <guid>http://localhost:1313/research/ssrf-exploitation/</guid>
-      <description>&lt;h2 id=&#34;abstract&#34;&gt;
-  Abstract
-  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+      <description>&lt;h2 id=&#34;mechanism-of-action&#34;&gt;
+  Mechanism of Action
+  &lt;a href=&#34;#mechanism-of-action&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
 &lt;/h2&gt;
-&lt;p&gt;Server-Side Request Forgery (SSRF) allows an attacker to induce the server-side application to make HTTP requests to an arbitrary domain of the attacker&amp;rsquo;s choosing. This is particularly dangerous in cloud environments where servers often have access to metadata services or internal admin panels.&lt;/p&gt;
+&lt;p&gt;SSRF occurs when an application fetches a remote resource based on user-supplied URLs without validation. This trust relationship allows an attacker to coerce the server into making requests on their behalf.&lt;/p&gt;
 
-&lt;h2 id=&#34;1-localhost-bypass&#34;&gt;
-  1. Localhost Bypass
-  &lt;a href=&#34;#1-localhost-bypass&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;h2 id=&#34;target-analysis-stock-api&#34;&gt;
+  Target Analysis: Stock API
+  &lt;a href=&#34;#target-analysis-stock-api&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
 &lt;/h2&gt;
-&lt;p&gt;Many applications trust requests coming from &lt;code&gt;localhost&lt;/code&gt; (127.0.0.1).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Scenario:&lt;/strong&gt;
-A stock check API takes a URL parameter:
-&lt;code&gt;stockApi=http://stock.weliketoshop.net:8080/product/stock&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;The Attack:&lt;/strong&gt;
-By changing the URL to the loopback address, we can access services listening on the local server that are blocked from the outside world (like an Admin Interface).&lt;/p&gt;</description>
+&lt;p&gt;The application uses a specific parameter to query an internal stock management API:&lt;/p&gt;
+
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;http&lt;/span&gt;
+    &lt;/span&gt;
+
+
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;POST&lt;/span&gt; /product/stock &lt;span style=&#34;color:#66d9ef&#34;&gt;HTTP&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;stockApi=http://stock.weliketoshop.net:8080/product/stock/check?productId=1&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&#34;exploitation-localhost-pivot&#34;&gt;
+  Exploitation: Localhost Pivot
+  &lt;a href=&#34;#exploitation-localhost-pivot&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;By modifying the &lt;code&gt;stockApi&lt;/code&gt; parameter, we can direct the server to query its own loopback interface (&lt;code&gt;127.0.0.1&lt;/code&gt;). This is critical because many administrative services listen only on localhost to avoid external exposure.&lt;/p&gt;</description>
       <content>
-&lt;h2 id=&#34;abstract&#34;&gt;
-  Abstract
-  &lt;a href=&#34;#abstract&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;h2 id=&#34;mechanism-of-action&#34;&gt;
+  Mechanism of Action
+  &lt;a href=&#34;#mechanism-of-action&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
 &lt;/h2&gt;
-&lt;p&gt;Server-Side Request Forgery (SSRF) allows an attacker to induce the server-side application to make HTTP requests to an arbitrary domain of the attacker&amp;rsquo;s choosing. This is particularly dangerous in cloud environments where servers often have access to metadata services or internal admin panels.&lt;/p&gt;
+&lt;p&gt;SSRF occurs when an application fetches a remote resource based on user-supplied URLs without validation. This trust relationship allows an attacker to coerce the server into making requests on their behalf.&lt;/p&gt;
 
-&lt;h2 id=&#34;1-localhost-bypass&#34;&gt;
-  1. Localhost Bypass
-  &lt;a href=&#34;#1-localhost-bypass&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;h2 id=&#34;target-analysis-stock-api&#34;&gt;
+  Target Analysis: Stock API
+  &lt;a href=&#34;#target-analysis-stock-api&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
 &lt;/h2&gt;
-&lt;p&gt;Many applications trust requests coming from &lt;code&gt;localhost&lt;/code&gt; (127.0.0.1).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Scenario:&lt;/strong&gt;
-A stock check API takes a URL parameter:
-&lt;code&gt;stockApi=http://stock.weliketoshop.net:8080/product/stock&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;The Attack:&lt;/strong&gt;
-By changing the URL to the loopback address, we can access services listening on the local server that are blocked from the outside world (like an Admin Interface).&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Payload:&lt;/strong&gt;
-&lt;code&gt;stockApi=http://localhost/admin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The application uses a specific parameter to query an internal stock management API:&lt;/p&gt;
 
-  &lt;figure class=&#34;left&#34;&gt;
-    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240718170954.png&#34;   /&gt;
-      &lt;figcaption class=&#34;center&#34; &gt;
-        Accessing the internal Admin panel via SSRF
-      &lt;/figcaption&gt;
-  &lt;/figure&gt;
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;http&lt;/span&gt;
+    &lt;/span&gt;
 
-&lt;p&gt;Once access is confirmed, we can execute administrative actions (e.g., deleting users) by crafting the full path:
-&lt;code&gt;http://localhost/admin/delete?username=carlos&lt;/code&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;2-scanning-internal-networks&#34;&gt;
-  2. Scanning Internal Networks
-  &lt;a href=&#34;#2-scanning-internal-networks&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;POST&lt;/span&gt; /product/stock &lt;span style=&#34;color:#66d9ef&#34;&gt;HTTP&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;stockApi=http://stock.weliketoshop.net:8080/product/stock/check?productId=1&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&#34;exploitation-localhost-pivot&#34;&gt;
+  Exploitation: Localhost Pivot
+  &lt;a href=&#34;#exploitation-localhost-pivot&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
 &lt;/h2&gt;
-&lt;p&gt;If the server can connect to other machines in the internal network, SSRF can be used as a port scanner.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Technique:&lt;/strong&gt;
-We can fuzz the last octet of the IP address to discover other active hosts on the subnet.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Target:&lt;/strong&gt; &lt;code&gt;192.168.0.X:8080/admin&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Automation:&lt;/strong&gt; Using Burp Intruder to iterate X from 1 to 255.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Findings:&lt;/strong&gt;
-In this assessment, the internal admin panel was discovered at &lt;code&gt;192.168.0.30&lt;/code&gt;. This confirms the vulnerability allows for lateral movement discovery within the DMZ.&lt;/p&gt;
+&lt;p&gt;By modifying the &lt;code&gt;stockApi&lt;/code&gt; parameter, we can direct the server to query its own loopback interface (&lt;code&gt;127.0.0.1&lt;/code&gt;). This is critical because many administrative services listen only on localhost to avoid external exposure.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Payload:&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;impact&#34;&gt;
-  Impact
-  &lt;a href=&#34;#impact&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;http&lt;/span&gt;
+    &lt;/span&gt;
+
+
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;stockApi=http://localhost/admin&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Result:&lt;/strong&gt;
+The server responds with the Administrative Interface HTML, which is normally blocked from external IPs.&lt;/p&gt;
+
+&lt;h2 id=&#34;escalation-authorized-action&#34;&gt;
+  Escalation: Authorized Action
+  &lt;a href=&#34;#escalation-authorized-action&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
 &lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Cloud Metadata Access:&lt;/strong&gt; (AWS: &lt;code&gt;http://169.254.169.254/latest/meta-data/&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Internal Port Scanning:&lt;/strong&gt; Mapping the internal network topology.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Access to Internal APIs:&lt;/strong&gt; Interacting with microservices that lack authentication.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Once the internal interface is accessible, we can construct authorized requests by predicting URL structures.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&#34;highlight-wrapper&#34;&gt;
+  &lt;div class=&#34;highlight-toolbar&#34;&gt;
+    &lt;span class=&#34;item&#34;&gt;
+      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
+      &lt;span class=&#34;name&#34;&gt;http&lt;/span&gt;
+    &lt;/span&gt;
+
+
+    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;stockApi=http://localhost/admin/delete?username=carlos&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The server executes the request with local privileges, deleting the target user. This demonstrates how SSRF bypasses network-level access controls (firewalls) by utilizing the trusted server as a proxy.&lt;/p&gt;
 </content>
     </item>
   </channel>
