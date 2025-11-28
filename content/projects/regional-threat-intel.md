@@ -14,19 +14,19 @@ The CTI Dashboard is a custom intelligence aggregation platform designed to comb
 ## Architecture
 The system runs on a containerized microservices architecture:
 * **Core:** Python-based collectors acting as API glue.
-* **Storage:** PostgreSQL (\`threat_db\`) for structured IOC retention.
+* **Storage:** PostgreSQL (`threat_db`) for structured IOC retention.
 * **Visualization:** Grafana for real-time monitoring of active campaigns.
 
 ## Custom Collectors
 I developed independent services for specific intelligence vectors:
-1.  **\`collector-news\`**: Parses RSS feeds and scores articles based on regional keywords.
-2.  **\`collector-ioc-threatfox\`**: Ingests technical indicators (IP/Hash) from ThreatFox.
-3.  **\`collector-otx\`**: Polls AlienVault OTX for "pulses" related to specific APTs.
-4.  **\`collector-c2feeds\`**: Automates the tracking of active Command & Control servers.
+1.  **`collector-news`**: Parses RSS feeds and scores articles based on regional keywords.
+2.  **`collector-ioc-threatfox`**: Ingests technical indicators (IP/Hash) from ThreatFox.
+3.  **`collector-otx`**: Polls AlienVault OTX for "pulses" related to specific APTs.
+4.  **`collector-c2feeds`**: Automates the tracking of active Command & Control servers.
 
 ## Integration: Cisco Stealthwatch
 To operationalize the data, I built a direct integration for network security tools.
-* **Method:** Created a read-only PostgreSQL user (\`stealthwatch_user\`) allowed to query the \`public\` schema.
+* **Method:** Created a read-only PostgreSQL user (`stealthwatch_user`) allowed to query the `public` schema.
 * **Impact:** Allows the internal firewall/NDR to pull high-fidelity blocklists directly from the CTI database without manual export.
 
 ---
