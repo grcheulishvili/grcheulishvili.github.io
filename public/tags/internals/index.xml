@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Internals on user@cybrealm:~$</title>
+    <link>http://localhost:1313/tags/internals/</link>
+    <description>Recent content in Internals on user@cybrealm:~$</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 28 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/internals/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Engineering Log: The Mechanical Inevitability of Buffer Overflows</title>
+      <link>http://localhost:1313/research/stack-mechanics-and-overflows/</link>
+      <pubDate>Fri, 28 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/research/stack-mechanics-and-overflows/</guid>
+      <description>&lt;h2 id=&#34;the-black-box-problem&#34;&gt;The &amp;ldquo;Black Box&amp;rdquo; Problem&lt;/h2&gt;&#xA;&lt;p&gt;For a long time, I treated assembly instructions like black boxes. I knew that &lt;code&gt;CALL&lt;/code&gt; started a function and &lt;code&gt;RET&lt;/code&gt; ended it. I knew that if I threw enough &amp;ldquo;A&amp;quot;s at a buffer, the program would crash.&lt;/p&gt;&#xA;&lt;p&gt;But I didn&amp;rsquo;t understand the &lt;em&gt;mechanics&lt;/em&gt; of the crash. I didn&amp;rsquo;t understand why the CPU—a machine built for precision—would so easily confuse my user input for a code address.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

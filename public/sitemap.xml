@@ -2,6 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/tags/assembly/</loc>
+    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/research/stack-mechanics-and-overflows/</loc>
+    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/internals/</loc>
+    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/research/</loc>
+    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/reverse-engineering/</loc>
+    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/projects/local-ctf-platform/</loc>
+    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/c2/</loc>
+    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/ctfd/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
@@ -11,22 +35,25 @@
     <loc>http://localhost:1313/tags/databases/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/docker/</loc>
-    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/projects/local-ctf-platform/</loc>
-    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/go/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/grafana/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/tags/hardening/</loc>
+    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/projects/mantis-c2/</loc>
+    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/infrastructure/</loc>
+    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/linux/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/maldev/</loc>
@@ -35,16 +62,16 @@
     <loc>http://localhost:1313/tags/network-security/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/osint/</loc>
+    <loc>http://localhost:1313/tags/pentesting/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/pentesting/</loc>
+    <loc>http://localhost:1313/tags/polymorphism/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/portswigger/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/mantis-c2/</loc>
+    <loc>http://localhost:1313/tags/postgresql/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/projects/</loc>
@@ -74,19 +101,10 @@
     <loc>http://localhost:1313/research/ssrf-exploitation/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/research/</loc>
-    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/sqli/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/ssrf/</loc>
-    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2025-11-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/training/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/web-security/</loc>

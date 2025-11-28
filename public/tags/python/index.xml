@@ -4,71 +4,16 @@
     <title>Python on user@cybrealm:~$</title>
     <link>http://localhost:1313/tags/python/</link>
     <description>Recent content in Python on user@cybrealm:~$</description>
-    <generator>Hugo -- gohugo.io</generator>
-      <language>en-us</language>
-      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Regional Threat Intelligence Aggregator</title>
+      <title>Regional CTI Dashboard</title>
       <link>http://localhost:1313/projects/regional-threat-intel/</link>
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-
       <guid>http://localhost:1313/projects/regional-threat-intel/</guid>
-      <description>&lt;h1 id=&#34;project-status-active-development&#34;&gt;
-  Project Status: [Active Development]
-  &lt;a href=&#34;#project-status-active-development&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-
-&lt;h2 id=&#34;the-problem&#34;&gt;
-  The Problem
-  &lt;a href=&#34;#the-problem&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;Global threat feeds are noisy. A &amp;ldquo;High Severity&amp;rdquo; C2 alert for a US-based bank is irrelevant noise for infrastructure in Georgia. This noise causes alert fatigue in the SOC, leading to missed detections of regionally relevant threats.&lt;/p&gt;
-
-&lt;h2 id=&#34;the-solution&#34;&gt;
-  The Solution
-  &lt;a href=&#34;#the-solution&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;A custom aggregation engine that pulls from high-fidelity sources, filters data against a &amp;ldquo;Regional Relevance&amp;rdquo; dictionary, and visualizes active campaigns on a custom dashboard.&lt;/p&gt;</description>
-      <content>
-&lt;h1 id=&#34;project-status-active-development&#34;&gt;
-  Project Status: [Active Development]
-  &lt;a href=&#34;#project-status-active-development&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-
-&lt;h2 id=&#34;the-problem&#34;&gt;
-  The Problem
-  &lt;a href=&#34;#the-problem&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;Global threat feeds are noisy. A &amp;ldquo;High Severity&amp;rdquo; C2 alert for a US-based bank is irrelevant noise for infrastructure in Georgia. This noise causes alert fatigue in the SOC, leading to missed detections of regionally relevant threats.&lt;/p&gt;
-
-&lt;h2 id=&#34;the-solution&#34;&gt;
-  The Solution
-  &lt;a href=&#34;#the-solution&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;A custom aggregation engine that pulls from high-fidelity sources, filters data against a &amp;ldquo;Regional Relevance&amp;rdquo; dictionary, and visualizes active campaigns on a custom dashboard.&lt;/p&gt;
-
-&lt;h2 id=&#34;tech-stack&#34;&gt;
-  Tech Stack
-  &lt;a href=&#34;#tech-stack&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Core Logic:&lt;/strong&gt; Python (API Glue &amp;amp; Filtering Engine).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Feeds:&lt;/strong&gt; AlienVault OTX, ThreatFox (C2 Intel), and 100+ Security Blog RSS feeds.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Visualization:&lt;/strong&gt; Grafana (Real-time dashboarding of active threats).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;key-modules&#34;&gt;
-  Key Modules
-  &lt;a href=&#34;#key-modules&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;The Collector:&lt;/strong&gt; Async Python workers polling OTX and ThreatFox APIs.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;The Filter:&lt;/strong&gt; A keyword/ASN matching engine that discards 99% of global noise to focus on threats targeting the region.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;The UI:&lt;/strong&gt; Custom Grafana panels tracking &amp;ldquo;Active C2s in Region&amp;rdquo; and &amp;ldquo;Emerging Blog Topics.&amp;rdquo;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;em&gt;Codebase currently private. Deployment requires API keys for OTX.&lt;/em&gt;&lt;/p&gt;
-</content>
+      <description>&lt;h1 id=&#34;project-status-production&#34;&gt;Project Status: [Production]&lt;/h1&gt;&#xA;&lt;h2 id=&#34;system-overview&#34;&gt;System Overview&lt;/h2&gt;&#xA;&lt;p&gt;The CTI Dashboard is a custom intelligence aggregation platform designed to combat alert fatigue. Unlike generic feeds, it filters specifically for APT groups and C2 infrastructure targeting a &lt;strong&gt;specific geographic region&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;&#xA;&lt;p&gt;The system runs on a containerized microservices architecture:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Core:&lt;/strong&gt; Python-based collectors acting as API glue.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Storage:&lt;/strong&gt; PostgreSQL (&lt;code&gt;threat_db&lt;/code&gt;) for structured IOC retention.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Visualization:&lt;/strong&gt; Grafana for real-time monitoring of active campaigns.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;custom-collectors&#34;&gt;Custom Collectors&lt;/h2&gt;&#xA;&lt;p&gt;I developed independent services for specific intelligence vectors:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

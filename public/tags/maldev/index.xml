@@ -4,59 +4,16 @@
     <title>MalDev on user@cybrealm:~$</title>
     <link>http://localhost:1313/tags/maldev/</link>
     <description>Recent content in MalDev on user@cybrealm:~$</description>
-    <generator>Hugo -- gohugo.io</generator>
-      <language>en-us</language>
-      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/maldev/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/maldev/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Project Mantis: Evasion Research</title>
+      <title>Honeypot Agent</title>
       <link>http://localhost:1313/projects/mantis-c2/</link>
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-
       <guid>http://localhost:1313/projects/mantis-c2/</guid>
-      <description>&lt;h1 id=&#34;status-research-phase&#34;&gt;
-  Status: [Research Phase]
-  &lt;a href=&#34;#status-research-phase&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-
-&lt;h2 id=&#34;concept&#34;&gt;
-  Concept
-  &lt;a href=&#34;#concept&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;Mantis is a codebase I use to experiment with Windows API interaction in Golang. It serves as a testbed for understanding how modern EDRs hook specific syscalls and how static signatures are generated for Go binaries.&lt;/p&gt;
-
-&lt;h2 id=&#34;current-research-focus&#34;&gt;
-  Current Research Focus
-  &lt;a href=&#34;#current-research-focus&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Syscall Unhooking:&lt;/strong&gt; Analyzing how direct syscalls can bypass userland hooks.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Sandbox Heuristics:&lt;/strong&gt; Implementing checks for CPU cores and uptime to detect analysis environments.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;em&gt;This is a private research project.&lt;/em&gt;&lt;/p&gt;</description>
-      <content>
-&lt;h1 id=&#34;status-research-phase&#34;&gt;
-  Status: [Research Phase]
-  &lt;a href=&#34;#status-research-phase&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-
-&lt;h2 id=&#34;concept&#34;&gt;
-  Concept
-  &lt;a href=&#34;#concept&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;Mantis is a codebase I use to experiment with Windows API interaction in Golang. It serves as a testbed for understanding how modern EDRs hook specific syscalls and how static signatures are generated for Go binaries.&lt;/p&gt;
-
-&lt;h2 id=&#34;current-research-focus&#34;&gt;
-  Current Research Focus
-  &lt;a href=&#34;#current-research-focus&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Syscall Unhooking:&lt;/strong&gt; Analyzing how direct syscalls can bypass userland hooks.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Sandbox Heuristics:&lt;/strong&gt; Implementing checks for CPU cores and uptime to detect analysis environments.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;em&gt;This is a private research project.&lt;/em&gt;&lt;/p&gt;
-</content>
+      <description>&lt;h1 id=&#34;project-status-research--active&#34;&gt;Project Status: [Research / Active]&lt;/h1&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;This is a stealthy agent designed to let attackers &amp;ldquo;catch themselves.&amp;rdquo; When deployed on a honeypot, it mimics legitimate software while establishing a covert channel back to a custom Command &amp;amp; Control (C2) server.&lt;/p&gt;&#xA;&lt;h2 id=&#34;technical-architecture&#34;&gt;Technical Architecture&lt;/h2&gt;&#xA;&lt;p&gt;The system consists of three core components:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;The Agent (&lt;code&gt;stealer&lt;/code&gt;):&lt;/strong&gt; A GUI-less Go payload that runs silently on the victim machine.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;The C2 (&lt;code&gt;receiver&lt;/code&gt;):&lt;/strong&gt; A Linux-based server managing multiple sessions and exfiltrated data.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;The Builder:&lt;/strong&gt; A custom GUI tool to generate polymorphic payloads on demand.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;key-capabilities&#34;&gt;Key Capabilities&lt;/h2&gt;&#xA;&lt;h3 id=&#34;1-polymorphism--evasion&#34;&gt;1. Polymorphism &amp;amp; Evasion&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Dynamic Builds:&lt;/strong&gt; The &lt;code&gt;Makefile&lt;/code&gt; generates a unique file hash for every build, evading hash-based signaling.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Debug Stripping:&lt;/strong&gt; Automatically removes DWARF tables and symbol information to complicate reverse engineering.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Hidden Execution:&lt;/strong&gt; Runs as a background process on Windows without flashing the console.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;2-the-pillage-workflow&#34;&gt;2. The &amp;ldquo;Pillage&amp;rdquo; Workflow&lt;/h3&gt;&#xA;&lt;p&gt;I engineered a two-stage exfiltration process to optimize bandwidth:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

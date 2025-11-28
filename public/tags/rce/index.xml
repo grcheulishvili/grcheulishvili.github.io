@@ -4,112 +4,16 @@
     <title>RCE on user@cybrealm:~$</title>
     <link>http://localhost:1313/tags/rce/</link>
     <description>Recent content in RCE on user@cybrealm:~$</description>
-    <generator>Hugo -- gohugo.io</generator>
-      <language>en-us</language>
-      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/rce/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/rce/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Research: OS Command Injection Execution Flow</title>
       <link>http://localhost:1313/research/os-command-injection-patterns/</link>
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-
       <guid>http://localhost:1313/research/os-command-injection-patterns/</guid>
-      <description>&lt;h2 id=&#34;injection-context&#34;&gt;
-  Injection Context
-  &lt;a href=&#34;#injection-context&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;Legacy applications often interface with the operating system using shell wrappers. A common pattern observed in inventory systems involves passing user IDs directly to backend scripts.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vulnerable Logic:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;bash&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;stockreport.pl &amp;lt;productID&amp;gt; &amp;lt;storeID&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;If the application fails to sanitize &lt;code&gt;productID&lt;/code&gt;, the shell&amp;rsquo;s command separator logic can be abused to chain execution.&lt;/p&gt;
-
-&lt;h2 id=&#34;shell-operator-chaining&#34;&gt;
-  Shell Operator Chaining
-  &lt;a href=&#34;#shell-operator-chaining&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;The success of an injection depends on how the underlying shell interprets control operators:&lt;/p&gt;</description>
-      <content>
-&lt;h2 id=&#34;injection-context&#34;&gt;
-  Injection Context
-  &lt;a href=&#34;#injection-context&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;Legacy applications often interface with the operating system using shell wrappers. A common pattern observed in inventory systems involves passing user IDs directly to backend scripts.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vulnerable Logic:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;bash&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;stockreport.pl &amp;lt;productID&amp;gt; &amp;lt;storeID&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;If the application fails to sanitize &lt;code&gt;productID&lt;/code&gt;, the shell&amp;rsquo;s command separator logic can be abused to chain execution.&lt;/p&gt;
-
-&lt;h2 id=&#34;shell-operator-chaining&#34;&gt;
-  Shell Operator Chaining
-  &lt;a href=&#34;#shell-operator-chaining&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;The success of an injection depends on how the underlying shell interprets control operators:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;&amp;amp;&lt;/code&gt; (Background):&lt;/strong&gt; Executes the preceding command and immediately moves to the next.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;;&lt;/code&gt; (Sequence):&lt;/strong&gt; Executes commands strictly sequentially (Linux only).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;||&lt;/code&gt; (OR):&lt;/strong&gt; Executes the second command only if the first fails.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;assessment-case-study&#34;&gt;
-  Assessment Case Study
-  &lt;a href=&#34;#assessment-case-study&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Target Endpoint:&lt;/strong&gt; &lt;code&gt;/product/stock&lt;/code&gt;
-&lt;strong&gt;Method:&lt;/strong&gt; POST&lt;/p&gt;
-&lt;p&gt;During analysis, I intercepted a stock check request. The backend expected a numeric &lt;code&gt;productId&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Injected Payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;http&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;productId=1 &amp;amp; whoami &amp;amp; storeId=1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Execution Flow on Server:&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;stockreport.pl 1&lt;/code&gt; (Executed successfully)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;whoami&lt;/code&gt; (Injected command executed)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;1&lt;/code&gt; (Remaining argument treated as command, likely failed)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;Raw HTTP Response:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;http&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;HTTP&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;OK&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Content-Type&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;text/plain; charset=utf-8&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;peter-3vyaW3&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;The response confirmed code execution by returning the current user context (&lt;code&gt;peter-3vyaW3&lt;/code&gt;) alongside the standard application output.&lt;/p&gt;
-</content>
+      <description>&lt;h2 id=&#34;injection-context&#34;&gt;Injection Context&lt;/h2&gt;&#xA;&lt;p&gt;Legacy applications often interface with the operating system using shell wrappers. A common pattern observed in inventory systems involves passing user IDs directly to backend scripts.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Vulnerable Logic:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;stockreport.pl &amp;lt;productID&amp;gt; &amp;lt;storeID&amp;gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If the application fails to sanitize &lt;code&gt;productID&lt;/code&gt;, the shell&amp;rsquo;s command separator logic can be abused to chain execution.&lt;/p&gt;&#xA;&lt;h2 id=&#34;shell-operator-chaining&#34;&gt;Shell Operator Chaining&lt;/h2&gt;&#xA;&lt;p&gt;The success of an injection depends on how the underlying shell interprets control operators:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;&lt;code&gt;&amp;amp;&lt;/code&gt; (Background):&lt;/strong&gt; Executes the preceding command and immediately moves to the next.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;&lt;code&gt;;&lt;/code&gt; (Sequence):&lt;/strong&gt; Executes commands strictly sequentially (Linux only).&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;&lt;code&gt;||&lt;/code&gt; (OR):&lt;/strong&gt; Executes the second command only if the first fails.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;assessment-case-study&#34;&gt;Assessment Case Study&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Target Endpoint:&lt;/strong&gt; &lt;code&gt;/product/stock&lt;/code&gt;&#xA;&lt;strong&gt;Method:&lt;/strong&gt; POST&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

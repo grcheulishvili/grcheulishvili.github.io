@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Infrastructure on user@cybrealm:~$</title>
-    <link>http://localhost:1313/tags/infrastructure/</link>
-    <description>Recent content in Infrastructure on user@cybrealm:~$</description>
+    <title>Hardening on user@cybrealm:~$</title>
+    <link>http://localhost:1313/tags/hardening/</link>
+    <description>Recent content in Hardening on user@cybrealm:~$</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/infrastructure/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/hardening/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bastion Wargames Platform</title>
       <link>http://localhost:1313/projects/local-ctf-platform/</link>

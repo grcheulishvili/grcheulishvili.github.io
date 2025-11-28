@@ -4,91 +4,16 @@
     <title>CTFd on user@cybrealm:~$</title>
     <link>http://localhost:1313/tags/ctfd/</link>
     <description>Recent content in CTFd on user@cybrealm:~$</description>
-    <generator>Hugo -- gohugo.io</generator>
-      <language>en-us</language>
-      <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/ctfd/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ctfd/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Enterprise Cyber Range (Customized CTFd)</title>
+      <title>Bastion Wargames Platform</title>
       <link>http://localhost:1313/projects/local-ctf-platform/</link>
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-
       <guid>http://localhost:1313/projects/local-ctf-platform/</guid>
-      <description>&lt;h1 id=&#34;project-status-production&#34;&gt;
-  Project Status: [Production]
-  &lt;a href=&#34;#project-status-production&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-
-&lt;h2 id=&#34;overview&#34;&gt;
-  Overview
-  &lt;a href=&#34;#overview&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;To upskill the internal security team, I deployed and heavily customized a &lt;strong&gt;CTFd&lt;/strong&gt; instance. Unlike standard CTFs which often focus on &amp;ldquo;guessing,&amp;rdquo; this platform is designed to simulate real-world vulnerabilities found in our corporate environment.&lt;/p&gt;
-
-&lt;h2 id=&#34;custom-engineering&#34;&gt;
-  Custom Engineering
-  &lt;a href=&#34;#custom-engineering&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Interface Redesign:&lt;/strong&gt; Modified the default CTFd Jinja2 templates and CSS to match corporate branding and improve the UX for non-gamers.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Challenge Architecture:&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Web Security:&lt;/strong&gt; Custom Docker containers running vulnerable apps (SQLi, SSRF, Insecure Deserialization).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Linux Skills:&lt;/strong&gt; SSH-based challenges testing grep/awk/sed proficiency and log analysis.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Reversing &amp;amp; Forensics:&lt;/strong&gt; Artifact analysis challenges based on real malware samples.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Crypto:&lt;/strong&gt; Practical cryptography failures (e.g., weak RSA keys, padding oracles).&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;impact&#34;&gt;
-  Impact
-  &lt;a href=&#34;#impact&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Reduced reliance on expensive external training vendors.&lt;/li&gt;
-&lt;li&gt;Allows the team to practice &amp;ldquo;Red vs Blue&amp;rdquo; scenarios in a safe, isolated environment.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;em&gt;Documentation on specific challenge design is available internally.&lt;/em&gt;&lt;/p&gt;</description>
-      <content>
-&lt;h1 id=&#34;project-status-production&#34;&gt;
-  Project Status: [Production]
-  &lt;a href=&#34;#project-status-production&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-
-&lt;h2 id=&#34;overview&#34;&gt;
-  Overview
-  &lt;a href=&#34;#overview&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;To upskill the internal security team, I deployed and heavily customized a &lt;strong&gt;CTFd&lt;/strong&gt; instance. Unlike standard CTFs which often focus on &amp;ldquo;guessing,&amp;rdquo; this platform is designed to simulate real-world vulnerabilities found in our corporate environment.&lt;/p&gt;
-
-&lt;h2 id=&#34;custom-engineering&#34;&gt;
-  Custom Engineering
-  &lt;a href=&#34;#custom-engineering&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Interface Redesign:&lt;/strong&gt; Modified the default CTFd Jinja2 templates and CSS to match corporate branding and improve the UX for non-gamers.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Challenge Architecture:&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Web Security:&lt;/strong&gt; Custom Docker containers running vulnerable apps (SQLi, SSRF, Insecure Deserialization).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Linux Skills:&lt;/strong&gt; SSH-based challenges testing grep/awk/sed proficiency and log analysis.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Reversing &amp;amp; Forensics:&lt;/strong&gt; Artifact analysis challenges based on real malware samples.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Crypto:&lt;/strong&gt; Practical cryptography failures (e.g., weak RSA keys, padding oracles).&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;impact&#34;&gt;
-  Impact
-  &lt;a href=&#34;#impact&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Reduced reliance on expensive external training vendors.&lt;/li&gt;
-&lt;li&gt;Allows the team to practice &amp;ldquo;Red vs Blue&amp;rdquo; scenarios in a safe, isolated environment.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;em&gt;Documentation on specific challenge design is available internally.&lt;/em&gt;&lt;/p&gt;
-</content>
+      <description>&lt;h1 id=&#34;project-status-production&#34;&gt;Project Status: [Production]&lt;/h1&gt;&#xA;&lt;h2 id=&#34;philosophy&#34;&gt;Philosophy&lt;/h2&gt;&#xA;&lt;p&gt;Bastion is designed around &lt;strong&gt;progressive scenario-based learning&lt;/strong&gt;, mimicking the &amp;ldquo;OverTheWire&amp;rdquo; mechanic where &lt;code&gt;Flag = Next Password&lt;/code&gt;. Unlike standard CTFs, the goal is not just to find a string, but to compromise the user account of the next level.&lt;/p&gt;&#xA;&lt;h2 id=&#34;hybrid-architecture&#34;&gt;Hybrid Architecture&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;Frontend:&lt;/strong&gt; Containerized &lt;strong&gt;CTFd&lt;/strong&gt; handling scoring and user registration.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Backend:&lt;/strong&gt; Hardened Ubuntu Server hosting live SSH challenges.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Split-SSH Access Control:&lt;/strong&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Port 22:&lt;/strong&gt; Admin access only (Key-based).&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Port 2222:&lt;/strong&gt; Player access (Password-based, restricted shell).&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;challenge-design-patterns&#34;&gt;Challenge Design Patterns&lt;/h2&gt;&#xA;&lt;p&gt;I standardized three distinct challenge archetypes to cover the full offensive spectrum:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

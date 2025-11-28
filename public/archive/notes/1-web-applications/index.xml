@@ -4,154 +4,16 @@
     <title>user@cybrealm:~$</title>
     <link>http://localhost:1313/archive/notes/1-web-applications/</link>
     <description>Recent content on user@cybrealm:~$</description>
-    <generator>Hugo -- gohugo.io</generator>
-      <language>en-us</language>
-      <lastBuildDate>Tue, 16 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/archive/notes/1-web-applications/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/archive/notes/1-web-applications/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
       <link>http://localhost:1313/archive/notes/1-web-applications/1b-owasp-top-10-2021/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-
       <guid>http://localhost:1313/archive/notes/1-web-applications/1b-owasp-top-10-2021/</guid>
-      <description>&lt;h1 id=&#34;1b---owasp-top-10-2021&#34;&gt;
-  1b - OWASP TOP 10 2021
-  &lt;a href=&#34;#1b---owasp-top-10-2021&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-
-&lt;h2 id=&#34;1-broken-access-control&#34;&gt;
-  1. Broken Access Control
-  &lt;a href=&#34;#1-broken-access-control&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;An application has multiple access points from the outside. The goal of Access Control is to allow authorized users to access it and block unauthorized users. BAC means that an unauthorized user will gain access to the data of an authorized user. For example, by using an API.&lt;/p&gt;
-
-&lt;h2 id=&#34;2-cryptographic-failures&#34;&gt;
-  2. Cryptographic Failures
-  &lt;a href=&#34;#2-cryptographic-failures&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Weak encryption of sensitive information or no encryption at all. &lt;/li&gt;
-&lt;li&gt;Certificate management &lt;/li&gt;
-&lt;li&gt;Downgrade attacks &lt;/li&gt;
-&lt;li&gt;Automatic encryption (good) &amp;amp; automatic decryption (bad)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;3-injection&#34;&gt;
-  3. Injection
-  &lt;a href=&#34;#3-injection&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;LDAP&lt;/li&gt;
-&lt;li&gt;SQL&lt;/li&gt;
-&lt;li&gt;XSS&lt;/li&gt;
-&lt;li&gt;Incorrect Sanitization&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;4-insecure-design&#34;&gt;
-  4. Insecure Design
-  &lt;a href=&#34;#4-insecure-design&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;Related to application design and architectural flaws. Anything that can be exploited by an attacker to cause damage is Insecure Design.&lt;/p&gt;</description>
-      <content>
-&lt;h1 id=&#34;1b---owasp-top-10-2021&#34;&gt;
-  1b - OWASP TOP 10 2021
-  &lt;a href=&#34;#1b---owasp-top-10-2021&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-
-&lt;h2 id=&#34;1-broken-access-control&#34;&gt;
-  1. Broken Access Control
-  &lt;a href=&#34;#1-broken-access-control&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;An application has multiple access points from the outside. The goal of Access Control is to allow authorized users to access it and block unauthorized users. BAC means that an unauthorized user will gain access to the data of an authorized user. For example, by using an API.&lt;/p&gt;
-
-&lt;h2 id=&#34;2-cryptographic-failures&#34;&gt;
-  2. Cryptographic Failures
-  &lt;a href=&#34;#2-cryptographic-failures&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Weak encryption of sensitive information or no encryption at all. &lt;/li&gt;
-&lt;li&gt;Certificate management &lt;/li&gt;
-&lt;li&gt;Downgrade attacks &lt;/li&gt;
-&lt;li&gt;Automatic encryption (good) &amp;amp; automatic decryption (bad)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;3-injection&#34;&gt;
-  3. Injection
-  &lt;a href=&#34;#3-injection&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;LDAP&lt;/li&gt;
-&lt;li&gt;SQL&lt;/li&gt;
-&lt;li&gt;XSS&lt;/li&gt;
-&lt;li&gt;Incorrect Sanitization&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;4-insecure-design&#34;&gt;
-  4. Insecure Design
-  &lt;a href=&#34;#4-insecure-design&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;Related to application design and architectural flaws. Anything that can be exploited by an attacker to cause damage is Insecure Design.&lt;/p&gt;
-
-&lt;h2 id=&#34;5-security-misconfiguration&#34;&gt;
-  5. Security Misconfiguration
-  &lt;a href=&#34;#5-security-misconfiguration&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Non-latest features&lt;/li&gt;
-&lt;li&gt;Delayed Updates&lt;/li&gt;
-&lt;li&gt;Non-removed testing application on the server(have a known vulnerability, open ports)&lt;/li&gt;
-&lt;li&gt;error message(non-handled exceptions, detalis)&lt;/li&gt;
-&lt;li&gt;TLS&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;6-vulnerable-and-outdated-components&#34;&gt;
-  6. Vulnerable and Outdated Components
-  &lt;a href=&#34;#6-vulnerable-and-outdated-components&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;know vulnerabilities&lt;/li&gt;
-&lt;li&gt;external components&lt;/li&gt;
-&lt;li&gt;external libraries&lt;/li&gt;
-&lt;li&gt;frameworks&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;7-identification-and-authentication-failures&#34;&gt;
-  7. Identification and Authentication Failures
-  &lt;a href=&#34;#7-identification-and-authentication-failures&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;User auth and identification problems&lt;/li&gt;
-&lt;li&gt;Session timeout&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;8-software-and-data-integrity-failures&#34;&gt;
-  8. Software and Data Integrity Failures
-  &lt;a href=&#34;#8-software-and-data-integrity-failures&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;basically it means making software changes without checking CI/CD integrity and authenticity.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;updates are not verified before updating - attacker can change software&lt;/li&gt;
-&lt;li&gt;monitoring software source was infiltrated and then pushed this compromised software to endpoints.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;9-security-logging-and-monitoring-failures&#34;&gt;
-  9. Security Logging and Monitoring Failures
-  &lt;a href=&#34;#9-security-logging-and-monitoring-failures&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;insufficient logging and monitoring&lt;/li&gt;
-&lt;li&gt;leaving out important asset monitoring and logging&lt;/li&gt;
-&lt;li&gt;alerts for suspicious activities&lt;/li&gt;
-&lt;li&gt;log file storage should not be only locally(backup)&lt;/li&gt;
-&lt;li&gt;alert threshold&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;10-server-side-request-forgery&#34;&gt;
-  10. Server Side Request Forgery
-  &lt;a href=&#34;#10-server-side-request-forgery&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h2&gt;
-&lt;p&gt;SSRF occurs when web application fetches remote resource without validating user-supplied request/url. fetching an url is common feature nowadays.&lt;/p&gt;
-&lt;p&gt;during SSRF an attacker FORGES a request that can retrieve unauthorized data from the server back to an attacker.&lt;/p&gt;
-</content>
+      <description>&lt;h1 id=&#34;1b---owasp-top-10-2021&#34;&gt;1b - OWASP TOP 10 2021&lt;/h1&gt;&#xA;&lt;h2 id=&#34;1-broken-access-control&#34;&gt;1. Broken Access Control&lt;/h2&gt;&#xA;&lt;p&gt;An application has multiple access points from the outside. The goal of Access Control is to allow authorized users to access it and block unauthorized users. BAC means that an unauthorized user will gain access to the data of an authorized user. For example, by using an API.&lt;/p&gt;&#xA;&lt;h2 id=&#34;2-cryptographic-failures&#34;&gt;2. Cryptographic Failures&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Weak encryption of sensitive information or no encryption at all. &lt;/li&gt;&#xA;&lt;li&gt;Certificate management &lt;/li&gt;&#xA;&lt;li&gt;Downgrade attacks &lt;/li&gt;&#xA;&lt;li&gt;Automatic encryption (good) &amp;amp; automatic decryption (bad)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;3-injection&#34;&gt;3. Injection&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;LDAP&lt;/li&gt;&#xA;&lt;li&gt;SQL&lt;/li&gt;&#xA;&lt;li&gt;XSS&lt;/li&gt;&#xA;&lt;li&gt;Incorrect Sanitization&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;4-insecure-design&#34;&gt;4. Insecure Design&lt;/h2&gt;&#xA;&lt;p&gt;Related to application design and architectural flaws. Anything that can be exploited by an attacker to cause damage is Insecure Design.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
