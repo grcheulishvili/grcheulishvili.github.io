@@ -1,6 +1,6 @@
 ---
 title: "Honeypot Agent"
-date: $(date +%Y-%m-%d)
+date: 2025-11-27
 draft: false
 description: "A polymorphic Go-based info-stealer and C2 designed for offensive operations and honeypot monitoring."
 tags: ["MalDev", "Go", "C2", "Polymorphism"]

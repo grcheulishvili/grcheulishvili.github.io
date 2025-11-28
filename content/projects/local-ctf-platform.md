@@ -1,6 +1,6 @@
 ---
 title: "Bastion Wargames Platform"
-date: $(date +%Y-%m-%d)
+date: 2025-11-27
 draft: false
 description: "A hybrid wargame platform combining a CTFd frontend with a hardened Linux backend using Split-SSH architecture."
 tags: ["Infrastructure", "CTFd", "Hardening", "Linux"]

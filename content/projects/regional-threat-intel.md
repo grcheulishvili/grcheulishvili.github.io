@@ -1,6 +1,6 @@
 ---
 title: "Regional CTI Dashboard"
-date: $(date +%Y-%m-%d)
+date: 2025-11-27
 draft: false
 description: "A specialized Threat Intelligence platform filtering OTX and ThreatFox data for the Caucasus region using Grafana and PostgreSQL."
 tags: ["CTI", "Python", "Grafana", "PostgreSQL"]
