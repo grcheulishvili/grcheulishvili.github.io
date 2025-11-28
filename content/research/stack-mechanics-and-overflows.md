@@ -42,7 +42,7 @@ In high-level languages, we declare variables. In Assembly, we just move the lin
 * `SUB RSP, 0x20`: This creates a 32-byte buffer. We didn't "create" anything; we just slid the `RSP` down 32 bytes and said, "This space is now mine."
 * `ADD RSP, 0x20`: This "frees" the buffer. We slide the `RSP` back up. The data is technically still there, but it is now in the "Volatile" zone, ready to be overwritten by the next function.
 
-{{< figure src="/.gitbook/assets/stack-heap-vis.png" alt="data" >}}
+{{< figure src="/.gitbook/assets/stack-claim.png" alt="data" >}}
 
 ---
 
