@@ -1,10 +1,12 @@
 ---
-title: "whoami"
-date: 2025-11-27
-draft: false
+title: "Whoami"
+date: 2023-01-01
+type: page        
+layout: full       
+sidebar:
+  enable: false   
 ---
 
-## The Operator
 I am a Security Engineer and developer focused on **Offensive Security** and **Infrastructure Automation**. 
 
 My background is rooted in general computing and cybersecurity. Unlike the theoretical approach of academia, I learn by **problem-oriented engineering**: breaking complex concepts down into bite-sized coding tasks and building the tools I need to solve them.

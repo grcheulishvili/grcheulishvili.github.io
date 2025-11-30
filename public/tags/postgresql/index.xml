@@ -1,19 +1,57 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PostgreSQL on user@cybrealm:~$</title>
+    <title>Cybrealm – PostgreSQL</title>
     <link>http://localhost:1313/tags/postgresql/</link>
-    <description>Recent content in PostgreSQL on user@cybrealm:~$</description>
-    <generator>Hugo</generator>
+    <description>Recent content in PostgreSQL on Cybrealm</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    
+	  <atom:link href="http://localhost:1313/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
     <item>
       <title>Regional CTI Dashboard</title>
       <link>http://localhost:1313/projects/regional-threat-intel/</link>
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+      
       <guid>http://localhost:1313/projects/regional-threat-intel/</guid>
-      <description>&lt;h1 id=&#34;project-status-production&#34;&gt;Project Status: [Production]&lt;/h1&gt;&#xA;&lt;h2 id=&#34;system-overview&#34;&gt;System Overview&lt;/h2&gt;&#xA;&lt;p&gt;The CTI Dashboard is a custom intelligence aggregation platform designed to combat alert fatigue. Unlike generic feeds, it filters specifically for APT groups and C2 infrastructure targeting a &lt;strong&gt;specific geographic region&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;&#xA;&lt;p&gt;The system runs on a containerized microservices architecture:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Core:&lt;/strong&gt; Python-based collectors acting as API glue.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Storage:&lt;/strong&gt; PostgreSQL (&lt;code&gt;threat_db&lt;/code&gt;) for structured IOC retention.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Visualization:&lt;/strong&gt; Grafana for real-time monitoring of active campaigns.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;custom-collectors&#34;&gt;Custom Collectors&lt;/h2&gt;&#xA;&lt;p&gt;I developed independent services for specific intelligence vectors:&lt;/p&gt;</description>
+      <description>
+        
+        
+        &lt;h1&gt;Project Status: [Production]&lt;/h1&gt;&lt;h2&gt;System Overview&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;system-overview&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#system-overview&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The CTI Dashboard is a custom intelligence aggregation platform designed to combat alert fatigue. Unlike generic feeds, it filters specifically for APT groups and C2 infrastructure targeting a &lt;strong&gt;specific geographic region&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2&gt;Architecture&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;architecture&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#architecture&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The system runs on a containerized microservices architecture:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Core:&lt;/strong&gt; Python-based collectors acting as API glue.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Storage:&lt;/strong&gt; PostgreSQL (&lt;code&gt;threat_db&lt;/code&gt;) for structured IOC retention.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Visualization:&lt;/strong&gt; Grafana for real-time monitoring of active campaigns.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Custom Collectors&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;custom-collectors&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#custom-collectors&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;I developed independent services for specific intelligence vectors:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;collector-news&lt;/code&gt;&lt;/strong&gt;: Parses RSS feeds and scores articles based on regional keywords.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;collector-ioc-threatfox&lt;/code&gt;&lt;/strong&gt;: Ingests technical indicators (IP/Hash) from ThreatFox.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;collector-otx&lt;/code&gt;&lt;/strong&gt;: Polls AlienVault OTX for &amp;ldquo;pulses&amp;rdquo; related to specific APTs.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;collector-c2feeds&lt;/code&gt;&lt;/strong&gt;: Automates the tracking of active Command &amp;amp; Control servers.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Integration: Cisco Stealthwatch&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;integration-cisco-stealthwatch&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#integration-cisco-stealthwatch&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;To operationalize the data, I built a direct integration for network security tools.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Method:&lt;/strong&gt; Created a read-only PostgreSQL user (&lt;code&gt;stealthwatch_user&lt;/code&gt;) allowed to query the &lt;code&gt;public&lt;/code&gt; schema.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Impact:&lt;/strong&gt; Allows the internal firewall/NDR to pull high-fidelity blocklists directly from the CTI database without manual export.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Deployment is managed via Docker Compose. Source code includes a custom importer for historical MaxMind and OTX data.&lt;/em&gt;&lt;/p&gt;
+
+      </description>
     </item>
+    
   </channel>
 </rss>

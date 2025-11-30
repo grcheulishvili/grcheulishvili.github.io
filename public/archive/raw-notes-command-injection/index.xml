@@ -1,18 +1,87 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>user@cybrealm:~$</title>
+    <title>Cybrealm – </title>
     <link>http://localhost:1313/archive/raw-notes-command-injection/</link>
-    <description>Recent content on user@cybrealm:~$</description>
-    <generator>Hugo</generator>
+    <description>Recent content on Cybrealm</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://localhost:1313/archive/raw-notes-command-injection/index.xml" rel="self" type="application/rss+xml" />
+    
+	  <atom:link href="http://localhost:1313/archive/raw-notes-command-injection/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
     <item>
       <title></title>
       <link>http://localhost:1313/archive/raw-notes-command-injection/1d1-os-command-injection-simple-case-portswigger-lab/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
       <guid>http://localhost:1313/archive/raw-notes-command-injection/1d1-os-command-injection-simple-case-portswigger-lab/</guid>
-      <description>&lt;h1 id=&#34;1d1---os-command-injection-simple-case-portswigger-lab&#34;&gt;1d1 - OS command injection, simple case [PortSwigger Lab]&lt;/h1&gt;&#xA;&lt;p&gt;This lab contains an OS command injection vulnerability in the product stock checker.&lt;/p&gt;&#xA;&lt;p&gt;The application executes a shell command containing user-supplied product and store IDs, and returns the raw output from the command in its response.&lt;/p&gt;&#xA;&lt;p&gt;To solve the lab, execute the &lt;code&gt;whoami&lt;/code&gt; command to determine the name of the current user.&lt;/p&gt;&#xA;&lt;h3 id=&#34;solution&#34;&gt;Solution:&lt;/h3&gt;&#xA;&lt;p&gt;So we got the application url &lt;code&gt;https://0a1a008c030d74ae82cb6698003a004a.web-security-academy.net/&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;Once again, it has a product page where &amp;lsquo;Check stock&amp;rsquo; function is implemented.&lt;/p&gt;</description>
+      <description>
+        
+        
+        &lt;h1&gt;1d1 - OS command injection, simple case [PortSwigger Lab]&lt;/h1&gt;&lt;p&gt;This lab contains an OS command injection vulnerability in the product stock checker.&lt;/p&gt;
+&lt;p&gt;The application executes a shell command containing user-supplied product and store IDs, and returns the raw output from the command in its response.&lt;/p&gt;
+&lt;p&gt;To solve the lab, execute the &lt;code&gt;whoami&lt;/code&gt; command to determine the name of the current user.&lt;/p&gt;
+&lt;h3&gt;Solution:&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;solution&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#solution&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;So we got the application url &lt;code&gt;https://0a1a008c030d74ae82cb6698003a004a.web-security-academy.net/&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Once again, it has a product page where &amp;lsquo;Check stock&amp;rsquo; function is implemented.&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240719175357.png&#34;&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;By checking HTPP request made by that button is as follows&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;pre&gt;&lt;code&gt;POST /product/stock HTTP/2
+Host: 0a1a008c030d74ae82cb6698003a004a.web-security-academy.net
+Cookie: session=SMwTtluydKMmnOH4phL6G00iGAwD2J9Q
+Content-Length: 21
+Sec-Ch-Ua: &amp;#34;Not/A)Brand&amp;#34;;v=&amp;#34;8&amp;#34;, &amp;#34;Chromium&amp;#34;;v=&amp;#34;126&amp;#34;
+Sec-Ch-Ua-Platform: &amp;#34;Windows&amp;#34;
+Accept-Language: en-US
+Sec-Ch-Ua-Mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.127 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: */*
+Origin: https://0a1a008c030d74ae82cb6698003a004a.web-security-academy.net
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://0a1a008c030d74ae82cb6698003a004a.web-security-academy.net/product?productId=2
+Accept-Encoding: gzip, deflate, br
+Priority: u=1, i
+
+productId=2&amp;amp;storeId=1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;on the bottom we got &lt;code&gt;productId=2&amp;amp;storeId=1&lt;/code&gt; which makes a request to an API with these parameters.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s change productID argument to &lt;code&gt;&amp;amp; echo hello &amp;amp;&lt;/code&gt; but with url encoding enabled&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240719183331.png&#34;&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;This request gives out the following output ![[Pasted image 20240719183415.png]] although it resulted in error, now we know the username &lt;code&gt;peter-3vyaW3&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;or the second way &lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240719183446.png&#34;&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;which yields the same response:&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/.gitbook/assets/Pasted%20image%2020240719183502.png&#34;&gt;
+&lt;/figure&gt;
+
+&lt;hr&gt;
+
+      </description>
     </item>
+    
   </channel>
 </rss>

@@ -1,5 +1,11 @@
-# Hacker Manifesto
-
+---
+title: "Hacker Manifesto"
+date: 2023-01-01
+type: page        
+layout: full       
+sidebar:
+  enable: false   
+---
 1. Hackers solve problems and build things. he believes in freedom and mutual help.
 2. To be accepted as a hacker, you have to behave as though you have this kind of attitude yourself. and to behave as such, you have to really believe the attitude.
 3. Becoming the kind of person who believes these things is important for *me* - to help me keep learning and stay motivated. 

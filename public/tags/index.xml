@@ -1,180 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on user@cybrealm:~$</title>
+    <title>Cybrealm – Tags</title>
     <link>http://localhost:1313/tags/</link>
-    <description>Recent content in Tags on user@cybrealm:~$</description>
-    <generator>Hugo</generator>
+    <description>Recent content in Tags on Cybrealm</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 28 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Assembly</title>
-      <link>http://localhost:1313/tags/assembly/</link>
-      <pubDate>Fri, 28 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/assembly/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Internals</title>
-      <link>http://localhost:1313/tags/internals/</link>
-      <pubDate>Fri, 28 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/internals/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Reverse Engineering</title>
-      <link>http://localhost:1313/tags/reverse-engineering/</link>
-      <pubDate>Fri, 28 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/reverse-engineering/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>C2</title>
-      <link>http://localhost:1313/tags/c2/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/c2/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>CTFd</title>
-      <link>http://localhost:1313/tags/ctfd/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/ctfd/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>CTI</title>
-      <link>http://localhost:1313/tags/cti/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/cti/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Databases</title>
-      <link>http://localhost:1313/tags/databases/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/databases/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Go</title>
-      <link>http://localhost:1313/tags/go/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/go/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Grafana</title>
-      <link>http://localhost:1313/tags/grafana/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/grafana/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Hardening</title>
-      <link>http://localhost:1313/tags/hardening/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/hardening/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Infrastructure</title>
-      <link>http://localhost:1313/tags/infrastructure/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/infrastructure/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Linux</title>
-      <link>http://localhost:1313/tags/linux/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/linux/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>MalDev</title>
-      <link>http://localhost:1313/tags/maldev/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/maldev/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Network Security</title>
-      <link>http://localhost:1313/tags/network-security/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/network-security/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Pentesting</title>
-      <link>http://localhost:1313/tags/pentesting/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/pentesting/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Polymorphism</title>
-      <link>http://localhost:1313/tags/polymorphism/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/polymorphism/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>PortSwigger</title>
-      <link>http://localhost:1313/tags/portswigger/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/portswigger/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>PostgreSQL</title>
-      <link>http://localhost:1313/tags/postgresql/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/postgresql/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Python</title>
-      <link>http://localhost:1313/tags/python/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/python/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>RCE</title>
-      <link>http://localhost:1313/tags/rce/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/rce/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Research</title>
-      <link>http://localhost:1313/tags/research/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/research/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>SQLi</title>
-      <link>http://localhost:1313/tags/sqli/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/sqli/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>SSRF</title>
-      <link>http://localhost:1313/tags/ssrf/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/ssrf/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Web Security</title>
-      <link>http://localhost:1313/tags/web-security/</link>
-      <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/web-security/</guid>
-      <description></description>
-    </item>
+    
+	  <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
   </channel>
 </rss>

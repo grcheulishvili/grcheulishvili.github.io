@@ -1,19 +1,208 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>user@cybrealm:~$</title>
+    <title>Cybrealm – </title>
     <link>http://localhost:1313/archive/notes/1-web-applications/</link>
-    <description>Recent content on user@cybrealm:~$</description>
-    <generator>Hugo</generator>
+    <description>Recent content on Cybrealm</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/archive/notes/1-web-applications/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 Jul 2024 00:00:00 +0000</lastBuildDate>
+    
+	  <atom:link href="http://localhost:1313/archive/notes/1-web-applications/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title></title>
+      <link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/</link>
+      <pubDate>Tue, 16 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/</guid>
+      <description>
+        
+        
+        &lt;h1&gt;1f - File Upload Vulnerabilities&lt;/h1&gt;&lt;p&gt;FUV is when a web server allows to upload files to its filesystem without proper validation - like their name, type, contents or size. Failing to fulfil these could cause an attacker to upload arbitrary and potentially dangerous file instead of image for example - this includes server-side script files that enable RCE.&lt;/p&gt;
+&lt;p&gt;In some cases, the act of uploading the file in itself can cause damage, in others - it may involve payload over HTTP&lt;/p&gt;
+&lt;p&gt;Given fairly clear dangers of FUV, developers commonly implement protection mechanisms, however developers also commonly implement what is believed to have robust validation mechanisms that is easily flawed or can be easily bypassed.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Blacklisting dangerous file types is not enough - it may not work in case filename is obfuscated&lt;/li&gt;
+&lt;li&gt;checking file attributes is not enough - file attributes can be easily manipulated&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;From a &lt;em&gt;security perspective&lt;/em&gt; the worst case would be if a website allows server-side script uploads such as Python, PHP, Ruby and is configured to run them as code. In this case it is easy to deploy a &lt;em&gt;Web Shell&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Web Shell is a script that allows an attacker to execute arbitrary commands on a remote server by simply sending HTTP requests to the right endpoint.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;An ability to upload a web shell, effectively leads to full control over the server.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;following PHP one-liner could be used to read files from the server&amp;rsquo;s filesystem:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;?php echo file_get_contents(&#39;/path/to/target/file&#39;); ?&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Once uploaded, sending a request for this malicious PHP script will return file&amp;rsquo;s contents in the response.&lt;/p&gt;
+&lt;p&gt;A more versatile web shell version:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;?php echo system($_GET[&#39;command&#39;]); ?&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This script allows to pass an arbitrary system command through query parameters as follows:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GET /example/exploit.php?command=id HTTP/1.1&lt;/code&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/</guid>
+      <description>
+        
+        
+        &lt;h1&gt;1a - Web Requests&lt;/h1&gt;&lt;p&gt;In this module, I learned that &lt;a href=&#34;https://datatracker.ietf.org/doc/html/rfc2616#autoid-1&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;HTTP&lt;/a&gt; is an application-level protocol used to exchange information between information systems.&lt;/p&gt;
+&lt;p&gt;This protocol works in a request-response mode.&lt;/p&gt;
+&lt;p&gt;It has 8 request types:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GET - Requests a specific resource from the server&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;1a1-http-requests.md&#34;&gt;HEAD&lt;/a&gt; - Requests only general data&lt;/li&gt;
+&lt;li&gt;POST - Requests to process the sent information and return the corresponding response&lt;/li&gt;
+&lt;li&gt;PUT - Requests to upload the sent information&lt;/li&gt;
+&lt;li&gt;DELETE - Requests to delete existing information from the server&lt;/li&gt;
+&lt;li&gt;CONNECT - This term is reserved for future versions of HTTP&lt;/li&gt;
+&lt;li&gt;TRACE - Requests feedback from the server regarding the status of the information&lt;/li&gt;
+&lt;li&gt;OPTIONS - Requests information about the connection to the server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The response has &lt;strong&gt;status codes&lt;/strong&gt; that reflect information about the satisfaction of the request. It provides a short text description using a 3-digit status code. The status code is used by the computer and the text description is used by a human.&lt;/p&gt;
+&lt;p&gt;Status codes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1xx - Informational
+&lt;ul&gt;
+&lt;li&gt;100 Continue&lt;/li&gt;
+&lt;li&gt;101 Switching Protocols&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;2xx - Successful
+&lt;ul&gt;
+&lt;li&gt;200 OK&lt;/li&gt;
+&lt;li&gt;201 Created&lt;/li&gt;
+&lt;li&gt;202 Accepted&lt;/li&gt;
+&lt;li&gt;203 Non-Authoritative Information&lt;/li&gt;
+&lt;li&gt;204 No Content&lt;/li&gt;
+&lt;li&gt;205 Reset Content&lt;/li&gt;
+&lt;li&gt;206 Partial Content&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;3xx - Redirect
+&lt;ul&gt;
+&lt;li&gt;300 Multiple Choices&lt;/li&gt;
+&lt;li&gt;301 Moved Permanently&lt;/li&gt;
+&lt;li&gt;302 Found&lt;/li&gt;
+&lt;li&gt;303 See Other&lt;/li&gt;
+&lt;li&gt;304 Not Modified&lt;/li&gt;
+&lt;li&gt;305 Use Proxy&lt;/li&gt;
+&lt;li&gt;306 Unused&lt;/li&gt;
+&lt;li&gt;307 Temporary Redirect&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;4xx - Client Error
+&lt;ul&gt;
+&lt;li&gt;400 Bad Request&lt;/li&gt;
+&lt;li&gt;401 Unauthorized&lt;/li&gt;
+&lt;li&gt;402 Payment Required&lt;/li&gt;
+&lt;li&gt;403 Forbidden&lt;/li&gt;
+&lt;li&gt;404 Not Found&lt;/li&gt;
+&lt;li&gt;405 Method Not Allowed&lt;/li&gt;
+&lt;li&gt;406 Not Acceptable&lt;/li&gt;
+&lt;li&gt;407 Proxy Authentication Required&lt;/li&gt;
+&lt;li&gt;408 Request Timeout&lt;/li&gt;
+&lt;li&gt;409 Conflict&lt;/li&gt;
+&lt;li&gt;410 Gone&lt;/li&gt;
+&lt;li&gt;411 Length Required&lt;/li&gt;
+&lt;li&gt;412 Precondition Failed&lt;/li&gt;
+&lt;li&gt;413 Request Entity Too Large&lt;/li&gt;
+&lt;li&gt;414 Request-URI Too Long&lt;/li&gt;
+&lt;li&gt;415 Unsupported Media Type&lt;/li&gt;
+&lt;li&gt;416 Requested Range Not Satisfiable&lt;/li&gt;
+&lt;li&gt;417 Expectation Failed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;5xx - Server Error
+&lt;ul&gt;
+&lt;li&gt;500 Internal Server Error&lt;/li&gt;
+&lt;li&gt;501 Not Implemented&lt;/li&gt;
+&lt;li&gt;502 Bad Gateway&lt;/li&gt;
+&lt;li&gt;503 Service Unavailable&lt;/li&gt;
+&lt;li&gt;504 Gateway Timeout&lt;/li&gt;
+&lt;li&gt;505 HTTP Version Not Supported&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
     <item>
       <title></title>
       <link>http://localhost:1313/archive/notes/1-web-applications/1b-owasp-top-10-2021/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
       <guid>http://localhost:1313/archive/notes/1-web-applications/1b-owasp-top-10-2021/</guid>
-      <description>&lt;h1 id=&#34;1b---owasp-top-10-2021&#34;&gt;1b - OWASP TOP 10 2021&lt;/h1&gt;&#xA;&lt;h2 id=&#34;1-broken-access-control&#34;&gt;1. Broken Access Control&lt;/h2&gt;&#xA;&lt;p&gt;An application has multiple access points from the outside. The goal of Access Control is to allow authorized users to access it and block unauthorized users. BAC means that an unauthorized user will gain access to the data of an authorized user. For example, by using an API.&lt;/p&gt;&#xA;&lt;h2 id=&#34;2-cryptographic-failures&#34;&gt;2. Cryptographic Failures&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Weak encryption of sensitive information or no encryption at all. &lt;/li&gt;&#xA;&lt;li&gt;Certificate management &lt;/li&gt;&#xA;&lt;li&gt;Downgrade attacks &lt;/li&gt;&#xA;&lt;li&gt;Automatic encryption (good) &amp;amp; automatic decryption (bad)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;3-injection&#34;&gt;3. Injection&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;LDAP&lt;/li&gt;&#xA;&lt;li&gt;SQL&lt;/li&gt;&#xA;&lt;li&gt;XSS&lt;/li&gt;&#xA;&lt;li&gt;Incorrect Sanitization&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;4-insecure-design&#34;&gt;4. Insecure Design&lt;/h2&gt;&#xA;&lt;p&gt;Related to application design and architectural flaws. Anything that can be exploited by an attacker to cause damage is Insecure Design.&lt;/p&gt;</description>
+      <description>
+        
+        
+        &lt;h1&gt;1b - OWASP TOP 10 2021&lt;/h1&gt;&lt;h2&gt;1. Broken Access Control&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;1-broken-access-control&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#1-broken-access-control&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;An application has multiple access points from the outside. The goal of Access Control is to allow authorized users to access it and block unauthorized users. BAC means that an unauthorized user will gain access to the data of an authorized user. For example, by using an API.&lt;/p&gt;
+&lt;h2&gt;2. Cryptographic Failures&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2-cryptographic-failures&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2-cryptographic-failures&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Weak encryption of sensitive information or no encryption at all. &lt;/li&gt;
+&lt;li&gt;Certificate management &lt;/li&gt;
+&lt;li&gt;Downgrade attacks &lt;/li&gt;
+&lt;li&gt;Automatic encryption (good) &amp;amp; automatic decryption (bad)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3. Injection&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3-injection&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3-injection&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;LDAP&lt;/li&gt;
+&lt;li&gt;SQL&lt;/li&gt;
+&lt;li&gt;XSS&lt;/li&gt;
+&lt;li&gt;Incorrect Sanitization&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;4. Insecure Design&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;4-insecure-design&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4-insecure-design&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Related to application design and architectural flaws. Anything that can be exploited by an attacker to cause damage is Insecure Design.&lt;/p&gt;
+&lt;h2&gt;5. Security Misconfiguration&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;5-security-misconfiguration&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#5-security-misconfiguration&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Non-latest features&lt;/li&gt;
+&lt;li&gt;Delayed Updates&lt;/li&gt;
+&lt;li&gt;Non-removed testing application on the server(have a known vulnerability, open ports)&lt;/li&gt;
+&lt;li&gt;error message(non-handled exceptions, detalis)&lt;/li&gt;
+&lt;li&gt;TLS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;6. Vulnerable and Outdated Components&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;6-vulnerable-and-outdated-components&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#6-vulnerable-and-outdated-components&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;know vulnerabilities&lt;/li&gt;
+&lt;li&gt;external components&lt;/li&gt;
+&lt;li&gt;external libraries&lt;/li&gt;
+&lt;li&gt;frameworks&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;7. Identification and Authentication Failures&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;7-identification-and-authentication-failures&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#7-identification-and-authentication-failures&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;User auth and identification problems&lt;/li&gt;
+&lt;li&gt;Session timeout&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;8. Software and Data Integrity Failures&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;8-software-and-data-integrity-failures&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#8-software-and-data-integrity-failures&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;basically it means making software changes without checking CI/CD integrity and authenticity.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;updates are not verified before updating - attacker can change software&lt;/li&gt;
+&lt;li&gt;monitoring software source was infiltrated and then pushed this compromised software to endpoints.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;9. Security Logging and Monitoring Failures&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;9-security-logging-and-monitoring-failures&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#9-security-logging-and-monitoring-failures&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;insufficient logging and monitoring&lt;/li&gt;
+&lt;li&gt;leaving out important asset monitoring and logging&lt;/li&gt;
+&lt;li&gt;alerts for suspicious activities&lt;/li&gt;
+&lt;li&gt;log file storage should not be only locally(backup)&lt;/li&gt;
+&lt;li&gt;alert threshold&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;10. Server Side Request Forgery&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;10-server-side-request-forgery&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#10-server-side-request-forgery&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;SSRF occurs when web application fetches remote resource without validating user-supplied request/url. fetching an url is common feature nowadays.&lt;/p&gt;
+&lt;p&gt;during SSRF an attacker FORGES a request that can retrieve unauthorized data from the server back to an attacker.&lt;/p&gt;
+
+      </description>
     </item>
+    
   </channel>
 </rss>

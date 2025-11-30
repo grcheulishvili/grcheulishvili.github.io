@@ -1,3 +1,6 @@
 [submodule "themes/hugo-xterm"]
 	path = themes/hugo-xterm
 	url = https://github.com/manid2/hugo-xterm.git
+[submodule "themes/hextra"]
+	path = themes/hextra
+	url = https://github.com/imfing/hextra.git

@@ -1,15 +1,22 @@
 ---
-title: "Home"
+title: "Cybrealm Operations"  
 date: 2025-11-27
-draft: false
+type: page
+layout: full
+toc: false                  
 ---
 
-## Security Engineer | Malware Development | Reverse Engineering
+<br>
+<div style="margin-top: -0.5rem; margin-bottom: 2rem; color: #9ca3af; font-size: 1.1rem; font-weight: 400;">
+  Security Engineer &nbsp;|&nbsp; Malware Dev &nbsp;|&nbsp; Reverse Engineering
+</div>
 
-I am an offensive security engineer bridging the gap between Red Team operations and Software Engineering.
+{{< cards >}}
+  {{< card link="research" title="🔬 Research" subtitle="Offensive Tooling & Experiments" >}}
+  {{< card link="engineering" title="⚙️ Engineering" subtitle="Infrastructure & Hardening" >}}
+  {{< card link="projects" title="🛡️ Projects" subtitle="Development" >}}
+  {{< card link="about" title="👤 Whoami" subtitle="About Me" >}}
+  {{< card link="manifesto" title="📜 Manifesto" subtitle="Manifesto" >}}
+{{< /cards >}}
 
-This site is a collection of my engineering logs. It documents the infrastructure I build, the malware I reverse engineer, and the tools I develop to understand offensive concepts from first principles.
-
-I believe that to truly understand a system, you must be able to build it—and break it—yourself.
-
----
+To truly understand a system, you must be able to build it—and break it—yourself.

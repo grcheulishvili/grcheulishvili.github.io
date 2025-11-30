@@ -1,19 +1,95 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PortSwigger on user@cybrealm:~$</title>
+    <title>Cybrealm – PortSwigger</title>
     <link>http://localhost:1313/tags/portswigger/</link>
-    <description>Recent content in PortSwigger on user@cybrealm:~$</description>
-    <generator>Hugo</generator>
+    <description>Recent content in PortSwigger on Cybrealm</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/portswigger/index.xml" rel="self" type="application/rss+xml" />
+    
+	  <atom:link href="http://localhost:1313/tags/portswigger/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
     <item>
       <title>Research: OS Command Injection Execution Flow</title>
       <link>http://localhost:1313/research/os-command-injection-patterns/</link>
       <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+      
       <guid>http://localhost:1313/research/os-command-injection-patterns/</guid>
-      <description>&lt;h2 id=&#34;injection-context&#34;&gt;Injection Context&lt;/h2&gt;&#xA;&lt;p&gt;Legacy applications often interface with the operating system using shell wrappers. A common pattern observed in inventory systems involves passing user IDs directly to backend scripts.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Vulnerable Logic:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;stockreport.pl &amp;lt;productID&amp;gt; &amp;lt;storeID&amp;gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If the application fails to sanitize &lt;code&gt;productID&lt;/code&gt;, the shell&amp;rsquo;s command separator logic can be abused to chain execution.&lt;/p&gt;&#xA;&lt;h2 id=&#34;shell-operator-chaining&#34;&gt;Shell Operator Chaining&lt;/h2&gt;&#xA;&lt;p&gt;The success of an injection depends on how the underlying shell interprets control operators:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;&lt;code&gt;&amp;amp;&lt;/code&gt; (Background):&lt;/strong&gt; Executes the preceding command and immediately moves to the next.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;&lt;code&gt;;&lt;/code&gt; (Sequence):&lt;/strong&gt; Executes commands strictly sequentially (Linux only).&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;&lt;code&gt;||&lt;/code&gt; (OR):&lt;/strong&gt; Executes the second command only if the first fails.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;assessment-case-study&#34;&gt;Assessment Case Study&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Target Endpoint:&lt;/strong&gt; &lt;code&gt;/product/stock&lt;/code&gt;&#xA;&lt;strong&gt;Method:&lt;/strong&gt; POST&lt;/p&gt;</description>
+      <description>
+        
+        
+        &lt;h2&gt;Injection Context&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;injection-context&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#injection-context&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Legacy applications often interface with the operating system using shell wrappers. A common pattern observed in inventory systems involves passing user IDs directly to backend scripts.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Vulnerable Logic:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stockreport.pl &amp;lt;productID&amp;gt; &amp;lt;storeID&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;If the application fails to sanitize &lt;code&gt;productID&lt;/code&gt;, the shell&amp;rsquo;s command separator logic can be abused to chain execution.&lt;/p&gt;
+&lt;h2&gt;Shell Operator Chaining&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;shell-operator-chaining&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#shell-operator-chaining&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The success of an injection depends on how the underlying shell interprets control operators:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;&amp;amp;&lt;/code&gt; (Background):&lt;/strong&gt; Executes the preceding command and immediately moves to the next.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;;&lt;/code&gt; (Sequence):&lt;/strong&gt; Executes commands strictly sequentially (Linux only).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;||&lt;/code&gt; (OR):&lt;/strong&gt; Executes the second command only if the first fails.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Assessment Case Study&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;assessment-case-study&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#assessment-case-study&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Target Endpoint:&lt;/strong&gt; &lt;code&gt;/product/stock&lt;/code&gt;
+&lt;strong&gt;Method:&lt;/strong&gt; POST&lt;/p&gt;
+&lt;p&gt;During analysis, I intercepted a stock check request. The backend expected a numeric &lt;code&gt;productId&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Injected Payload:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;productId=1 &amp;amp; whoami &amp;amp; storeId=1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Execution Flow on Server:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;stockreport.pl 1&lt;/code&gt; (Executed successfully)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;whoami&lt;/code&gt; (Injected command executed)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1&lt;/code&gt; (Remaining argument treated as command, likely failed)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Raw HTTP Response:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;ne&#34;&gt;OK&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/plain; charset=utf-8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;peter-3vyaW3&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The response confirmed code execution by returning the current user context (&lt;code&gt;peter-3vyaW3&lt;/code&gt;) alongside the standard application output.&lt;/p&gt;
+
+      </description>
     </item>
+    
   </channel>
 </rss>

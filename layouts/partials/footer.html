@@ -1,0 +1,37 @@
+<div class="terminal-status" style="
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(5, 5, 8, 0.95);
+    padding: 1rem 2rem;
+    margin-top: 4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(10px);
+">
+  <div style="display: flex; gap: 2rem;">
+    <span>
+      <span style="color: #10b981; animation: blink 2s infinite;">●</span> 
+      SYSTEM ONLINE
+    </span>
+    <span>
+      <span style="color: #a78bfa;">ID:</span> USER@CYBREALM
+    </span>
+    <span class="hidden-mobile">
+      <span style="color: #a78bfa;">LOC:</span> /VAR/WWW/LOGS
+    </span>
+  </div>
+
+  <div style="display: flex; gap: 2rem;">
+    <span class="hidden-mobile">ENCRYPTION: <span style="color: #e2e8f0;">TLS 1.3</span></span>
+    <span>UPTIME: <span style="color: #e2e8f0;">99.9%</span></span>
+  </div>
+</div>
+
+<style>
+  @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+  @media (max-width: 640px) { .hidden-mobile { display: none; } }
+</style>

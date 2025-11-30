@@ -1,0 +1,21 @@
+{{ $pages := .Page.Pages }}
+{{ with .Get "folder" }}
+  {{ $pages = (site.GetPage .).Pages }}
+{{ end }}
+
+<div class="hextra-cards" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+  {{ range $pages }}
+    <a class="hextra-card" href="{{ .RelPermalink }}" style="text-decoration: none; display: flex; flex-direction: column; height: 100%;">
+      <div class="hextra-card-content" style="flex-grow: 1; padding: 1.5rem;">
+        <span class="hextra-card-title" style="font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 0.5rem; color: var(--color-neutral-900, #e2e8f0);">
+           {{ .Title }}
+        </span>
+        {{ with .Params.description }}
+          <div class="hextra-card-subtitle" style="font-size: 0.9rem; color: #9ca3af;">
+            {{ . }}
+          </div>
+        {{ end }}
+      </div>
+    </a>
+  {{ end }}
+</div>

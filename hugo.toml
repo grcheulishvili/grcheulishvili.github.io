@@ -1,43 +1,35 @@
 baseURL = 'https://grcheulishvili.github.io/'
 languageCode = 'en-us'
-title = "user@cybrealm:~$"
-theme = "hugo-xterm"
+title = "Cybrealm"
+theme = "hextra"
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
 
 [params]
   description = "Security Engineer | MalDev | Go"
-  prompt = "[user@cybrealm] ~ $ "
-  centerTheme = true  # <--- ADD THIS LINE  
-  # Social links (appear as 'contacts' or similar in terminal themes)
-  # github = "grcheulishvili"
-  # linkedin = "your-linkedin"
+  
+  # Corrected Theme Settings
+  [params.theme]
+    default = "dark"
+    displayToggle = true
 
-[menu]
-  [[menu.main]]
-    name = "Home"
-    url = "/"
-    weight = 1
+  [params.search]
+    enable = true
+    type = "flexsearch"
 
-  [[menu.main]]
-    name = "Projects"
-    url = "/projects/"
-    weight = 2
+  [params.sidebar]
+    enable = true
+    autoCollapse = true
 
-  [[menu.main]]
-    name = "Research"
-    url = "/research/"
-    weight = 3
+  [params.footer]
+    enable = true
+    displayCopyright = true
 
-  [[menu.main]]
-    name = "Engineering"
-    url = "/engineering/"
-    weight = 4
-
-  [[menu.main]]
-    name = "Whoami"
-    url = "/about/"
-    weight = 5
-
-[params.terminal]
-  # Color scheme settings often go here depending on the specific xterm fork
-  # cursor = "_"
+  [params.navbar]
+    displayTitle = true
+    displayLogo = false

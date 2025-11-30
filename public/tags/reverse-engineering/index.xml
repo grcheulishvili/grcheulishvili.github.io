@@ -1,19 +1,153 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Reverse Engineering on user@cybrealm:~$</title>
+    <title>Cybrealm – Reverse Engineering</title>
     <link>http://localhost:1313/tags/reverse-engineering/</link>
-    <description>Recent content in Reverse Engineering on user@cybrealm:~$</description>
-    <generator>Hugo</generator>
+    <description>Recent content in Reverse Engineering on Cybrealm</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 28 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml" />
+    
+	  <atom:link href="http://localhost:1313/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
     <item>
       <title>Engineering Log: The Mechanical Inevitability of Buffer Overflows</title>
       <link>http://localhost:1313/research/stack-mechanics-and-overflows/</link>
       <pubDate>Fri, 28 Nov 2025 00:00:00 +0000</pubDate>
+      
       <guid>http://localhost:1313/research/stack-mechanics-and-overflows/</guid>
-      <description>&lt;h2 id=&#34;the-black-box-problem&#34;&gt;The &amp;ldquo;Black Box&amp;rdquo; Problem&lt;/h2&gt;&#xA;&lt;p&gt;For a long time, I treated assembly instructions like black boxes. I knew that &lt;code&gt;CALL&lt;/code&gt; started a function and &lt;code&gt;RET&lt;/code&gt; ended it. I knew that if I threw enough &amp;ldquo;A&amp;quot;s at a buffer, the program would crash.&lt;/p&gt;&#xA;&lt;p&gt;But I didn&amp;rsquo;t understand the &lt;em&gt;mechanics&lt;/em&gt; of the crash. I didn&amp;rsquo;t understand why the CPU—a machine built for precision—would so easily confuse my user input for a code address.&lt;/p&gt;</description>
+      <description>
+        
+        
+        &lt;h2&gt;The &amp;ldquo;Black Box&amp;rdquo; Problem&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;the-black-box-problem&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#the-black-box-problem&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;For a long time, I treated assembly instructions like black boxes. I knew that &lt;code&gt;CALL&lt;/code&gt; started a function and &lt;code&gt;RET&lt;/code&gt; ended it. I knew that if I threw enough &amp;ldquo;A&amp;quot;s at a buffer, the program would crash.&lt;/p&gt;
+&lt;p&gt;But I didn&amp;rsquo;t understand the &lt;em&gt;mechanics&lt;/em&gt; of the crash. I didn&amp;rsquo;t understand why the CPU—a machine built for precision—would so easily confuse my user input for a code address.&lt;/p&gt;
+&lt;p&gt;To fix this, I had to stop looking at the code and start looking at the &lt;strong&gt;Stack Pointer (&lt;code&gt;RSP&lt;/code&gt;)&lt;/strong&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;1. The Stage: Stack vs. Heap&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;1-the-stage-stack-vs-heap&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#1-the-stage-stack-vs-heap&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The first hurdle was visualizing memory correctly. We often say &amp;ldquo;Stack and Heap,&amp;rdquo; but they are essentially opposites in behavior.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The Heap (The Warehouse):&lt;/strong&gt; This is where you manually ask for space (&lt;code&gt;malloc&lt;/code&gt;). It grows &lt;strong&gt;UP&lt;/strong&gt; (from low memory addresses to high ones). It&amp;rsquo;s messy, flexible, and persistent.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Stack (The Workbench):&lt;/strong&gt; This is where the CPU does its immediate work. It is automatic, strictly ordered, and—crucially—it grows &lt;strong&gt;DOWN&lt;/strong&gt; (from high memory addresses to low ones).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This &amp;ldquo;downward growth&amp;rdquo; is the key. When a function needs space for variables, it doesn&amp;rsquo;t &amp;ldquo;add&amp;rdquo; memory. It &lt;strong&gt;subtracts&lt;/strong&gt; from the Stack Pointer to carve out a scratchpad. When the two overlap, that&amp;rsquo;s when the memory is said to be &amp;ldquo;exhausted&amp;rdquo;.&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/.gitbook/assets/stack-heap-vis.png&#34;
+    alt=&#34;data&#34;&gt;
+&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;h2&gt;2. The Choreography of RSP&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;2-the-choreography-of-rsp&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#2-the-choreography-of-rsp&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The Stack Pointer (&lt;code&gt;RSP&lt;/code&gt;) isn&amp;rsquo;t just a cursor; it is the &lt;strong&gt;boundary line&lt;/strong&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Everything &lt;strong&gt;above&lt;/strong&gt; &lt;code&gt;RSP&lt;/code&gt; (Higher Addresses) is &amp;ldquo;Saved Data&amp;rdquo; (things we want to keep, like return addresses).&lt;/li&gt;
+&lt;li&gt;Everything &lt;strong&gt;below&lt;/strong&gt; &lt;code&gt;RSP&lt;/code&gt; (Lower Addresses) is &amp;ldquo;Volatile Space&amp;rdquo; (garbage memory waiting to be used).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When we execute instructions, we are just moving this boundary line.&lt;/p&gt;
+&lt;h3&gt;Allocation is Subtraction&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;allocation-is-subtraction&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#allocation-is-subtraction&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;In high-level languages, we declare variables. In Assembly, we just move the line.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SUB RSP, 0x20&lt;/code&gt;: This creates a 32-byte buffer. We didn&amp;rsquo;t &amp;ldquo;create&amp;rdquo; anything; we just slid the &lt;code&gt;RSP&lt;/code&gt; down 32 bytes and said, &amp;ldquo;This space is now mine.&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ADD RSP, 0x20&lt;/code&gt;: This &amp;ldquo;frees&amp;rdquo; the buffer. We slide the &lt;code&gt;RSP&lt;/code&gt; back up. The data is technically still there, but it is now in the &amp;ldquo;Volatile&amp;rdquo; zone, ready to be overwritten by the next function.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/.gitbook/assets/stack-claim.png&#34;
+    alt=&#34;data&#34;&gt;
+&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;h2&gt;3. The Conflict: Writing vs. Allocating&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;3-the-conflict-writing-vs-allocating&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#3-the-conflict-writing-vs-allocating&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;To understand the failure, look at this simple C program:&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// The vulnerability lives here
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xbeef&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nf&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xfeeb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;When &lt;code&gt;main&lt;/code&gt; calls &lt;code&gt;func()&lt;/code&gt;, the following mechanical steps happen at the Assembly level:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;call func&lt;/code&gt; — Initiating a &lt;code&gt;CALL&lt;/code&gt; does two things. First, it executes &lt;code&gt;PUSH RIP&lt;/code&gt;. It takes the &lt;em&gt;next&lt;/em&gt; instruction address (the one after the call) and pushes it onto the stack. This is the &lt;strong&gt;Saved Return Address&lt;/strong&gt;. Then, it executes &lt;code&gt;JMP func&lt;/code&gt; to &amp;ldquo;teleport&amp;rdquo; the CPU to the function.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sub rsp, 28h&lt;/code&gt; — Inside &lt;code&gt;func&lt;/code&gt;, the Stack Pointer (&lt;code&gt;RSP&lt;/code&gt;) moves &lt;strong&gt;DOWN&lt;/strong&gt;. Subtracting in this context means moving the &lt;code&gt;RSP&lt;/code&gt; to a lower memory address—essentially freeing up space for our &lt;code&gt;buffer&lt;/code&gt; and other operations.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Write Operation&lt;/strong&gt; — This is where the user input happens (e.g., &lt;code&gt;strcpy&lt;/code&gt; or &lt;code&gt;gets&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RET&lt;/code&gt; — When &lt;code&gt;func()&lt;/code&gt; is finished, it executes &lt;code&gt;RET&lt;/code&gt;. This instruction does one simple thing: &lt;code&gt;POP RIP&lt;/code&gt;. It looks at the top of the stack, takes the value sitting there (which &lt;em&gt;should&lt;/em&gt; be the &lt;strong&gt;Saved Return Address&lt;/strong&gt;), and jams it into the Instruction Pointer (&lt;code&gt;RIP&lt;/code&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;The Mechanical Failure&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;the-mechanical-failure&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#the-mechanical-failure&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;This is the specific realization that made everything click for me. There is a fundamental conflict in direction:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;The Stack grows DOWN:&lt;/strong&gt; We allocate space by moving &lt;code&gt;RSP&lt;/code&gt; to &lt;strong&gt;Lower Addresses&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Buffers write UP:&lt;/strong&gt; When we write data into an array (like &amp;ldquo;Hello&amp;rdquo;), we write from the start (&lt;strong&gt;Low Address&lt;/strong&gt;) to the end (&lt;strong&gt;High Address&lt;/strong&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If we visualize the memory during the &amp;ldquo;Write Operation&amp;rdquo;, the collision becomes obvious.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Memory Layout on Stack (High to Low Addresses):&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[ 0x00007fffffffe018 ]  &amp;lt;-- Saved Return Address (Pushed by CALL)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[ 0x00007fffffffe010 ]  &amp;lt;-- Old Base Pointer (Saved RBP)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[ 0x00007fffffffe000 ]  &amp;lt;-- Start of &amp;#39;buffer&amp;#39; (RSP is here)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;If we write 8 bytes (&amp;ldquo;ABCDEFGH&amp;rdquo;), we fill the buffer perfectly up to &lt;code&gt;0x...008&lt;/code&gt;.
+But if we write &lt;strong&gt;input code&lt;/strong&gt; that is longer than 16 bytes:&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code&#34;&gt;
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Input: &amp;#34;AAAAAAAAAAAAAAAA&amp;#34; + &amp;#34;BBBBBBBB&amp;#34; + &amp;#34;DEADBEEF&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx:opacity-0 hx:transition hx:group-hover/code:opacity-100 hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx:group/copybtn hx:cursor-pointer hx:transition-all hx:active:opacity-50 hx:bg-primary-700/5 hx:border hx:border-black/5 hx:text-gray-600 hx:hover:text-gray-900 hx:rounded-md hx:p-1.5 hx:dark:bg-primary-300/10 hx:dark:border-white/10 hx:dark:text-gray-400 hx:dark:hover:text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;hextra-copy-icon hx:group-[.copied]/copybtn:hidden hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+&lt;div class=&#34;hextra-success-icon hx:hidden hx:group-[.copied]/copybtn:block hx:pointer-events-none hx:h-4 hx:w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The write operation starts at the bottom and climbs &lt;strong&gt;UP&lt;/strong&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ldquo;AAAAAAAAAAAAAAAA&amp;rdquo;&lt;/strong&gt; fills the buffer and the padding.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ldquo;BBBBBBBB&amp;rdquo;&lt;/strong&gt; overwrites the Old Base Pointer.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ldquo;DEADBEEF&amp;rdquo;&lt;/strong&gt; overwrites the &lt;strong&gt;Saved Return Address&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;When &lt;code&gt;RET&lt;/code&gt; executes, it doesn&amp;rsquo;t know the stack was corrupted. It just pops &lt;code&gt;0xDEADBEEF&lt;/code&gt; into &lt;code&gt;RIP&lt;/code&gt;, and execution jumps to our malicious address at &lt;code&gt;0xDEADBEEF&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;4. The Blind Trust of &lt;code&gt;RET&lt;/code&gt;&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;4-the-blind-trust-of-ret&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#4-the-blind-trust-of-ret&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;When the function finishes, it executes &lt;code&gt;RET&lt;/code&gt;. This is the moment the exploit triggers.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;RET&lt;/code&gt; is a mechanical instruction. It does exactly one thing:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It looks at where &lt;code&gt;RSP&lt;/code&gt; is pointing.&lt;/li&gt;
+&lt;li&gt;It takes the value sitting there.&lt;/li&gt;
+&lt;li&gt;It jams that value into the Instruction Pointer (&lt;code&gt;RIP&lt;/code&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;The logic flaw is simple:&lt;/strong&gt; &lt;code&gt;RET&lt;/code&gt; does not check &lt;em&gt;what&lt;/em&gt; it is popping. It assumes that because the value was on the stack, it must be valid.&lt;/p&gt;
+&lt;p&gt;If we managed to overwrite that slot with &lt;code&gt;0xDEADBEEF&lt;/code&gt;, the CPU doesn&amp;rsquo;t see &amp;ldquo;garbage data.&amp;rdquo; It sees &amp;ldquo;The address I must go to next.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;It blindly jumps to &lt;code&gt;0xDEADBEEF&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;span class=&#34;hx:absolute hx:-mt-20&#34; id=&#34;conclusion&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#conclusion&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Buffer overflows aren&amp;rsquo;t magic. They are the result of a mechanical collision between two opposing forces: the stack allocating downwards, and data writing upwards.&lt;/p&gt;
+&lt;p&gt;To hijack execution, we don&amp;rsquo;t need to &amp;ldquo;hack&amp;rdquo; the software logic. We just need to replace the top of the stack with our own address, and wait for the CPU to blindly follow instructions.&lt;/p&gt;
+
+      </description>
     </item>
+    
   </channel>
 </rss>
