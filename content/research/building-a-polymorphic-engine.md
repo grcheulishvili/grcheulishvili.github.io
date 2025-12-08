@@ -26,8 +26,7 @@ Renaming a file isn't polymorphism. I needed to change the code itself.
 
 I avoided regex or unstable string replacement scripts to modify the code because they are too prone to syntax errors. I needed to manipulate the code the way the compiler sees it: as an **Abstract Syntax Tree (AST)**.
 
-
-My goal was to build a pre-compiler tool that rewrites the Go source code logic before the binary is built.
+My goal was to build a pre-compiler tool that rewrites the Go source code logic before the binary is built. This required three distinct steps: altering the structure, hiding the data, and injecting the decryption logic.
 
 ### 1\. Reverse Engineering the Compiler's View
 
@@ -58,48 +57,49 @@ func hello() string {
 
 This dump became the blueprint. I wasn't writing text anymore; I was constructing struct objects that represented code.
 
-### 2\. Breaking the Hash - Junk Injection
+### 2\. Breaking the Hash: Junk Injection
 
-To change the byte offsets of the functions, I wrote a generator that inserts randomized arithmetic operations.
+The first step to changing the binary signature is altering the byte offsets of the functions. To do this, I wrote a generator that inserts randomized arithmetic operations.
 
-Crude implementation, I know. could be done in an easier way. But for conceptualization on a granular level, I prefer this way.
+(Crude implementation, I know. It could be done in an easier way. But for conceptualization on a granular level, I prefer this way.)
+
 ```go
 // Generates: _ = <RAND> <OP> <RAND>
 func generateJunk() ast.Stmt {
 
-	allowedTokens := []token.Token{token.ADD, token.SUB, token.MUL}
+    allowedTokens := []token.Token{token.ADD, token.SUB, token.MUL}
 
-	lhs := []ast.Expr{
-		&ast.Ident{
-			// the token has not position hence token.NoPos
-			NamePos: token.NoPos,
-			Name:    "_",
-		},
-	}
-	rhs := []ast.Expr{
-		&ast.BinaryExpr{
-			X: &ast.BasicLit{
-				ValuePos: token.NoPos,
-				Kind:     token.INT,
-				Value:    strconv.Itoa(rand.IntN(1000)),
-			},
-			OpPos: token.NoPos,
-			Op:    allowedTokens[(rand.IntN(len(allowedTokens)))],
-			Y: &ast.BasicLit{
-				ValuePos: token.NoPos,
-				Kind:     token.INT,
-				Value:    strconv.Itoa(rand.IntN(1000)),
-			},
-		},
-	}
-	stm := &ast.AssignStmt{
-		Lhs:    lhs,
-		TokPos: token.NoPos,
-		Tok:    token.ASSIGN,
-		Rhs:    rhs,
-	}
+    lhs := []ast.Expr{
+        &ast.Ident{
+            // the token has not position hence token.NoPos
+            NamePos: token.NoPos,
+            Name:    "_",
+        },
+    }
+    rhs := []ast.Expr{
+        &ast.BinaryExpr{
+            X: &ast.BasicLit{
+                ValuePos: token.NoPos,
+                Kind:     token.INT,
+                Value:    strconv.Itoa(rand.IntN(1000)),
+            },
+            OpPos: token.NoPos,
+            Op:    allowedTokens[(rand.IntN(len(allowedTokens)))],
+            Y: &ast.BasicLit{
+                ValuePos: token.NoPos,
+                Kind:     token.INT,
+                Value:    strconv.Itoa(rand.IntN(1000)),
+            },
+        },
+    }
+    stm := &ast.AssignStmt{
+        Lhs:    lhs,
+        TokPos: token.NoPos,
+        Tok:    token.ASSIGN,
+        Rhs:    rhs,
+    }
 
-	return stm
+    return stm
 }
 ```
 
@@ -107,7 +107,7 @@ I didn't just dump this math into the function body, as the compiler might optim
 
 ### 3\. Killing String Signatures
 
-Junk code handles the hash, but cleartext strings like `"cmd.exe"` are instant flags. I needed to find every string and encrypt it.
+Junk code handles the structure, but cleartext strings like `"cmd.exe"` are still visible to `strings` or YARA. I needed to find every string and encrypt it.
 
 I used `golang.org/x/tools/go/ast/astutil` to walk the tree. My first attempt was a disaster—I tried to blindly replace *every* string literal I found. This caused the compiler to panic because I accidentally tried to mutate `import "fmt"` into `import xor("fmt")`. In Go's AST, import paths are rigid types, not flexible expressions.
 
@@ -118,9 +118,7 @@ I fixed this by filtering the walker to ignore `ImportSpec` nodes and only targe
 1.  Find `*ast.BasicLit` nodes where `Kind == STRING`.
 2.  Ignore them if the parent is an `import`.
 3.  XOR encrypt the string value.
-4.  **Swap the Node:** Replace the string literal with a function call: `xor("encrypted_blob")`.
-
-<!-- end list -->
+4.  Replace the string literal with a function call: `xor("encrypted_blob")`.
 
 ```go
 astutil.Apply(node, func(c *astutil.Cursor) bool {
@@ -138,9 +136,11 @@ astutil.Apply(node, func(c *astutil.Cursor) bool {
 }, nil)
 ```
 
-### 4. Making It Portable
+### 4\. Making It Portable
 
-For the generated code to compile, the target binary needs the `xor` helper function to decrypt the strings at runtime. I didn't want to copy-paste it manually every time, so I wrote an injector. This function parses a template string of the `xor` function and grafts the entire `*ast.FuncDecl` onto the bottom of the target file's AST programmatically.
+We have successfully mutated the strings into `xor(...)` calls, but the target code doesn't actually *have* an `xor` function yet. If we tried to build it now, it would fail.
+
+I wrote an injector that parses a template string of the `xor` helper function and grafts the entire `*ast.FuncDecl` onto the bottom of the target file's AST programmatically. This makes the malware self-contained.
 
 ## The Verdict
 
@@ -148,14 +148,14 @@ I ran the mutator against a sample agent three times to generate three variants.
 
 **The Source Transformation:**
 
-The engine successfully injected Opaque Predicates and wrapped the strings.
+Here is how the pieces combine. The engine injected Opaque Predicates (Step 2), wrapped the strings (Step 3), and injected the helper (Step 4).
 
 ```go
 func hello() string {
-    // Strings are now hidden
+    // Step 3: Strings are now hidden
     message := xor("\xc2\xcf\xc6...") 
     
-    // Junk code changes the stack frame
+    // Step 2: Junk code changes the stack frame
     if 1 == 1 {
         _ = 552 + 256
     } else {
@@ -164,6 +164,9 @@ func hello() string {
 
     return message
 }
+
+// Step 4: The injected helper
+func xor(input string) string { ... }
 ```
 
 **The Proof:**
