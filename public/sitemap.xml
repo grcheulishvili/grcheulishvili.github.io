@@ -3,21 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/tags/assembly/</loc>
-    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+    <lastmod>2025-12-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/research/stack-mechanics-and-overflows/</loc>
-    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/research/building-a-polymorphic-engine/</loc>
+    <lastmod>2025-12-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/exploit-development/</loc>
+    <lastmod>2025-12-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/internals/</loc>
-    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+    <lastmod>2025-12-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/research/</loc>
-    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+    <lastmod>2025-12-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/reverse-engineering/</loc>
-    <lastmod>2025-11-28T00:00:00+00:00</lastmod>
+    <lastmod>2025-12-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-12-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/research/stack-mechanics-and-overflows/</loc>
     <lastmod>2025-11-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/projects/local-ctf-platform/</loc>
@@ -143,6 +149,9 @@
     <loc>http://localhost:1313/engineering/</loc>
     <lastmod>2024-05-12T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/manifesto/</loc>
+    <lastmod>2023-01-01T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/about/</loc>
     <lastmod>2023-01-01T00:00:00+00:00</lastmod>
   </url><url>
@@ -177,8 +186,6 @@
     <loc>http://localhost:1313/archive/raw-notes-ssrf/</loc>
   </url><url>
     <loc>http://localhost:1313/archive/useful-cheatsheet-for-pentesting/</loc>
-  </url><url>
-    <loc>http://localhost:1313/manifesto/</loc>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url>

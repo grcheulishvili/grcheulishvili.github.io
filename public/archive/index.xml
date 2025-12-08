@@ -2720,21 +2720,18 @@ stockApi=http://192.168.0.68/admin&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div c
 &lt;/ol&gt;
 &lt;blockquote&gt;
   &lt;p&gt;Take note of every newly discovered vulnerabilities, targets or points of access, IP addresses, usernames, passwords, source code, etc. that you identified and are related to the penetration testing engagement and process.&lt;/p&gt;
-
 &lt;/blockquote&gt;
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;Ideas for further tests and processing&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
   &lt;p&gt;You are processing hundreds if not thousands of data stream during penetration testing. It&amp;rsquo;s good record ideas that may be fleeting in the moment and may forget about it later.&lt;/p&gt;
-
 &lt;/blockquote&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;Scan results&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
   &lt;p&gt;With such a large amount of information in a short time, one can quickly feel overwhelmed. It is not easy at first to filter out the most critical pieces of information. So tracking details like this may come in handy.&lt;/p&gt;
-
 &lt;/blockquote&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Logging&lt;/li&gt;
@@ -2754,14 +2751,12 @@ stockApi=http://192.168.0.68/admin&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div c
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;This will start a script logging and will save it in &lt;code&gt;03-21-2021-0200pm-exploitation.log&lt;/code&gt; file for later assessment. if you want to end recording type &lt;code&gt;exit&lt;/code&gt; on the command line.&lt;/p&gt;
-
 &lt;/blockquote&gt;
 &lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;Screenshots&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
   &lt;p&gt;Screenshots serve as a momentary record and represent proof of results obtained that may not be possible to describe using words.&lt;/p&gt;
-
 &lt;/blockquote&gt;
 &lt;p&gt;Under Windows, the &lt;a href=&#34;https://docs.microsoft.com/en-us/sysinternals&#34;target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;SysInternals Tools suite&lt;/a&gt; is a set of portable Windows applications that can be used to administer Windows systems (for the most part without requiring installation). The tools can be either downloaded from the Microsoft website or by loading them directly from an internet-accessible file share by typing &lt;code&gt;\\live.sysinternals.com\tools&lt;/code&gt; into a Windows Explorer window.&lt;/p&gt;
 &lt;p&gt;For example, we can run &lt;code&gt;procdump.exe&lt;/code&gt; directly without downloading it to disk like so:&lt;/p&gt;

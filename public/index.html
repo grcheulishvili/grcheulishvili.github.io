@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr"><head>
-	<meta name="generator" content="Hugo 0.152.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.150.1"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, nofollow" />
   <link rel="icon shortcut" href="/favicon.ico" sizes="32x32" />
@@ -29,19 +29,46 @@
 
 
   <meta itemprop="name" content="Cybrealm Operations">
-  <meta itemprop="description" content="Security Engineer  |  Malware Dev  |  Reverse Engineering 🔬 ResearchOffensive Tooling &amp; Experiments ⚙️ EngineeringInfrastructure &amp; Hardening 🛡️ ProjectsDevelopment 👤 WhoamiAbout Me 📜 ManifestoManifesto To truly understand a system, you must be able to build it—and break it—yourself.">
+  <meta itemprop="description" content="Security Engineer  |  Malware Dev  |  Reverse Engineering🔬 ResearchOffensive Tooling &amp; Experiments⚙️ EngineeringInfrastructure &amp; Hardening🛡️ ProjectsDevelopment👤 WhoamiAbout Me📜 ManifestoManifestoTo truly understand a system, you must be able to build it—and break it—yourself.">
   <meta itemprop="datePublished" content="2025-11-27T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-11-27T00:00:00+00:00">
   <meta itemprop="wordCount" content="38">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Cybrealm Operations">
-  <meta name="twitter:description" content="Security Engineer  |  Malware Dev  |  Reverse Engineering 🔬 ResearchOffensive Tooling &amp; Experiments ⚙️ EngineeringInfrastructure &amp; Hardening 🛡️ ProjectsDevelopment 👤 WhoamiAbout Me 📜 ManifestoManifesto To truly understand a system, you must be able to build it—and break it—yourself.">
+  <meta name="twitter:description" content="Security Engineer  |  Malware Dev  |  Reverse Engineering🔬 ResearchOffensive Tooling &amp; Experiments⚙️ EngineeringInfrastructure &amp; Hardening🛡️ ProjectsDevelopment👤 WhoamiAbout Me📜 ManifestoManifestoTo truly understand a system, you must be able to build it—and break it—yourself.">
 <link href="/css/compiled/main.css" rel="stylesheet" />
     <link href="/css/variables.css" rel="stylesheet" />
     <link href="/css/custom.css" rel="stylesheet" />
 
   
-<script src="/js/main-head.js" integrity=""></script>
+
+
+  <script>
+    
+
+    function setTheme(theme) {
+      document.documentElement.classList.remove("light", "dark");
+
+      if (theme !== "light" && theme !== "dark") {
+       theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+
+      document.documentElement.classList.add(theme);
+      document.documentElement.style.colorScheme = theme;
+    }
+
+    setTheme("color-theme" in localStorage ? localStorage.getItem("color-theme") : 'dark')
+
+  </script>
+
+  <script>
+    
+
+    if (localStorage.getItem('banner-closed')) {
+      document.documentElement.style.setProperty("--hextra-banner-height", "0px");
+      document.documentElement.classList.add("hextra-banner-hidden");
+    }
+  </script>
 
   
   
@@ -101,6 +128,14 @@
         <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="hx:h-[18px] hx:min-w-[18px] hx:rounded-xs hx:p-0.5 hx:hover:bg-gray-800/5 hx:dark:hover:bg-gray-100/5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="hx:origin-center hx:transition-transform hx:rtl:-rotate-180"></path></svg></span>
     </a><div class="hx:ltr:pr-0 hx:overflow-hidden">
         <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/research/building-a-polymorphic-engine/"
+    
+  >Why Hash Mutation Fails (And How to Build a True Polymorphic Engine)
+    </a>
+              
+            </li><li class="hx:flex hx:flex-col "><a
     class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
     href="/research/stack-mechanics-and-overflows/"

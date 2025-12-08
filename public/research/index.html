@@ -27,9 +27,9 @@
 
   <meta itemprop="name" content="Research">
   <meta itemprop="description" content="Active research into offensive capabilities.">
-  <meta itemprop="datePublished" content="2025-11-28T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2025-11-28T00:00:00+00:00">
-  <meta itemprop="wordCount" content="102">
+  <meta itemprop="datePublished" content="2025-12-02T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-12-02T00:00:00+00:00">
+  <meta itemprop="wordCount" content="127">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Research">
   <meta name="twitter:description" content="Active research into offensive capabilities.">
@@ -38,7 +38,34 @@
     <link href="/css/custom.css" rel="stylesheet" />
 
   
-<script src="/js/main-head.js" integrity=""></script>
+
+
+  <script>
+    
+
+    function setTheme(theme) {
+      document.documentElement.classList.remove("light", "dark");
+
+      if (theme !== "light" && theme !== "dark") {
+       theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+
+      document.documentElement.classList.add(theme);
+      document.documentElement.style.colorScheme = theme;
+    }
+
+    setTheme("color-theme" in localStorage ? localStorage.getItem("color-theme") : 'dark')
+
+  </script>
+
+  <script>
+    
+
+    if (localStorage.getItem('banner-closed')) {
+      document.documentElement.style.setProperty("--hextra-banner-height", "0px");
+      document.documentElement.classList.add("hextra-banner-hidden");
+    }
+  </script>
 
   
   
@@ -99,6 +126,14 @@
     </a>
   <div class="hx:ltr:pr-0 hx:overflow-hidden">
         <ul class='hx:relative hx:flex hx:flex-col hx:gap-1 hx:before:absolute hx:before:inset-y-1 hx:before:w-px hx:before:bg-gray-200 hx:before:content-[""] hx:ltr:ml-3 hx:ltr:pl-3 hx:ltr:before:left-0 hx:rtl:mr-3 hx:rtl:pr-3 hx:rtl:before:right-0 hx:dark:before:bg-neutral-800'><li class="hx:flex hx:flex-col "><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/research/building-a-polymorphic-engine/"
+    
+  >Why Hash Mutation Fails (And How to Build a True Polymorphic Engine)
+    </a>
+              
+            </li><li class="hx:flex hx:flex-col "><a
     class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
     href="/research/stack-mechanics-and-overflows/"
@@ -436,6 +471,13 @@
           <li class=""><a
     class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
       hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
+    href="/research/building-a-polymorphic-engine/"
+    
+  >Why Hash Mutation Fails (And How to Build a True Polymorphic Engine)
+    </a></li>
+          <li class=""><a
+    class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50"
     href="/research/stack-mechanics-and-overflows/"
     
   >Engineering Log: The Mechanical Inevitability of Buffer Overflows
@@ -541,6 +583,19 @@
 
 
 <div class="hextra-cards" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+  
+    <a class="hextra-card" href="/research/building-a-polymorphic-engine/" style="text-decoration: none; display: flex; flex-direction: column; height: 100%;">
+      <div class="hextra-card-content" style="flex-grow: 1; padding: 1.5rem;">
+        <span class="hextra-card-title" style="font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 0.5rem; color: var(--color-neutral-900, #e2e8f0);">
+           Why Hash Mutation Fails (And How to Build a True Polymorphic Engine)
+        </span>
+        
+          <div class="hextra-card-subtitle" style="font-size: 0.9rem; color: #9ca3af;">
+            A comparative analysis of build-time hash mutation versus AST-based code obfuscation in Go.
+          </div>
+        
+      </div>
+    </a>
   
     <a class="hextra-card" href="/research/stack-mechanics-and-overflows/" style="text-decoration: none; display: flex; flex-direction: column; height: 100%;">
       <div class="hextra-card-content" style="flex-grow: 1; padding: 1.5rem;">
