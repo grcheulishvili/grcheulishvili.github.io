@@ -149,3 +149,5 @@ e84808...1af *agent_1.exe
 This experiment proved that true polymorphism requires shifting the byte-level structure of the binary. By treating source code as a data structure rather than text, we can generate functionally identical but structurally unique variants for every deployment.
 
 If you want to beat modern EDR, stop writing Makefiles and start writing compiler middleware.
+
+> *The code demonstrated above is a simplified proof-of-concept. My internal production engine expands on this logic to handle recursive directory processing, collision avoidance for multi-file packages, and per-file encryption key rotation. I have omitted those features here to keep the code readable and to prevent direct weaponization.*
