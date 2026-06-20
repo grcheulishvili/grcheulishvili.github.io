@@ -23,7 +23,7 @@ summaryLength = 30
     ordered = false
 
 [params]
-  description = "Systems and infrastructure engineering — automation, containerization, and offensive security."
+  description = "Systems and infrastructure engineering - automation, containerization, and offensive security."
   [params.author]
     name = "Giorgi Rcheulishvili"
     email = ""
@@ -39,7 +39,7 @@ summaryLength = 30
     weight = 1
     title = "G.R"
     [languages.en.params]
-      description = "Systems and infrastructure engineering — automation, containerization, and offensive security."
+      description = "Systems and infrastructure engineering - automation, containerization, and offensive security."
     [languages.en.params.hero]
       command = "whoami"
       name = "Giorgi Rcheulishvili"

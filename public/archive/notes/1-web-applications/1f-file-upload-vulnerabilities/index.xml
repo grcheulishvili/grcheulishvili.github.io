@@ -1,4 +1,45 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>File Upload Vulnerabilities on G.R</title><link>https://grcheulishvili.github.io/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/</link><description>Recent content in File Upload Vulnerabilities on G.R</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Tue, 16 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://grcheulishvili.github.io/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/index.xml" rel="self" type="application/rss+xml"/><item><title>Web shell upload via extension blacklist bypass [PortSwigger Lab]</title><link>https://grcheulishvili.github.io/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/</link><pubDate>Tue, 16 Jul 2024 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/</guid><description>&lt;p&gt;This lab contains a vulnerable image upload function. Certain file extensions are blacklisted, but this defense can be bypassed due to a fundamental flaw in the configuration of this blacklist.&lt;/p&gt;</description></item><item><title>Web shell upload via Path Traversal [PortSwigger Lab]</title><link>https://grcheulishvili.github.io/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/</link><pubDate>Tue, 09 Jul 2024 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/</guid><description>&lt;p&gt;This lab contains a vulnerable image upload function. The server is configured to prevent execution of user-supplied files, but this restriction can be bypassed by exploiting a secondary vulnerability.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;</description></item><item><title>Web shell upload via Content-Type restriction bypass [Portswigger Lab]</title><link>https://grcheulishvili.github.io/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/</link><pubDate>Sat, 06 Jul 2024 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/</guid><description>&lt;p&gt;This lab contains a vulnerable image upload function. It attempts to prevent users from uploading unexpected file types, but relies on checking user-controllable input to verify this.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;</description></item><item><title>Remote code execution via web shell upload [PortSwigger Lab]</title><link>https://grcheulishvili.github.io/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab/</guid><description>&lt;p&gt;This lab contains a vulnerable image upload function. It doesn&amp;rsquo;t perform any validation on the files users upload before storing them on the server&amp;rsquo;s filesystem.&lt;/p&gt;
-&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>File Upload Vulnerabilities on G.R</title>
+		<link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/</link>
+		<description>Recent content in File Upload Vulnerabilities on G.R</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Tue, 16 Jul 2024 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Web shell upload via extension blacklist bypass [PortSwigger Lab]</title>
+				<link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/</link>
+				<pubDate>Tue, 16 Jul 2024 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/</guid>
+				<description>&lt;p&gt;This lab contains a vulnerable image upload function. Certain file extensions are blacklisted, but this defense can be bypassed due to a fundamental flaw in the configuration of this blacklist.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Web shell upload via Path Traversal [PortSwigger Lab]</title>
+				<link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/</link>
+				<pubDate>Tue, 09 Jul 2024 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/</guid>
+				<description>&lt;p&gt;This lab contains a vulnerable image upload function. The server is configured to prevent execution of user-supplied files, but this restriction can be bypassed by exploiting a secondary vulnerability.&lt;/p&gt;&#xA;&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Web shell upload via Content-Type restriction bypass [Portswigger Lab]</title>
+				<link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/</link>
+				<pubDate>Sat, 06 Jul 2024 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/</guid>
+				<description>&lt;p&gt;This lab contains a vulnerable image upload function. It attempts to prevent users from uploading unexpected file types, but relies on checking user-controllable input to verify this.&lt;/p&gt;&#xA;&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Remote code execution via web shell upload [PortSwigger Lab]</title>
+				<link>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab/</guid>
+				<description>&lt;p&gt;This lab contains a vulnerable image upload function. It doesn&amp;rsquo;t perform any validation on the files users upload before storing them on the server&amp;rsquo;s filesystem.&lt;/p&gt;&#xA;&lt;p&gt;To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file &lt;code&gt;/home/carlos/secret&lt;/code&gt;. Submit this secret.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

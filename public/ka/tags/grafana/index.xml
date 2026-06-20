@@ -1,2 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Grafana on G.R</title><link>https://grcheulishvili.github.io/ka/tags/grafana/</link><description>Recent content in Grafana on G.R</description><generator>Hugo</generator><language>ka-GE</language><lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://grcheulishvili.github.io/ka/tags/grafana/index.xml" rel="self" type="application/rss+xml"/><item><title>რეგიონალური საფრთხეების დაზვერვის აგრეგატორი</title><link>https://grcheulishvili.github.io/ka/projects/regional-threat-intel/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/ka/projects/regional-threat-intel/</guid><description>&lt;h2 id="მიმოხილვა"&gt;მიმოხილვა&lt;/h2&gt;
-&lt;p&gt;ეს მორგებული CTI დეშბორდი წყვეტს ინფრომაციული გადატვირთვის პრობლემას. სისტემა ფილტრავს დიდი მოცულობის ღია წყაროებს და მათგან აგენერირებს მაღალი სიზუსტის ინდიკატორების სიას. პლატფორმა ფოკუსირებულია მხოლოდ განსაზღვრული საფრთხეების გარემოსთვის რელევანტურ APT აქტივობებსა და C2 ინფრასტრუქტურაზე თვალის დევნებისთვის.&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Grafana on G.R</title>
+		<link>http://localhost:1313/ka/tags/grafana/</link>
+		<description>Recent content in Grafana on G.R</description>
+		<generator>Hugo</generator>
+		<language>ka-GE</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/ka/tags/grafana/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>რეგიონალური საფრთხეების დაზვერვის აგრეგატორი</title>
+				<link>http://localhost:1313/ka/projects/regional-threat-intel/</link>
+				<pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/ka/projects/regional-threat-intel/</guid>
+				<description>&lt;h2 id=&#34;მიმოხილვა&#34;&gt;მიმოხილვა&lt;/h2&gt;&#xA;&lt;p&gt;ეს მორგებული CTI დეშბორდი წყვეტს ინფრომაციული გადატვირთვის პრობლემას. სისტემა ფილტრავს დიდი მოცულობის ღია წყაროებს და მათგან აგენერირებს მაღალი სიზუსტის ინდიკატორების სიას. პლატფორმა ფოკუსირებულია მხოლოდ განსაზღვრული საფრთხეების გარემოსთვის რელევანტურ APT აქტივობებსა და C2 ინფრასტრუქტურაზე თვალის დევნებისთვის.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

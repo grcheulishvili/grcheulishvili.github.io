@@ -1,2 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Grafana on G.R</title><link>https://grcheulishvili.github.io/tags/grafana/</link><description>Recent content in Grafana on G.R</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://grcheulishvili.github.io/tags/grafana/index.xml" rel="self" type="application/rss+xml"/><item><title>Regional Threat Intel Aggregator</title><link>https://grcheulishvili.github.io/projects/regional-threat-intel/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/projects/regional-threat-intel/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
-&lt;p&gt;This custom-built CTI dashboard solves the critical problem of alert fatigue by engineering a system that filters high-volume open-source feeds down to a high-fidelity list of indicators. The system focuses exclusively on APT activity and C2 infrastructure relevant to a &lt;strong&gt;defined threat landscape&lt;/strong&gt;.&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Grafana on G.R</title>
+		<link>http://localhost:1313/tags/grafana/</link>
+		<description>Recent content in Grafana on G.R</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/tags/grafana/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Regional Threat Intel Aggregator</title>
+				<link>http://localhost:1313/projects/regional-threat-intel/</link>
+				<pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/projects/regional-threat-intel/</guid>
+				<description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;This custom-built CTI dashboard solves the critical problem of alert fatigue by engineering a system that filters high-volume open-source feeds down to a high-fidelity list of indicators. The system focuses exclusively on APT activity and C2 infrastructure relevant to a &lt;strong&gt;defined threat landscape&lt;/strong&gt;.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

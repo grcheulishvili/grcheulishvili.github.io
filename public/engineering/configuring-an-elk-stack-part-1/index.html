@@ -1,17 +1,151 @@
-<!doctype html><html lang=en data-theme=dark><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Configuring an ELK Stack Part 1 · G.R</title><meta name=description content="In this article, I&rsquo;ll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff."><meta name=author content="Giorgi Rcheulishvili"><link rel=canonical href=https://grcheulishvili.github.io/engineering/configuring-an-elk-stack-part-1/><script>(function(){try{var t=document.documentElement,e=localStorage.getItem("G.R-theme");e||(e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"),t.setAttribute("data-theme",e)}catch{document.documentElement.setAttribute("data-theme","dark")}})()</script><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href=/css/bundle.min.1914f9ad5c5161586c9c652fd6edd1e14f9ccc405b2e5120abcce27c9378e105.css integrity="sha256-GRT5rVxRYVhsnGUv1u3R4U+czEBbLlEgq8zifJN44QU="><link rel=icon href=/favicon.ico sizes=any><link rel=icon type=image/svg+xml href=/favicon.svg><meta property="og:site_name" content="G.R"><meta property="og:title" content="Configuring an ELK Stack Part 1"><meta property="og:description" content="In this article, I&rsquo;ll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff."><meta property="og:type" content="article"><meta property="og:url" content="https://grcheulishvili.github.io/engineering/configuring-an-elk-stack-part-1/"><meta property="og:image" content="https://grcheulishvili.github.io/images/logo.png"><meta property="og:locale" content="en_US"><meta property="article:published_time" content="2024-05-12T00:00:00Z"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Configuring an ELK Stack Part 1"><meta name=twitter:description content="In this article, I&rsquo;ll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff."><meta name=twitter:image content="https://grcheulishvili.github.io/images/logo.png"><meta itemprop=name content="Configuring an ELK Stack Part 1"><meta itemprop=description content="In this article, I’ll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff."><meta itemprop=datePublished content="2024-05-12T00:00:00+00:00"><meta itemprop=dateModified content="2024-05-12T00:00:00+00:00"><meta itemprop=wordCount content="1715"><script>window.__SEARCH_URL__="/index.json"</script></head><body><header class=site-header><input type=checkbox id=nav-check aria-hidden=true><nav class=nav aria-label=Primary><a class=brand href=/ aria-label="G.R home"><span>G.R</span><span class=cursor aria-hidden=true></span></a><div class=nav-links id=nav-links><a href=/research/>Research</a>
-<a href=/projects/>Projects</a>
-<a href=/archive/>Archive</a>
-<a href=/about/>About</a></div><div class=nav-tools><button class=icon-btn id=search-open type=button aria-label=Search title="Search (⌘K)">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-</button>
-<span class=kbd-hint aria-hidden=true>⌘K</span><div class=lang-switch role=group aria-label=Language><a href=/engineering/configuring-an-elk-stack-part-1/ class=active hreflang=en>EN</a>
-<a href="/ka/untranslated/?from=%2Fengineering%2Fconfiguring-an-elk-stack-part-1%2F&amp;t=Configuring+an+ELK+Stack+Part+1" hreflang=ka>ქარ</a></div><button class=icon-btn id=theme-toggle type=button aria-label="Toggle theme">
-<span class=th-dark><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg></span>
-<span class=th-light style=display:none><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
-</button>
-<label class="icon-btn nav-toggle" for=nav-check aria-label=Menu title=Menu><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></label></div></nav></header><style>[data-theme=light] .th-dark{display:none}[data-theme=light] .th-light{display:inline-grid!important}</style><main id=main><div class="wrap section-pad"><article class="article-shell has-toc"><div><header class=article-header><span class=eyebrow>engineering</span><h1>Configuring an ELK Stack Part 1</h1><div class=article-meta><time datetime=2024-05-12>May 12, 2024</time>
-<span class=dot-sep>·</span><span class=reading>9 min read</span></div></header><div class=prose><p>In this article, I&rsquo;ll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff.</p><p>I&rsquo;m following the official <a href=https://www.elastic.co/blog/getting-started-with-the-elastic-stack-and-docker-compose>Elastic guide</a> on setting it up in docker using docker-compose.</p><p>Let&rsquo;s begin.</p><h3 id=file-structure>File structure</h3><p>First thing, I&rsquo;m going to create initial file structure for docker, where Kibana, Metricbeat and Logstash will be able to use these files.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>touch .env docker-compose.yml filebeat.yml logstash.conf metricbeat.yml
-</span></span></code></pre></div><pre tabindex=0><code>tree -la
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Configuring an ELK Stack Part 1 · G.R</title>
+<meta name="description" content="In this article, I&rsquo;ll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff.">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/engineering/configuring-an-elk-stack-part-1/">
+<script>
+(function(){try{var d=document.documentElement,t=localStorage.getItem("G.R-theme");
+if(!t){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}
+d.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+<link rel="stylesheet" href="/css/bundle.min.1914f9ad5c5161586c9c652fd6edd1e14f9ccc405b2e5120abcce27c9378e105.css" integrity="sha256-GRT5rVxRYVhsnGUv1u3R4U&#43;czEBbLlEgq8zifJN44QU="><link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+
+<meta property="og:site_name" content="G.R">
+<meta property="og:title" content="Configuring an ELK Stack Part 1">
+<meta property="og:description" content="In this article, I&rsquo;ll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/engineering/configuring-an-elk-stack-part-1/">
+<meta property="og:image" content="http://localhost:1313/images/logo.png">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-05-12T00:00:00Z">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Configuring an ELK Stack Part 1">
+<meta name="twitter:description" content="In this article, I&rsquo;ll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff.">
+<meta name="twitter:image" content="http://localhost:1313/images/logo.png">
+
+
+	<meta itemprop="name" content="Configuring an ELK Stack Part 1">
+	<meta itemprop="description" content="In this article, I’ll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff.">
+	<meta itemprop="datePublished" content="2024-05-12T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2024-05-12T00:00:00+00:00">
+	<meta itemprop="wordCount" content="1715">
+
+<script>window.__SEARCH_URL__="\/index.json";</script>
+
+  
+</head>
+<body>
+  <header class="site-header">
+  <input type="checkbox" id="nav-check" aria-hidden="true">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="/" aria-label="G.R home">
+      <span>G.R</span><span class="cursor" aria-hidden="true"></span>
+    </a>
+
+    <div class="nav-links" id="nav-links">
+      
+        
+        <a href="/research/">Research</a>
+      
+        
+        <a href="/projects/">Projects</a>
+      
+        
+        <a href="/archive/">Archive</a>
+      
+        
+        <a href="/about/">About</a>
+      
+    </div>
+
+    <div class="nav-tools">
+      <button class="icon-btn" id="search-open" type="button" aria-label="Search" title="Search (⌘K)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <span class="kbd-hint" aria-hidden="true">⌘K</span>
+
+      
+      <div class="lang-switch" role="group" aria-label="Language">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/engineering/configuring-an-elk-stack-part-1/" class="active" hreflang="en">EN</a>
+        
+          
+          
+          
+          
+          
+          
+            
+              
+                
+              
+            
+            
+          
+          <a href="/ka/untranslated/?from=%2Fengineering%2Fconfiguring-an-elk-stack-part-1%2F&amp;t=Configuring&#43;an&#43;ELK&#43;Stack&#43;Part&#43;1" hreflang="ka">ქარ</a>
+        
+      </div>
+      
+
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <span class="th-dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span>
+        <span class="th-light" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+      </button>
+
+      <label class="icon-btn nav-toggle" for="nav-check" aria-label="Menu" title="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </label>
+    </div>
+  </nav>
+</header>
+<style>
+[data-theme="light"] .th-dark{display:none}[data-theme="light"] .th-light{display:inline-grid!important}
+</style>
+
+  <main id="main">
+    
+
+
+<div class="wrap section-pad">
+  <article class="article-shell has-toc">
+    <div>
+      <header class="article-header">
+        <span class="eyebrow">engineering</span>
+        <h1>Configuring an ELK Stack Part 1</h1>
+        
+        <div class="article-meta">
+          <time datetime="2024-05-12">May 12, 2024</time>
+          <span class="dot-sep">·</span><span class="reading">9 min read</span>
+          
+        </div>
+        
+        
+      </header>
+
+      <div class="prose">
+        <p>In this article, I&rsquo;ll be configuring ELK stack in docker. This will be 2 part series where first one will focus on configuring base ELK and second one more advanced stuff.</p>
+<p>I&rsquo;m following the official <a href="https://www.elastic.co/blog/getting-started-with-the-elastic-stack-and-docker-compose">Elastic guide</a> on setting it up in docker using docker-compose.</p>
+<p>Let&rsquo;s begin.</p>
+<h3 id="file-structure">File structure</h3>
+<p>First thing, I&rsquo;m going to create initial file structure for docker, where Kibana, Metricbeat and Logstash will be able to use these files.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">touch .env docker-compose.yml filebeat.yml logstash.conf metricbeat.yml
+</span></span></code></pre></div><pre tabindex="0"><code>tree -la
 .
 ├── docker-compose.yml
 ├── .env
@@ -20,379 +154,488 @@
 └── metricbeat.yml
 
 1 directory, 5 files
-</code></pre><h2 id=configuration-files>Configuration files</h2><p>Next, I&rsquo;m going to configure files that were just created</p><h4 id=env>.env</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-env data-lang=env><span class=line><span class=cl><span class=c1># Project name (if not set, select cwd)</span>
-</span></span><span class=line><span class=cl><span class=c1>#COMPOSE_PROJECT_NAME=elk-stack</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Password for the &#39;elastic&#39; user(min 6 characters)</span>
-</span></span><span class=line><span class=cl><span class=nv>ELASTIC_PASSWORD</span><span class=o>=</span>elpass
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Password for the &#39;kibana_system&#39; user(min 6 characters)</span>
-</span></span><span class=line><span class=cl><span class=nv>KIBANA_PASSWORD</span><span class=o>=</span>kipass
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Version of Elastic products</span>
-</span></span><span class=line><span class=cl><span class=nv>STACK_VERSION</span><span class=o>=</span>8.7.1
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Cluster name</span>
-</span></span><span class=line><span class=cl><span class=nv>CLUSTER_NAME</span><span class=o>=</span>docker-cluster
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># set license to &#39;basic&#39; or &#39;trial&#39; for 30-day trial</span>
-</span></span><span class=line><span class=cl><span class=nv>LICENSE</span><span class=o>=</span>basic
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Port to expose Elasticsearch HTTP API to the host</span>
-</span></span><span class=line><span class=cl><span class=nv>ES_PORT</span><span class=o>=</span><span class=m>9200</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Port to expose Kibana to the host</span>
-</span></span><span class=line><span class=cl><span class=nv>KIBANA_PORT</span><span class=o>=</span><span class=m>5601</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Available host memory for each service in bytes (1GB)</span>
-</span></span><span class=line><span class=cl><span class=nv>ES_MEM_LIMIT</span><span class=o>=</span><span class=m>1073741824</span>
-</span></span><span class=line><span class=cl><span class=nv>KB_MEM_LIMIT</span><span class=o>=</span><span class=m>1073741824</span>
-</span></span><span class=line><span class=cl><span class=nv>LS_MEM_LIMIT</span><span class=o>=</span><span class=m>1073741824</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Sample predefined key only for testing environments</span>
-</span></span><span class=line><span class=cl><span class=nv>ENCRYPTION_KEY</span><span class=o>=</span>c34d38b3a14956121ff2170e5030b471551370178f43e5626eec58b04a30fae2
-</span></span></code></pre></div><p>Here, I configure all the necessary variables for elastic to work properly, like passwords, ports, memory limits and so on.</p><p>All of the variables that can be configured can be found at <a href=https://www.elastic.co/guide/en/fleet/current/agent-environment-variables.html>Elastic docs</a></p><h3 id=base-setup>Base Setup</h3><h4 id=docker-composeyml-setup-container>docker-compose.yml (&lsquo;setup&rsquo; container)</h4><p><em>Note: From this point on, make sure syntax is correct in these configuration files. especially spelling and indentation. Otherwise docker will not setup the containers.</em></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=line><span class=cl><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;3.8&#34;</span><span class=w> </span><span class=l>// This is deprecated. you can just remove this line</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=nt>volumes</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>certs</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>driver</span><span class=p>:</span><span class=w> </span><span class=l>local</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>esdata01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>driver</span><span class=p>:</span><span class=w> </span><span class=l>local</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>kibanadata</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>driver</span><span class=p>:</span><span class=w> </span><span class=l>local</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>metricbeatdata01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>driver</span><span class=p>:</span><span class=w> </span><span class=l>local</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>filebeatdata01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>driver</span><span class=p>:</span><span class=w> </span><span class=l>local</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>logstashdata01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>driver</span><span class=p>:</span><span class=w> </span><span class=l>local</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=nt>networks</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>default</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>elastic-network</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>external</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=nt>services</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>setup</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>certs:/usr/share/elasticsearch/config/certs</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>user</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;0&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=p>&gt;</span><span class=sd>
-</span></span></span><span class=line><span class=cl><span class=sd>     bash -c &#39;
-</span></span></span><span class=line><span class=cl><span class=sd>       if [ x${ELASTIC_PASSWORD} == x ]; then
-</span></span></span><span class=line><span class=cl><span class=sd>         echo &#34;Set the ELASTIC_PASSWORD environment variable in the .env file&#34;;
-</span></span></span><span class=line><span class=cl><span class=sd>         exit 1;
-</span></span></span><span class=line><span class=cl><span class=sd>       elif [ x${KIBANA_PASSWORD} == x ]; then
-</span></span></span><span class=line><span class=cl><span class=sd>         echo &#34;Set the KIBANA_PASSWORD environment variable in the .env file&#34;;
-</span></span></span><span class=line><span class=cl><span class=sd>         exit 1;
-</span></span></span><span class=line><span class=cl><span class=sd>       fi;
-</span></span></span><span class=line><span class=cl><span class=sd>       if [ ! -f config/certs/ca.zip ]; then
-</span></span></span><span class=line><span class=cl><span class=sd>         echo &#34;Creating CA&#34;;
-</span></span></span><span class=line><span class=cl><span class=sd>         bin/elasticsearch-certutil ca --silent --pem -out config/certs/ca.zip;
-</span></span></span><span class=line><span class=cl><span class=sd>         unzip config/certs/ca.zip -d config/certs;
-</span></span></span><span class=line><span class=cl><span class=sd>       fi;
-</span></span></span><span class=line><span class=cl><span class=sd>       if [ ! -f config/certs/certs.zip ]; then
-</span></span></span><span class=line><span class=cl><span class=sd>         echo &#34;Creating certs&#34;;
-</span></span></span><span class=line><span class=cl><span class=sd>         echo -ne \
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;instances:\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;  - name: es01\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;    dns:\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;      - es01\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;      - localhost\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;    ip:\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;      - 127.0.0.1\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;  - name: kibana\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;    dns:\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;      - kibana\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;      - localhost\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;    ip:\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &#34;      - 127.0.0.1\n&#34;\
-</span></span></span><span class=line><span class=cl><span class=sd>         &gt; config/certs/instances.yml;
-</span></span></span><span class=line><span class=cl><span class=sd>         bin/elasticsearch-certutil cert --silent --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
-</span></span></span><span class=line><span class=cl><span class=sd>         unzip config/certs/certs.zip -d config/certs;
-</span></span></span><span class=line><span class=cl><span class=sd>       fi;
-</span></span></span><span class=line><span class=cl><span class=sd>       echo &#34;Setting file permissions&#34;
-</span></span></span><span class=line><span class=cl><span class=sd>       chown -R root:root config/certs;
-</span></span></span><span class=line><span class=cl><span class=sd>       find . -type d -exec chmod 750 \{\} \;;
-</span></span></span><span class=line><span class=cl><span class=sd>       find . -type f -exec chmod 640 \{\} \;;
-</span></span></span><span class=line><span class=cl><span class=sd>       echo &#34;Waiting for Elasticsearch availability&#34;;
-</span></span></span><span class=line><span class=cl><span class=sd>       until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q &#34;missing authentication credentials&#34;; do sleep 30; done;
-</span></span></span><span class=line><span class=cl><span class=sd>       echo &#34;Setting kibana_system password&#34;;
-</span></span></span><span class=line><span class=cl><span class=sd>       until curl -s -X POST --cacert config/certs/ca/ca.crt -u &#34;elastic:${ELASTIC_PASSWORD}&#34; -H &#34;Content-Type: application/json&#34; https://es01:9200/_security/user/kibana_system/_password -d &#34;{\&#34;password\&#34;:\&#34;${KIBANA_PASSWORD}\&#34;}&#34; | grep -q &#34;^{}&#34;; do sleep 10; done;
-</span></span></span><span class=line><span class=cl><span class=sd>       echo &#34;All done!&#34;;
-</span></span></span><span class=line><span class=cl><span class=sd>     &#39;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>healthcheck</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>test</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;CMD-SHELL&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;[ -f config/certs/es01/es01.crt ]&#34;</span><span class=p>]</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=l>1s</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>timeout</span><span class=p>:</span><span class=w> </span><span class=l>5s</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>retries</span><span class=p>:</span><span class=w> </span><span class=m>120</span><span class=w>
-</span></span></span></code></pre></div><p>This is a base setup for docker compose where storage volume path, network and services are enabled and specified.</p><h3 id=elasticsearch>Elasticsearch</h3><p>Here, I setup elasticsearch</p><h4 id=docker-composeyml>docker-compose.yml</h4><p>Add the following to <code>docker-compose.yml</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=line><span class=cl><span class=w> </span><span class=nt>es01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>setup</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>service_healthy</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>labels</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>co.elastic.logs/module</span><span class=p>:</span><span class=w> </span><span class=l>elasticsearch</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>certs:/usr/share/elasticsearch/config/certs</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>esdata01:/usr/share/elasticsearch/data</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>ports</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>${ES_PORT}:9200</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>environment</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>node.name=es01</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>cluster.name=${CLUSTER_NAME}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>discovery.type=single-node</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTIC_PASSWORD=${ELASTIC_PASSWORD}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>bootstrap.memory_lock=true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.security.enabled=true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.security.http.ssl.enabled=true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.security.http.ssl.key=certs/es01/es01.key</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.security.http.ssl.certificate=certs/es01/es01.crt</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.security.transport.ssl.enabled=true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.security.transport.ssl.key=certs/es01/es01.key</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.security.transport.ssl.certificate=certs/es01/es01.crt</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.security.transport.ssl.verification_mode=certificate</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.license.self_generated.type=${LICENSE}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>mem_limit</span><span class=p>:</span><span class=w> </span><span class=l>${ES_MEM_LIMIT}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>ulimits</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>memlock</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nt>soft</span><span class=p>:</span><span class=w> </span>-<span class=m>1</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nt>hard</span><span class=p>:</span><span class=w> </span>-<span class=m>1</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>healthcheck</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>test</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=p>[</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=s2>&#34;CMD-SHELL&#34;</span><span class=p>,</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=s2>&#34;curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q &#39;missing authentication credentials&#39;&#34;</span><span class=p>,</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=p>]</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>timeout</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>retries</span><span class=p>:</span><span class=w> </span><span class=m>120</span><span class=w>
-</span></span></span></code></pre></div><p>This is docker cluster configuration, where CA certificate and node path is specified. In this case Elasticsearch data and certifications are not stored in docker container. Instead they will be saved in local storage for data persistence and robustness.</p><pre tabindex=0><code>  volumes:
+</code></pre><h2 id="configuration-files">Configuration files</h2>
+<p>Next, I&rsquo;m going to configure files that were just created</p>
+<h4 id="env">.env</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-env" data-lang="env"><span class="line"><span class="cl"><span class="c1"># Project name (if not set, select cwd)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#COMPOSE_PROJECT_NAME=elk-stack</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Password for the &#39;elastic&#39; user(min 6 characters)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ELASTIC_PASSWORD</span><span class="o">=</span>elpass
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Password for the &#39;kibana_system&#39; user(min 6 characters)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">KIBANA_PASSWORD</span><span class="o">=</span>kipass
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Version of Elastic products</span>
+</span></span><span class="line"><span class="cl"><span class="nv">STACK_VERSION</span><span class="o">=</span>8.7.1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Cluster name</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CLUSTER_NAME</span><span class="o">=</span>docker-cluster
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># set license to &#39;basic&#39; or &#39;trial&#39; for 30-day trial</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LICENSE</span><span class="o">=</span>basic
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Port to expose Elasticsearch HTTP API to the host</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ES_PORT</span><span class="o">=</span><span class="m">9200</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Port to expose Kibana to the host</span>
+</span></span><span class="line"><span class="cl"><span class="nv">KIBANA_PORT</span><span class="o">=</span><span class="m">5601</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Available host memory for each service in bytes (1GB)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ES_MEM_LIMIT</span><span class="o">=</span><span class="m">1073741824</span>
+</span></span><span class="line"><span class="cl"><span class="nv">KB_MEM_LIMIT</span><span class="o">=</span><span class="m">1073741824</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LS_MEM_LIMIT</span><span class="o">=</span><span class="m">1073741824</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Sample predefined key only for testing environments</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ENCRYPTION_KEY</span><span class="o">=</span>c34d38b3a14956121ff2170e5030b471551370178f43e5626eec58b04a30fae2
+</span></span></code></pre></div><p>Here, I configure all the necessary variables for elastic to work properly, like passwords, ports, memory limits and so on.</p>
+<p>All of the variables that can be configured can be found at <a href="https://www.elastic.co/guide/en/fleet/current/agent-environment-variables.html">Elastic docs</a></p>
+<h3 id="base-setup">Base Setup</h3>
+<h4 id="docker-composeyml-setup-container">docker-compose.yml (&lsquo;setup&rsquo; container)</h4>
+<p><em>Note: From this point on, make sure syntax is correct in these configuration files. especially spelling and indentation. Otherwise docker will not setup the containers.</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.8&#34;</span><span class="w"> </span><span class="l">// This is deprecated. you can just remove this line</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">certs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">esdata01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">kibanadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">metricbeatdata01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">filebeatdata01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">logstashdata01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">default</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elastic-network</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">external</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">setup</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">certs:/usr/share/elasticsearch/config/certs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">&gt;</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">     bash -c &#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       if [ x${ELASTIC_PASSWORD} == x ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">         echo &#34;Set the ELASTIC_PASSWORD environment variable in the .env file&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="sd">         exit 1;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       elif [ x${KIBANA_PASSWORD} == x ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">         echo &#34;Set the KIBANA_PASSWORD environment variable in the .env file&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="sd">         exit 1;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       fi;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       if [ ! -f config/certs/ca.zip ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">         echo &#34;Creating CA&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="sd">         bin/elasticsearch-certutil ca --silent --pem -out config/certs/ca.zip;
+</span></span></span><span class="line"><span class="cl"><span class="sd">         unzip config/certs/ca.zip -d config/certs;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       fi;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       if [ ! -f config/certs/certs.zip ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">         echo &#34;Creating certs&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="sd">         echo -ne \
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;instances:\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;  - name: es01\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;    dns:\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;      - es01\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;      - localhost\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;    ip:\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;      - 127.0.0.1\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;  - name: kibana\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;    dns:\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;      - kibana\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;      - localhost\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;    ip:\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &#34;      - 127.0.0.1\n&#34;\
+</span></span></span><span class="line"><span class="cl"><span class="sd">         &gt; config/certs/instances.yml;
+</span></span></span><span class="line"><span class="cl"><span class="sd">         bin/elasticsearch-certutil cert --silent --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
+</span></span></span><span class="line"><span class="cl"><span class="sd">         unzip config/certs/certs.zip -d config/certs;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       fi;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       echo &#34;Setting file permissions&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       chown -R root:root config/certs;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       find . -type d -exec chmod 750 \{\} \;;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       find . -type f -exec chmod 640 \{\} \;;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       echo &#34;Waiting for Elasticsearch availability&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q &#34;missing authentication credentials&#34;; do sleep 30; done;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       echo &#34;Setting kibana_system password&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       until curl -s -X POST --cacert config/certs/ca/ca.crt -u &#34;elastic:${ELASTIC_PASSWORD}&#34; -H &#34;Content-Type: application/json&#34; https://es01:9200/_security/user/kibana_system/_password -d &#34;{\&#34;password\&#34;:\&#34;${KIBANA_PASSWORD}\&#34;}&#34; | grep -q &#34;^{}&#34;; do sleep 10; done;
+</span></span></span><span class="line"><span class="cl"><span class="sd">       echo &#34;All done!&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="sd">     &#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;CMD-SHELL&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;[ -f config/certs/es01/es01.crt ]&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l">1s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">120</span><span class="w">
+</span></span></span></code></pre></div><p>This is a base setup for docker compose where storage volume path, network and services are enabled and specified.</p>
+<h3 id="elasticsearch">Elasticsearch</h3>
+<p>Here, I setup elasticsearch</p>
+<h4 id="docker-composeyml">docker-compose.yml</h4>
+<p>Add the following to <code>docker-compose.yml</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w"> </span><span class="nt">es01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">setup</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">service_healthy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">co.elastic.logs/module</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">certs:/usr/share/elasticsearch/config/certs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">esdata01:/usr/share/elasticsearch/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">${ES_PORT}:9200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">node.name=es01</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">cluster.name=${CLUSTER_NAME}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">discovery.type=single-node</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTIC_PASSWORD=${ELASTIC_PASSWORD}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">bootstrap.memory_lock=true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.security.enabled=true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.security.http.ssl.enabled=true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.security.http.ssl.key=certs/es01/es01.key</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.security.http.ssl.certificate=certs/es01/es01.crt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.security.transport.ssl.enabled=true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.security.transport.ssl.key=certs/es01/es01.key</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.security.transport.ssl.certificate=certs/es01/es01.crt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.security.transport.ssl.verification_mode=certificate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.license.self_generated.type=${LICENSE}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">mem_limit</span><span class="p">:</span><span class="w"> </span><span class="l">${ES_MEM_LIMIT}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">ulimits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">memlock</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">soft</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">hard</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">test</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="s2">&#34;CMD-SHELL&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="s2">&#34;curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q &#39;missing authentication credentials&#39;&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">120</span><span class="w">
+</span></span></span></code></pre></div><p>This is docker cluster configuration, where CA certificate and node path is specified. In this case Elasticsearch data and certifications are not stored in docker container. Instead they will be saved in local storage for data persistence and robustness.</p>
+<pre tabindex="0"><code>  volumes:
      - certs:/usr/share/elasticsearch/config/certs
      - esdata01:/usr/share/elasticsearch/data
-</code></pre><p>With both these configurations set up, now I can perform <code>docker compose up</code> command to create and run containers.</p><p><em>Note: <code>docker compose up</code> command should be run in the folder where <code>docker-compose.yml</code> resides.</em></p><p>Here&rsquo;s my example:</p><figure><img src=/.gitbook/assets/Pasted%20image%2020241205120451.png alt=SubRegisters></figure><p>Here you can see that <code>elastic-network</code> and container has successfully run.</p><p>In case you need docker composer commands, here are a few useful ones:</p><table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td>docker compose up</td><td>Created and starts all containers within docker-compose.yml</td></tr><tr><td>docker compose down</td><td>Stops all containers and removes any networks relating to docker-compose.yml. Leaves Volumes intact and allows generated data to persist between builds</td></tr><tr><td>docker compose down -v</td><td>Same as above and removes Volumes. basically starting over.</td></tr><tr><td>docker compose start</td><td>starts existing containers</td></tr><tr><td>docker compose stop</td><td>Stops all containers. same as CTRL+C</td></tr></tbody></table><h4 id=copying-valid-certificates>Copying valid certificates</h4><p>Now that the system is up and running I need to make sure that valid certificates for docker container is present in my local machine.</p><p>Here I copy certificate from docker machine to <code>/tmp/</code> folder.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker cp elk-stack-es01-1:/usr/share/elasticsearch/config/certs/ca/ca.crt /tmp/.
-</span></span></code></pre></div><p>now let&rsquo;s test it.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl --cacert /tmp/ca.crt -u elastic:elpass https://localhost:9200
-</span></span></code></pre></div><p>Successful response:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>  <span class=nt>&#34;name&#34;</span> <span class=p>:</span> <span class=s2>&#34;es01&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>  <span class=nt>&#34;cluster_name&#34;</span> <span class=p>:</span> <span class=s2>&#34;docker-cluster&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>  <span class=nt>&#34;cluster_uuid&#34;</span> <span class=p>:</span> <span class=s2>&#34;ItB3TTyJTMqX5K6McWGaCw&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>  <span class=nt>&#34;version&#34;</span> <span class=p>:</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nt>&#34;number&#34;</span> <span class=p>:</span> <span class=s2>&#34;8.7.1&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=nt>&#34;build_flavor&#34;</span> <span class=p>:</span> <span class=s2>&#34;default&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=nt>&#34;build_type&#34;</span> <span class=p>:</span> <span class=s2>&#34;docker&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=nt>&#34;build_hash&#34;</span> <span class=p>:</span> <span class=s2>&#34;f229ed3f893a515d590d0f39b05f68913e2d9b53&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=nt>&#34;build_date&#34;</span> <span class=p>:</span> <span class=s2>&#34;2023-04-27T04:33:42.127815583Z&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=nt>&#34;build_snapshot&#34;</span> <span class=p>:</span> <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=nt>&#34;lucene_version&#34;</span> <span class=p>:</span> <span class=s2>&#34;9.5.0&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=nt>&#34;minimum_wire_compatibility_version&#34;</span> <span class=p>:</span> <span class=s2>&#34;7.17.0&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=nt>&#34;minimum_index_compatibility_version&#34;</span> <span class=p>:</span> <span class=s2>&#34;7.0.0&#34;</span>
-</span></span><span class=line><span class=cl>  <span class=p>},</span>
-</span></span><span class=line><span class=cl>  <span class=nt>&#34;tagline&#34;</span> <span class=p>:</span> <span class=s2>&#34;You Know, for Search&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></div><p>Notice that we can access elasticsearch using <code>localhost:9200</code>.</p><h3 id=kibana>Kibana</h3><h4 id=docker-composeyml-1>docker-compose.yml</h4><p>Now I can add Kibana container config in <code>docker-compose.yml</code> and specify that it should run after Elasticsearch node.</p><p>Add the following to <code>docker-compose.yml</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=line><span class=cl><span class=w> </span><span class=nt>kibana</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>es01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>service_healthy</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.elastic.co/kibana/kibana:${STACK_VERSION}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>labels</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>co.elastic.logs/module</span><span class=p>:</span><span class=w> </span><span class=l>kibana</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>certs:/usr/share/kibana/config/certs</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>kibanadata:/usr/share/kibana/data</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>ports</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>${KIBANA_PORT}:5601</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>environment</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>SERVERNAME=kibana</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTICSEARCH_HOSTS=https://es01:9200</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTICSEARCH_USERNAME=kibana_system</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>XPACK_SECURITY_ENCRYPTIONKEY=${ENCRYPTION_KEY}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=${ENCRYPTION_KEY}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>XPACK_REPORTING_ENCRYPTIONKEY=${ENCRYPTION_KEY}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>mem_limit</span><span class=p>:</span><span class=w> </span><span class=l>${KB_MEM_LIMIT}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>healthcheck</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>test</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=p>[</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=s2>&#34;CMD-SHELL&#34;</span><span class=p>,</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=s2>&#34;curl -s -I http://localhost:5601 | grep -q &#39;HTTP/1.1 302 Found&#39;&#34;</span><span class=p>,</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=p>]</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>timeout</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>retries</span><span class=p>:</span><span class=w> </span><span class=m>120</span><span class=w>
-</span></span></span></code></pre></div><p>Now you can either use Docker Desktop to enable Kibana container or just use terminal CTLR+C your container and rerun <code>docker compose up</code></p><p>Now, open up browser and go to <code>localhost:5601</code> to see your elastic up and running.</p><figure><img src=/.gitbook/assets/Pasted%20image%2020241205123325.png></figure><p>Awesome! Now try logging in with credentials that was specified in <code>.env</code> file. It should log in without any problems.</p><h3 id=metricbeat>Metricbeat</h3><h4 id=docker-composeyml-2>docker-compose.yml</h4><p>Now that Kibana and Elasticsearch are running and communicating, I can continue and setup Metricbeat same as Kibana before.</p><ol><li>Add the following to <code>docker-compose.yml</code></li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=line><span class=cl><span class=w> </span><span class=nt>metricbeat01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>es01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>service_healthy</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>kibana</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>service_healthy</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.elastic.co/beats/metricbeat:${STACK_VERSION}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>user</span><span class=p>:</span><span class=w> </span><span class=l>root</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>certs:/usr/share/metricbeat/certs</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>metricbeatdata01:/usr/share/metricbeat/data</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;/var/run/docker.sock:/var/run/docker.sock:ro&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;/sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;/proc:/hostfs/proc:ro&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;/:/hostfs:ro&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>environment</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTIC_USER=elastic</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTIC_PASSWORD=${ELASTIC_PASSWORD}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTIC_HOSTS=https://es01:9200</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>KIBANA_HOSTS=http://kibana:5601</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>LOGSTASH_HOSTS=http://logstash01:9600</span><span class=w>
-</span></span></span></code></pre></div><h4 id=metricbeatyml>metricbeat.yml</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=line><span class=cl><span class=nt>metricbeat.config.modules</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>${path.config}/modules.d/*.yml</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>reload.enabled</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=nt>metricbeat.modules</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl>- <span class=nt>module</span><span class=p>:</span><span class=w> </span><span class=l>elasticsearch</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>xpack.enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>period</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_HOSTS}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>username</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_USER}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>password</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_PASSWORD}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ssl.certificate_authorities</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;certs/ca/ca.crt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ssl.certificate</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;certs/es01/es01.crt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ssl.key</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;certs/es01/es01.key&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl>- <span class=nt>module</span><span class=p>:</span><span class=w> </span><span class=l>logstash</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>xpack.enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>period</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>${LOGSTASH_HOSTS}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl>- <span class=nt>module</span><span class=p>:</span><span class=w> </span><span class=l>kibana</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>metricsets</span><span class=p>:</span><span class=w> 
-</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>stats</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>period</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>${KIBANA_HOSTS}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>username</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_USER}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>password</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_PASSWORD}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>xpack.enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl>- <span class=nt>module</span><span class=p>:</span><span class=w> </span><span class=l>docker</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>metricsets</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=s2>&#34;container&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=s2>&#34;cpu&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=s2>&#34;diskio&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=s2>&#34;healthcheck&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=s2>&#34;info&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c>#- &#34;image&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=s2>&#34;memory&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=s2>&#34;network&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;unix:///var/run/docker.sock&#34;</span><span class=p>]</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>period</span><span class=p>:</span><span class=w> </span><span class=l>10s</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=nt>processors</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>add_host_metadata</span><span class=p>:</span><span class=w> </span><span class=l>~</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>add_docker_metadata</span><span class=p>:</span><span class=w> </span><span class=l>~</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=nt>output.elasticsearch</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_HOSTS}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>username</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_USER}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>password</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_PASSWORD}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ssl</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>certificate</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;certs/es01/es01.crt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>certificate_authorities</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;certs/ca/ca.crt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;certs/es01/es01.key&#34;</span><span class=w>
-</span></span></span></code></pre></div><ol start=3><li>Disable <code>metricbeat.yml</code> execution permission and restart composer</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>chmod go-w metricbeat.yml
-</span></span><span class=line><span class=cl>docker compose up
-</span></span></code></pre></div><p>Now add out-of-the-box rules.</p><p>Go to: Menu > Management > Stack Monitoring</p><figure><img src=/.gitbook/assets/Pasted%20image%2020241205125023.png></figure><p>Here, official guide suggests <code>Set up monitoring with Metricbeat</code> but it didn&rsquo;t find anything automatically, so I went with manual configuration.</p><p>after configuring this step you should see the following in monitoring tab</p><figure><img src=/.gitbook/assets/Pasted%20image%2020241205125211.png></figure><h3 id=filebeat>Filebeat</h3><p>Now that this cluster is stable and monitored with Metricbeat, we can install Filebeat for log ingestion.</p><h4 id=docker-composeyml-3>docker-compose.yml</h4><p>Append the following to <code>docker-compose.yml</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=line><span class=cl><span class=w> </span><span class=nt>filebeat01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>es01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>service_healthy</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.elastic.co/beats/filebeat:${STACK_VERSION}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>user</span><span class=p>:</span><span class=w> </span><span class=l>root</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>certs:/usr/share/filebeat/certs</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>filebeatdata01:/usr/share/filebeat/data</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;./filebeat_ingest_data/:/usr/share/filebeat/ingest_data/&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;/var/lib/docker/containers:/var/lib/docker/containers:ro&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;/var/run/docker.sock:/var/run/docker.sock:ro&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>environment</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTIC_USER=elastic</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTIC_PASSWORD=${ELASTIC_PASSWORD}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTIC_HOSTS=https://es01:9200</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>KIBANA_HOSTS=http://kibana:5601</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>LOGSTASH_HOSTS=http://logstash01:9600</span><span class=w>
-</span></span></span></code></pre></div><h4 id=filebeatyml>filebeat.yml</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=line><span class=cl><span class=nt>filebeat.inputs</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl>- <span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>filestream</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>default-filestream</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>paths</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>ingest_data/*.log</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=nt>filebeat.autodiscover</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>providers</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span>- <span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>docker</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>hints.enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=nt>processors</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl>- <span class=nt>add_docker_metadata</span><span class=p>:</span><span class=w> </span><span class=l>~</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=nt>setup.kibana</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>host</span><span class=p>:</span><span class=w> </span><span class=l>${KIBANA_HOSTS}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>username</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_USER}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>password</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_PASSWORD}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=nt>output.elasticsearch</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_HOSTS}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>username</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_USER}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>password</span><span class=p>:</span><span class=w> </span><span class=l>${ELASTIC_PASSWORD}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>ssl.enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w> </span><span class=nt>ssl.certificate_authorities</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;certs/ca/ca.crt&#34;</span><span class=w>
-</span></span></span></code></pre></div><p>disable <code>filebeat.yml</code> execution permission and restart container</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>chmod go-w filebeat.yml
-</span></span><span class=line><span class=cl>docker compose up
-</span></span></code></pre></div><figure><img src=/.gitbook/assets/Pasted%20image%2020241205131216.png></figure><h3 id=logstash>Logstash</h3><p>Final container I&rsquo;m going to setup is logstash which will help us to manage and transform logs.</p><h4 id=docker-composeyml-logstash01-container>docker-compose.yml (&rsquo;logstash01&rsquo; container)</h4><p>Add the following to <code>docker-compose.yml</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yml data-lang=yml><span class=line><span class=cl><span class=w> </span><span class=nt>logstash01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>es01</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>service_healthy</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>kibana</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>service_healthy</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.elastic.co/logstash/logstash:${STACK_VERSION}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>labels</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=nt>co.elastic.logs/module</span><span class=p>:</span><span class=w> </span><span class=l>logstash</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>user</span><span class=p>:</span><span class=w> </span><span class=l>root</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>certs:/usr/share/logstash/certs</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>logstashdata01:/usr/share/logstash/data</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;./logstash_ingest_data/:/usr/share/logstash/ingest_data/&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=s2>&#34;./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>environment</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>xpack.monitoring.enabled=false</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTIC_USER=elastic</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTIC_PASSWORD=${ELASTIC_PASSWORD}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>     </span>- <span class=l>ELASTIC_HOSTS=https://es01:9200</span><span class=w>
-</span></span></span></code></pre></div><h4 id=logstashconf>logstash.conf</h4><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=err>input</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl> <span class=err>file</span> <span class=err>{</span>
-</span></span><span class=line><span class=cl>   <span class=err>#https:</span><span class=c1>//www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html
-</span></span></span><span class=line><span class=cl>   <span class=err>#default</span> <span class=err>is</span> <span class=err>TAIL</span> <span class=err>which</span> <span class=err>assumes</span> <span class=err>more</span> <span class=err>data</span> <span class=err>will</span> <span class=err>come</span> <span class=err>into</span> <span class=err>the</span> <span class=err>file.</span>
-</span></span><span class=line><span class=cl>   <span class=err>#change</span> <span class=err>to</span> <span class=err>mode</span> <span class=err>=&gt;</span> <span class=nt>&#34;read&#34;</span> <span class=err>if</span> <span class=err>the</span> <span class=err>file</span> <span class=err>is</span> <span class=err>a</span> <span class=err>compelte</span> <span class=err>file.</span>  <span class=err>by</span> <span class=err>default</span><span class=p>,</span> <span class=err>the</span> <span class=err>file</span> <span class=err>will</span> <span class=err>be</span> <span class=err>removed</span> <span class=err>once</span> <span class=err>reading</span> <span class=err>is</span> <span class=err>complete</span> <span class=err>--</span> <span class=err>backup</span> <span class=err>your</span> <span class=err>files</span> <span class=err>if</span> <span class=err>you</span> <span class=err>need</span> <span class=err>them.</span>
-</span></span><span class=line><span class=cl>   <span class=err>mode</span> <span class=err>=&gt;</span> <span class=nt>&#34;tail&#34;</span>
-</span></span><span class=line><span class=cl>   <span class=err>path</span> <span class=err>=&gt;</span> <span class=s2>&#34;/usr/share/logstash/ingest_data/*&#34;</span>
-</span></span><span class=line><span class=cl> <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=err>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=err>filter</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=err>output</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl> <span class=err>elasticsearch</span> <span class=err>{</span>
-</span></span><span class=line><span class=cl>   <span class=err>index</span> <span class=err>=&gt;</span> <span class=nt>&#34;logstash-%{+YYYY.MM.dd}&#34;</span>
-</span></span><span class=line><span class=cl>   <span class=err>hosts=&gt;</span> <span class=s2>&#34;${ELASTIC_HOSTS}&#34;</span>
-</span></span><span class=line><span class=cl>   <span class=err>user=&gt;</span> <span class=s2>&#34;${ELASTIC_USER}&#34;</span>
-</span></span><span class=line><span class=cl>   <span class=err>password=&gt;</span> <span class=s2>&#34;${ELASTIC_PASSWORD}&#34;</span>
-</span></span><span class=line><span class=cl>   <span class=err>cacert=&gt;</span> <span class=s2>&#34;certs/ca/ca.crt&#34;</span>
-</span></span><span class=line><span class=cl> <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=err>}</span>
-</span></span></code></pre></div><p>Restart composer.</p><h4 id=note>NOTE</h4><p>Now, to actually see the logstash data index, you need to add sample log files in <code>logstash_ingest_data</code> and <code>filebeat_ingest_data</code> first.</p><p>For that, I used <a href=https://mockaroo.com/>Mockaroo</a> to create sample log file.</p><p>Download and rename it from <code>.csv</code> to <code>.log</code> files.</p><p>My mock data <code>test_log.log</code> looks like the following</p><pre tabindex=0><code>time,id,first_name,last_name,email,mac_address,ip_address,hash
+</code></pre><p>With both these configurations set up, now I can perform <code>docker compose up</code> command to create and run containers.</p>
+<p><em>Note: <code>docker compose up</code> command should be run in the folder where <code>docker-compose.yml</code> resides.</em></p>
+<p>Here&rsquo;s my example:</p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020241205120451.png"
+			alt="SubRegisters">
+</figure>
+
+<p>Here you can see that <code>elastic-network</code> and container has successfully run.</p>
+<p>In case you need docker composer commands, here are a few useful ones:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Command</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>docker compose up</td>
+					<td>Created and starts all containers within docker-compose.yml</td>
+			</tr>
+			<tr>
+					<td>docker compose down</td>
+					<td>Stops all containers and removes any networks relating to docker-compose.yml. Leaves Volumes intact and allows generated data to persist between builds</td>
+			</tr>
+			<tr>
+					<td>docker compose down -v</td>
+					<td>Same as above and removes Volumes. basically starting over.</td>
+			</tr>
+			<tr>
+					<td>docker compose start</td>
+					<td>starts existing containers</td>
+			</tr>
+			<tr>
+					<td>docker compose stop</td>
+					<td>Stops all containers. same as CTRL+C</td>
+			</tr>
+	</tbody>
+</table>
+<h4 id="copying-valid-certificates">Copying valid certificates</h4>
+<p>Now that the system is up and running I need to make sure that valid certificates for docker container is present in my local machine.</p>
+<p>Here I copy certificate from docker machine to <code>/tmp/</code> folder.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker cp elk-stack-es01-1:/usr/share/elasticsearch/config/certs/ca/ca.crt /tmp/.
+</span></span></code></pre></div><p>now let&rsquo;s test it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl --cacert /tmp/ca.crt -u elastic:elpass https://localhost:9200
+</span></span></code></pre></div><p>Successful response:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="s2">&#34;es01&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;cluster_name&#34;</span> <span class="p">:</span> <span class="s2">&#34;docker-cluster&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;cluster_uuid&#34;</span> <span class="p">:</span> <span class="s2">&#34;ItB3TTyJTMqX5K6McWGaCw&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;number&#34;</span> <span class="p">:</span> <span class="s2">&#34;8.7.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build_flavor&#34;</span> <span class="p">:</span> <span class="s2">&#34;default&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;docker&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build_hash&#34;</span> <span class="p">:</span> <span class="s2">&#34;f229ed3f893a515d590d0f39b05f68913e2d9b53&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build_date&#34;</span> <span class="p">:</span> <span class="s2">&#34;2023-04-27T04:33:42.127815583Z&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;build_snapshot&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;lucene_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;9.5.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;minimum_wire_compatibility_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;7.17.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;minimum_index_compatibility_version&#34;</span> <span class="p">:</span> <span class="s2">&#34;7.0.0&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tagline&#34;</span> <span class="p">:</span> <span class="s2">&#34;You Know, for Search&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Notice that we can access elasticsearch using <code>localhost:9200</code>.</p>
+<h3 id="kibana">Kibana</h3>
+<h4 id="docker-composeyml-1">docker-compose.yml</h4>
+<p>Now I can add Kibana container config in <code>docker-compose.yml</code> and specify that it should run after Elasticsearch node.</p>
+<p>Add the following to <code>docker-compose.yml</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w"> </span><span class="nt">kibana</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">es01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">service_healthy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.elastic.co/kibana/kibana:${STACK_VERSION}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">co.elastic.logs/module</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">certs:/usr/share/kibana/config/certs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">kibanadata:/usr/share/kibana/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">${KIBANA_PORT}:5601</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">SERVERNAME=kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTICSEARCH_HOSTS=https://es01:9200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTICSEARCH_USERNAME=kibana_system</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">XPACK_SECURITY_ENCRYPTIONKEY=${ENCRYPTION_KEY}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=${ENCRYPTION_KEY}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">XPACK_REPORTING_ENCRYPTIONKEY=${ENCRYPTION_KEY}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">mem_limit</span><span class="p">:</span><span class="w"> </span><span class="l">${KB_MEM_LIMIT}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">test</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="s2">&#34;CMD-SHELL&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="s2">&#34;curl -s -I http://localhost:5601 | grep -q &#39;HTTP/1.1 302 Found&#39;&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">120</span><span class="w">
+</span></span></span></code></pre></div><p>Now you can either use Docker Desktop to enable Kibana container or just use terminal CTLR+C your container and rerun <code>docker compose up</code></p>
+<p>Now, open up browser and go to <code>localhost:5601</code> to see your elastic up and running.</p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020241205123325.png">
+</figure>
+
+<p>Awesome! Now try logging in with credentials that was specified in <code>.env</code> file. It should log in without any problems.</p>
+<h3 id="metricbeat">Metricbeat</h3>
+<h4 id="docker-composeyml-2">docker-compose.yml</h4>
+<p>Now that Kibana and Elasticsearch are running and communicating, I can continue and setup Metricbeat same as Kibana before.</p>
+<ol>
+<li>Add the following to <code>docker-compose.yml</code></li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w"> </span><span class="nt">metricbeat01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">es01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">service_healthy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">kibana</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">service_healthy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.elastic.co/beats/metricbeat:${STACK_VERSION}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">certs:/usr/share/metricbeat/certs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">metricbeatdata01:/usr/share/metricbeat/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;/var/run/docker.sock:/var/run/docker.sock:ro&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;/sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;/proc:/hostfs/proc:ro&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;/:/hostfs:ro&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTIC_USER=elastic</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTIC_PASSWORD=${ELASTIC_PASSWORD}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTIC_HOSTS=https://es01:9200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">KIBANA_HOSTS=http://kibana:5601</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">LOGSTASH_HOSTS=http://logstash01:9600</span><span class="w">
+</span></span></span></code></pre></div><h4 id="metricbeatyml">metricbeat.yml</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">metricbeat.config.modules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">${path.config}/modules.d/*.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">reload.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metricbeat.modules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">xpack.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_HOSTS}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_USER}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_PASSWORD}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ssl.certificate_authorities</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;certs/ca/ca.crt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ssl.certificate</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;certs/es01/es01.crt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ssl.key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;certs/es01/es01.key&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">xpack.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">${LOGSTASH_HOSTS}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metricsets</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">stats</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">${KIBANA_HOSTS}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_USER}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_PASSWORD}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">xpack.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l">docker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metricsets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;container&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;cpu&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;diskio&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;healthcheck&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;info&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c">#- &#34;image&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;memory&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;network&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;unix:///var/run/docker.sock&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">processors</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">add_host_metadata</span><span class="p">:</span><span class="w"> </span><span class="l">~</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">add_docker_metadata</span><span class="p">:</span><span class="w"> </span><span class="l">~</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">output.elasticsearch</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_HOSTS}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_USER}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_PASSWORD}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ssl</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">certificate</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;certs/es01/es01.crt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">certificate_authorities</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;certs/ca/ca.crt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;certs/es01/es01.key&#34;</span><span class="w">
+</span></span></span></code></pre></div><ol start="3">
+<li>Disable <code>metricbeat.yml</code> execution permission and restart composer</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod go-w metricbeat.yml
+</span></span><span class="line"><span class="cl">docker compose up
+</span></span></code></pre></div><p>Now add out-of-the-box rules.</p>
+<p>Go to: Menu &gt; Management &gt; Stack Monitoring</p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020241205125023.png">
+</figure>
+
+<p>Here, official guide suggests <code>Set up monitoring with Metricbeat</code> but it didn&rsquo;t find anything automatically, so I went with manual configuration.</p>
+<p>after configuring this step you should see the following in monitoring tab</p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020241205125211.png">
+</figure>
+
+<h3 id="filebeat">Filebeat</h3>
+<p>Now that this cluster is stable and monitored with Metricbeat, we can install Filebeat for log ingestion.</p>
+<h4 id="docker-composeyml-3">docker-compose.yml</h4>
+<p>Append the following to <code>docker-compose.yml</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w"> </span><span class="nt">filebeat01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">es01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">service_healthy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.elastic.co/beats/filebeat:${STACK_VERSION}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">certs:/usr/share/filebeat/certs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">filebeatdata01:/usr/share/filebeat/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;./filebeat_ingest_data/:/usr/share/filebeat/ingest_data/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;/var/lib/docker/containers:/var/lib/docker/containers:ro&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;/var/run/docker.sock:/var/run/docker.sock:ro&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTIC_USER=elastic</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTIC_PASSWORD=${ELASTIC_PASSWORD}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTIC_HOSTS=https://es01:9200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">KIBANA_HOSTS=http://kibana:5601</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">LOGSTASH_HOSTS=http://logstash01:9600</span><span class="w">
+</span></span></span></code></pre></div><h4 id="filebeatyml">filebeat.yml</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">filebeat.inputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">filestream</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">default-filestream</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">ingest_data/*.log</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">filebeat.autodiscover</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">providers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">docker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">hints.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">processors</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">add_docker_metadata</span><span class="p">:</span><span class="w"> </span><span class="l">~</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">setup.kibana</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">${KIBANA_HOSTS}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_USER}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_PASSWORD}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">output.elasticsearch</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_HOSTS}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_USER}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">${ELASTIC_PASSWORD}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">ssl.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">ssl.certificate_authorities</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;certs/ca/ca.crt&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>disable <code>filebeat.yml</code> execution permission and restart container</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod go-w filebeat.yml
+</span></span><span class="line"><span class="cl">docker compose up
+</span></span></code></pre></div><figure><img src="/.gitbook/assets/Pasted%20image%2020241205131216.png">
+</figure>
+
+<h3 id="logstash">Logstash</h3>
+<p>Final container I&rsquo;m going to setup is logstash which will help us to manage and transform logs.</p>
+<h4 id="docker-composeyml-logstash01-container">docker-compose.yml (&rsquo;logstash01&rsquo; container)</h4>
+<p>Add the following to <code>docker-compose.yml</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w"> </span><span class="nt">logstash01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">es01</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">service_healthy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">kibana</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">service_healthy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.elastic.co/logstash/logstash:${STACK_VERSION}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">co.elastic.logs/module</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">certs:/usr/share/logstash/certs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">logstashdata01:/usr/share/logstash/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;./logstash_ingest_data/:/usr/share/logstash/ingest_data/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="s2">&#34;./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">xpack.monitoring.enabled=false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTIC_USER=elastic</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTIC_PASSWORD=${ELASTIC_PASSWORD}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">ELASTIC_HOSTS=https://es01:9200</span><span class="w">
+</span></span></span></code></pre></div><h4 id="logstashconf">logstash.conf</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">input</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="err">file</span> <span class="err">{</span>
+</span></span><span class="line"><span class="cl">   <span class="err">#https:</span><span class="c1">//www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html
+</span></span></span><span class="line"><span class="cl">   <span class="err">#default</span> <span class="err">is</span> <span class="err">TAIL</span> <span class="err">which</span> <span class="err">assumes</span> <span class="err">more</span> <span class="err">data</span> <span class="err">will</span> <span class="err">come</span> <span class="err">into</span> <span class="err">the</span> <span class="err">file.</span>
+</span></span><span class="line"><span class="cl">   <span class="err">#change</span> <span class="err">to</span> <span class="err">mode</span> <span class="err">=&gt;</span> <span class="nt">&#34;read&#34;</span> <span class="err">if</span> <span class="err">the</span> <span class="err">file</span> <span class="err">is</span> <span class="err">a</span> <span class="err">compelte</span> <span class="err">file.</span>  <span class="err">by</span> <span class="err">default</span><span class="p">,</span> <span class="err">the</span> <span class="err">file</span> <span class="err">will</span> <span class="err">be</span> <span class="err">removed</span> <span class="err">once</span> <span class="err">reading</span> <span class="err">is</span> <span class="err">complete</span> <span class="err">--</span> <span class="err">backup</span> <span class="err">your</span> <span class="err">files</span> <span class="err">if</span> <span class="err">you</span> <span class="err">need</span> <span class="err">them.</span>
+</span></span><span class="line"><span class="cl">   <span class="err">mode</span> <span class="err">=&gt;</span> <span class="nt">&#34;tail&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="err">path</span> <span class="err">=&gt;</span> <span class="s2">&#34;/usr/share/logstash/ingest_data/*&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">filter</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">output</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="err">elasticsearch</span> <span class="err">{</span>
+</span></span><span class="line"><span class="cl">   <span class="err">index</span> <span class="err">=&gt;</span> <span class="nt">&#34;logstash-%{+YYYY.MM.dd}&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="err">hosts=&gt;</span> <span class="s2">&#34;${ELASTIC_HOSTS}&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="err">user=&gt;</span> <span class="s2">&#34;${ELASTIC_USER}&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="err">password=&gt;</span> <span class="s2">&#34;${ELASTIC_PASSWORD}&#34;</span>
+</span></span><span class="line"><span class="cl">   <span class="err">cacert=&gt;</span> <span class="s2">&#34;certs/ca/ca.crt&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">}</span>
+</span></span></code></pre></div><p>Restart composer.</p>
+<h4 id="note">NOTE</h4>
+<p>Now, to actually see the logstash data index, you need to add sample log files in <code>logstash_ingest_data</code> and <code>filebeat_ingest_data</code> first.</p>
+<p>For that, I used <a href="https://mockaroo.com/">Mockaroo</a> to create sample log file.</p>
+<p>Download and rename it from <code>.csv</code> to <code>.log</code> files.</p>
+<p>My mock data <code>test_log.log</code> looks like the following</p>
+<pre tabindex="0"><code>time,id,first_name,last_name,email,mac_address,ip_address,hash
 4/17/2024,1,Rania,Cressey,rcressey0@reference.com,F9-E0-79-93-F6-DA,130.148.172.136,51ba1df5efb4de21b434d94d1e72615b57c30721
 12/30/2023,2,Gerhard,Mewton,gmewton1@businessinsider.com,CA-36-6B-25-5B-16,187.64.188.232,9afff3f236157637cdf36f3a116b3f5d3ac3deb0
 9/1/2024,3,Anabel,Musk,amusk2@opensource.org,FF-AB-36-D7-DA-E3,105.172.167.115,31f37d280ddf812083dbce74c9a0491b62bacfbd
@@ -402,8 +645,142 @@
 2/12/2024,7,Lilli,Linnane,llinnane6@blinklist.com,29-7E-61-0D-27-BA,196.177.55.60,d9c33fe2e9c21d31f88801402606d998c35f80dd
 8/3/2024,8,Ianthe,Antognetti,iantognetti7@imdb.com,5E-F1-AF-90-E0-81,121.223.169.75,a17aa33138a84ee53283012338c9c1f0d9c324c9
 9/9/2024,9,Piper,Victor,pvictor8@usatoday.com,0E-6D-6C-9B-43-1A,160.228.92.124,6e609309d997e6fa708cdcef0b11425c3bf84341
-</code></pre><p>Which I dropped in <code>logstash_ingest_data</code>/ and <code>filebeat_ingest_data/</code>.</p><p>Now it&rsquo;ll take a few seconds for Elastic to see the changes in <code>Menu > Stack management > Index management > Reload Indices</code></p><figure><img src=/.gitbook/assets/Pasted%20image%2020241210232627.png></figure><p>And here should be logstash data logs.</p><p>Now, to see the data, I need to create Data View for the &ldquo;logstash- *&rdquo; pattern.</p><p>Go to: Menu > Analytics > Discover > Create data view</p><figure><img src=/.gitbook/assets/Pasted%20image%2020241205132331.png></figure><figure><img src=/.gitbook/assets/Pasted%20image%2020241210232040.png></figure><figure><img src=/.gitbook/assets/Pasted%20image%2020241210232739.png></figure><p>If you finished all the steps successfuly, you should see the following stack setup in the Stack Monitoring tab</p><figure><img src=/.gitbook/assets/Pasted%20image%2020241219004800.png></figure><h2 id=conclusion>Conclusion</h2><p>In this article, I demonstrated how it is possible to set-up ELK Stack in its basic form.</p><p>The files for this setup is uploaded on <a href=https://github.com/grcheulishvili/ELK-stack-docker>my github page</a> for public availability.</p><p>In the next part, I&rsquo;ll look at more advanced configuration of Elastic.</p><p>Until then.</p></div><div class=article-foot><div class=footer-social style=font-family:var(--font-mono);font-size:.8rem;color:var(--muted);gap:.75rem;align-items:center><span>share:</span>
-<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2fgrcheulishvili.github.io%2fengineering%2fconfiguring-an-elk-stack-part-1%2f" target=_blank rel=noopener aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33.0-3.04-1.85-3.04-1.86.0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75.0 013.37-1.85c3.6.0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07.0 110-4.14 2.07 2.07.0 010 4.14zM7.12 20.45H3.55V9h3.57zM22.22.0H1.77C.8.0.0.77.0 1.73v20.54C0 23.22.8 24 1.77 24h20.45c.98.0 1.78-.78 1.78-1.73V1.73C24 .77 23.2.0 22.22.0z"/></svg></a></div><nav class=post-nav><div></div><div style=text-align:right></div></nav></div></div><aside class=toc aria-label="Table of contents"><div class=toc-title>on this page</div><nav id=TableOfContents><ul><li><ul><li><a href=#file-structure>File structure</a></li></ul></li><li><a href=#configuration-files>Configuration files</a><ul><li><ul><li><a href=#env>.env</a></li></ul></li><li><a href=#base-setup>Base Setup</a><ul><li><a href=#docker-composeyml-setup-container>docker-compose.yml (&lsquo;setup&rsquo; container)</a></li></ul></li><li><a href=#elasticsearch>Elasticsearch</a><ul><li><a href=#docker-composeyml>docker-compose.yml</a></li><li><a href=#copying-valid-certificates>Copying valid certificates</a></li></ul></li><li><a href=#kibana>Kibana</a><ul><li><a href=#docker-composeyml-1>docker-compose.yml</a></li></ul></li><li><a href=#metricbeat>Metricbeat</a><ul><li><a href=#docker-composeyml-2>docker-compose.yml</a></li><li><a href=#metricbeatyml>metricbeat.yml</a></li></ul></li><li><a href=#filebeat>Filebeat</a><ul><li><a href=#docker-composeyml-3>docker-compose.yml</a></li><li><a href=#filebeatyml>filebeat.yml</a></li></ul></li><li><a href=#logstash>Logstash</a><ul><li><a href=#docker-composeyml-logstash01-container>docker-compose.yml (&rsquo;logstash01&rsquo; container)</a></li><li><a href=#logstashconf>logstash.conf</a></li><li><a href=#note>NOTE</a></li></ul></li></ul></li><li><a href=#conclusion>Conclusion</a></li></ul></nav></aside></article></div></main><footer class=site-footer><div class="wrap footer-inner"><div><span>© 2026 G.R</span>
-<span class=footer-sig>tools break. protocols do not.</span></div><div class=footer-social><a href=https://github.com/grcheulishvili target=_blank rel="noopener me" aria-label=GitHub><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5A10.5 10.5.0 008.7 22c.5.1.7-.2.7-.5v-2c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.2-1.6-1.2-1.6-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.5 1.1 3.1.9.1-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5.1.0-1.1.4-2 1-2.7.0-.3-.4-1.3.1-2.7.0.0.9-.3 2.8 1a9.6 9.6.0 015 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.7.7 1 1.6 1 2.7.0 3.9-2.4 4.8-4.7 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.5 10.5.0 0012 1.5z"/></svg></a>
-<a href=https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/ target=_blank rel="noopener me" aria-label=LinkedIn><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33.0-3.04-1.85-3.04-1.86.0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75.0 013.37-1.85c3.6.0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07.0 110-4.14 2.07 2.07.0 010 4.14zM7.12 20.45H3.55V9h3.57zM22.22.0H1.77C.8.0.0.77.0 1.73v20.54C0 23.22.8 24 1.77 24h20.45c.98.0 1.78-.78 1.78-1.73V1.73C24 .77 23.2.0 22.22.0z"/></svg></a></div></div></footer><div class=search-overlay id=search-overlay role=dialog aria-modal=true aria-label=Search><div class=search-box><div class=search-input-wrap><span class=pfx aria-hidden=true>search</span>
-<input id=search-input type=text autocomplete=off spellcheck=false placeholder="search research, projects, notes…" aria-label=Search></div><div class=search-results id=search-results></div><div class=search-foot aria-hidden=true><span>↑↓ navigate</span><span>↵ open</span><span>esc close</span></div></div></div><script src=/js/theme.min.5e80b0f9b5e093febf3a38b8f80f4e8aa36210a8081b4847d70d8f2ebdb341f4.js integrity="sha256-XoCw+bXgk/6/Oji4+A9OiqNiEKgIG0hH1w2PLr2zQfQ=" defer></script></body></html>
+</code></pre><p>Which I dropped in <code>logstash_ingest_data</code>/ and <code>filebeat_ingest_data/</code>.</p>
+<p>Now it&rsquo;ll take a few seconds for Elastic to see the changes in <code>Menu &gt; Stack management &gt; Index management &gt; Reload Indices</code></p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020241210232627.png">
+</figure>
+
+<p>And here should be logstash data logs.</p>
+<p>Now, to see the data, I need to create Data View for the &ldquo;logstash- *&rdquo; pattern.</p>
+<p>Go to: Menu &gt; Analytics &gt; Discover &gt; Create data view</p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020241205132331.png">
+</figure>
+
+<figure><img src="/.gitbook/assets/Pasted%20image%2020241210232040.png">
+</figure>
+
+<figure><img src="/.gitbook/assets/Pasted%20image%2020241210232739.png">
+</figure>
+
+<p>If you finished all the steps successfuly, you should see the following stack setup in the Stack Monitoring tab</p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020241219004800.png">
+</figure>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>In this article, I demonstrated how it is possible to set-up ELK Stack in its basic form.</p>
+<p>The files for this setup is uploaded on <a href="https://github.com/grcheulishvili/ELK-stack-docker">my github page</a> for public availability.</p>
+<p>In the next part, I&rsquo;ll look at more advanced configuration of Elastic.</p>
+<p>Until then.</p>
+
+      </div>
+
+      <div class="article-foot">
+        
+        <div class="footer-social" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);gap:.75rem;align-items:center">
+          <span>share:</span>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3a%2f%2flocalhost%3a1313%2fengineering%2fconfiguring-an-elk-stack-part-1%2f" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33 0-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        </div>
+        
+        <nav class="post-nav">
+          <div></div>
+          <div style="text-align:right"></div>
+        </nav>
+      </div>
+    </div>
+
+    
+    <aside class="toc" aria-label="Table of contents">
+      <div class="toc-title">on this page</div>
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#file-structure">File structure</a></li>
+      </ul>
+    </li>
+    <li><a href="#configuration-files">Configuration files</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#env">.env</a></li>
+          </ul>
+        </li>
+        <li><a href="#base-setup">Base Setup</a>
+          <ul>
+            <li><a href="#docker-composeyml-setup-container">docker-compose.yml (&lsquo;setup&rsquo; container)</a></li>
+          </ul>
+        </li>
+        <li><a href="#elasticsearch">Elasticsearch</a>
+          <ul>
+            <li><a href="#docker-composeyml">docker-compose.yml</a></li>
+            <li><a href="#copying-valid-certificates">Copying valid certificates</a></li>
+          </ul>
+        </li>
+        <li><a href="#kibana">Kibana</a>
+          <ul>
+            <li><a href="#docker-composeyml-1">docker-compose.yml</a></li>
+          </ul>
+        </li>
+        <li><a href="#metricbeat">Metricbeat</a>
+          <ul>
+            <li><a href="#docker-composeyml-2">docker-compose.yml</a></li>
+            <li><a href="#metricbeatyml">metricbeat.yml</a></li>
+          </ul>
+        </li>
+        <li><a href="#filebeat">Filebeat</a>
+          <ul>
+            <li><a href="#docker-composeyml-3">docker-compose.yml</a></li>
+            <li><a href="#filebeatyml">filebeat.yml</a></li>
+          </ul>
+        </li>
+        <li><a href="#logstash">Logstash</a>
+          <ul>
+            <li><a href="#docker-composeyml-logstash01-container">docker-compose.yml (&rsquo;logstash01&rsquo; container)</a></li>
+            <li><a href="#logstashconf">logstash.conf</a></li>
+            <li><a href="#note">NOTE</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </aside>
+    
+  </article>
+</div>
+
+  </main>
+  
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <span>© 2026 G.R</span>
+      <span class="footer-sig">tools break. protocols do not.</span>
+    </div>
+    <div class="footer-social">
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener me" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5A10.5 10.5 0 0 0 8.7 22c.5.1.7-.2.7-.5v-2c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.2-1.6-1.2-1.6-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.5 1.1 3.1.9.1-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5.1 0-1.1.4-2 1-2.7 0-.3-.4-1.3.1-2.7 0 0 .9-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.7.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.7 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.5 10.5 0 0 0 12 1.5z"/></svg></a>
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener me" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33 0-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span class="pfx" aria-hidden="true">search</span>
+      <input id="search-input" type="text" autocomplete="off" spellcheck="false"
+             placeholder="search research, projects, notes…" aria-label="Search">
+    </div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot" aria-hidden="true">
+      <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+    </div>
+  </div>
+</div>
+
+  
+  <script src="/js/theme.min.5e80b0f9b5e093febf3a38b8f80f4e8aa36210a8081b4847d70d8f2ebdb341f4.js" integrity="sha256-XoCw&#43;bXgk/6/Oji4&#43;A9OiqNiEKgIG0hH1w2PLr2zQfQ=" defer></script>
+</body>
+</html>
