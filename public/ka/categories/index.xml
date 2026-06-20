@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Categories on G.R</title>
-		<link>http://localhost:1313/ka/categories/</link>
-		<description>Recent content in Categories on G.R</description>
-		<generator>Hugo</generator>
-		<language>ka-GE</language>
-		
-		
-		
-		
-			<atom:link href="http://localhost:1313/ka/categories/index.xml" rel="self" type="application/rss+xml" />
-	</channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Categories on G.R</title><link>https://grcheulishvili.github.io/ka/categories/</link><description>Recent content in Categories on G.R</description><generator>Hugo</generator><language>ka-GE</language><atom:link href="https://grcheulishvili.github.io/ka/categories/index.xml" rel="self" type="application/rss+xml"/></channel></rss>

@@ -1,24 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>C2 on G.R</title>
-		<link>http://localhost:1313/tags/c2/</link>
-		<description>Recent content in C2 on G.R</description>
-		<generator>Hugo</generator>
-		<language>en-US</language>
-		
-		
-		
-		
-			<lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
-		
-			<atom:link href="http://localhost:1313/tags/c2/index.xml" rel="self" type="application/rss+xml" />
-			<item>
-				<title>Mantis C2 Architecture</title>
-				<link>http://localhost:1313/projects/mantis-c2/</link>
-				<pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/projects/mantis-c2/</guid>
-				<description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;Mantis C2 is a proof-of-concept, educationally designed Command and Control framework built to test and bypass EDR telemetry. Commercial and widely available C2 frameworks often carry heavily signatured stubs; Mantis was built from the ground up to minimize the footprint of static and behavioral anomalies.&lt;/p&gt;</description>
-			</item>
-	</channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>C2 on G.R</title><link>https://grcheulishvili.github.io/tags/c2/</link><description>Recent content in C2 on G.R</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://grcheulishvili.github.io/tags/c2/index.xml" rel="self" type="application/rss+xml"/><item><title>Mantis C2 Architecture</title><link>https://grcheulishvili.github.io/projects/mantis-c2/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/projects/mantis-c2/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Mantis C2 is a proof-of-concept, educationally designed Command and Control framework built to test and bypass EDR telemetry. Commercial and widely available C2 frameworks often carry heavily signatured stubs; Mantis was built from the ground up to minimize the footprint of static and behavioral anomalies.&lt;/p&gt;</description></item></channel></rss>

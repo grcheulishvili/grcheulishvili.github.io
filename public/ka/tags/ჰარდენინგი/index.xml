@@ -1,24 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>ჰარდენინგი on G.R</title>
-		<link>http://localhost:1313/ka/tags/%E1%83%B0%E1%83%90%E1%83%A0%E1%83%93%E1%83%94%E1%83%9C%E1%83%98%E1%83%9C%E1%83%92%E1%83%98/</link>
-		<description>Recent content in ჰარდენინგი on G.R</description>
-		<generator>Hugo</generator>
-		<language>ka-GE</language>
-		
-		
-		
-		
-			<lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
-		
-			<atom:link href="http://localhost:1313/ka/tags/%E1%83%B0%E1%83%90%E1%83%A0%E1%83%93%E1%83%94%E1%83%9C%E1%83%98%E1%83%9C%E1%83%92%E1%83%98/index.xml" rel="self" type="application/rss+xml" />
-			<item>
-				<title>მრავალმომხმარებლიანი CTF სიმულაციური პლატფორმა</title>
-				<link>http://localhost:1313/ka/projects/local-ctf-platform/</link>
-				<pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/ka/projects/local-ctf-platform/</guid>
-				<description>&lt;h2 id=&#34;მიმოხილვა&#34;&gt;მიმოხილვა&lt;/h2&gt;&#xA;&lt;p&gt;ეს არის ჰიბრიდული wargame პლატფორმა, რომელიც შექმნილია სცენარებზე დაფუძნებული კიბერუსაფრთხოების ტრენინგებისთვის. მთავარი ტექნიკური გამოწვევა ჩემთვის იყო უსაფრთხო, მრავალმომხმარებლიანი Linux გარემოს პროექტირება, სადაც მოთამაშეებს შეეძლებათ მომიჯნავე სამიზნეებზე მოწყვლადობების ექსპლუატაცია მთლიანი სისტემის კომპრომეტაციის ან სხვა მომხმარებლებზე ზეგავლენის გარეშე. ჩემ ინსპირაციად ავიღე &lt;a href=&#34;https://overthewire.org/wargames/&#34;&gt;OverTheWire&lt;/a&gt; პლატფორმა.&lt;/p&gt;</description>
-			</item>
-	</channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ჰარდენინგი on G.R</title><link>https://grcheulishvili.github.io/ka/tags/%E1%83%B0%E1%83%90%E1%83%A0%E1%83%93%E1%83%94%E1%83%9C%E1%83%98%E1%83%9C%E1%83%92%E1%83%98/</link><description>Recent content in ჰარდენინგი on G.R</description><generator>Hugo</generator><language>ka-GE</language><lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://grcheulishvili.github.io/ka/tags/%E1%83%B0%E1%83%90%E1%83%A0%E1%83%93%E1%83%94%E1%83%9C%E1%83%98%E1%83%9C%E1%83%92%E1%83%98/index.xml" rel="self" type="application/rss+xml"/><item><title>მრავალმომხმარებლიანი CTF სიმულაციური პლატფორმა</title><link>https://grcheulishvili.github.io/ka/projects/local-ctf-platform/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/ka/projects/local-ctf-platform/</guid><description>&lt;h2 id="მიმოხილვა"&gt;მიმოხილვა&lt;/h2&gt;
+&lt;p&gt;ეს არის ჰიბრიდული wargame პლატფორმა, რომელიც შექმნილია სცენარებზე დაფუძნებული კიბერუსაფრთხოების ტრენინგებისთვის. მთავარი ტექნიკური გამოწვევა ჩემთვის იყო უსაფრთხო, მრავალმომხმარებლიანი Linux გარემოს პროექტირება, სადაც მოთამაშეებს შეეძლებათ მომიჯნავე სამიზნეებზე მოწყვლადობების ექსპლუატაცია მთლიანი სისტემის კომპრომეტაციის ან სხვა მომხმარებლებზე ზეგავლენის გარეშე. ჩემ ინსპირაციად ავიღე &lt;a href="https://overthewire.org/wargames/"&gt;OverTheWire&lt;/a&gt; პლატფორმა.&lt;/p&gt;</description></item></channel></rss>

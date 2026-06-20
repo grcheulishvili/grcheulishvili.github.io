@@ -1,38 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>პროექტები on G.R</title>
-		<link>http://localhost:1313/ka/projects/</link>
-		<description>Recent content in პროექტები on G.R</description>
-		<generator>Hugo</generator>
-		<language>ka-GE</language>
-		
-		
-		
-		
-			<lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
-		
-			<atom:link href="http://localhost:1313/ka/projects/index.xml" rel="self" type="application/rss+xml" />
-			<item>
-				<title>Mantis C2 არქიტექტურა</title>
-				<link>http://localhost:1313/ka/projects/mantis-c2/</link>
-				<pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/ka/projects/mantis-c2/</guid>
-				<description>&lt;h2 id=&#34;მიმოხილვა&#34;&gt;მიმოხილვა&lt;/h2&gt;&#xA;&lt;p&gt;Mantis C2 არის სატესტო, საგანმანათლებლოდ შექმნილი Command and Control ფრეიმვორკი, რომელიც შექმნილია EDR ტელემეტრიის გასატესტად და მისთვის გვერდის ავლისთვის. კომერციული და ფართოდ ხელმისაწვდომი C2 ფრეიმვორკები ხშირად შეიცავენ მკაცრად სიგნატურებულ სტაბებს (stubs); Mantis აწყობილია ნულიდან, რათა მინიმუმამდე დაიყვანოს სტატიკური და ქცევითი ანომალიების კვალი.&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>მრავალმომხმარებლიანი CTF სიმულაციური პლატფორმა</title>
-				<link>http://localhost:1313/ka/projects/local-ctf-platform/</link>
-				<pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/ka/projects/local-ctf-platform/</guid>
-				<description>&lt;h2 id=&#34;მიმოხილვა&#34;&gt;მიმოხილვა&lt;/h2&gt;&#xA;&lt;p&gt;ეს არის ჰიბრიდული wargame პლატფორმა, რომელიც შექმნილია სცენარებზე დაფუძნებული კიბერუსაფრთხოების ტრენინგებისთვის. მთავარი ტექნიკური გამოწვევა ჩემთვის იყო უსაფრთხო, მრავალმომხმარებლიანი Linux გარემოს პროექტირება, სადაც მოთამაშეებს შეეძლებათ მომიჯნავე სამიზნეებზე მოწყვლადობების ექსპლუატაცია მთლიანი სისტემის კომპრომეტაციის ან სხვა მომხმარებლებზე ზეგავლენის გარეშე. ჩემ ინსპირაციად ავიღე &lt;a href=&#34;https://overthewire.org/wargames/&#34;&gt;OverTheWire&lt;/a&gt; პლატფორმა.&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>რეგიონალური საფრთხეების დაზვერვის აგრეგატორი</title>
-				<link>http://localhost:1313/ka/projects/regional-threat-intel/</link>
-				<pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/ka/projects/regional-threat-intel/</guid>
-				<description>&lt;h2 id=&#34;მიმოხილვა&#34;&gt;მიმოხილვა&lt;/h2&gt;&#xA;&lt;p&gt;ეს მორგებული CTI დეშბორდი წყვეტს ინფრომაციული გადატვირთვის პრობლემას. სისტემა ფილტრავს დიდი მოცულობის ღია წყაროებს და მათგან აგენერირებს მაღალი სიზუსტის ინდიკატორების სიას. პლატფორმა ფოკუსირებულია მხოლოდ განსაზღვრული საფრთხეების გარემოსთვის რელევანტურ APT აქტივობებსა და C2 ინფრასტრუქტურაზე თვალის დევნებისთვის.&lt;/p&gt;</description>
-			</item>
-	</channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>პროექტები on G.R</title><link>https://grcheulishvili.github.io/ka/projects/</link><description>Recent content in პროექტები on G.R</description><generator>Hugo</generator><language>ka-GE</language><lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://grcheulishvili.github.io/ka/projects/index.xml" rel="self" type="application/rss+xml"/><item><title>Mantis C2 არქიტექტურა</title><link>https://grcheulishvili.github.io/ka/projects/mantis-c2/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/ka/projects/mantis-c2/</guid><description>&lt;h2 id="მიმოხილვა"&gt;მიმოხილვა&lt;/h2&gt;
+&lt;p&gt;Mantis C2 არის სატესტო, საგანმანათლებლოდ შექმნილი Command and Control ფრეიმვორკი, რომელიც შექმნილია EDR ტელემეტრიის გასატესტად და მისთვის გვერდის ავლისთვის. კომერციული და ფართოდ ხელმისაწვდომი C2 ფრეიმვორკები ხშირად შეიცავენ მკაცრად სიგნატურებულ სტაბებს (stubs); Mantis აწყობილია ნულიდან, რათა მინიმუმამდე დაიყვანოს სტატიკური და ქცევითი ანომალიების კვალი.&lt;/p&gt;</description></item><item><title>მრავალმომხმარებლიანი CTF სიმულაციური პლატფორმა</title><link>https://grcheulishvili.github.io/ka/projects/local-ctf-platform/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/ka/projects/local-ctf-platform/</guid><description>&lt;h2 id="მიმოხილვა"&gt;მიმოხილვა&lt;/h2&gt;
+&lt;p&gt;ეს არის ჰიბრიდული wargame პლატფორმა, რომელიც შექმნილია სცენარებზე დაფუძნებული კიბერუსაფრთხოების ტრენინგებისთვის. მთავარი ტექნიკური გამოწვევა ჩემთვის იყო უსაფრთხო, მრავალმომხმარებლიანი Linux გარემოს პროექტირება, სადაც მოთამაშეებს შეეძლებათ მომიჯნავე სამიზნეებზე მოწყვლადობების ექსპლუატაცია მთლიანი სისტემის კომპრომეტაციის ან სხვა მომხმარებლებზე ზეგავლენის გარეშე. ჩემ ინსპირაციად ავიღე &lt;a href="https://overthewire.org/wargames/"&gt;OverTheWire&lt;/a&gt; პლატფორმა.&lt;/p&gt;</description></item><item><title>რეგიონალური საფრთხეების დაზვერვის აგრეგატორი</title><link>https://grcheulishvili.github.io/ka/projects/regional-threat-intel/</link><pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate><guid>https://grcheulishvili.github.io/ka/projects/regional-threat-intel/</guid><description>&lt;h2 id="მიმოხილვა"&gt;მიმოხილვა&lt;/h2&gt;
+&lt;p&gt;ეს მორგებული CTI დეშბორდი წყვეტს ინფრომაციული გადატვირთვის პრობლემას. სისტემა ფილტრავს დიდი მოცულობის ღია წყაროებს და მათგან აგენერირებს მაღალი სიზუსტის ინდიკატორების სიას. პლატფორმა ფოკუსირებულია მხოლოდ განსაზღვრული საფრთხეების გარემოსთვის რელევანტურ APT აქტივობებსა და C2 ინფრასტრუქტურაზე თვალის დევნებისთვის.&lt;/p&gt;</description></item></channel></rss>
