@@ -1,0 +1,56 @@
+{{- $cur := . -}}
+<header class="site-header">
+  <input type="checkbox" id="nav-check" aria-hidden="true">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="{{ "" | relLangURL }}" aria-label="G.R home">
+      <span>G.R</span><span class="cursor" aria-hidden="true"></span>
+    </a>
+
+    <div class="nav-links" id="nav-links">
+      {{ range site.Menus.main }}
+        {{ $active := or (eq $cur.RelPermalink .URL) (and (ne .URL "/") (hasPrefix $cur.RelPermalink .URL)) }}
+        <a href="{{ .URL | relLangURL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{ end }}
+    </div>
+
+    <div class="nav-tools">
+      <button class="icon-btn" id="search-open" type="button" aria-label="{{ i18n "search" | default "Search" }}" title="{{ i18n "search" }} (⌘K)">
+        {{ partial "icon.html" "search" }}
+      </button>
+      <span class="kbd-hint" aria-hidden="true">⌘K</span>
+
+      {{ if gt (len site.Languages) 1 }}
+      <div class="lang-switch" role="group" aria-label="Language">
+        {{ range site.Sites }}
+          {{ $s := . }}
+          {{ $isCur := eq $cur.Language.Lang $s.Language.Lang }}
+          {{ $url := "" }}
+          {{ range $cur.AllTranslations }}{{ if eq .Language.Lang $s.Language.Lang }}{{ $url = .RelPermalink }}{{ end }}{{ end }}
+          {{ if $isCur }}{{ $url = $cur.RelPermalink }}{{ end }}
+          {{ if not $url }}
+            {{ if and $cur.IsPage (ne $cur.Layout "untranslated") }}
+              {{ with $s.GetPage "/untranslated" }}
+                {{ $url = printf "%s?%s" .RelPermalink (querify "from" $cur.RelPermalink "t" $cur.Title) }}
+              {{ end }}
+            {{ end }}
+            {{ if not $url }}{{ $url = $s.Home.RelPermalink }}{{ end }}
+          {{ end }}
+          <a href="{{ $url }}"{{ if $isCur }} class="active"{{ end }} hreflang="{{ $s.Language.Lang }}">{{ $s.Language.LanguageName }}</a>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <span class="th-dark">{{ partial "icon.html" "moon" }}</span>
+        <span class="th-light" style="display:none">{{ partial "icon.html" "sun" }}</span>
+      </button>
+
+      <label class="icon-btn nav-toggle" for="nav-check" aria-label="Menu" title="Menu">
+        {{ partial "icon.html" "menu" }}
+      </label>
+    </div>
+  </nav>
+</header>
+<style>
+[data-theme="light"] .th-dark{display:none}[data-theme="light"] .th-light{display:inline-grid!important}
+</style>

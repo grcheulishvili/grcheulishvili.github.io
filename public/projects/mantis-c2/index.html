@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mantis C2 Architecture · G.R</title>
+<meta name="description" content="A Command and Control framework focusing on signature evasion and resilient communication.">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/projects/mantis-c2/">
+<script>
+(function(){try{var d=document.documentElement,t=localStorage.getItem("G.R-theme");
+if(!t){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}
+d.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+<link rel="stylesheet" href="/css/bundle.min.1914f9ad5c5161586c9c652fd6edd1e14f9ccc405b2e5120abcce27c9378e105.css" integrity="sha256-GRT5rVxRYVhsnGUv1u3R4U&#43;czEBbLlEgq8zifJN44QU="><link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+
+<meta property="og:site_name" content="G.R">
+<meta property="og:title" content="Mantis C2 Architecture">
+<meta property="og:description" content="A Command and Control framework focusing on signature evasion and resilient communication.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/projects/mantis-c2/">
+<meta property="og:image" content="http://localhost:1313/images/logo.png">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-11-27T00:00:00Z">
+<meta property="article:tag" content="MalDev"><meta property="article:tag" content="Go"><meta property="article:tag" content="C2">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mantis C2 Architecture">
+<meta name="twitter:description" content="A Command and Control framework focusing on signature evasion and resilient communication.">
+<meta name="twitter:image" content="http://localhost:1313/images/logo.png">
+
+
+	<meta itemprop="name" content="Mantis C2 Architecture">
+	<meta itemprop="description" content="A Command and Control framework focusing on signature evasion and resilient communication.">
+	<meta itemprop="datePublished" content="2025-11-27T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2025-11-27T00:00:00+00:00">
+	<meta itemprop="wordCount" content="425">
+	<meta itemprop="keywords" content="MalDev,Go,C2">
+
+<script>window.__SEARCH_URL__="\/index.json";</script>
+
+  
+</head>
+<body>
+  <header class="site-header">
+  <input type="checkbox" id="nav-check" aria-hidden="true">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="/" aria-label="G.R home">
+      <span>G.R</span><span class="cursor" aria-hidden="true"></span>
+    </a>
+
+    <div class="nav-links" id="nav-links">
+      
+        
+        <a href="/research/">Research</a>
+      
+        
+        <a href="/projects/" aria-current="page">Projects</a>
+      
+        
+        <a href="/archive/">Archive</a>
+      
+        
+        <a href="/about/">About</a>
+      
+    </div>
+
+    <div class="nav-tools">
+      <button class="icon-btn" id="search-open" type="button" aria-label="Search" title="Search (⌘K)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <span class="kbd-hint" aria-hidden="true">⌘K</span>
+
+      
+      <div class="lang-switch" role="group" aria-label="Language">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/projects/mantis-c2/" class="active" hreflang="en">EN</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/ka/projects/mantis-c2/" hreflang="ka">ქარ</a>
+        
+      </div>
+      
+
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <span class="th-dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span>
+        <span class="th-light" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+      </button>
+
+      <label class="icon-btn nav-toggle" for="nav-check" aria-label="Menu" title="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </label>
+    </div>
+  </nav>
+</header>
+<style>
+[data-theme="light"] .th-dark{display:none}[data-theme="light"] .th-light{display:inline-grid!important}
+</style>
+
+  <main id="main">
+    
+
+
+<div class="wrap section-pad">
+  <article class="article-shell has-toc">
+    <div>
+      <header class="article-header">
+        <span class="eyebrow">projects</span>
+        <h1>Mantis C2 Architecture</h1>
+        
+        <div class="article-meta">
+          <time datetime="2025-11-27">November 27, 2025</time>
+          <span class="dot-sep">·</span><span class="reading">2 min read</span>
+          <span class="dot-sep">·</span><a class="tag" href="/tags/maldev/">MalDev</a> <a class="tag" href="/tags/go/">Go</a> <a class="tag" href="/tags/c2/">C2</a> 
+        </div>
+        
+        
+      </header>
+
+      <div class="prose">
+        <h2 id="overview">Overview</h2>
+<p>Mantis C2 is a proof-of-concept, educationally designed Command and Control framework built to test and bypass EDR telemetry. Commercial and widely available C2 frameworks often carry heavily signatured stubs; Mantis was built from the ground up to minimize the footprint of static and behavioral anomalies.</p>
+<h2 id="1-evasion-and-persistence-architecture">1. Evasion and Persistence Architecture</h2>
+<h3 id="ast-driven-polymorphism-protocol">AST-Driven Polymorphism Protocol</h3>
+<p>To defeat static analysis, the builder utilizes a custom code mutation protocol:</p>
+<ul>
+<li>The agent is processed by a dedicated pre-compiler that mutates the syntax trees (AST) to generate <strong>structurally unique binaries</strong> for every deployment. This defeats CFG (Control Flow Graph) analysis and static signatures, which is a significant step beyond simple file hash mutation.</li>
+<li>All sensitive strings (e.g., C2 domains, commands) are automatically located and encrypted at the code level prior to compilation, and they are decrypted at runtime using a key dynamically loaded into the file&rsquo;s memory.</li>
+<li>In the next stage, instead of writing to disk, Mantis allocates memory dynamically and executes the shellcode directly.</li>
+<li>All DWARF tables and symbol information are automatically stripped during cross-compilation, which severely complicates the reverse engineering process.</li>
+</ul>
+<h3 id="stealth">Stealth</h3>
+<ul>
+<li>The agent runs silently as a background process.</li>
+<li>Connection intervals with the server are heavily randomized. Upon waking, the agent masks its memory regions to prevent the detection of inactive malicious threads during memory scanning.</li>
+</ul>
+<h3 id="self-destruction">Self-Destruction</h3>
+<p>A command specified by a predefined keyword triggers a self-destruct routine, which is critical for operational cleanup:</p>
+<ol>
+<li>It deletes the Windows Registry Run keys used for persistence.</li>
+<li>It deletes its own binary file from the disk.</li>
+<li>It terminates the session and signals the C2 server.</li>
+</ol>
+<h2 id="2-data-telemetry">2. Data Telemetry</h2>
+<p>The primary strength is the split telemetry model, designed for high-volume, rapid data exfiltration:</p>
+<ol>
+<li>Data is sent immediately in small, encrypted packets via a covert TCP channel. This ensures continuous data reception even if the session is unexpectedly terminated.</li>
+<li>An immediate <strong>Stage 1 Recon Report</strong> is generated upon connection, providing the operator with critical system and file metadata before any command is issued.</li>
+<li>Files that exceed a defined limit are automatically transmitted in chunks, bypassing the compression engine to prevent memory spikes and keep CPU load minimal.</li>
+</ol>
+<h2 id="3-builder-and-sanitization">3. Builder and Sanitization</h2>
+<p>The framework contains a tool for generating payloads.</p>
+<blockquote>
+<p><strong>Note:</strong> <em>To maintain security standards and prevent misuse, this public documentation does not include core features such as encryption keys, C2 IP/port configuration, and the complete logic for multi-threaded session management. To understand the technical mechanisms behind the polymorphic build, please refer to the dedicated research: <a href="https://grcheulishvili.github.io/research/building-a-polymorphic-engine/">Go AST Polymorphic Engine</a>.</em></p>
+</blockquote>
+<hr>
+<p><em>This tool is intended solely for educational research and authorized internal threat simulation.</em></p>
+
+      </div>
+
+      <div class="article-foot">
+        
+        <div class="footer-social" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);gap:.75rem;align-items:center">
+          <span>share:</span>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3a%2f%2flocalhost%3a1313%2fprojects%2fmantis-c2%2f" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33 0-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        </div>
+        
+        <nav class="post-nav">
+          <div><a href="/projects/regional-threat-intel/"><span class="pn-label">← newer</span>Regional Threat Intel Aggregator</a></div>
+          <div style="text-align:right"><a href="/projects/local-ctf-platform/"><span class="pn-label">older →</span>Building Multi-Tenant CTF Wargames Platform</a></div>
+        </nav>
+      </div>
+    </div>
+
+    
+    <aside class="toc" aria-label="Table of contents">
+      <div class="toc-title">on this page</div>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#1-evasion-and-persistence-architecture">1. Evasion and Persistence Architecture</a>
+      <ul>
+        <li><a href="#ast-driven-polymorphism-protocol">AST-Driven Polymorphism Protocol</a></li>
+        <li><a href="#stealth">Stealth</a></li>
+        <li><a href="#self-destruction">Self-Destruction</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-data-telemetry">2. Data Telemetry</a></li>
+    <li><a href="#3-builder-and-sanitization">3. Builder and Sanitization</a></li>
+  </ul>
+</nav>
+    </aside>
+    
+  </article>
+</div>
+
+  </main>
+  
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <span>© 2026 G.R</span>
+      <span class="footer-sig">tools break. protocols do not.</span>
+    </div>
+    <div class="footer-social">
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener me" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5A10.5 10.5 0 0 0 8.7 22c.5.1.7-.2.7-.5v-2c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.2-1.6-1.2-1.6-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.5 1.1 3.1.9.1-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5.1 0-1.1.4-2 1-2.7 0-.3-.4-1.3.1-2.7 0 0 .9-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.7.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.7 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.5 10.5 0 0 0 12 1.5z"/></svg></a>
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener me" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33 0-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span class="pfx" aria-hidden="true">search</span>
+      <input id="search-input" type="text" autocomplete="off" spellcheck="false"
+             placeholder="search research, projects, notes…" aria-label="Search">
+    </div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot" aria-hidden="true">
+      <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+    </div>
+  </div>
+</div>
+
+  
+  <script src="/js/theme.min.5e80b0f9b5e093febf3a38b8f80f4e8aa36210a8081b4847d70d8f2ebdb341f4.js" integrity="sha256-XoCw&#43;bXgk/6/Oji4&#43;A9OiqNiEKgIG0hH1w2PLr2zQfQ=" defer></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ka" data-theme="dark">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>რეგიონალური საფრთხეების დაზვერვის აგრეგატორი · G.R</title>
+<meta name="description" content="Python-ზე დაფუძნებული მაღალი სიზუსტის CTI აგრეგაციის ძრავი ღია წყაროების გასაფილტრად.">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/ka/projects/regional-threat-intel/">
+<script>
+(function(){try{var d=document.documentElement,t=localStorage.getItem("G.R-theme");
+if(!t){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}
+d.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+<link rel="stylesheet" href="/css/bundle.min.1914f9ad5c5161586c9c652fd6edd1e14f9ccc405b2e5120abcce27c9378e105.css" integrity="sha256-GRT5rVxRYVhsnGUv1u3R4U&#43;czEBbLlEgq8zifJN44QU="><link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+
+<meta property="og:site_name" content="G.R">
+<meta property="og:title" content="რეგიონალური საფრთხეების დაზვერვის აგრეგატორი">
+<meta property="og:description" content="Python-ზე დაფუძნებული მაღალი სიზუსტის CTI აგრეგაციის ძრავი ღია წყაროების გასაფილტრად.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/ka/projects/regional-threat-intel/">
+<meta property="og:image" content="http://localhost:1313/images/logo.png">
+<meta property="og:locale" content="ka_GE">
+<meta property="article:published_time" content="2025-11-27T00:00:00Z">
+<meta property="article:tag" content="CTI"><meta property="article:tag" content="Python"><meta property="article:tag" content="Grafana"><meta property="article:tag" content="PostgreSQL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="რეგიონალური საფრთხეების დაზვერვის აგრეგატორი">
+<meta name="twitter:description" content="Python-ზე დაფუძნებული მაღალი სიზუსტის CTI აგრეგაციის ძრავი ღია წყაროების გასაფილტრად.">
+<meta name="twitter:image" content="http://localhost:1313/images/logo.png">
+
+
+	<meta itemprop="name" content="რეგიონალური საფრთხეების დაზვერვის აგრეგატორი">
+	<meta itemprop="description" content="Python-ზე დაფუძნებული მაღალი სიზუსტის CTI აგრეგაციის ძრავი ღია წყაროების გასაფილტრად.">
+	<meta itemprop="datePublished" content="2025-11-27T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2025-11-27T00:00:00+00:00">
+	<meta itemprop="wordCount" content="295">
+	<meta itemprop="keywords" content="CTI,Python,Grafana,PostgreSQL">
+
+<script>window.__SEARCH_URL__="\/ka\/index.json";</script>
+
+  
+</head>
+<body>
+  <header class="site-header">
+  <input type="checkbox" id="nav-check" aria-hidden="true">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="/ka/" aria-label="G.R home">
+      <span>G.R</span><span class="cursor" aria-hidden="true"></span>
+    </a>
+
+    <div class="nav-links" id="nav-links">
+      
+        
+        <a href="/ka/research/">კვლევა</a>
+      
+        
+        <a href="/ka/projects/">პროექტები</a>
+      
+        
+        <a href="/ka/archive/">არქივი</a>
+      
+        
+        <a href="/ka/about/">შესახებ</a>
+      
+    </div>
+
+    <div class="nav-tools">
+      <button class="icon-btn" id="search-open" type="button" aria-label="ძიება" title="ძიება (⌘K)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <span class="kbd-hint" aria-hidden="true">⌘K</span>
+
+      
+      <div class="lang-switch" role="group" aria-label="Language">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/projects/regional-threat-intel/" hreflang="en">EN</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/ka/projects/regional-threat-intel/" class="active" hreflang="ka">ქარ</a>
+        
+      </div>
+      
+
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <span class="th-dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span>
+        <span class="th-light" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+      </button>
+
+      <label class="icon-btn nav-toggle" for="nav-check" aria-label="Menu" title="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </label>
+    </div>
+  </nav>
+</header>
+<style>
+[data-theme="light"] .th-dark{display:none}[data-theme="light"] .th-light{display:inline-grid!important}
+</style>
+
+  <main id="main">
+    
+
+
+<div class="wrap section-pad">
+  <article class="article-shell has-toc">
+    <div>
+      <header class="article-header">
+        <span class="eyebrow">projects</span>
+        <h1>რეგიონალური საფრთხეების დაზვერვის აგრეგატორი</h1>
+        
+        <div class="article-meta">
+          <time datetime="2025-11-27">November 27, 2025</time>
+          <span class="dot-sep">·</span><span class="reading">2 წთ კითხვა</span>
+          <span class="dot-sep">·</span><a class="tag" href="/ka/tags/cti/">CTI</a> <a class="tag" href="/ka/tags/python/">Python</a> <a class="tag" href="/ka/tags/grafana/">Grafana</a> 
+        </div>
+        
+        <div class="showcase-meta">
+          <span class="proj-status">Active</span>
+          <div class="stack"><span class="chip">Python</span><span class="chip">PostgreSQL</span><span class="chip">Grafana</span></div>
+          
+          
+        </div>
+        
+        
+      </header>
+
+      <div class="prose">
+        <h2 id="მიმოხილვა">მიმოხილვა</h2>
+<p>ეს მორგებული CTI დეშბორდი წყვეტს ინფრომაციული გადატვირთვის პრობლემას. სისტემა ფილტრავს დიდი მოცულობის ღია წყაროებს და მათგან აგენერირებს მაღალი სიზუსტის ინდიკატორების სიას. პლატფორმა ფოკუსირებულია მხოლოდ განსაზღვრული საფრთხეების გარემოსთვის რელევანტურ APT აქტივობებსა და C2 ინფრასტრუქტურაზე თვალის დევნებისთვის.</p>
+<h2 id="1-ტექნიკური-არქიტექტურა-და-მონაცემთა-ნაკადის-მიღება">1. ტექნიკური არქიტექტურა და მონაცემთა ნაკადის მიღება</h2>
+<p>სისტემა მუშაობს კონტეინერიზებულ მიკროსერვისულ არქიტექტურაზე მედეგობისა და მარტივი მართვის უზრუნველსაყოფად:</p>
+<ul>
+<li>Python-ზე ბაზირებული კოლექტორები მუშაობენ როგორც API მომხმარებლები და მონაცემთა პარსერები.</li>
+<li>PostgreSQL უზრუნველყოფს სტრუქტურირებული IOC-ების საიმედო რელაციურ შენახვას.</li>
+<li>Grafana გამოიყენება რეალურ დროში მონიტორინგისა და საფრთხეების გარემოს ვიზუალიზაციისთვის.</li>
+</ul>
+<h3 id="მონაცემთა-აგრეგაცია-და-ფილტრაცია">მონაცემთა აგრეგაცია და ფილტრაცია</h3>
+<p>დამოუკიდებელი კოლექტორები მართავენ მონაცემთა მიღებასა და შეფასებას:</p>
+<ol>
+<li><strong><code>collector-news</code>:</strong> კითხულობს RSS ფიდებს და აფასებს სტატიებს მაღალი რელევანტურობის მქონე საკვანძო სიტყვების საფუძველზე, როგორიცაა კრიტიკული ინფრასტრუქტურა, კიბერშეტევა ან მოწყვლადობის გამჟღავნება, ასევე იყენებს რეგიონალურ ფილტრებს.</li>
+<li><strong><code>collector-ioc-threatfox</code> / <code>collector-otx</code>:</strong> იღებს ტექნიკურ ინდიკატორებს, მათ შორის IP მისამართებსა და ჰეშებს ღია წყაროებიდან. მონაცემთა ბაზაში ჩაწერამდე სისტემა მათზე გეოგრაფიულ და კონკრეტულ კამპანიებზე დაფუძნებულ ფილტრებს ატარებს.</li>
+</ol>
+<h2 id="2-დაზვერვის-ოპერაციონალიზაცია">2. დაზვერვის ოპერაციონალიზაცია</h2>
+<p>სისტემის მთავარი ღირებულება არის მისი ინტეგრაცია დაცვის ინსტრუმენტებთან:</p>
+<ul>
+<li>მონაცემთა ბაზისთვის იქმნება ცალკეული, მხოლოდ წაკითხვის უფლების მქონე PostgreSQL მომხმარებელი.</li>
+<li>ეს საშუალებას აძლევს უსაფრთხოების გუნდს, რომ ყოველ საათში პირდაპირ CTI ბაზიდან წამოიღონ გაფილტრული, მაღალი სიზუსტის ბლოკლისტი და ავტომატიზაცია გაუკეთონ დაცვის ციკლს.</li>
+</ul>
+<h2 id="3-დეპლოი-და-გარემოს-კონფიგურაცია">3. დეპლოი და გარემოს კონფიგურაცია</h2>
+<p>სრული სტეკი გაშვებულია Docker Compose-ის მეშვეობით პორტაბელურობისა და სწრაფი გადაწყობის გარანტიისთვის.</p>
+<ul>
+<li>სისტემა განთავსებულია Nginx Reverse Proxy-ს უკან SSL/TLS სერტიფიკატით Grafana-ს ვებ ინტერფეისის დასაცავად.</li>
+<li>ავტორიზაციის მონაცემების გაჟონვის თავიდან ასაცილებლად, Grafana უკავშირდება შიდა <code>postgres:5432</code> კონტეინერს გარემოს ცვლადებისა და გაზიარებული შიდა ქსელის გამოყენებით.</li>
+</ul>
+<p>მოცემული მაგალითი აჩვენებს კონფიგურაციას, რომელიც საჭიროა Grafana-ს ვებ ინტერფეისის დასაცავად და შიდა მონაცემთა ბაზასთან დასაკავშირებლად.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">grafana</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># ... (დეტალები გამტოვილია)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">GF_SECURITY_ADMIN_USER=${GF_ADMIN_USER}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># მონ.ბაზა იყენებს დოკერის შიდა ქსელის სახელს</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">GF_SERVER_ROOT_URL=https://IP_OR_DOMAIN/  </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">cti_network</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">postgres</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>შენიშვნა: კონკრეტული რეგიონალური ფილტრაციის საკვანძო სიტყვები, API გასაღებები და პროდაქშენის სენსიტიური კონფიგურაციის დეტალები გამოტოვებულია. ეს ანგარიში ფოკუსირებულია არქიტექტურულ გადაწყვეტილებებსა და ფილტრაციის მეთოდოლოგიაზე, რომელიც გამოიყენება დიდი მოცულობის CTI მონაცემების პრობლემის მოსაგვარებლად.</p>
+</blockquote>
+
+      </div>
+
+      <div class="article-foot">
+        
+        <div class="footer-social" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);gap:.75rem;align-items:center">
+          <span>გაზიარება:</span>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3a%2f%2flocalhost%3a1313%2fka%2fprojects%2fregional-threat-intel%2f" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33 0-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        </div>
+        
+        <nav class="post-nav">
+          <div></div>
+          <div style="text-align:right"><a href="/ka/projects/local-ctf-platform/"><span class="pn-label">ძველი →</span>მრავალმომხმარებლიანი CTF სიმულაციური პლატფორმა</a></div>
+        </nav>
+      </div>
+    </div>
+
+    
+    <aside class="toc" aria-label="Table of contents">
+      <div class="toc-title">ამ გვერდზე</div>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#მიმოხილვა">მიმოხილვა</a></li>
+    <li><a href="#1-ტექნიკური-არქიტექტურა-და-მონაცემთა-ნაკადის-მიღება">1. ტექნიკური არქიტექტურა და მონაცემთა ნაკადის მიღება</a>
+      <ul>
+        <li><a href="#მონაცემთა-აგრეგაცია-და-ფილტრაცია">მონაცემთა აგრეგაცია და ფილტრაცია</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-დაზვერვის-ოპერაციონალიზაცია">2. დაზვერვის ოპერაციონალიზაცია</a></li>
+    <li><a href="#3-დეპლოი-და-გარემოს-კონფიგურაცია">3. დეპლოი და გარემოს კონფიგურაცია</a></li>
+  </ul>
+</nav>
+    </aside>
+    
+  </article>
+</div>
+
+  </main>
+  
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <span>© 2026 G.R</span>
+      <span class="footer-sig">ხელსაწყოები ფუჭდება. პროტოკოლები - არა.</span>
+    </div>
+    <div class="footer-social">
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener me" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5A10.5 10.5 0 0 0 8.7 22c.5.1.7-.2.7-.5v-2c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.2-1.6-1.2-1.6-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.5 1.1 3.1.9.1-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5.1 0-1.1.4-2 1-2.7 0-.3-.4-1.3.1-2.7 0 0 .9-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.7.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.7 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.5 10.5 0 0 0 12 1.5z"/></svg></a>
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener me" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33 0-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ძიება">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span class="pfx" aria-hidden="true">search</span>
+      <input id="search-input" type="text" autocomplete="off" spellcheck="false"
+             placeholder="მოძებნე კვლევები, პროექტები, ჩანაწერები…" aria-label="ძიება">
+    </div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot" aria-hidden="true">
+      <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+    </div>
+  </div>
+</div>
+
+  
+  <script src="/js/theme.min.5e80b0f9b5e093febf3a38b8f80f4e8aa36210a8081b4847d70d8f2ebdb341f4.js" integrity="sha256-XoCw&#43;bXgk/6/Oji4&#43;A9OiqNiEKgIG0hH1w2PLr2zQfQ=" defer></script>
+</body>
+</html>

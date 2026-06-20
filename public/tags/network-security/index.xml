@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Network Security on G.R</title>
+		<link>http://localhost:1313/tags/network-security/</link>
+		<description>Recent content in Network Security on G.R</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/tags/network-security/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Research: Server-Side Request Forgery (SSRF) Mechanics</title>
+				<link>http://localhost:1313/archive/ssrf-exploitation/</link>
+				<pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/archive/ssrf-exploitation/</guid>
+				<description>&lt;h2 id=&#34;mechanism-of-action&#34;&gt;Mechanism of Action&lt;/h2&gt;&#xA;&lt;p&gt;SSRF occurs when an application fetches a remote resource based on user-supplied URLs without validation. This trust relationship allows an attacker to coerce the server into making requests on their behalf.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

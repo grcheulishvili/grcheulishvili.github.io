@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Web Applications on G.R</title>
+		<link>http://localhost:1313/archive/notes/1-web-applications/</link>
+		<description>Recent content in Web Applications on G.R</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/archive/notes/1-web-applications/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>OWASP TOP 10 2021</title>
+				<link>http://localhost:1313/archive/notes/1-web-applications/1b-owasp-top-10-2021/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/archive/notes/1-web-applications/1b-owasp-top-10-2021/</guid>
+				<description>&lt;h2 id=&#34;1-broken-access-control&#34;&gt;1. Broken Access Control&lt;/h2&gt;&#xA;&lt;p&gt;An application has multiple access points from the outside. The goal of Access Control is to allow authorized users to access it and block unauthorized users. BAC means that an unauthorized user will gain access to the data of an authorized user. For example, by using an API.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

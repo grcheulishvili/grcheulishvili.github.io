@@ -1,0 +1,13 @@
+{{- $pages := where site.RegularPages "Section" "!=" "" -}}
+{{- $list := slice -}}
+{{- range $pages -}}
+  {{- $list = $list | append (dict
+      "title" .Title
+      "url" .RelPermalink
+      "section" .Section
+      "description" (.Description | default (.Summary | plainify | truncate 140))
+      "tags" (delimit (.Params.tags | default slice) " ")
+      "content" (.Plain | truncate 1200)
+  ) -}}
+{{- end -}}
+{{- $list | jsonify -}}

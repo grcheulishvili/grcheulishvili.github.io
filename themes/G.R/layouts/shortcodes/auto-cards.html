@@ -1,0 +1,12 @@
+{{ $pages := .Page.Pages }}
+{{ with .Get "folder" }}{{ with site.GetPage . }}{{ $pages = .Pages }}{{ end }}{{ end }}
+<div class="cards-grid">
+  {{ range $pages.ByDate.Reverse }}
+    <a class="card" href="{{ .RelPermalink }}">
+      <span class="card-kicker">{{ .Date.Format "Jan 2006" }}</span>
+      <span class="card-title">{{ .Title }}</span>
+      {{ with .Description }}<span class="card-sub">{{ . }}</span>{{ end }}
+      <span class="arrow">→</span>
+    </a>
+  {{ end }}
+</div>

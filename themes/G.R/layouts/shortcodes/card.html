@@ -1,0 +1,8 @@
+{{ $link := .Get "link" }}
+{{ if not (or (hasPrefix $link "http") (hasPrefix $link "/")) }}{{ $link = $link | relLangURL }}{{ end }}
+<a class="card" href="{{ $link }}">
+  {{ with .Get "kicker" }}<span class="card-kicker">{{ . }}</span>{{ end }}
+  <span class="card-title">{{ .Get "title" }}</span>
+  {{ with .Get "subtitle" }}<span class="card-sub">{{ . }}</span>{{ end }}
+  <span class="arrow">→</span>
+</a>

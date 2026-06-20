@@ -1,0 +1,94 @@
+baseURL = "https://grcheulishvili.github.io/"
+title = "G.R Blog"
+theme = "G.R"
+enableRobotsTXT = true
+enableEmoji = true
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+summaryLength = 30
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    noClasses = false
+    lineNos = false
+    tabWidth = 2
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+[params]
+  description = "Systems and infrastructure engineering — automation, containerization, and offensive security."
+  [params.author]
+    name = "Giorgi Rcheulishvili"
+    email = ""
+    image = "/images/logo.png"
+  [params.social]
+    github = "https://github.com/grcheulishvili"
+    linkedin = "https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/"
+
+[languages]
+  [languages.en]
+    languageName = "EN"
+    languageCode = "en-US"
+    weight = 1
+    title = "G.R"
+    [languages.en.params]
+      description = "Systems and infrastructure engineering — automation, containerization, and offensive security."
+    [languages.en.params.hero]
+      command = "whoami"
+      name = "Giorgi Rcheulishvili"
+      role = "systems and infrastructure engineer"
+      headline = 'Systems engineering and <span class="ac">offensive</span> infrastructure.'
+      lead = "A technical blog about systems engineering, reversing, automation, and containerized environments through the lens of Kubernetes. My goal is to build resilient infrastructure and validate its security via offensive engineering."
+    [[languages.en.menu.main]]
+      name = "Research"
+      url = "/research/"
+      weight = 1
+    [[languages.en.menu.main]]
+      name = "Projects"
+      url = "/projects/"
+      weight = 3
+    [[languages.en.menu.main]]
+      name = "Archive"
+      url = "/archive/"
+      weight = 4
+    [[languages.en.menu.main]]
+      name = "About"
+      url = "/about/"
+      weight = 5
+
+  [languages.ka]
+    languageName = "ქარ"
+    languageCode = "ka-GE"
+    weight = 2
+    title = "G.R"
+    [languages.ka.params]
+      description = "სისტემური და ინფრასტრუქტურის ინჟინერია - ავტომატიზაცია, კონტეინერიზაცია და შეტევითი უსაფრთხოება."
+    [languages.ka.params.hero]
+      command = "whoami"
+      name = "Giorgi Rcheulishvili"
+      role = "სისტემური და ინფრასტრუქტურის ინჟინერი"
+      headline = 'სისტემური ინჟინერია და <span class="ac">შეტევითი</span> ინფრასტრუქტურა.'
+      lead = "ტექნიკური ბლოგი სისტემური ინჟინერიის, რივერსინგის, ავტომატიზაციისა და კონტეინერიზებული გარემოს შესახებ Kubernetes-ის ჭრილში. ჩემი მიზანია მედეგი ინფრასტრუქტურის აწყობა და მისი უსაფრთხოების შეტევითი ინჟინერიით გატესტვა."
+    [[languages.ka.menu.main]]
+      name = "კვლევა"
+      url = "/research/"
+      weight = 1
+    [[languages.ka.menu.main]]
+      name = "პროექტები"
+      url = "/projects/"
+      weight = 3
+    [[languages.ka.menu.main]]
+      name = "არქივი"
+      url = "/archive/"
+      weight = 4
+    [[languages.ka.menu.main]]
+      name = "შესახებ"
+      url = "/about/"
+      weight = 5

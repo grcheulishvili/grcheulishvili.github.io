@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HTTP requests · G.R</title>
+<meta name="description" content="HTTP headers are used to transfer information from the client or server. The client function can be implemented by the cURL program, which is a good tool for pentesting. We have the following categories of headers">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/">
+<script>
+(function(){try{var d=document.documentElement,t=localStorage.getItem("G.R-theme");
+if(!t){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}
+d.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+<link rel="stylesheet" href="/css/bundle.min.1914f9ad5c5161586c9c652fd6edd1e14f9ccc405b2e5120abcce27c9378e105.css" integrity="sha256-GRT5rVxRYVhsnGUv1u3R4U&#43;czEBbLlEgq8zifJN44QU="><link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+
+<meta property="og:site_name" content="G.R">
+<meta property="og:title" content="HTTP requests">
+<meta property="og:description" content="HTTP headers are used to transfer information from the client or server. The client function can be implemented by the cURL program, which is a good tool for pentesting. We have the following categories of headers">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/">
+<meta property="og:image" content="http://localhost:1313/images/logo.png">
+<meta property="og:locale" content="en_US">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HTTP requests">
+<meta name="twitter:description" content="HTTP headers are used to transfer information from the client or server. The client function can be implemented by the cURL program, which is a good tool for pentesting. We have the following categories of headers">
+<meta name="twitter:image" content="http://localhost:1313/images/logo.png">
+
+
+	<meta itemprop="name" content="HTTP requests">
+	<meta itemprop="description" content="HTTP headers are used to transfer information from the client or server. The client function can be implemented by the cURL program, which is a good tool for pentesting. We have the following categories of headers">
+	<meta itemprop="wordCount" content="468">
+
+<script>window.__SEARCH_URL__="\/index.json";</script>
+
+  
+</head>
+<body>
+  <header class="site-header">
+  <input type="checkbox" id="nav-check" aria-hidden="true">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="/" aria-label="G.R home">
+      <span>G.R</span><span class="cursor" aria-hidden="true"></span>
+    </a>
+
+    <div class="nav-links" id="nav-links">
+      
+        
+        <a href="/research/">Research</a>
+      
+        
+        <a href="/projects/">Projects</a>
+      
+        
+        <a href="/archive/" aria-current="page">Archive</a>
+      
+        
+        <a href="/about/">About</a>
+      
+    </div>
+
+    <div class="nav-tools">
+      <button class="icon-btn" id="search-open" type="button" aria-label="Search" title="Search (⌘K)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <span class="kbd-hint" aria-hidden="true">⌘K</span>
+
+      
+      <div class="lang-switch" role="group" aria-label="Language">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/" class="active" hreflang="en">EN</a>
+        
+          
+          
+          
+          
+          
+          
+            
+              
+                
+              
+            
+            
+          
+          <a href="/ka/untranslated/?from=%2Farchive%2Fnotes%2F1-web-applications%2F1a-web-requests%2F1a1-http-requests%2F&amp;t=HTTP&#43;requests" hreflang="ka">ქარ</a>
+        
+      </div>
+      
+
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <span class="th-dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span>
+        <span class="th-light" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+      </button>
+
+      <label class="icon-btn nav-toggle" for="nav-check" aria-label="Menu" title="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </label>
+    </div>
+  </nav>
+</header>
+<style>
+[data-theme="light"] .th-dark{display:none}[data-theme="light"] .th-light{display:inline-grid!important}
+</style>
+
+  <main id="main">
+    
+
+
+<div class="wrap section-pad">
+  <article class="article-shell">
+    <div>
+      <header class="article-header">
+        <span class="eyebrow">archive</span>
+        <h1>HTTP requests</h1>
+        
+        <div class="article-meta">
+          <span>archive note</span>
+          <span class="dot-sep">·</span><span class="reading">3 min read</span>
+          
+        </div>
+        
+        
+      </header>
+
+      <div class="prose">
+        <p>HTTP headers are used to transfer information from the client or server. </p>
+<p>The client function can be implemented by the <a href="/archive/notes/1-web-applications/1a-web-requests/1a2-curl/">cURL </a>program, which is a good tool for pentesting. </p>
+<p>We have the following categories of headers</p>
+<ul>
+<li>General Headers</li>
+<li>Entity Headers</li>
+<li>Request Headers</li>
+<li>Response Headers</li>
+<li>Security Headers</li>
+</ul>
+<p><strong><code>General Headers</code></strong> are used to describe the message, not its content. They are found in HTTP requests and responses.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Header</th>
+					<th>Example</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Date</td>
+					<td>Date: Wed, 16 Feb 2022 10:38:44 GMT</td>
+					<td>Message creation date</td>
+			</tr>
+			<tr>
+					<td>Connection</td>
+					<td>Connection: Keep-Alive</td>
+					<td>Determines whether the connection should remain open or be closed with the following tags: <code>close</code> or <code>Keep-Alive</code></td>
+			</tr>
+	</tbody>
+</table>
+<p><strong><code>Entity Headers</code></strong> are used to describe the content of a message and are found in POST and PUT headers.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Header</th>
+					<th>Example</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Content-Type</td>
+					<td>Content-Type: text/html</td>
+					<td>Describes the type of resource being transferred.</td>
+			</tr>
+			<tr>
+					<td>Media-Type</td>
+					<td>Media-Type: application/pdf</td>
+					<td>Similar to the content type, but directly conveys the type of information.</td>
+			</tr>
+			<tr>
+					<td>Boundary</td>
+					<td>boundary=&ldquo;b4e4fbd93540&rdquo;</td>
+					<td>Used to separate multiple pieces of data in a single message.</td>
+			</tr>
+			<tr>
+					<td>Content-Length</td>
+					<td>Content-Length: 385</td>
+					<td>Contains the size of the information to be transmitted.</td>
+			</tr>
+			<tr>
+					<td>Content-Encoding</td>
+					<td>Content-Encoding: gzip</td>
+					<td>It transmits a way of encoding information.</td>
+			</tr>
+	</tbody>
+</table>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc7231#autoid-42"><code>Request Headers</code></a> are used for HTTP requests and has no connection to the content of the information. It has the following headers</p>
+<table>
+	<thead>
+			<tr>
+					<th>Header</th>
+					<th>Example</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Host</td>
+					<td>Host: <a href="https://www.inlanefreight.com">www.inlanefreight.com</a></td>
+					<td>Describes the address of the server to which the request is sent.</td>
+			</tr>
+			<tr>
+					<td>User-Agent</td>
+					<td>User-Agent: curl/7.77.0</td>
+					<td>It is used to describe the client agent. This header can be used to determine what program the client is using to connect to the server.</td>
+			</tr>
+			<tr>
+					<td>Referer</td>
+					<td>Referer: <a href="http://www.inlanefreight.com/">http://www.inlanefreight.com/</a></td>
+					<td>Describes where the current demand is coming from.</td>
+			</tr>
+			<tr>
+					<td>Accept</td>
+					<td>Accept: */*</td>
+					<td>Describes what types of information the client can accept. <code>*</code><em><code>/</code></em><code>*</code> means all types of data are allowed.</td>
+			</tr>
+			<tr>
+					<td>Cookie</td>
+					<td>Cookie: PHPSESSID=b4e4fbd93540</td>
+					<td>A cookie record consists of a name=value pair. It is data that is stored on the client and server and serves as an identifier. It is sent to the server on each request to identify the client. It can also be used for session tracking. Multiple cookies can be contained in one header and are separated by a <code>;</code> .</td>
+			</tr>
+			<tr>
+					<td>Authorization</td>
+					<td>Authorization: BASIC cGFzc3dvcmQK</td>
+					<td>One way to identify a client. After authentication, the server assigns the client a unique token, which is stored on the client side and will be retrieved by the server on each request.</td>
+			</tr>
+	</tbody>
+</table>
+<p><code>Response Headers</code> are used in the HTTP response header and is also unrelated to context. Age, location, and server data are used in the response header to create context.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Header</th>
+					<th>Example</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Server</td>
+					<td>Server: Apache/2.2.14 (Win32)</td>
+					<td>Contains information about the server</td>
+			</tr>
+			<tr>
+					<td>Set-Cookie</td>
+					<td>Set-Cookie: PHPSESSID=b4e4fbd93540</td>
+					<td>Contains a cookie record about the user.</td>
+			</tr>
+			<tr>
+					<td>WWW-Authenticate</td>
+					<td>WWW-Authenticate: BASIC realm=&ldquo;localhost&rdquo;</td>
+					<td>Informs the client about the possible authentication type</td>
+			</tr>
+	</tbody>
+</table>
+<p><code>Security Headers</code> are used to set rules and policies for the browser.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Header</th>
+					<th>Example</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Content-Security-Policy</td>
+					<td>Content-Security-Policy: script-src &lsquo;self&rsquo;</td>
+			</tr>
+			<tr>
+					<td>Strict-Transport-Security</td>
+					<td>Strict-Transport-Security: max-age=31536000</td>
+			</tr>
+			<tr>
+					<td>Referrer-Policy</td>
+					<td>Referrer-Policy: origin</td>
+			</tr>
+	</tbody>
+</table>
+
+      </div>
+
+      <div class="article-foot">
+        
+        <div class="footer-social" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);gap:.75rem;align-items:center">
+          <span>share:</span>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3a%2f%2flocalhost%3a1313%2farchive%2fnotes%2f1-web-applications%2f1a-web-requests%2f1a1-http-requests%2f" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33 0-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+        </div>
+        
+        <nav class="post-nav">
+          <div></div>
+          <div style="text-align:right"><a href="/archive/notes/1-web-applications/1a-web-requests/1a2-curl/"><span class="pn-label">older →</span>CURL</a></div>
+        </nav>
+      </div>
+    </div>
+
+    
+  </article>
+</div>
+
+  </main>
+  
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <span>© 2026 G.R</span>
+      <span class="footer-sig">tools break. protocols do not.</span>
+    </div>
+    <div class="footer-social">
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener me" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5A10.5 10.5 0 0 0 8.7 22c.5.1.7-.2.7-.5v-2c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.2-1.6-1.2-1.6-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.5 1.1 3.1.9.1-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5.1 0-1.1.4-2 1-2.7 0-.3-.4-1.3.1-2.7 0 0 .9-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.7.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.7 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.5 10.5 0 0 0 12 1.5z"/></svg></a>
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener me" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33 0-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span class="pfx" aria-hidden="true">search</span>
+      <input id="search-input" type="text" autocomplete="off" spellcheck="false"
+             placeholder="search research, projects, notes…" aria-label="Search">
+    </div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot" aria-hidden="true">
+      <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+    </div>
+  </div>
+</div>
+
+  
+  <script src="/js/theme.min.5e80b0f9b5e093febf3a38b8f80f4e8aa36210a8081b4847d70d8f2ebdb341f4.js" integrity="sha256-XoCw&#43;bXgk/6/Oji4&#43;A9OiqNiEKgIG0hH1w2PLr2zQfQ=" defer></script>
+</body>
+</html>

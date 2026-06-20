@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="wrap section-pad" style="text-align:center;min-height:50vh;display:flex;flex-direction:column;justify-content:center;align-items:center">
+  <div class="hero-term" style="text-align:left">
+    <span class="l"><span class="pfx">~/G.R</span><span class="cmd">cat {{ with .Page }}{{ .RelPermalink }}{{ end }}</span></span>
+    <span class="l" style="color:var(--danger)">cat: no such file or directory: 404</span>
+  </div>
+  <h1 style="font-family:var(--font-mono);font-size:var(--step-3);color:var(--text-strong);margin:.5rem 0 1rem">404</h1>
+  <p style="color:var(--muted);max-width:40ch">{{ i18n "notfound" | default "The page you requested does not exist. It may have been moved or never existed." }}</p>
+  <a class="btn btn-primary" href="{{ "" | relLangURL }}" style="margin-top:1.5rem">cd ~ →</a>
+</div>
+{{ end }}
