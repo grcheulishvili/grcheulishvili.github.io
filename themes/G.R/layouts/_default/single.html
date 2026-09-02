@@ -1,0 +1,53 @@
+{{ define "main" }}
+{{ $full := or (eq .Params.layout "full") (eq .Type "page") }}
+{{ $hasToc := and (not (eq .Params.toc false)) (gt (len .TableOfContents) 70) (not $full) }}
+<div class="wrap section-pad">
+  <article class="article-shell{{ if $hasToc }} has-toc{{ end }}">
+    <div>
+      <header class="article-header">
+        {{ if not $full }}<span class="eyebrow">{{ .Section }}</span>{{ end }}
+        <h1>{{ .Title }}</h1>
+        {{ if not $full }}
+        <div class="article-meta">
+          {{ if gt .Date.Year 1 }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>{{ else }}<span>archive note</span>{{ end }}
+          {{ if .ReadingTime }}<span class="dot-sep">·</span><span class="reading">{{ .ReadingTime }} {{ i18n "min_read" | default "min read" }}</span>{{ end }}
+          {{ with .Params.tags }}<span class="dot-sep">·</span>{{ range first 3 . }}<a class="tag" href="{{ "tags/" | relLangURL }}{{ . | urlize }}/">{{ . }}</a> {{ end }}{{ end }}
+        </div>
+        {{ if or .Params.stack .Params.status .Params.repo .Params.demo }}
+        <div class="showcase-meta">
+          {{ with .Params.status }}<span class="proj-status">{{ . }}</span>{{ end }}
+          {{ with .Params.stack }}<div class="stack">{{ range . }}<span class="chip">{{ . }}</span>{{ end }}</div>{{ end }}
+          {{ with .Params.repo }}{{ if . }}<a class="btn" href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" "github" }} {{ i18n "view_source" | default "View source" }}</a>{{ end }}{{ end }}
+          {{ with .Params.demo }}{{ if . }}<a class="btn" href="{{ . }}" target="_blank" rel="noopener">{{ i18n "live_demo" | default "Live demo" }} ↗</a>{{ end }}{{ end }}
+        </div>
+        {{ end }}
+        {{ end }}
+      </header>
+
+      <div class="prose{{ if $full }} page-full{{ end }}">
+        {{ .Content }}
+      </div>
+
+      <div class="article-foot">
+        {{ if not $full }}
+        <div class="footer-social" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);gap:.75rem;align-items:center">
+          <span>{{ i18n "share" | default "share" }}:</span>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}" target="_blank" rel="noopener" aria-label="Share on LinkedIn">{{ partial "icon.html" "linkedin" }}</a>
+        </div>
+        {{ end }}
+        <nav class="post-nav">
+          <div>{{ with .PrevInSection }}<a href="{{ .RelPermalink }}"><span class="pn-label">← {{ i18n "newer" | default "newer" }}</span>{{ .Title }}</a>{{ end }}</div>
+          <div style="text-align:right">{{ with .NextInSection }}<a href="{{ .RelPermalink }}"><span class="pn-label">{{ i18n "older" | default "older" }} →</span>{{ .Title }}</a>{{ end }}</div>
+        </nav>
+      </div>
+    </div>
+
+    {{ if $hasToc }}
+    <aside class="toc" aria-label="Table of contents">
+      <div class="toc-title">{{ i18n "on_this_page" | default "on this page" }}</div>
+      {{ .TableOfContents }}
+    </aside>
+    {{ end }}
+  </article>
+</div>
+{{ end }}

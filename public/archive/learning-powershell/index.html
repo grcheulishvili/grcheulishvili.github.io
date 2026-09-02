@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Powershell - G.R</title>
+<meta name="description" content="Getting available modules on the system
+Get-Module -ListAvailable Getting only loaded modules on the system
+Get-Module Loading Module on the system
+Import-Module PowershellGet Getting available functions provided by modules
+Get-Command -module &lt;Module_Name&gt; Output:
+PS C:\Users\George&gt; Get-command -module powershellget CommandType Name Version Source ----------- ---- ------- ------ Function Find-Command 2.2.5 powershellget Function Find-DscResource 2.2.5 powershellget Function Find-Module 2.2.5 powershellget Function Find-RoleCapability 2.2.5 powershellget Function Find-Script 2.2.5 powershellget Function Get-CredsFromCredentialProvider 2.2.5 powershellget Function Get-InstalledModule 2.2.5 powershellget Function Get-InstalledScript 2.2.5 powershellget Function Get-PSRepository 2.2.5 powershellget Function Install-Module 2.2.5 powershellget Function Install-Script 2.2.5 powershellget Function New-ScriptFileInfo 2.2.5 powershellget Function Publish-Module 2.2.5 powershellget Function Publish-Script 2.2.5 powershellget Function Register-PSRepository 2.2.5 powershellget Function Save-Module 2.2.5 powershellget Function Save-Script 2.2.5 powershellget Function Set-PSRepository 2.2.5 powershellget Function Test-ScriptFileInfo 2.2.5 powershellget Function Uninstall-Module 2.2.5 powershellget Function Uninstall-Script 2.2.5 powershellget Function Unregister-PSRepository 2.2.5 powershellget Function Update-Module 2.2.5 powershellget Function Update-ModuleManifest 2.2.5 powershellget Function Update-Script 2.2.5 powershellget Function Update-ScriptFileInfo 2.2.5 powershellget Finding and installing modules from [powershell gallery](PowerShell Gallery | Home)">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/archive/learning-powershell/">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/pygments.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">G.R</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        
+          
+          <li><a href="/research/">Research</a></li>
+        
+          
+          <li><a href="/projects/">Projects</a></li>
+        
+          
+          <li class="active"><a href="/archive/">Archive</a></li>
+        
+          
+          <li><a href="/about/">About</a></li>
+        
+          
+          <li><a href="/manifesto/">Approach</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="/archive/learning-powershell/" hreflang="en">EN</a></li>
+          
+            
+            
+            
+            
+            
+            
+              
+                
+                  
+                
+              
+              
+            
+            <li><a href="/ka/untranslated/?from=%2Farchive%2Flearning-powershell%2F&amp;t=Learning&#43;Powershell" hreflang="ka">ქარ</a></li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      
+<ol class="breadcrumb">
+  <li><a href="/"><i class="fa fa-home"></i></a></li>
+  
+  <li><a href="/archive/">Archives</a></li>
+  
+  <li class="active">Learning Powershell</li>
+</ol>
+
+      
+
+<article>
+  <header class="page-header">
+    <h1>Learning Powershell</h1>
+  </header>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-body post-info">
+      <span class="label label-success">4 min read</span>
+      
+      
+      <span class="label label-default">Category</span>
+      <a href="/archive/">Archives</a>
+      
+      
+    </div>
+  </div>
+  
+
+  <div class="entry-content">
+    <p>Getting available modules on the system</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Module</span> <span class="n">-ListAvailable</span>
+</span></span></code></pre></div><p>Getting only loaded modules on the system</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Module</span>
+</span></span></code></pre></div><p>Loading Module on the system</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Import-Module</span> <span class="n">PowershellGet</span>
+</span></span></code></pre></div><p>Getting available functions provided by modules</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Command</span> <span class="n">-module</span> <span class="p">&lt;</span><span class="n">Module_Name</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>Output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">PS </span><span class="n">C:</span><span class="p">\</span><span class="n">Users</span><span class="p">\</span><span class="n">George</span><span class="p">&gt;</span> <span class="nb">Get-command</span> <span class="n">-module</span> <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">CommandType</span>     <span class="n">Name</span>                                               <span class="n">Version</span>    <span class="n">Source</span>
+</span></span><span class="line"><span class="cl"><span class="p">-----------</span>     <span class="p">----</span>                                               <span class="p">-------</span>    <span class="p">------</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Find-Command</span>                                       <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Find-DscResource</span>                                   <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Find-Module</span>                                        <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Find-RoleCapability</span>                                <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Find-Script</span>                                        <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Get-CredsFromCredentialProvider</span>                    <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Get-InstalledModule</span>                                <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Get-InstalledScript</span>                                <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Get-PSRepository</span>                                   <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Install-Module</span>                                     <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Install-Script</span>                                     <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">New-ScriptFileInfo</span>                                 <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Publish-Module</span>                                     <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Publish-Script</span>                                     <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Register-PSRepository</span>                              <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Save-Module</span>                                        <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Save-Script</span>                                        <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Set-PSRepository</span>                                   <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Test-ScriptFileInfo</span>                                <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Uninstall-Module</span>                                   <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Uninstall-Script</span>                                   <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Unregister-PSRepository</span>                            <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Update-Module</span>                                      <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Update-ModuleManifest</span>                              <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Update-Script</span>                                      <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Update-ScriptFileInfo</span>                              <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span></code></pre></div><p>Finding and installing modules from [powershell gallery](<a href="https://www.powershellgallery.com/">PowerShell Gallery | Home</a>)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Find-Module</span> <span class="n">-Name</span> <span class="n">admintoolbox</span> <span class="p">|</span> <span class="nb">Install-Module</span>
+</span></span></code></pre></div><p>Installing module from local files</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl">    <span class="n">Directory</span><span class="err">:</span> <span class="n">C:</span><span class="p">\</span><span class="n">Users</span><span class="p">\</span><span class="n">George</span><span class="p">\</span><span class="n">Desktop</span><span class="p">\</span><span class="n">PowerSploit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+</span></span><span class="line"><span class="cl"><span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">----</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>                <span class="n">AntivirusBypass</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">----</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>                <span class="n">CodeExecution</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">----</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>                <span class="n">docs</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">----</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>                <span class="n">Exfiltration</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">----</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>                <span class="n">Mayhem</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">----</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>                <span class="n">Persistence</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">----</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>                <span class="n">Privesc</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">----</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>                <span class="n">Recon</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">----</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>                <span class="n">ScriptModification</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="p">----</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>                <span class="n">Tests</span>
+</span></span><span class="line"><span class="cl"><span class="n">-a</span><span class="p">---</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>           <span class="mf">2852</span> <span class="p">.</span><span class="py">gitignore</span>
+</span></span><span class="line"><span class="cl"><span class="n">-a</span><span class="p">---</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>           <span class="mf">1590</span> <span class="n">LICENSE</span>
+</span></span><span class="line"><span class="cl"><span class="n">-a</span><span class="p">---</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>           <span class="mf">8652</span> <span class="n">mkdocs</span><span class="p">.</span><span class="py">yml</span>
+</span></span><span class="line"><span class="cl"><span class="n">-a</span><span class="p">---</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>           <span class="mf">5452</span> <span class="n">PowerSploit</span><span class="p">.</span><span class="py">psd1</span>
+</span></span><span class="line"><span class="cl"><span class="n">-a</span><span class="p">---</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>            <span class="mf">150</span> <span class="n">PowerSploit</span><span class="p">.</span><span class="py">psm1</span>
+</span></span><span class="line"><span class="cl"><span class="n">-a</span><span class="p">---</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>          <span class="mf">15855</span> <span class="n">PowerSploit</span><span class="p">.</span><span class="py">pssproj</span>
+</span></span><span class="line"><span class="cl"><span class="n">-a</span><span class="p">---</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>            <span class="mf">993</span> <span class="n">PowerSploit</span><span class="p">.</span><span class="py">sln</span>
+</span></span><span class="line"><span class="cl"><span class="n">-a</span><span class="p">---</span>            <span class="mf">2</span><span class="p">/</span><span class="mf">3</span><span class="p">/</span><span class="mf">2025</span> <span class="mf">10</span><span class="err">:</span><span class="mf">42</span> <span class="n">AM</span>          <span class="mf">10491</span> <span class="n">README</span><span class="p">.</span><span class="nb">md
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Install-Module</span> <span class="p">.\</span><span class="n">Powersploit</span><span class="p">.</span><span class="py">psd1</span>
+</span></span></code></pre></div><p>Getting help for commands with examples</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Help</span> <span class="p">&lt;</span><span class="nb">PS-module</span><span class="p">&gt;</span> <span class="n">-Examples</span>
+</span></span></code></pre></div><p>Creating new Directory or File</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">New-Item</span> <span class="n">-Name</span> <span class="s2">&#34;Folder&#34;</span> <span class="n">-Type</span> <span class="n">Directory</span>
+</span></span><span class="line"><span class="cl"><span class="nb">New-Item</span> <span class="n">-Name</span> <span class="s2">&#34;file.txt&#34;</span> <span class="n">-Type</span> <span class="n">File</span>
+</span></span></code></pre></div><p>Adding contents to a file</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Add-Content</span> <span class="n">file</span><span class="p">.</span><span class="py">txt</span> <span class="s2">&#34;First line
+</span></span></span><span class="line"><span class="cl"><span class="s2">Second Line
+</span></span></span><span class="line"><span class="cl"><span class="s2">Third line&#34;</span>
+</span></span></code></pre></div><p>Renaming folders/files at once</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-ChildItem</span> <span class="n">-path</span> <span class="p">*.</span><span class="n">txt</span> <span class="p">|</span> <span class="nb">Rename-Item</span> <span class="n">-NewName</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">name</span> <span class="o">-replace</span> <span class="s2">&#34;.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;.md&#34;</span><span class="p">}</span>
+</span></span></code></pre></div><p>after the dot in <code>$_.</code> comes the property name like <code>Name</code>, <code>Status</code> etc.</p>
+<p>Filtering PowerShell object output. In this example I&rsquo;m getting all local users, displaying their name, last login date, if password is required or not and sorting them alphabetically with their names</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-LocalUser</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Property</span> <span class="n">Name</span><span class="p">,</span><span class="n">LastLogon</span><span class="p">,</span><span class="n">PasswordRequired</span><span class="p">,</span><span class="n">Enabled</span> <span class="p">|</span> <span class="nb">Sort-Object</span> <span class="n">Name</span>
+</span></span></code></pre></div><p>all of the above is possible because PowerShell is made up of objects.</p>
+<p>Getting service based on string search</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Service</span> <span class="p">|</span> <span class="nb">where </span><span class="n">DisplayName</span> <span class="o">-like</span> <span class="s2">&#34;*defend*&#34;</span> <span class="p">|</span> <span class="nb">select-object</span> <span class="n">-Property</span> <span class="p">*</span>
+</span></span></code></pre></div><ul>
+<li>like</li>
+<li>contains</li>
+<li>equal</li>
+<li>match</li>
+<li>not</li>
+</ul>
+<p>The results of above command show every service associated with Windows Defender and their properties.</p>
+<p>Getting count of unique items of whatever.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">sort </span><span class="p">|</span>  <span class="n">uniq</span> <span class="p">|</span> <span class="nb">Measure-Object</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-Property</span> <span class="n">Count</span> <span class="p">|</span> <span class="nb">fl
+</span></span></span></code></pre></div><p><code>&amp;&amp;</code> Pipeline operator ensures that if current operation succeeds it then runs next command <code>||</code> Pipeline operator ensures that if current operation doesn&rsquo;t run the next one will run <code>|</code> Pipeline operator runs whether or not previous command fails</p>
+<p>Searching for specific file in a directory</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="n">D:</span><span class="p">\</span> <span class="o">-File</span> <span class="n">-Recurse</span> <span class="p">|</span> <span class="nb">where </span><span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">name</span> <span class="o">-like</span> <span class="s2">&#34;*.txt&#34;</span><span class="p">}</span>
+</span></span></code></pre></div><p>searching for sensitive strings in files</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="n">C:</span><span class="p">\</span><span class="n">Users</span><span class="p">\</span> <span class="n">-Filter</span> <span class="s2">&#34;*.txt&#34;</span> <span class="n">-Recurse</span> <span class="o">-File</span> <span class="p">|</span> <span class="nb">sls </span><span class="s2">&#34;Password&#34;</span><span class="p">,</span><span class="s2">&#34;credential&#34;</span><span class="p">,</span><span class="s2">&#34;key&#34;</span>
+</span></span></code></pre></div><p>Get Properties and methods of an object</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-LocalUser</span> <span class="n">administrator</span> <span class="p">|</span> <span class="nb">get-member</span>
+</span></span></code></pre></div><p>Getting structured contents of a website and what can be retrieved from the website</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="s2">&#34;https://www.hackthebox.com/&#34;</span> <span class="n">-Method</span> <span class="n">GET</span> <span class="p">|</span> <span class="nb">Get-Member</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">TypeName</span><span class="err">:</span> <span class="n">Microsoft</span><span class="p">.</span><span class="py">PowerShell</span><span class="p">.</span><span class="py">Commands</span><span class="p">.</span><span class="py">BasicHtmlWebResponseObject</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Name</span>              <span class="n">MemberType</span> <span class="n">Definition</span>
+</span></span><span class="line"><span class="cl"><span class="p">----</span>              <span class="p">----------</span> <span class="p">----------</span>
+</span></span><span class="line"><span class="cl"><span class="n">Equals</span>            <span class="n">Method</span>     <span class="n">bool</span> <span class="n">Equals</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="py">Object</span> <span class="n">obj</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">GetHashCode</span>       <span class="n">Method</span>     <span class="n">int</span> <span class="n">GetHashCode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">GetType</span>           <span class="n">Method</span>     <span class="nb">type </span><span class="n">GetType</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">ToString</span>          <span class="n">Method</span>     <span class="n">string</span> <span class="n">ToString</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">BaseResponse</span>      <span class="n">Property</span>   <span class="n">System</span><span class="p">.</span><span class="py">Net</span><span class="p">.</span><span class="py">Http</span><span class="p">.</span><span class="py">HttpResponseMessage</span> <span class="n">BaseResponse</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span><span class="n">set</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content</span>           <span class="n">Property</span>   <span class="n">string</span> <span class="n">Content</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">Encoding</span>          <span class="n">Property</span>   <span class="n">System</span><span class="p">.</span><span class="py">Text</span><span class="p">.</span><span class="py">Encoding</span> <span class="n">Encoding</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">Headers</span>           <span class="n">Property</span>   <span class="n">System</span><span class="p">.</span><span class="py">Collections</span><span class="p">.</span><span class="py">Generic</span><span class="p">.</span><span class="n">Dictionary</span><span class="p">[</span><span class="n">string</span><span class="p">,</span><span class="n">System</span><span class="p">.</span><span class="py">Collections</span><span class="p">.</span><span class="py">Generic</span><span class="p">.</span><span class="n">IEnumerable</span><span class="p">[</span><span class="n">strin</span><span class="err">…</span>
+</span></span><span class="line"><span class="cl"><span class="n">Images</span>            <span class="n">Property</span>   <span class="n">Microsoft</span><span class="p">.</span><span class="py">PowerShell</span><span class="p">.</span><span class="py">Commands</span><span class="p">.</span><span class="py">WebCmdletElementCollection</span> <span class="n">Images</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">InputFields</span>       <span class="n">Property</span>   <span class="n">Microsoft</span><span class="p">.</span><span class="py">PowerShell</span><span class="p">.</span><span class="py">Commands</span><span class="p">.</span><span class="py">WebCmdletElementCollection</span> <span class="n">InputFields</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">Links</span>             <span class="n">Property</span>   <span class="n">Microsoft</span><span class="p">.</span><span class="py">PowerShell</span><span class="p">.</span><span class="py">Commands</span><span class="p">.</span><span class="py">WebCmdletElementCollection</span> <span class="n">Links</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">RawContent</span>        <span class="n">Property</span>   <span class="n">string</span> <span class="n">RawContent</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span><span class="n">set</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">RawContentLength</span>  <span class="n">Property</span>   <span class="n">long</span> <span class="n">RawContentLength</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">RawContentStream</span>  <span class="n">Property</span>   <span class="n">System</span><span class="p">.</span><span class="py">IO</span><span class="p">.</span><span class="py">MemoryStream</span> <span class="n">RawContentStream</span> <span class="p">{</span><span class="n">get</span><span class="p">;</span><span class="n">set</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">RelationLink</span>      <span class="n">Property</span>   <span class="n">System</span><span class="p">.</span><span class="py">Collections</span><span class="p">.</span><span class="py">Generic</span><span class="p">.</span><span class="n">Dictionary</span><span class="p">[</span><span class="no">string,string</span><span class="p">]</span> <span class="n">RelationLink</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">StatusCode</span>        <span class="n">Property</span>   <span class="n">int</span> <span class="n">StatusCode</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="n">StatusDescription</span> <span class="n">Property</span>   <span class="n">string</span> <span class="n">StatusDescription</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span></span></code></pre></div><p>Filtering element details from website</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="s2">&#34;https://www.hackthebox.com/&#34;</span> <span class="n">-Method</span> <span class="n">GET</span> <span class="p">|</span> <span class="nb">fl </span><span class="n">StatusCode</span>
+</span></span></code></pre></div><p>Downloading a file</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="s2">&#34;https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1&#34;</span> <span class="n">-OutFile</span> <span class="s2">&#34;C:\PowerView.ps1&#34;</span>
+</span></span></code></pre></div><p> If we already had <code>PowerView.ps1</code> stored on our <code>attack host</code> we could use a simple python web server to host PowerView.ps1 and download it from the target.</p>
+<p>In case <code>Invoke-WebRequest</code> method is restricted on victim machine</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="py">DownloadFile</span><span class="p">(</span><span class="s2">&#34;https://github.com/BloodHoundAD/BloodHound/releases/download/4.2.0/BloodHound-win32-x64.zip&#34;</span><span class="p">,</span> <span class="s2">&#34;Bloodhound.zip&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>Getting filtered AD users</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Filter</span> <span class="s1">&#39;Name -like &#34;*SvcAccount&#34;&#39;</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">Name</span><span class="p">,</span><span class="n">SamAccountName</span> <span class="n">-A</span>
+</span></span></code></pre></div><p>Get all users in a domain</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-ADUser</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="n">-SearchBase</span> <span class="s2">&#34;OU=Finance,OU=UserAccounts,DC=FABRIKAM,DC=COM&#34;</span>
+</span></span></code></pre></div><p>Filter failed logon attempts using <code>Get-EventLog</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-EventLog</span> <span class="n">Security</span> <span class="p">|</span> <span class="nb">where </span><span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="py">EventID</span> <span class="o">-eq</span> <span class="s2">&#34;4625&#34;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-ExpandProperty</span> <span class="n">Message</span> <span class="p">|</span> <span class="n">findstr</span> <span class="s2">&#34;Ac
+</span></span></span><span class="line"><span class="cl"><span class="s2">count Name&#34;</span> <span class="p">|</span> <span class="nb">sort
+</span></span></span></code></pre></div>
+  </div>
+</article>
+
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      <aside>
+
+
+<div id="aboutme">
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
+</div>
+
+
+<section class="well well-sm">
+  <ul class="list-group">
+
+    
+    <li class="list-group-item">
+      <h4>Social</h4>
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
+    </li>
+    
+
+    
+    
+    <li class="list-group-item">
+      <h4>Recent Posts</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/about/">Technical Biography</a></li>
+        
+        <li class="list-group-item"><a href="/manifesto/">Engineering Philosophy</a></li>
+        
+        <li class="list-group-item"><a href="/research/building-a-polymorphic-engine/">Polymorphic Engine Development</a></li>
+        
+        <li class="list-group-item"><a href="/research/stack-mechanics-and-overflows/">The Mechanical Inevitability of Buffer Overflows</a></li>
+        
+        <li class="list-group-item"><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Categories</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/research/">Research <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/archive/">Archives <span class="badge">18</span></a></li>
+        
+        <li class="list-group-item"><a href="/projects/">Projects <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/engineering/">Engineering <span class="badge">1</span></a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Tags</h4>
+      <div class="tag-cloud">
+        
+        <a href="/tags/assembly" class="tag-2">assembly</a>
+        
+        <a href="/tags/c2" class="tag-2">c2</a>
+        
+        <a href="/tags/ctfd" class="tag-2">ctfd</a>
+        
+        <a href="/tags/cti" class="tag-2">cti</a>
+        
+        <a href="/tags/databases" class="tag-2">databases</a>
+        
+        <a href="/tags/devsecops" class="tag-2">devsecops</a>
+        
+        <a href="/tags/docker" class="tag-2">docker</a>
+        
+        <a href="/tags/elk" class="tag-2">elk</a>
+        
+        <a href="/tags/engineering" class="tag-2">engineering</a>
+        
+        <a href="/tags/go" class="tag-2">go</a>
+        
+        <a href="/tags/grafana" class="tag-2">grafana</a>
+        
+        <a href="/tags/hardening" class="tag-2">hardening</a>
+        
+        <a href="/tags/infrastructure" class="tag-2">infrastructure</a>
+        
+        <a href="/tags/internals" class="tag-2">internals</a>
+        
+        <a href="/tags/linux" class="tag-2">linux</a>
+        
+        <a href="/tags/maldev" class="tag-2">maldev</a>
+        
+        <a href="/tags/monitoring" class="tag-2">monitoring</a>
+        
+        <a href="/tags/network-security" class="tag-2">network security</a>
+        
+        <a href="/tags/pentesting" class="tag-2">pentesting</a>
+        
+        <a href="/tags/portswigger" class="tag-2">portswigger</a>
+        
+        <a href="/tags/postgresql" class="tag-2">postgresql</a>
+        
+        <a href="/tags/python" class="tag-2">python</a>
+        
+        <a href="/tags/rce" class="tag-2">rce</a>
+        
+        <a href="/tags/red-team" class="tag-2">red team</a>
+        
+        <a href="/tags/research" class="tag-2">research</a>
+        
+        <a href="/tags/reverse-engineering" class="tag-2">reverse engineering</a>
+        
+        <a href="/tags/sqli" class="tag-2">sqli</a>
+        
+        <a href="/tags/ssrf" class="tag-2">ssrf</a>
+        
+        <a href="/tags/web-security" class="tag-2">web security</a>
+        
+      </div>
+    </li>
+    
+
+    
+    
+    
+    
+    <li class="list-group-item">
+      <h4>Archives</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item">2025</li>
+        
+        <li class="list-group-item">2024</li>
+        
+      </ul>
+    </li>
+    
+
+  </ul>
+</section>
+</aside>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        &copy; 2026 Giorgi Rcheulishvili
+        &middot; Powered by
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
+        <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
+        theme styled after
+        <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank" rel="noopener">pelican-bootstrap3</a>
+      </div>
+      <div class="col-xs-2">
+        <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

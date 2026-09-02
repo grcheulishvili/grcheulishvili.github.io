@@ -1,0 +1,14 @@
+{{ $gh := site.Params.social.github | default "https://github.com/grcheulishvili" }}
+{{ $li := site.Params.social.linkedin | default "https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" }}
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div>
+      <span>© {{ now.Format "2006" }} {{ site.Title }}</span>
+      <span class="footer-sig">{{ i18n "footer_sig" | default "built with intent" }}</span>
+    </div>
+    <div class="footer-social">
+      <a href="{{ $gh }}" target="_blank" rel="noopener me" aria-label="GitHub">{{ partial "icon.html" "github" }}</a>
+      <a href="{{ $li }}" target="_blank" rel="noopener me" aria-label="LinkedIn">{{ partial "icon.html" "linkedin" }}</a>
+    </div>
+  </div>
+</footer>

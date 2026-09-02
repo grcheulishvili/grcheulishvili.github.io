@@ -1,0 +1,15 @@
+{{ define "breadcrumbs" }}
+<ol class="breadcrumb">
+  <li><a href="{{ "" | relLangURL }}"><i class="fa fa-home"></i></a></li>
+  <li class="active">{{ .Title }}</li>
+</ol>
+{{ end }}
+
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<div class="tag-cloud">
+  {{ range .Pages.ByTitle }}
+  <a href="{{ .RelPermalink }}" class="tag-2">{{ .Title }} <span class="badge">{{ .Pages.Len }}</span></a>
+  {{ end }}
+</div>
+{{ end }}

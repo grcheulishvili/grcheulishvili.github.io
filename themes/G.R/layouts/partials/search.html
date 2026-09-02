@@ -1,0 +1,13 @@
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="{{ i18n "search" }}">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <span class="pfx" aria-hidden="true">search</span>
+      <input id="search-input" type="text" autocomplete="off" spellcheck="false"
+             placeholder="{{ i18n "search_placeholder" | default "search research, projects, notes…" }}" aria-label="{{ i18n "search" }}">
+    </div>
+    <div class="search-results" id="search-results"></div>
+    <div class="search-foot" aria-hidden="true">
+      <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+    </div>
+  </div>
+</div>

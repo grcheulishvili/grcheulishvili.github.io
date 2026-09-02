@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ .Language.Lang }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+
+{{ partial "navbar.html" . }}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      {{ block "breadcrumbs" . }}{{ end }}
+      {{ block "main" . }}{{ end }}
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      {{ partial "sidebar.html" . }}
+    </div>
+  </div>
+</div>
+
+{{ partial "footer.html" . }}
+
+<script src="{{ "js/jquery.min.js" | relURL }}"></script>
+<script src="{{ "js/bootstrap.min.js" | relURL }}"></script>
+</body>
+</html>

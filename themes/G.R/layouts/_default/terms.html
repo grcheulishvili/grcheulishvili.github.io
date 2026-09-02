@@ -1,0 +1,13 @@
+{{ define "main" }}
+<div class="wrap section-pad">
+  <div class="list-head">
+    <span class="eyebrow">{{ .Title | lower }}</span>
+    <h1>{{ .Title }}</h1>
+  </div>
+  <div class="taglist" style="gap:.6rem">
+    {{ range .Pages.ByTitle }}
+      <a class="tag" href="{{ .RelPermalink }}" style="font-size:.85rem;padding:.3rem .8rem">{{ .Title }} <span style="color:var(--faint)">({{ .Pages.Len }})</span></a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

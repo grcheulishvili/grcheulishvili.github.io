@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>კვლევა on G.R</title>
+		<link>http://localhost:1313/ka/research/</link>
+		<description>Recent content in კვლევა on G.R</description>
+		<generator>Hugo</generator>
+		<language>ka-GE</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 08 Dec 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/ka/research/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>პოლიმორფული ძრავის შემუშავება</title>
+				<link>http://localhost:1313/ka/research/building-a-polymorphic-engine/</link>
+				<pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/ka/research/building-a-polymorphic-engine/</guid>
+				<description>&lt;h2 id=&#34;make-ხრიკი-და-მისი-ჩავარდნა&#34;&gt;„Make“ ხრიკი და მისი ჩავარდნა&lt;/h2&gt;&#xA;&lt;p&gt;სტატიკური ანალიზისთვის გვერდის ავლის ჩემი პირველი მცდელობა იყო ძალიან მარტივი და დამწყების დონეზე. კომპილაციისას ბინარულ მეტამონაცემებში შემთხვევითი &lt;code&gt;BUILD_ID&lt;/code&gt; სტრიქონის ჩასასმელად Makefile-ის მარტივი ხრიკი გამოვიყენე, რითაც ბინარული ფაილის ჰეში შეიცვლება.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>ბუფერის გადავსების მექანიკური გარდაუვალობა</title>
+				<link>http://localhost:1313/ka/research/stack-mechanics-and-overflows/</link>
+				<pubDate>Fri, 28 Nov 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/ka/research/stack-mechanics-and-overflows/</guid>
+				<description>&lt;h2 id=&#34;შავი-ყუთის-პრობლემა&#34;&gt;„შავი ყუთის“ პრობლემა&lt;/h2&gt;&#xA;&lt;p&gt;დიდი ხნის განმავლობაში ასემბლერის ინსტრუქციებს ისე ვუყურებდი, როგორც შავ ყუთს. ვიცოდი, რომ &lt;code&gt;CALL&lt;/code&gt; იძახებდა ფუნქციას, ხოლო &lt;code&gt;RET&lt;/code&gt; ასრულებდა ფუნქციას. ვიცოდი ისიც, რომ თუ ბაფერში საკმარისი რაოდენობის &amp;ldquo;A&amp;rdquo;-ს ჩავტენი, პროგრამა დაიქრაშება.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>ELK სტეკის კონფიგურაცია - ნაწილი 1</title>
+				<link>http://localhost:1313/ka/research/configuring-an-elk-stack-part-1/</link>
+				<pubDate>Sun, 12 May 2024 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/ka/research/configuring-an-elk-stack-part-1/</guid>
+				<description>&lt;p&gt;ამ სტატიაში აღწერილია ELK სტეკის კონფიგურაცია Docker-ში. ეს არის ორნაწილიანი სერია, სადაც პირველი ნაწილი ფოკუსირებულია საბაზისო ELK-ის გამართვაზე, ხოლო მეორე - უფრო კომპლექსურ არქიტექტურაზე.&lt;/p&gt;&#xA;&lt;p&gt;პლატფორმის ასაწყობად ვიყენებ Elastic-ის ოფიციალურ სახელმძღვანელოს docker-compose-ის მეშვეობით.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,42 @@
+{{ define "breadcrumbs" }}
+<ol class="breadcrumb">
+  <li><a href="{{ "" | relLangURL }}"><i class="fa fa-home"></i></a></li>
+  {{ if and .Section (ne .Type "page") }}
+  <li><a href="{{ .Parent.RelPermalink }}">{{ .Parent.Title }}</a></li>
+  {{ end }}
+  <li class="active">{{ .Title }}</li>
+</ol>
+{{ end }}
+
+{{ define "main" }}
+{{ $full := or (eq .Type "page") (eq .Params.layout "full") }}
+<article>
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+  </header>
+
+  {{ if not $full }}
+  <div class="panel panel-default">
+    <div class="panel-body post-info">
+      {{ if .ReadingTime }}<span class="label label-success">{{ .ReadingTime }} {{ i18n "min_read" }}</span>{{ end }}
+      {{ if gt .Date.Year 1 }}
+      <span class="label label-default">{{ i18n "date" }}</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time></span>
+      {{ end }}
+      {{ with .Section }}
+      <span class="label label-default">{{ i18n "category" }}</span>
+      <a href="{{ $.Parent.RelPermalink }}">{{ $.Parent.Title }}</a>
+      {{ end }}
+      {{ with .Params.tags }}
+      <span class="label label-default">{{ i18n "tags" }}</span>
+      {{ range . }}<a class="btn btn-default btn-xs" href="{{ (printf "tags/%s" (. | urlize)) | relLangURL }}">{{ . }}</a> {{ end }}
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  <div class="entry-content{{ if $full }} page-full{{ end }}">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}

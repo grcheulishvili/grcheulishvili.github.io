@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Internals on G.R</title>
+		<link>http://localhost:1313/ka/tags/internals/</link>
+		<description>Recent content in Internals on G.R</description>
+		<generator>Hugo</generator>
+		<language>ka-GE</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 28 Nov 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/ka/tags/internals/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>ბუფერის გადავსების მექანიკური გარდაუვალობა</title>
+				<link>http://localhost:1313/ka/research/stack-mechanics-and-overflows/</link>
+				<pubDate>Fri, 28 Nov 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/ka/research/stack-mechanics-and-overflows/</guid>
+				<description>&lt;h2 id=&#34;შავი-ყუთის-პრობლემა&#34;&gt;„შავი ყუთის“ პრობლემა&lt;/h2&gt;&#xA;&lt;p&gt;დიდი ხნის განმავლობაში ასემბლერის ინსტრუქციებს ისე ვუყურებდი, როგორც შავ ყუთს. ვიცოდი, რომ &lt;code&gt;CALL&lt;/code&gt; იძახებდა ფუნქციას, ხოლო &lt;code&gt;RET&lt;/code&gt; ასრულებდა ფუნქციას. ვიცოდი ისიც, რომ თუ ბაფერში საკმარისი რაოდენობის &amp;ldquo;A&amp;rdquo;-ს ჩავტენი, პროგრამა დაიქრაშება.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

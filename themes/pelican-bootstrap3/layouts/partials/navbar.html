@@ -1,0 +1,42 @@
+{{- $cur := . -}}
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="{{ "" | relLangURL }}" class="navbar-brand">{{ site.Title }}</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        {{ range site.Menus.main }}
+          {{ $active := or (eq $cur.RelPermalink .URL) (and (ne .URL "/") (hasPrefix $cur.RelPermalink .URL)) }}
+          <li{{ if $active }} class="active"{{ end }}><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+        {{ end }}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {{ if gt (len site.Languages) 1 }}
+          {{ range site.Sites }}
+            {{ $s := . }}
+            {{ $isCur := eq $cur.Language.Lang $s.Language.Lang }}
+            {{ $url := "" }}
+            {{ range $cur.AllTranslations }}{{ if eq .Language.Lang $s.Language.Lang }}{{ $url = .RelPermalink }}{{ end }}{{ end }}
+            {{ if $isCur }}{{ $url = $cur.RelPermalink }}{{ end }}
+            {{ if not $url }}
+              {{ if and $cur.IsPage (ne $cur.Layout "untranslated") }}
+                {{ with $s.GetPage "/untranslated" }}
+                  {{ $url = printf "%s?%s" .RelPermalink (querify "from" $cur.RelPermalink "t" $cur.Title) }}
+                {{ end }}
+              {{ end }}
+              {{ if not $url }}{{ $url = $s.Home.RelPermalink }}{{ end }}
+            {{ end }}
+            <li{{ if $isCur }} class="active"{{ end }}><a href="{{ $url }}" hreflang="{{ $s.Language.Lang }}">{{ $s.Language.LanguageName }}</a></li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Server-Side Vulnerabilities - G.R</title>
+<meta name="description" content="Path Traversal Also known as directory traversal. this type of vulnerabilities enable an attacker to read files on the server including:
+Application code and data Credentials sensitive files In some cases, an attacker might also be able to write files.">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/archive/raw-notes-ssrf/">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/pygments.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+<link href="http://localhost:1313/archive/raw-notes-ssrf/index.xml" type="application/rss+xml" rel="alternate" title="G.R RSS Feed">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">G.R</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        
+          
+          <li><a href="/research/">Research</a></li>
+        
+          
+          <li><a href="/projects/">Projects</a></li>
+        
+          
+          <li class="active"><a href="/archive/">Archive</a></li>
+        
+          
+          <li><a href="/about/">About</a></li>
+        
+          
+          <li><a href="/manifesto/">Approach</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="/archive/raw-notes-ssrf/" hreflang="en">EN</a></li>
+          
+            
+            
+            
+            
+            
+            
+              
+              
+            
+            <li><a href="/ka/" hreflang="ka">ქარ</a></li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      
+<ol class="breadcrumb">
+  <li><a href="/"><i class="fa fa-home"></i></a></li>
+  <li class="active">Server-Side Vulnerabilities</li>
+</ol>
+
+      
+<h1>Server-Side Vulnerabilities</h1>
+<div class="entry-content"><h3 id="path-traversal">Path Traversal</h3>
+<p>Also known as directory traversal. this type of vulnerabilities enable an attacker to read files on the server including:</p>
+<ul>
+<li>Application code and data</li>
+<li>Credentials</li>
+<li>sensitive files</li>
+</ul>
+<p>In some cases, an attacker might also be able to write files.</p>
+<p>Supposing we got image tag on a website:</p>
+<ul>
+<li><code>&lt;img src=&quot;/loadImage?filename=218.png&quot;&gt;</code></li>
+</ul>
+<p>the <code>loadImage</code> URL takes a filename parameter with an image path and it doesn&rsquo;t check for path traversal vulnerability, so a following could be done to retrieve other information.</p>
+<p>the <code>218.png</code> is appended to <code>/var/www/images/218.png</code>. we can traverse up a directory using <code>'../'</code> and reach <code>/etc/passwd</code>like so: <code>https://insecure-website.com/loadImage?filename=../../../etc/passwd</code></p>
+<p>In many cases where user input is used for file paths, there are usually defense mechanisms in place, which can be often bypassed.</p>
+<p>In case these defense mechanisms block absolute paths, there might be a way to overcome them. such as using nested traversal paths <code>....//</code> or <code>....\/</code></p>
+<p>sometimes when <code>multipart/form-data</code> requests are made, URL is stripped of any path traversal inputs. so the way to overcome them might be to use URL encoded character, <code>../</code> turns to <code>%2e%2e%2f</code> and so on. You may need to encode URL twice - If an application decodes it once second one will pass the defenses.</p>
+<p>An application might also require a user supplied file extension such as <code>.png</code>. In this case it might be possible to use a null byte to ignore characters after it. like so - <code>filename=../../../etc/passwd%00.png</code></p>
+<p>The most effective way to prevent path traversal attacks is to just avoid user-supplied paths.</p>
+<p>In case it cannot be avoided, implement 2-way defense mechanism</p>
+<ol>
+<li>Validate user input</li>
+<li>Append the file path to base directory</li>
+</ol>
+<h2 id="access-control">Access Control</h2>
+<p>Access control is the system of constraints on who or what is authorized to perform actions or access resources. Access Control is dependent on authentication and session management:</p>
+<ul>
+<li><strong>Authentication</strong> confirms that the user is who they say they are</li>
+<li><strong>Session Management</strong> identifies which subsequent HTTP requests are made by the same user</li>
+<li><strong>Access Control</strong> Determines whether the user is allowed to carry out an action or access a resource <strong>Broken Access Control</strong> is a common and often critical vulnerability since access control [[1a2a - OWASP TOP 10 2021#4. Insecure Design| design decisions]] have to be made by humans, so the potential for errors is high.</li>
+</ul>
+<h3 id="vertical-privilege-escalation"><strong>Vertical privilege escalation</strong></h3>
+<p>if a user can gain access to functionality that they are not permitted to then this is vertical privilege escalation. for example an administrator page from user account. it might be disclosed in <code>robots.txt</code> file or can even be brute-forced through <a href="https://github.com/ffuf/ffuf">Ffuf</a> or <a href="https://www.kali.org/tools/dirb/">dirb</a> for example.</p>
+<p>In some cases, sensitive functionality such as <code>/administrator-panel</code> is concealed with less predictable URL(Security by obscurity) such as: <code>https://insecure-website.com/administrator-panel-yb556</code>. However, this could be still discovered using URL leaks in code, which can be commonly viewed using <code>ctrl + u</code>.</p>
+<h3 id="parameter-based-access-control-methods">Parameter-based access control methods</h3>
+<p>In some cases applications determine user access rights and details at login, and then store them in user-controllable storages:</p>
+<ul>
+<li>A hidden fields</li>
+<li>forgeable cookies(stored on client-side, probably)</li>
+<li>query parameters For example:</li>
+</ul>
+<pre tabindex="0"><code>https://insecure-website.com/login/home.jsp?admin=true
+https://insecure-website.com/login/home.jsp?role=1
+</code></pre><h3 id="horizontal-privilege-escalation">Horizontal Privilege Escalation</h3>
+<p>Horizontal Privilege Escalation occurs when an user is able to access other user&rsquo;s resources. It is similar to exploit methods used for Vertical Privilege Escalation.</p>
+<p><code>https://insecure-website.com/myaccount?id=123</code>\</p>
+<p>Modifying <code>id</code> variable will grant access to other account. This is an example of Insecure Direct Object Reference(IDOR) vulnerability. This happens when user-controlled parameters are used to access resources or functions directly.</p>
+<p>In other cases Globally Unique Identifiers(GUIDs) may be used which is harder to predict. However, these values can be disclosed in some other location. Example of GUID:</p>
+<p><code>/my-account?id=7340df82-31d9-4882-a087-ed4a3a7e4b59</code></p>
+<p>By changing GUID, an attacker could access other accounts in the same manner as with just id.</p>
+<h3 id="horizontal-to-vertical-privilege-escalation">Horizontal to Vertical privilege escalation</h3>
+<p>a horizontal privilege escalation can be turned to vertical if an attacker can escalate privileges by gaining access to more privileged user, such as an <code>administrator</code>. An example:</p>
+<pre tabindex="0"><code>1. http://insecure-website.com/myaccount?id=wiener
+2. http://insecure-website.com/myaccount?id=administrator -&gt; on the administrator page
+</code></pre><h3 id="authentication-vulnerabilities">Authentication vulnerabilities</h3>
+<ul>
+<li>easy to understand</li>
+<li>critical relationship between authentication and security</li>
+</ul>
+<table>
+	<thead>
+			<tr>
+					<th>Authentication</th>
+					<th>Authorization</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><p>process of verifying that a<br>user is who they claim to be</p></td>
+					<td><p>Authorization involves verifying<br>whether a user is allowed to do something</p></td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="brute-force-attacks">Brute-Force Attacks</h3>
+<p>Websites that use solely password protection, are highly vulnerable to brute-forcing attacks.</p>
+<p>brute-forcing need not be based only on random guessing. But also using basic logic, publicly available knowledge and fine-tuned-dictionaries.</p>
+<p><strong>Usernames</strong> are especially easy to guess since they usually follow a certain pattern. For example a business email might look like this <code>firstname.lastname@somecompany.com</code>. sometimes even-high privileged accounts are created certain usernames. such as <code>admin</code> or <code>administrator</code>.</p>
+<p>HTTP responses sometimes disclose email addresses of high-privileged users, such as admins or IT support.</p>
+<p><strong>Passwords</strong> can be similarly brute-forced, varying the difficulty based on strength of the password. enforcing high-entropy passwords is a good form of password policy - making it harder to guess. enforcing includes:</p>
+<ul>
+<li>A minimum number of characters</li>
+<li>A mixture of lower and uppercase letters</li>
+<li>At east one special character</li>
+</ul>
+<p>high-entropy passwords might be hard to crack, but humans generally follow a certain pattern or knowledge when creating password - often creating a password they can remember - familiar information about a person helps guessing what their credentials might be.</p>
+<p><strong>Username Enumeration</strong> is when an attacker is able to identify whether an username is valid or not based on the changes in the website(on a login page for example.) this makes generating a possible wordlist easier.</p>
+<p>Alright, so from the Portswigger Academy lab, I learned how to <em>enumerate</em> <a href="https://portswigger.net/burp/documentation/desktop/testing-workflow/authentication-mechanisms/enumerating-usernames"><em>usernames</em></a> <em>and brute-force</em> <a href="https://portswigger.net/burp/documentation/desktop/testing-workflow/authentication-mechanisms/brute-forcing-passwords"><em>passwords</em></a>.</p>
+<ol>
+<li>input the website url</li>
+<li>add username and password variables in BurpSuite Intruder in response like <code>username=$user$password=anything</code></li>
+<li>add grep catch for &ldquo;incorrect username&rdquo; or something that can identify incorrect usernames</li>
+<li>run intruder</li>
+<li>check for different response or status codes</li>
+<li>same thing for passwords</li>
+</ol>
+<h3 id="bypassing-two-factor-authentication">Bypassing two-factor authentication</h3>
+<p>sometimes, two-factor authentication is so flawed, it can be bypassed entirely. Meaning, if the user is logged in and is prompted to enter a verification code, the user in effectively in a &ldquo;logged in&rdquo; state already. In this case, you can test if you can skip to &ldquo;logged-in only&rdquo; pages after first step of auth. sometimes websites don&rsquo;t check for verification step.</p>
+<h3 id="server-side-request-forgery-ssrf">Server-side request forgery (SSRF)</h3>
+<p><strong>Against local systems</strong></p>
+<p>SSRF is a web security vulnerability that allows an attacker to make requests to an unintended location.</p>
+<p>In a typical SSRF attack, the attacker might cause the server to make a connection to internal-only services within the organization&rsquo;s infrastructure. In other cases, they may be able to force the server to connect to arbitrary external systems. This could leak sensitive data, such as authorization credentials.</p>
+<p>In a SSRF attack against a server, the attacker causes the application to make a HTTP request back to the host server, via its loopback interface, typically <code>127.0.0.1</code> or <code>localhost</code>.</p>
+<p>For example, in a shopping application scenario, user wants to know if a product is in stock, so the browser sends a request through front-end like the following to the back-end API endpoint:</p>
+<pre tabindex="0"><code>POST /product/stock HTTP/1.0 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 118 
+
+stockApi=http://stock.weliketoshop.net:8080/product/stock/check%3FproductId%3D6%26storeId%3D1
+</code></pre><p>This, in turn causes the server to make a request to a back-end url, effectively retrieving stock status and returning to the user.</p>
+<p>The following is a modified HTTP request:</p>
+<pre tabindex="0"><code>POST /product/stock HTTP/1.0 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 118 
+
+stockApi=http://localhost/admin
+</code></pre><p>This fetches the contents of the <code>/admin</code> URL and returns it to the user. Usually, administrative functionality is only available through authenticated users. so the only way of having such access to the system, would be to access <code>/admin</code> page through local machine - or an <em>[[1a1b - cURL#cURL COOKIES |imitated]]</em> one.</p>
+<p>This kind of behavior for SSRF to work is possible due to:</p>
+<ul>
+<li>The access control check is implemented on the front-end, so upon making a request, it can bypass a back-end</li>
+<li>For disaster recovery purposes, the application might allow administrative access without login from local machine - kind of a way for an admin to recover the system without credentials.</li>
+<li>Admin interface is listening on different port, and is not accessible from userspace.</li>
+</ul>
+<p>Generally, security measures based on <em>trust</em> allow requests to be handled differently, often makes SSRF into a critical vulnerability.</p>
+</div>
+
+
+
+
+  
+  <article>
+    <h2><a href="/archive/raw-notes-ssrf/1c1-ssrf-against-local-interface-portswigger-lab/">SSRF against local interface [Portswigger Lab]</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">1 min read</span>
+      
+    </div>
+    <div class="summary"><h3 id="problem"><strong>Problem</strong></h3>
+<pre tabindex="0"><code>This lab has a stock check feature which fetches data from an internal system.
+
+To solve the lab, change the stock check URL to access the admin interface at `http://localhost/admin` and delete the user `carlos`.
+</code></pre><p>URL: <a href="https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/">https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/</a></p>
+      <a class="btn btn-default btn-xs" href="/archive/raw-notes-ssrf/1c1-ssrf-against-local-interface-portswigger-lab/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/raw-notes-ssrf/1c2-ssrf-against-external-back-end-system-portswigger-lab/">SSRF against external back-end system [PortSwigger Lab]</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">1 min read</span>
+      
+    </div>
+    <div class="summary"><p>The same principle applies for remote SSRF. An attacker can submit the following request to access the admin interface</p>
+<pre tabindex="0"><code>POST /product/stock HTTP/1.0 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 118
+
+stockApi=http://192.168.0.68/admin
+</code></pre><p>The same example as previous, but for remote API:</p>
+      <a class="btn btn-default btn-xs" href="/archive/raw-notes-ssrf/1c2-ssrf-against-external-back-end-system-portswigger-lab/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+
+
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      <aside>
+
+
+<div id="aboutme">
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
+</div>
+
+
+<section class="well well-sm">
+  <ul class="list-group">
+
+    
+    <li class="list-group-item">
+      <h4>Social</h4>
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
+    </li>
+    
+
+    
+    
+    <li class="list-group-item">
+      <h4>Recent Posts</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/about/">Technical Biography</a></li>
+        
+        <li class="list-group-item"><a href="/manifesto/">Engineering Philosophy</a></li>
+        
+        <li class="list-group-item"><a href="/research/building-a-polymorphic-engine/">Polymorphic Engine Development</a></li>
+        
+        <li class="list-group-item"><a href="/research/stack-mechanics-and-overflows/">The Mechanical Inevitability of Buffer Overflows</a></li>
+        
+        <li class="list-group-item"><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Categories</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/research/">Research <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/archive/">Archives <span class="badge">18</span></a></li>
+        
+        <li class="list-group-item"><a href="/projects/">Projects <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/engineering/">Engineering <span class="badge">1</span></a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Tags</h4>
+      <div class="tag-cloud">
+        
+        <a href="/tags/assembly" class="tag-2">assembly</a>
+        
+        <a href="/tags/c2" class="tag-2">c2</a>
+        
+        <a href="/tags/ctfd" class="tag-2">ctfd</a>
+        
+        <a href="/tags/cti" class="tag-2">cti</a>
+        
+        <a href="/tags/databases" class="tag-2">databases</a>
+        
+        <a href="/tags/devsecops" class="tag-2">devsecops</a>
+        
+        <a href="/tags/docker" class="tag-2">docker</a>
+        
+        <a href="/tags/elk" class="tag-2">elk</a>
+        
+        <a href="/tags/engineering" class="tag-2">engineering</a>
+        
+        <a href="/tags/go" class="tag-2">go</a>
+        
+        <a href="/tags/grafana" class="tag-2">grafana</a>
+        
+        <a href="/tags/hardening" class="tag-2">hardening</a>
+        
+        <a href="/tags/infrastructure" class="tag-2">infrastructure</a>
+        
+        <a href="/tags/internals" class="tag-2">internals</a>
+        
+        <a href="/tags/linux" class="tag-2">linux</a>
+        
+        <a href="/tags/maldev" class="tag-2">maldev</a>
+        
+        <a href="/tags/monitoring" class="tag-2">monitoring</a>
+        
+        <a href="/tags/network-security" class="tag-2">network security</a>
+        
+        <a href="/tags/pentesting" class="tag-2">pentesting</a>
+        
+        <a href="/tags/portswigger" class="tag-2">portswigger</a>
+        
+        <a href="/tags/postgresql" class="tag-2">postgresql</a>
+        
+        <a href="/tags/python" class="tag-2">python</a>
+        
+        <a href="/tags/rce" class="tag-2">rce</a>
+        
+        <a href="/tags/red-team" class="tag-2">red team</a>
+        
+        <a href="/tags/research" class="tag-2">research</a>
+        
+        <a href="/tags/reverse-engineering" class="tag-2">reverse engineering</a>
+        
+        <a href="/tags/sqli" class="tag-2">sqli</a>
+        
+        <a href="/tags/ssrf" class="tag-2">ssrf</a>
+        
+        <a href="/tags/web-security" class="tag-2">web security</a>
+        
+      </div>
+    </li>
+    
+
+    
+    
+    
+    
+    <li class="list-group-item">
+      <h4>Archives</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item">2025</li>
+        
+        <li class="list-group-item">2024</li>
+        
+      </ul>
+    </li>
+    
+
+  </ul>
+</section>
+</aside>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        &copy; 2026 Giorgi Rcheulishvili
+        &middot; Powered by
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
+        <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
+        theme styled after
+        <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank" rel="noopener">pelican-bootstrap3</a>
+      </div>
+      <div class="col-xs-2">
+        <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

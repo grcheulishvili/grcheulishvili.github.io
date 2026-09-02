@@ -1,0 +1,4 @@
+name = "G.R"
+license = "MIT"
+min_version = "0.123.0"
+description = "Bespoke editorial-terminal theme for offensive systems research. Dark/light, bilingual, ⌘K search."

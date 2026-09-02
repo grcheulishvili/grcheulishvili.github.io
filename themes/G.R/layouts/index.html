@@ -1,0 +1,66 @@
+{{ define "main" }}
+{{ $h := site.Params.hero }}
+{{ $defSite := index site.Sites 0 }}
+{{ $isDefault := eq site.Language.Lang $defSite.Language.Lang }}
+<section class="wrap hero">
+  <div class="hero-term" aria-hidden="true">
+    <span class="l"><span class="pfx">~/G.R</span><span class="cmd">{{ $h.command | default "whoami" }}</span></span>
+    <span class="l out">{{ $h.name | default site.Params.author.name }} - {{ $h.role | default "offensive systems research" }}</span>
+  </div>
+  <h1>{{ with $h.headline }}{{ . | safeHTML }}{{ else }}Methodical research into <span class="ac">systems</span> &amp; offense.{{ end }}</h1>
+  <p class="hero-lead">{{ $h.lead | default site.Params.description }}</p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="{{ "research" | relLangURL }}">{{ i18n "read_research" | default "Read the research" }} →</a>
+    <a class="btn" href="{{ "about" | relLangURL }}">{{ i18n "about" | default "About" }}</a>
+  </div>
+</section>
+
+{{ $sections := where site.Sections "Params.hidden" "!=" true }}
+{{ with $sections }}
+<section class="wrap section-pad" style="padding-top:1rem">
+  <div class="section-head">
+    <div><span class="eyebrow">{{ i18n "sections" | default "sections" }}</span></div>
+  </div>
+  <div class="cards-grid">
+    {{ range (sort . "Weight" "asc") }}
+      {{ $sec := . }}
+      {{ $cnt := .RegularPagesRecursive.Len }}
+      {{ if and (eq $cnt 0) (not $isDefault) }}
+        {{ with $defSite.GetPage (printf "/%s" .Section) }}{{ $cnt = .RegularPagesRecursive.Len }}{{ end }}
+      {{ end }}
+      <a class="card" href="{{ .RelPermalink }}">
+        <span class="card-kicker">{{ $cnt }} {{ i18n "entries" | default "entries" }}</span>
+        <span class="card-title">{{ .Title }}</span>
+        {{ with .Description | default .Params.subtitle }}<span class="card-sub">{{ . }}</span>{{ end }}
+        <span class="arrow">→</span>
+      </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{ $recent := first 6 (where site.RegularPages "Section" "!=" "") }}
+{{ if and (not $recent) (not $isDefault) }}{{ $recent = first 6 (where $defSite.RegularPages "Section" "!=" "") }}{{ end }}
+{{ with $recent }}
+<section class="wrap section-pad" style="padding-top:0">
+  <div class="section-head">
+    <div><span class="eyebrow">{{ i18n "latest" | default "latest" }}</span>
+      <h2>{{ i18n "recent_writing" | default "Recent writing" }}</h2></div>
+  </div>
+  <div class="post-list">
+    {{ range . }}
+      <a class="cover" href="{{ .RelPermalink }}">
+        <div class="post-row">
+          <div class="meta-col">{{ if gt .Date.Year 1 }}{{ .Date.Format "Jan 02" }} <span class="yr">{{ .Date.Format "2006" }}</span>{{ else }}<span class="yr">note</span>{{ end }}</div>
+          <div>
+            <span class="ptitle">{{ .Title | default (.File.ContentBaseName | humanize | strings.FirstUpper) }}</span>
+            {{ with .Description }}<p class="pdesc">{{ . }}</p>{{ end }}
+            {{ with .Params.tags }}<div class="taglist">{{ range first 4 . }}<span class="tag">{{ . }}</span>{{ end }}</div>{{ end }}
+          </div>
+        </div>
+      </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+{{ end }}

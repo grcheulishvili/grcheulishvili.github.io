@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTTP requests - G.R</title>
+<meta name="description" content="HTTP headers are used to transfer information from the client or server. The client function can be implemented by the cURL program, which is a good tool for pentesting. We have the following categories of headers">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/pygments.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">G.R</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        
+          
+          <li><a href="/research/">Research</a></li>
+        
+          
+          <li><a href="/projects/">Projects</a></li>
+        
+          
+          <li class="active"><a href="/archive/">Archive</a></li>
+        
+          
+          <li><a href="/about/">About</a></li>
+        
+          
+          <li><a href="/manifesto/">Approach</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/" hreflang="en">EN</a></li>
+          
+            
+            
+            
+            
+            
+            
+              
+                
+                  
+                
+              
+              
+            
+            <li><a href="/ka/untranslated/?from=%2Farchive%2Fnotes%2F1-web-applications%2F1a-web-requests%2F1a1-http-requests%2F&amp;t=HTTP&#43;requests" hreflang="ka">ქარ</a></li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      
+<ol class="breadcrumb">
+  <li><a href="/"><i class="fa fa-home"></i></a></li>
+  
+  <li><a href="/archive/notes/1-web-applications/1a-web-requests/">Web Requests</a></li>
+  
+  <li class="active">HTTP requests</li>
+</ol>
+
+      
+
+<article>
+  <header class="page-header">
+    <h1>HTTP requests</h1>
+  </header>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-body post-info">
+      <span class="label label-success">3 min read</span>
+      
+      
+      <span class="label label-default">Category</span>
+      <a href="/archive/notes/1-web-applications/1a-web-requests/">Web Requests</a>
+      
+      
+    </div>
+  </div>
+  
+
+  <div class="entry-content">
+    <p>HTTP headers are used to transfer information from the client or server. </p>
+<p>The client function can be implemented by the <a href="/archive/notes/1-web-applications/1a-web-requests/1a2-curl/">cURL </a>program, which is a good tool for pentesting. </p>
+<p>We have the following categories of headers</p>
+<ul>
+<li>General Headers</li>
+<li>Entity Headers</li>
+<li>Request Headers</li>
+<li>Response Headers</li>
+<li>Security Headers</li>
+</ul>
+<p><strong><code>General Headers</code></strong> are used to describe the message, not its content. They are found in HTTP requests and responses.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Header</th>
+					<th>Example</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Date</td>
+					<td>Date: Wed, 16 Feb 2022 10:38:44 GMT</td>
+					<td>Message creation date</td>
+			</tr>
+			<tr>
+					<td>Connection</td>
+					<td>Connection: Keep-Alive</td>
+					<td>Determines whether the connection should remain open or be closed with the following tags: <code>close</code> or <code>Keep-Alive</code></td>
+			</tr>
+	</tbody>
+</table>
+<p><strong><code>Entity Headers</code></strong> are used to describe the content of a message and are found in POST and PUT headers.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Header</th>
+					<th>Example</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Content-Type</td>
+					<td>Content-Type: text/html</td>
+					<td>Describes the type of resource being transferred.</td>
+			</tr>
+			<tr>
+					<td>Media-Type</td>
+					<td>Media-Type: application/pdf</td>
+					<td>Similar to the content type, but directly conveys the type of information.</td>
+			</tr>
+			<tr>
+					<td>Boundary</td>
+					<td>boundary=&ldquo;b4e4fbd93540&rdquo;</td>
+					<td>Used to separate multiple pieces of data in a single message.</td>
+			</tr>
+			<tr>
+					<td>Content-Length</td>
+					<td>Content-Length: 385</td>
+					<td>Contains the size of the information to be transmitted.</td>
+			</tr>
+			<tr>
+					<td>Content-Encoding</td>
+					<td>Content-Encoding: gzip</td>
+					<td>It transmits a way of encoding information.</td>
+			</tr>
+	</tbody>
+</table>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc7231#autoid-42"><code>Request Headers</code></a> are used for HTTP requests and has no connection to the content of the information. It has the following headers</p>
+<table>
+	<thead>
+			<tr>
+					<th>Header</th>
+					<th>Example</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Host</td>
+					<td>Host: <a href="https://www.inlanefreight.com">www.inlanefreight.com</a></td>
+					<td>Describes the address of the server to which the request is sent.</td>
+			</tr>
+			<tr>
+					<td>User-Agent</td>
+					<td>User-Agent: curl/7.77.0</td>
+					<td>It is used to describe the client agent. This header can be used to determine what program the client is using to connect to the server.</td>
+			</tr>
+			<tr>
+					<td>Referer</td>
+					<td>Referer: <a href="http://www.inlanefreight.com/">http://www.inlanefreight.com/</a></td>
+					<td>Describes where the current demand is coming from.</td>
+			</tr>
+			<tr>
+					<td>Accept</td>
+					<td>Accept: */*</td>
+					<td>Describes what types of information the client can accept. <code>*</code><em><code>/</code></em><code>*</code> means all types of data are allowed.</td>
+			</tr>
+			<tr>
+					<td>Cookie</td>
+					<td>Cookie: PHPSESSID=b4e4fbd93540</td>
+					<td>A cookie record consists of a name=value pair. It is data that is stored on the client and server and serves as an identifier. It is sent to the server on each request to identify the client. It can also be used for session tracking. Multiple cookies can be contained in one header and are separated by a <code>;</code> .</td>
+			</tr>
+			<tr>
+					<td>Authorization</td>
+					<td>Authorization: BASIC cGFzc3dvcmQK</td>
+					<td>One way to identify a client. After authentication, the server assigns the client a unique token, which is stored on the client side and will be retrieved by the server on each request.</td>
+			</tr>
+	</tbody>
+</table>
+<p><code>Response Headers</code> are used in the HTTP response header and is also unrelated to context. Age, location, and server data are used in the response header to create context.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Header</th>
+					<th>Example</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Server</td>
+					<td>Server: Apache/2.2.14 (Win32)</td>
+					<td>Contains information about the server</td>
+			</tr>
+			<tr>
+					<td>Set-Cookie</td>
+					<td>Set-Cookie: PHPSESSID=b4e4fbd93540</td>
+					<td>Contains a cookie record about the user.</td>
+			</tr>
+			<tr>
+					<td>WWW-Authenticate</td>
+					<td>WWW-Authenticate: BASIC realm=&ldquo;localhost&rdquo;</td>
+					<td>Informs the client about the possible authentication type</td>
+			</tr>
+	</tbody>
+</table>
+<p><code>Security Headers</code> are used to set rules and policies for the browser.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Header</th>
+					<th>Example</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Content-Security-Policy</td>
+					<td>Content-Security-Policy: script-src &lsquo;self&rsquo;</td>
+			</tr>
+			<tr>
+					<td>Strict-Transport-Security</td>
+					<td>Strict-Transport-Security: max-age=31536000</td>
+			</tr>
+			<tr>
+					<td>Referrer-Policy</td>
+					<td>Referrer-Policy: origin</td>
+			</tr>
+	</tbody>
+</table>
+
+  </div>
+</article>
+
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      <aside>
+
+
+<div id="aboutme">
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
+</div>
+
+
+<section class="well well-sm">
+  <ul class="list-group">
+
+    
+    <li class="list-group-item">
+      <h4>Social</h4>
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
+    </li>
+    
+
+    
+    
+    <li class="list-group-item">
+      <h4>Recent Posts</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/about/">Technical Biography</a></li>
+        
+        <li class="list-group-item"><a href="/manifesto/">Engineering Philosophy</a></li>
+        
+        <li class="list-group-item"><a href="/research/building-a-polymorphic-engine/">Polymorphic Engine Development</a></li>
+        
+        <li class="list-group-item"><a href="/research/stack-mechanics-and-overflows/">The Mechanical Inevitability of Buffer Overflows</a></li>
+        
+        <li class="list-group-item"><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Categories</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/research/">Research <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/archive/">Archives <span class="badge">18</span></a></li>
+        
+        <li class="list-group-item"><a href="/projects/">Projects <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/engineering/">Engineering <span class="badge">1</span></a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Tags</h4>
+      <div class="tag-cloud">
+        
+        <a href="/tags/assembly" class="tag-2">assembly</a>
+        
+        <a href="/tags/c2" class="tag-2">c2</a>
+        
+        <a href="/tags/ctfd" class="tag-2">ctfd</a>
+        
+        <a href="/tags/cti" class="tag-2">cti</a>
+        
+        <a href="/tags/databases" class="tag-2">databases</a>
+        
+        <a href="/tags/devsecops" class="tag-2">devsecops</a>
+        
+        <a href="/tags/docker" class="tag-2">docker</a>
+        
+        <a href="/tags/elk" class="tag-2">elk</a>
+        
+        <a href="/tags/engineering" class="tag-2">engineering</a>
+        
+        <a href="/tags/go" class="tag-2">go</a>
+        
+        <a href="/tags/grafana" class="tag-2">grafana</a>
+        
+        <a href="/tags/hardening" class="tag-2">hardening</a>
+        
+        <a href="/tags/infrastructure" class="tag-2">infrastructure</a>
+        
+        <a href="/tags/internals" class="tag-2">internals</a>
+        
+        <a href="/tags/linux" class="tag-2">linux</a>
+        
+        <a href="/tags/maldev" class="tag-2">maldev</a>
+        
+        <a href="/tags/monitoring" class="tag-2">monitoring</a>
+        
+        <a href="/tags/network-security" class="tag-2">network security</a>
+        
+        <a href="/tags/pentesting" class="tag-2">pentesting</a>
+        
+        <a href="/tags/portswigger" class="tag-2">portswigger</a>
+        
+        <a href="/tags/postgresql" class="tag-2">postgresql</a>
+        
+        <a href="/tags/python" class="tag-2">python</a>
+        
+        <a href="/tags/rce" class="tag-2">rce</a>
+        
+        <a href="/tags/red-team" class="tag-2">red team</a>
+        
+        <a href="/tags/research" class="tag-2">research</a>
+        
+        <a href="/tags/reverse-engineering" class="tag-2">reverse engineering</a>
+        
+        <a href="/tags/sqli" class="tag-2">sqli</a>
+        
+        <a href="/tags/ssrf" class="tag-2">ssrf</a>
+        
+        <a href="/tags/web-security" class="tag-2">web security</a>
+        
+      </div>
+    </li>
+    
+
+    
+    
+    
+    
+    <li class="list-group-item">
+      <h4>Archives</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item">2025</li>
+        
+        <li class="list-group-item">2024</li>
+        
+      </ul>
+    </li>
+    
+
+  </ul>
+</section>
+</aside>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        &copy; 2026 Giorgi Rcheulishvili
+        &middot; Powered by
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
+        <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
+        theme styled after
+        <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank" rel="noopener">pelican-bootstrap3</a>
+      </div>
+      <div class="col-xs-2">
+        <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

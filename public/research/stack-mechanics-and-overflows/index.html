@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mechanical Inevitability of Buffer Overflows - G.R</title>
+<meta name="description" content="A deep dive into stack mechanics. Why does writing data &#39;up&#39; cause a stack violation &#39;down&#39;? Re-learning memory from first principles.">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/research/stack-mechanics-and-overflows/">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/pygments.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">G.R</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        
+          
+          <li class="active"><a href="/research/">Research</a></li>
+        
+          
+          <li><a href="/projects/">Projects</a></li>
+        
+          
+          <li><a href="/archive/">Archive</a></li>
+        
+          
+          <li><a href="/about/">About</a></li>
+        
+          
+          <li><a href="/manifesto/">Approach</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="/research/stack-mechanics-and-overflows/" hreflang="en">EN</a></li>
+          
+            
+            
+            
+            
+            
+            
+            <li><a href="/ka/research/stack-mechanics-and-overflows/" hreflang="ka">ქარ</a></li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      
+<ol class="breadcrumb">
+  <li><a href="/"><i class="fa fa-home"></i></a></li>
+  
+  <li><a href="/research/">Research</a></li>
+  
+  <li class="active">The Mechanical Inevitability of Buffer Overflows</li>
+</ol>
+
+      
+
+<article>
+  <header class="page-header">
+    <h1>The Mechanical Inevitability of Buffer Overflows</h1>
+  </header>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-body post-info">
+      <span class="label label-success">5 min read</span>
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2025-11-28">November 28, 2025</time></span>
+      
+      
+      <span class="label label-default">Category</span>
+      <a href="/research/">Research</a>
+      
+      
+      <span class="label label-default">Tags</span>
+      <a class="btn btn-default btn-xs" href="/tags/reverse-engineering">Reverse Engineering</a> <a class="btn btn-default btn-xs" href="/tags/assembly">Assembly</a> <a class="btn btn-default btn-xs" href="/tags/internals">Internals</a> 
+      
+    </div>
+  </div>
+  
+
+  <div class="entry-content">
+    <h2 id="the-black-box-problem">The &ldquo;Black Box&rdquo; Problem</h2>
+<p>For a long time, I viewed assembly instructions as black boxes. I knew that <code>CALL</code> invoked a function and <code>RET</code> completed it. I also knew that if I stuffed enough &ldquo;A&quot;s into a buffer, the program would crash.</p>
+<p>However, I didn&rsquo;t understand the mechanics of this crash. I couldn&rsquo;t comprehend why the CPU-a machine engineered for precision-would so easily confuse user-supplied data with code addresses.</p>
+<p>To clear up this confusion, I had to stop looking at the code for a moment and focus entirely on the <strong>Stack Pointer (<code>RSP</code>)</strong>.</p>
+<hr>
+<h2 id="1-the-environment-stack-vs-heap">1. The Environment: Stack vs. Heap</h2>
+<p>The first hurdle was visualizing memory correctly. We frequently use the phrase &ldquo;Stack and Heap,&rdquo; but in terms of behavior, they are polar opposites.</p>
+<ul>
+<li><strong>The Heap (A warehouse of sorts):</strong> You allocate memory here manually using the <code>malloc</code> function. It grows <strong>UP</strong>, from lower to higher memory addresses. It is chaotic, flexible, and meant for long-term storage.</li>
+<li><strong>The Stack (A workbench of sorts):</strong> This is where the CPU handles immediate, transient tasks. It is automatic, strictly ordered, and-crucially-it grows <strong>DOWN</strong>, from higher to lower memory addresses.</li>
+</ul>
+<p>This &ldquo;downward growth&rdquo; is the core principle. When a function requires space for variables, it doesn&rsquo;t add memory; instead, it <strong>subtracts</strong> from the Stack Pointer to allocate a new working area. When these two regions intersect, memory is considered exhausted.</p>
+<figure><img src="/.gitbook/assets/stack-heap-vis.png"
+			alt="data">
+</figure>
+
+<hr>
+<h2 id="2-the-movement-of-rsp">2. The Movement of RSP</h2>
+<p>The Stack Pointer (<code>RSP</code>) is not a mere cursor; it is a <strong>boundary line</strong>.</p>
+<ul>
+<li>Everything <strong>above</strong> <code>RSP</code> (at higher addresses) represents saved data that must be preserved, such as function return addresses.</li>
+<li>Everything <strong>below</strong> <code>RSP</code> (at lower addresses) is temporary workspace-unallocated memory that has not been used yet.</li>
+</ul>
+<p>When executing instructions, we are simply shifting this boundary line.</p>
+<h3 id="allocation-is-subtraction">Allocation is Subtraction</h3>
+<p>In high-level languages, we declare variables. In assembly, we simply move the line.</p>
+<ul>
+<li><code>SUB RSP, 0x20</code>: This creates a 32-byte buffer. We didn&rsquo;t actually create anything; we just shifted <code>RSP</code> down by 32 bytes and designated this space as ours.</li>
+<li><code>ADD RSP, 0x20</code>: This frees the buffer. We slide <code>RSP</code> back up. The data technically remains there, but it enters a volatile zone, ready to be overwritten by the next function execution.</li>
+</ul>
+<figure><img src="/.gitbook/assets/stack-claim.png"
+			alt="data">
+</figure>
+
+<hr>
+<h2 id="3-the-conflict-writing-vs-allocation">3. The Conflict: Writing vs. Allocation</h2>
+<p>To understand the flaw, look at this simple C program:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span> <span class="c1">// The vulnerability lives here
+</span></span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mh">0xbeef</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">func</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mh">0xfeeb</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>When <code>main</code> calls the <code>func</code> function, the following mechanical steps occur at the assembly level:</p>
+<ol>
+<li><code>call func</code> - Executing a call performs two actions. First, it runs the <code>PUSH RIP</code> instruction. It takes the address of the next instruction and pushes it onto the stack. This is the <strong>Saved Return Address</strong>. Then, it executes a <code>JMP func</code> to pivot the CPU to the function.</li>
+<li><code>sub rsp, 28h</code> - Inside the function, the Stack Pointer (<code>RSP</code>) moves <strong>DOWN</strong>. Subtracting in this context means shifting <code>RSP</code> to a lower memory address, clearing out space for our buffer and other operations.</li>
+<li><strong>The Write Operation</strong> - This is where user input occurs, typically handled by functions like <code>strcpy</code> or <code>gets</code>.</li>
+<li><code>RET</code> - When the function finishes, it executes the <code>RET</code> instruction. This command performs a <code>POP RIP</code> operation: it looks at the top of the stack, pops the value sitting there (which should be the <strong>Saved Return Address</strong>), and loads it into the Instruction Pointer (<code>RIP</code>).</li>
+</ol>
+<h3 id="the-mechanical-flaw">The Mechanical Flaw</h3>
+<p>This is the exact realization that made everything click. We have a fundamental conflict of directions here:</p>
+<ol>
+<li><strong>The stack grows DOWN:</strong> We allocate space by moving <code>RSP</code> toward <strong>lower addresses</strong>.</li>
+<li><strong>Buffers write UP:</strong> When writing data into an array, the write operation moves from the start (<strong>lower address</strong>) toward the end (<strong>higher address</strong>).</li>
+</ol>
+<p>If we visualize memory during the write operation, this collision becomes obvious.</p>
+<p><strong>Memory Layout on the Stack (High to Low Addresses):</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[ 0x00007fffffffe018 ]  &lt;-- Saved Return Address (Pushed by CALL)
+</span></span><span class="line"><span class="cl">[ 0x00007fffffffe010 ]  &lt;-- Old Base Pointer (Saved RBP)
+</span></span><span class="line"><span class="cl">[ 0x00007fffffffe000 ]  &lt;-- Start of &#39;buffer&#39; (RSP is here)
+</span></span></code></pre></div><p>If we write 8 bytes (&ldquo;ABCDEFGH&rdquo;), we fill the buffer perfectly up to <code>0x...008</code>.
+But if we write data longer than 16 bytes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Input: &#34;AAAAAAAAAAAAAAAA&#34; + &#34;BBBBBBBB&#34; + &#34;DEADBEEF&#34;
+</span></span></code></pre></div><p>The write operation begins at the bottom and climbs <strong>UP</strong>:</p>
+<ol>
+<li><strong>&ldquo;AAAAAAAAAAAAAAAA&rdquo;</strong> fills the buffer and padding.</li>
+<li><strong>&ldquo;BBBBBBBB&rdquo;</strong> overwrites the saved base pointer (Old RBP).</li>
+<li><strong>&ldquo;DEADBEEF&rdquo;</strong> overwrites the <strong>Saved Return Address</strong>.</li>
+</ol>
+<p>When <code>RET</code> executes, it has no awareness that the stack was corrupted. It blindly pops the <code>0xDEADBEEF</code> value into the <code>RIP</code> register, and program execution jumps straight to our malicious address: <code>0xDEADBEEF</code>.</p>
+<h2 id="4-the-blind-trust-of-ret">4. The Blind Trust of <code>RET</code></h2>
+<p>When the function concludes its execution, it runs the <code>RET</code> instruction. This is the precise window where our exploit triggers.</p>
+<p><code>RET</code> is a mechanical instruction. It does exactly one thing:</p>
+<ol>
+<li>Looks at the location pointed to by <code>RSP</code>.</li>
+<li>Grabs the value sitting there.</li>
+<li>Loads that value into the Instruction Pointer (<code>RIP</code>).</li>
+</ol>
+<p><strong>The logic flaw is simple:</strong> <code>RET</code> does not validate what it is popping. It assumes that because the value resides on the stack, it must be valid.</p>
+<p>If we successfully overwrite that slot with <code>0xDEADBEEF</code>, the processor does not perceive it as junk data. It recognizes it as the next execution address.</p>
+<p>It blindly jumps to <code>0xDEADBEEF</code>.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Buffer overflows are not magic or esoteric science. They are the result of a mechanical collision between two opposing vectors: the stack allocating downward, and data writing upward.</p>
+<p>To hijack execution control, we do not need to break the software&rsquo;s application logic. We only need to replace the top of the stack with our target address and wait for the processor to blindly execute the instruction.</p>
+
+  </div>
+</article>
+
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      <aside>
+
+
+<div id="aboutme">
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
+</div>
+
+
+<section class="well well-sm">
+  <ul class="list-group">
+
+    
+    <li class="list-group-item">
+      <h4>Social</h4>
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
+    </li>
+    
+
+    
+    
+    <li class="list-group-item">
+      <h4>Recent Posts</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/about/">Technical Biography</a></li>
+        
+        <li class="list-group-item"><a href="/manifesto/">Engineering Philosophy</a></li>
+        
+        <li class="list-group-item"><a href="/research/building-a-polymorphic-engine/">Polymorphic Engine Development</a></li>
+        
+        <li class="list-group-item"><a href="/research/stack-mechanics-and-overflows/">The Mechanical Inevitability of Buffer Overflows</a></li>
+        
+        <li class="list-group-item"><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Categories</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/research/">Research <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/archive/">Archives <span class="badge">18</span></a></li>
+        
+        <li class="list-group-item"><a href="/projects/">Projects <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/engineering/">Engineering <span class="badge">1</span></a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Tags</h4>
+      <div class="tag-cloud">
+        
+        <a href="/tags/assembly" class="tag-2">assembly</a>
+        
+        <a href="/tags/c2" class="tag-2">c2</a>
+        
+        <a href="/tags/ctfd" class="tag-2">ctfd</a>
+        
+        <a href="/tags/cti" class="tag-2">cti</a>
+        
+        <a href="/tags/databases" class="tag-2">databases</a>
+        
+        <a href="/tags/devsecops" class="tag-2">devsecops</a>
+        
+        <a href="/tags/docker" class="tag-2">docker</a>
+        
+        <a href="/tags/elk" class="tag-2">elk</a>
+        
+        <a href="/tags/engineering" class="tag-2">engineering</a>
+        
+        <a href="/tags/go" class="tag-2">go</a>
+        
+        <a href="/tags/grafana" class="tag-2">grafana</a>
+        
+        <a href="/tags/hardening" class="tag-2">hardening</a>
+        
+        <a href="/tags/infrastructure" class="tag-2">infrastructure</a>
+        
+        <a href="/tags/internals" class="tag-2">internals</a>
+        
+        <a href="/tags/linux" class="tag-2">linux</a>
+        
+        <a href="/tags/maldev" class="tag-2">maldev</a>
+        
+        <a href="/tags/monitoring" class="tag-2">monitoring</a>
+        
+        <a href="/tags/network-security" class="tag-2">network security</a>
+        
+        <a href="/tags/pentesting" class="tag-2">pentesting</a>
+        
+        <a href="/tags/portswigger" class="tag-2">portswigger</a>
+        
+        <a href="/tags/postgresql" class="tag-2">postgresql</a>
+        
+        <a href="/tags/python" class="tag-2">python</a>
+        
+        <a href="/tags/rce" class="tag-2">rce</a>
+        
+        <a href="/tags/red-team" class="tag-2">red team</a>
+        
+        <a href="/tags/research" class="tag-2">research</a>
+        
+        <a href="/tags/reverse-engineering" class="tag-2">reverse engineering</a>
+        
+        <a href="/tags/sqli" class="tag-2">sqli</a>
+        
+        <a href="/tags/ssrf" class="tag-2">ssrf</a>
+        
+        <a href="/tags/web-security" class="tag-2">web security</a>
+        
+      </div>
+    </li>
+    
+
+    
+    
+    
+    
+    <li class="list-group-item">
+      <h4>Archives</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item">2025</li>
+        
+        <li class="list-group-item">2024</li>
+        
+      </ul>
+    </li>
+    
+
+  </ul>
+</section>
+</aside>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        &copy; 2026 Giorgi Rcheulishvili
+        &middot; Powered by
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
+        <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
+        theme styled after
+        <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank" rel="noopener">pelican-bootstrap3</a>
+      </div>
+      <div class="col-xs-2">
+        <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

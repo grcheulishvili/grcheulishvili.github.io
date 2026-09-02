@@ -1,0 +1,37 @@
+{{ define "main" }}
+<div class="wrap section-pad">
+  <div class="list-head">
+    <span class="eyebrow">{{ .Section | default "index" }}</span>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description | default .Params.subtitle }}<p>{{ . }}</p>{{ end }}
+  </div>
+
+  {{ with .Content }}<div class="prose" style="margin-bottom:2.5rem">{{ . }}</div>{{ end }}
+
+  {{ $pages := .RegularPagesRecursive }}
+  {{ if not $pages }}{{ $pages = .Pages }}{{ end }}
+  {{ $defSite := index site.Sites 0 }}
+  {{ if and (not $pages) (ne site.Language.Lang $defSite.Language.Lang) .Section }}
+    {{ with $defSite.GetPage (printf "/%s" .Section) }}{{ $pages = .RegularPagesRecursive }}{{ end }}
+  {{ end }}
+  {{ $pages = $pages.ByDate.Reverse }}
+  {{ with $pages }}
+  <div class="post-list">
+    {{ range . }}
+      <a class="cover" href="{{ .RelPermalink }}">
+        <div class="post-row">
+          <div class="meta-col">{{ if gt .Date.Year 1 }}{{ .Date.Format "Jan 02" }} <span class="yr">{{ .Date.Format "2006" }}</span>{{ else }}<span class="yr">note</span>{{ end }}</div>
+          <div>
+            <span class="ptitle">{{ .Title | default (.File.ContentBaseName | humanize | strings.FirstUpper) }}</span>{{ if ne .Language.Lang site.Language.Lang }} <span class="lang-badge" title="{{ i18n "untranslated_err" }}">{{ .Language.Lang | upper }}</span>{{ end }}
+            {{ with .Description }}<p class="pdesc">{{ . }}</p>{{ end }}
+            {{ with .Params.tags }}<div class="taglist">{{ range first 5 . }}<span class="tag">{{ . }}</span>{{ end }}</div>{{ end }}
+          </div>
+        </div>
+      </a>
+    {{ end }}
+  </div>
+  {{ else }}
+    <p style="color:var(--muted);font-family:var(--font-mono)">{{ i18n "empty" | default "No entries yet." }}</p>
+  {{ end }}
+</div>
+{{ end }}

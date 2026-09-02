@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Web Requests on G.R</title>
+		<link>http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/</link>
+		<description>Recent content in Web Requests on G.R</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<atom:link href="http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>CURL</title>
+				<link>http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a2-curl/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a2-curl/</guid>
+				<description>&lt;p&gt;cURL (Client URL) is a CLI program used to establish communication with various protocols and retrieve information. It is a good tool for pentesting because it provides raw data from a web application.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>HTTP requests</title>
+				<link>http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/</link>
+				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/</guid>
+				<description>&lt;p&gt;HTTP headers are used to transfer information from the client or server. &lt;/p&gt;&#xA;&lt;p&gt;The client function can be implemented by the &lt;a href=&#34;http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a2-curl/&#34;&gt;cURL &lt;/a&gt;program, which is a good tool for pentesting. &lt;/p&gt;&#xA;&lt;p&gt;We have the following categories of headers&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Red Team on G.R</title>
+		<link>http://localhost:1313/ka/tags/red-team/</link>
+		<description>Recent content in Red Team on G.R</description>
+		<generator>Hugo</generator>
+		<language>ka-GE</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 08 Dec 2025 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/ka/tags/red-team/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>პოლიმორფული ძრავის შემუშავება</title>
+				<link>http://localhost:1313/ka/research/building-a-polymorphic-engine/</link>
+				<pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/ka/research/building-a-polymorphic-engine/</guid>
+				<description>&lt;h2 id=&#34;make-ხრიკი-და-მისი-ჩავარდნა&#34;&gt;„Make“ ხრიკი და მისი ჩავარდნა&lt;/h2&gt;&#xA;&lt;p&gt;სტატიკური ანალიზისთვის გვერდის ავლის ჩემი პირველი მცდელობა იყო ძალიან მარტივი და დამწყების დონეზე. კომპილაციისას ბინარულ მეტამონაცემებში შემთხვევითი &lt;code&gt;BUILD_ID&lt;/code&gt; სტრიქონის ჩასასმელად Makefile-ის მარტივი ხრიკი გამოვიყენე, რითაც ბინარული ფაილის ჰეში შეიცვლება.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

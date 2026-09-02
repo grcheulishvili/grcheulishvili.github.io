@@ -1,0 +1,50 @@
+[search]
+other = "Search"
+[search_placeholder]
+other = "search research, projects, notes…"
+[sections]
+other = "sections"
+[latest]
+other = "latest"
+[recent_writing]
+other = "Recent writing"
+[entries]
+other = "entries"
+[read_research]
+other = "Read the research"
+[about]
+other = "About"
+[min_read]
+other = "min read"
+[on_this_page]
+other = "on this page"
+[share]
+other = "share"
+[newer]
+other = "newer"
+[older]
+other = "older"
+[empty]
+other = "No entries yet."
+[notfound]
+other = "The page you requested does not exist. It may have been moved or never existed."
+[footer_sig]
+other = "tools break. protocols do not."
+[read_writeup]
+other = "Read write-up"
+[view_source]
+other = "View source"
+[live_demo]
+other = "Live demo"
+[untranslated_cmd]
+other = 'grep "translation" content.md'
+[untranslated_err]
+other = 'grep: "translation" content.md: status 1 (Not Found)'
+[untranslated_title]
+other = "TODO: English version. (⌐■_■)"
+[untranslated_body]
+other = "<b>Status -></b> Translation missing.<br><b>Reason -></b> Laziness.<br><b>ETA -></b> when I have time."
+[untranslated_cta]
+other = "Read Original"
+[untranslated_home]
+other = "Back Home"

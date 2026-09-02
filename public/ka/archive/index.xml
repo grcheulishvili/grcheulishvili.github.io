@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>არქივი on G.R</title>
+		<link>http://localhost:1313/ka/archive/</link>
+		<description>Recent content in არქივი on G.R</description>
+		<generator>Hugo</generator>
+		<language>ka-GE</language>
+		
+		
+		
+		
+			<atom:link href="http://localhost:1313/ka/archive/index.xml" rel="self" type="application/rss+xml" />
+	</channel>
+</rss>

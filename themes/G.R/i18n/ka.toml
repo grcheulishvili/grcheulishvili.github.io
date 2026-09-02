@@ -1,0 +1,50 @@
+[search]
+other = "ძიება"
+[search_placeholder]
+other = "მოძებნე კვლევები, პროექტები, ჩანაწერები…"
+[sections]
+other = "სექციები"
+[latest]
+other = "უახლესი"
+[recent_writing]
+other = "ბოლო ჩანაწერები"
+[entries]
+other = "ჩანაწერი"
+[read_research]
+other = "კვლევის წაკითხვა"
+[about]
+other = "შესახებ"
+[min_read]
+other = "წთ კითხვა"
+[on_this_page]
+other = "ამ გვერდზე"
+[share]
+other = "გაზიარება"
+[newer]
+other = "უახლესი"
+[older]
+other = "ძველი"
+[empty]
+other = "ჩანაწერები ჯერ არ არის."
+[notfound]
+other = "მოთხოვნილი გვერდი არ არსებობს. შესაძლოა გადატანილია ან არასდროს არსებობდა."
+[footer_sig]
+other = "ხელსაწყოები ფუჭდება. პროტოკოლები - არა."
+[read_writeup]
+other = "სრულად ნახვა"
+[view_source]
+other = "წყაროს კოდი"
+[live_demo]
+other = "დემო"
+[untranslated_cmd]
+other = 'git checkout ka-translation'
+[untranslated_err]
+other = "error: pathspec 'ka' did not match any file(s)"
+[untranslated_title]
+other = "TODO: თარგმანი. ദ്ദി( • ᴗ - ) ✧"
+[untranslated_body]
+other = "<b>სტატუსი -> </b> თარგმანი არ არსებობს.<br><b>მიზეზი -></b> სიზარმაცე.<br><b>როდის იქნება -> </b> როცა მოვიცლი."
+[untranslated_cta]
+other = "ორიგინალის წაკითხვა"
+[untranslated_home]
+other = "მთავარზე დაბრუნება"

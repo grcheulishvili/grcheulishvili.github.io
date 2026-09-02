@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archives - G.R</title>
+<meta name="description" content="Systems and infrastructure engineering - automation, containerization, and offensive security.">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/archive/">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/pygments.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+<link href="http://localhost:1313/archive/index.xml" type="application/rss+xml" rel="alternate" title="G.R RSS Feed">
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">G.R</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        
+          
+          <li><a href="/research/">Research</a></li>
+        
+          
+          <li><a href="/projects/">Projects</a></li>
+        
+          
+          <li class="active"><a href="/archive/">Archive</a></li>
+        
+          
+          <li><a href="/about/">About</a></li>
+        
+          
+          <li><a href="/manifesto/">Approach</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="/archive/" hreflang="en">EN</a></li>
+          
+            
+            
+            
+            
+            
+            
+            <li><a href="/ka/archive/" hreflang="ka">ქარ</a></li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      
+<ol class="breadcrumb">
+  <li><a href="/"><i class="fa fa-home"></i></a></li>
+  <li class="active">Archives</li>
+</ol>
+
+      
+<h1>Archives</h1>
+
+
+
+
+
+  
+  <article>
+    <h2><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2025-11-27">November 27, 2025</time></span>
+      
+      <span class="label label-success">1 min read</span>
+      <span class="label label-primary">Web Security</span> <span class="label label-primary">SSRF</span> <span class="label label-primary">Network Security</span> 
+    </div>
+    <div class="summary"><h2 id="mechanism-of-action">Mechanism of Action</h2>
+<p>SSRF occurs when an application fetches a remote resource based on user-supplied URLs without validation. This trust relationship allows an attacker to coerce the server into making requests on their behalf.</p>
+      <a class="btn btn-default btn-xs" href="/archive/ssrf-exploitation/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/os-command-injection-patterns/">Research: OS Command Injection Execution Flow</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2025-11-27">November 27, 2025</time></span>
+      
+      <span class="label label-success">1 min read</span>
+      <span class="label label-primary">Web Security</span> <span class="label label-primary">RCE</span> <span class="label label-primary">PortSwigger</span> 
+    </div>
+    <div class="summary"><h2 id="injection-context">Injection Context</h2>
+<p>Legacy applications often interface with the operating system using shell wrappers. A common pattern observed in inventory systems involves passing user IDs directly to backend scripts.</p>
+<p><strong>Vulnerable Logic:</strong></p>
+      <a class="btn btn-default btn-xs" href="/archive/os-command-injection-patterns/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/bypassing-file-upload-filters/">Research: Bypassing Modern File Upload Filters</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2025-11-27">November 27, 2025</time></span>
+      
+      <span class="label label-success">2 min read</span>
+      <span class="label label-primary">Web Security</span> <span class="label label-primary">Research</span> <span class="label label-primary">Pentesting</span> 
+    </div>
+    <div class="summary"><h2 id="abstract">Abstract</h2>
+<p>File upload vulnerabilities remain a critical vector for Remote Code Execution (RCE). While developers often implement validation mechanisms (MIME type checks, blacklists), these are frequently based on &ldquo;trusting user input.&rdquo; This report documents specific bypass techniques I analyzed during recent research.</p>
+      <a class="btn btn-default btn-xs" href="/archive/bypassing-file-upload-filters/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/sql-injection-patterns/">Research: Boolean &amp; Logic-Based SQL Injection</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2025-11-27">November 27, 2025</time></span>
+      
+      <span class="label label-success">1 min read</span>
+      <span class="label label-primary">Web Security</span> <span class="label label-primary">SQLi</span> <span class="label label-primary">Databases</span> 
+    </div>
+    <div class="summary"><h2 id="1-authentication-bypass-via-comment-injection">1. Authentication Bypass via Comment Injection</h2>
+<p>Login mechanisms frequently construct queries by concatenating user input directly into a string.</p>
+<p><strong>Backend Logic:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;$user&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;$pass&#39;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>Injection Vector:</strong>
+By appending the SQL comment sequence (<code>--</code>), we can truncate the query immediately after the username, effectively removing the password validation requirement.</p>
+      <a class="btn btn-default btn-xs" href="/archive/sql-injection-patterns/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/reverse-engineering-and-binary-exploitation/assembly-basics/">Assembly Basics</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2025-07-12">July 12, 2025</time></span>
+      
+      <span class="label label-success">15 min read</span>
+      
+    </div>
+    <div class="summary"><h2 id="assembly">Assembly</h2>
+<p><strong>Assembly language</strong> at its basic is an symbolic language that directly ties a language machine can understand and a language that is easy for humans to understand.</p>
+<p>An instruction like <code>add rax, 1</code> is simpler than machine shellcode equivalent <code>4883C001</code> or binary machine code <code>01001000 10000011 11000000 00000001</code></p>
+      <a class="btn btn-default btn-xs" href="/archive/reverse-engineering-and-binary-exploitation/assembly-basics/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/htb-cicada-analysis/">HackTheBox Machine - Cicada</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2024-11-20">November 20, 2024</time></span>
+      
+      <span class="label label-success">8 min read</span>
+      
+    </div>
+    <div class="summary"><p>IP: 10.10.11.35</p>
+<p>Nmap scan results for 10.10.11.35 machine. </p>
+<p>Parameters:</p>
+<ul>
+<li>`sV` - Probe open ports to determine service/version info</li>
+<li>&lsquo;sC&rsquo; - equivalent to &ndash;script=default</li>
+<li>&lsquo;Pn&rsquo; - Treat all hosts as online &ndash; skip host discovery</li>
+<li>&lsquo;&ndash;max-rate=1000&rsquo; - Send packets no faster than 1000 packets per second</li>
+</ul>
+<pre tabindex="0"><code>nmap -sV -sC -Pn 10.10.11.35 --max-rate=1000
+
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-11-18 10:22 +04
+Nmap scan report for cicada.htb (10.10.11.35)
+Host is up (0.098s latency).
+Not shown: 989 filtered tcp ports (no-response)
+PORT     STATE SERVICE       VERSION
+53/tcp   open  domain        Simple DNS Plus
+88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server time: 2024-11-18 13:22:50Z)
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb
+| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb
+| Not valid before: 2024-08-22T20:24:16
+|_Not valid after:  2025-08-22T20:24:16
+445/tcp  open  microsoft-ds?
+464/tcp  open  kpasswd5?
+593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp  open  ssl/ldap      Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)
+| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb
+| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb
+| Not valid before: 2024-08-22T20:24:16
+|_Not valid after:  2025-08-22T20:24:16
+|_ssl-date: TLS randomness does not represent time
+3268/tcp open  ldap          Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)
+| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb
+| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb
+| Not valid before: 2024-08-22T20:24:16
+|_Not valid after:  2025-08-22T20:24:16
+|_ssl-date: TLS randomness does not represent time
+3269/tcp open  ssl/ldap      Microsoft Windows Active Directory LDAP (Domain: cicada.htb0., Site: Default-First-Site-Name)
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=CICADA-DC.cicada.htb
+| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:CICADA-DC.cicada.htb
+| Not valid before: 2024-08-22T20:24:16
+|_Not valid after:  2025-08-22T20:24:16
+Service Info: Host: CICADA-DC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   date: 2024-11-18T13:23:35
+|_  start_date: N/A
+|_clock-skew: 6h59m59s
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 96.30 seconds
+</code></pre><ol>
+<li>We find out that 10.10.11.35 host has cicada.htb domain.</li>
+<li>The system has active SMB, LDAP, RPC over HTTP services enabled, which can be further studied and dissected for weaknesses and vulnerabilities.</li>
+</ol>
+<p>Listing NULL(unauthorized/anonymous) SMB SHARES</p>
+      <a class="btn btn-default btn-xs" href="/archive/htb-cicada-analysis/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/">Web shell upload via extension blacklist bypass [PortSwigger Lab]</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2024-07-16">July 16, 2024</time></span>
+      
+      <span class="label label-success">3 min read</span>
+      
+    </div>
+    <div class="summary"><p>This lab contains a vulnerable image upload function. Certain file extensions are blacklisted, but this defense can be bypassed due to a fundamental flaw in the configuration of this blacklist.</p>
+      <a class="btn btn-default btn-xs" href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f4-web-shell-upload-via-extension-blacklist-bypass-portswigger-lab/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/">Web shell upload via Path Traversal [PortSwigger Lab]</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2024-07-09">July 9, 2024</time></span>
+      
+      <span class="label label-success">2 min read</span>
+      
+    </div>
+    <div class="summary"><p>This lab contains a vulnerable image upload function. The server is configured to prevent execution of user-supplied files, but this restriction can be bypassed by exploiting a secondary vulnerability.</p>
+<p>To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file <code>/home/carlos/secret</code>. Submit this secret.</p>
+      <a class="btn btn-default btn-xs" href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/">Web shell upload via Content-Type restriction bypass [Portswigger Lab]</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2024-07-06">July 6, 2024</time></span>
+      
+      <span class="label label-success">4 min read</span>
+      
+    </div>
+    <div class="summary"><p>This lab contains a vulnerable image upload function. It attempts to prevent users from uploading unexpected file types, but relies on checking user-controllable input to verify this.</p>
+<p>To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file <code>/home/carlos/secret</code>. Submit this secret.</p>
+      <a class="btn btn-default btn-xs" href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f2-web-shell-upload-via-content-type-restriction-bypass-portswigger-lab/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/useful-cheatsheet-for-pentesting/">Useful cheatsheet for pentesting</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">5 min read</span>
+      
+    </div>
+    <div class="summary"><h1 id="0c---useful-cheatsheet-for-pentesting">0c - Useful cheatsheet for pentesting</h1>
+<ul>
+<li>Tools are only as effective as their operator is knowledgeable.</li>
+<li>Have ready to use virtual machines of GNU/Linux and Windows alike.</li>
+<li>Use password managers and use strong passwords, preferably</li>
+<li>keep pentesting and personal workspaces separate</li>
+<li>document everything and have legal confirmations before doing any target assessment</li>
+</ul>
+<h4 id="full-upgrade--update-of-the-system">Full upgrade &amp; update of the system</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update -y <span class="o">&amp;&amp;</span> sudo apt full-upgrade -y <span class="o">&amp;&amp;</span> sudo apt autoremove -y <span class="o">&amp;&amp;</span> sudo apt autoclean -y
+</span></span></code></pre></div><h4 id="installing-multiple-packages-at-once">Installing multiple packages at once</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">└──╼ $ cat install.list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">netcat
+</span></span><span class="line"><span class="cl">radare2
+</span></span><span class="line"><span class="cl">nmap
+</span></span><span class="line"><span class="cl">seclists
+</span></span><span class="line"><span class="cl">tcpdump
+</span></span><span class="line"><span class="cl">hashcat
+</span></span><span class="line"><span class="cl">wireshark
+</span></span><span class="line"><span class="cl">git
+</span></span><span class="line"><span class="cl">gobuster
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install <span class="k">$(</span>cat install.list <span class="p">|</span> tr <span class="s2">&#34;\n&#34;</span> <span class="s2">&#34; &#34;</span><span class="k">)</span> -y
+</span></span></code></pre></div><h4 id="running-multiple-bash-configurations-at-once-on-the-system">Running multiple <code>bash</code> configurations at once on the system</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">user@user:~$ cat automation_scripts.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">terminal.sh
+</span></span><span class="line"><span class="cl">tools.sh
+</span></span><span class="line"><span class="cl">GUI.sh
+</span></span><span class="line"><span class="cl">network.sh
+</span></span><span class="line"><span class="cl">vim.sh
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> script in <span class="k">$(</span>cat customization-scripts.txt<span class="k">)</span><span class="p">;</span> <span class="k">do</span> curl -s http://myvps.vps-provider.net/<span class="nv">$script</span> <span class="p">|</span> bash<span class="p">;</span> <span class="k">done</span>
+</span></span></code></pre></div><h4 id="example-penetration-testing-project-folder-structure-might-look-like-the-following">Example penetration testing project folder structure might look like the following</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">george@LTP51<span class="o">[</span>/PEN1<span class="o">]</span>$ tree .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">└── Penetration-Testing
+</span></span><span class="line"><span class="cl">	│
+</span></span><span class="line"><span class="cl">	├── Pre-Engagement
+</span></span><span class="line"><span class="cl">	│       └── ...
+</span></span><span class="line"><span class="cl">    ├── Network-Pentesting
+</span></span><span class="line"><span class="cl">	│       ├── Linux
+</span></span><span class="line"><span class="cl">	│       │   ├── Information-Gathering
+</span></span><span class="line"><span class="cl">	│		│   │   └── ...
+</span></span><span class="line"><span class="cl">	│       │   ├── Vulnerability-Assessment
+</span></span><span class="line"><span class="cl">    │       │   │	└── ...
+</span></span><span class="line"><span class="cl">    │       │	└── ...
+</span></span><span class="line"><span class="cl">    │       │    	└── ...
+</span></span><span class="line"><span class="cl">    │		├── Windows
+</span></span><span class="line"><span class="cl">    │ 		│   ├── Information-Gathering
+</span></span><span class="line"><span class="cl">    │		│   │   └── ...
+</span></span><span class="line"><span class="cl">    │		│   └── ...
+</span></span><span class="line"><span class="cl">    │       └── ...
+</span></span><span class="line"><span class="cl">    ├── WebApp-Pentesting
+</span></span><span class="line"><span class="cl">	│       └── ...
+</span></span><span class="line"><span class="cl">    ├── Social-Engineering
+</span></span><span class="line"><span class="cl">	│       └── ...
+</span></span><span class="line"><span class="cl">    ├── .......
+</span></span><span class="line"><span class="cl">	│       └── ...
+</span></span><span class="line"><span class="cl">    ├── Reporting
+</span></span><span class="line"><span class="cl">    │   └── ...
+</span></span><span class="line"><span class="cl">	└── Results
+</span></span><span class="line"><span class="cl">	    └── ...
+</span></span></code></pre></div><h4 id="general-categories-for-note-taking-during-target-assessment">General categories for note-taking during target assessment</h4>
+<ol>
+<li>Newly discovered information</li>
+</ol>
+<blockquote>
+<p>Take note of every newly discovered vulnerabilities, targets or points of access, IP addresses, usernames, passwords, source code, etc. that you identified and are related to the penetration testing engagement and process.</p>
+      <a class="btn btn-default btn-xs" href="/archive/useful-cheatsheet-for-pentesting/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/notetaking-and-random-stuff/thoughts-about-my-cybersec-journey/">Thoughts about my Cybersec Journey</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">2 min read</span>
+      
+    </div>
+    <div class="summary"><p>Over the years, I have explored diverse disciplines within computer science. My interests have spanned programming, operating systems, and the intricacies of Unix and Windows systems. I delved into game development, experimenting with various engines and libraries, resulting in several completed and unfinished projects that provided valuable experience. Amateur 3D modeling with Blender further broadened my skill set. I consistently engage with technical content, including CS/IT conference recordings. My formal training includes CSIRT and Threat Hunting, and I currently hold a CCNA certification. More recently, I have developed an interest in hardware hacking and IoT, though my electronics knowledge is currently limited. This breadth of experience has provided me with a foundation of knowledge that I believe is sufficient for specializing in any area of cybersecurity.</p>
+      <a class="btn btn-default btn-xs" href="/archive/notetaking-and-random-stuff/thoughts-about-my-cybersec-journey/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/raw-notes-ssrf/1c1-ssrf-against-local-interface-portswigger-lab/">SSRF against local interface [Portswigger Lab]</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">1 min read</span>
+      
+    </div>
+    <div class="summary"><h3 id="problem"><strong>Problem</strong></h3>
+<pre tabindex="0"><code>This lab has a stock check feature which fetches data from an internal system.
+
+To solve the lab, change the stock check URL to access the admin interface at `http://localhost/admin` and delete the user `carlos`.
+</code></pre><p>URL: <a href="https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/">https://0a4f00b403f04c6c8165a70d000b0073.web-security-academy.net/</a></p>
+      <a class="btn btn-default btn-xs" href="/archive/raw-notes-ssrf/1c1-ssrf-against-local-interface-portswigger-lab/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/raw-notes-ssrf/1c2-ssrf-against-external-back-end-system-portswigger-lab/">SSRF against external back-end system [PortSwigger Lab]</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">1 min read</span>
+      
+    </div>
+    <div class="summary"><p>The same principle applies for remote SSRF. An attacker can submit the following request to access the admin interface</p>
+<pre tabindex="0"><code>POST /product/stock HTTP/1.0 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 118
+
+stockApi=http://192.168.0.68/admin
+</code></pre><p>The same example as previous, but for remote API:</p>
+      <a class="btn btn-default btn-xs" href="/archive/raw-notes-ssrf/1c2-ssrf-against-external-back-end-system-portswigger-lab/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab/">Remote code execution via web shell upload [PortSwigger Lab]</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">2 min read</span>
+      
+    </div>
+    <div class="summary"><p>This lab contains a vulnerable image upload function. It doesn&rsquo;t perform any validation on the files users upload before storing them on the server&rsquo;s filesystem.</p>
+<p>To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file <code>/home/carlos/secret</code>. Submit this secret.</p>
+      <a class="btn btn-default btn-xs" href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f1-remote-code-execution-via-web-shell-upload-portswigger-lab/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/notes/1-web-applications/1b-owasp-top-10-2021/">OWASP TOP 10 2021</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">2 min read</span>
+      
+    </div>
+    <div class="summary"><h2 id="1-broken-access-control">1. Broken Access Control</h2>
+<p>An application has multiple access points from the outside. The goal of Access Control is to allow authorized users to access it and block unauthorized users. BAC means that an unauthorized user will gain access to the data of an authorized user. For example, by using an API.</p>
+      <a class="btn btn-default btn-xs" href="/archive/notes/1-web-applications/1b-owasp-top-10-2021/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/learning-powershell/">Learning Powershell</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">4 min read</span>
+      
+    </div>
+    <div class="summary"><p>Getting available modules on the system</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Module</span> <span class="n">-ListAvailable</span>
+</span></span></code></pre></div><p>Getting only loaded modules on the system</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Module</span>
+</span></span></code></pre></div><p>Loading Module on the system</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Import-Module</span> <span class="n">PowershellGet</span>
+</span></span></code></pre></div><p>Getting available functions provided by modules</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-Command</span> <span class="n">-module</span> <span class="p">&lt;</span><span class="n">Module_Name</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>Output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">PS </span><span class="n">C:</span><span class="p">\</span><span class="n">Users</span><span class="p">\</span><span class="n">George</span><span class="p">&gt;</span> <span class="nb">Get-command</span> <span class="n">-module</span> <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">CommandType</span>     <span class="n">Name</span>                                               <span class="n">Version</span>    <span class="n">Source</span>
+</span></span><span class="line"><span class="cl"><span class="p">-----------</span>     <span class="p">----</span>                                               <span class="p">-------</span>    <span class="p">------</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Find-Command</span>                                       <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Find-DscResource</span>                                   <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Find-Module</span>                                        <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Find-RoleCapability</span>                                <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Find-Script</span>                                        <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Get-CredsFromCredentialProvider</span>                    <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Get-InstalledModule</span>                                <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Get-InstalledScript</span>                                <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Get-PSRepository</span>                                   <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Install-Module</span>                                     <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Install-Script</span>                                     <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">New-ScriptFileInfo</span>                                 <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Publish-Module</span>                                     <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Publish-Script</span>                                     <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Register-PSRepository</span>                              <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Save-Module</span>                                        <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Save-Script</span>                                        <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Set-PSRepository</span>                                   <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Test-ScriptFileInfo</span>                                <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Uninstall-Module</span>                                   <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Uninstall-Script</span>                                   <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Unregister-PSRepository</span>                            <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Update-Module</span>                                      <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Update-ModuleManifest</span>                              <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Update-Script</span>                                      <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span><span class="line"><span class="cl"><span class="kd">Function</span><span class="w">        </span><span class="nb">Update-ScriptFileInfo</span>                              <span class="mf">2.2</span><span class="p">.</span><span class="py">5</span>      <span class="n">powershellget</span>
+</span></span></code></pre></div><p>Finding and installing modules from [powershell gallery](<a href="https://www.powershellgallery.com/">PowerShell Gallery | Home</a>)</p>
+      <a class="btn btn-default btn-xs" href="/archive/learning-powershell/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/">HTTP requests</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">3 min read</span>
+      
+    </div>
+    <div class="summary"><p>HTTP headers are used to transfer information from the client or server. </p>
+<p>The client function can be implemented by the <a href="/archive/notes/1-web-applications/1a-web-requests/1a2-curl/">cURL </a>program, which is a good tool for pentesting. </p>
+<p>We have the following categories of headers</p>
+      <a class="btn btn-default btn-xs" href="/archive/notes/1-web-applications/1a-web-requests/1a1-http-requests/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+  <article>
+    <h2><a href="/archive/notes/1-web-applications/1a-web-requests/1a2-curl/">CURL</a></h2>
+    <div class="well well-sm">
+      
+      <span class="label label-success">6 min read</span>
+      
+    </div>
+    <div class="summary"><p>cURL (Client URL) is a CLI program used to establish communication with various protocols and retrieve information. It is a good tool for pentesting because it provides raw data from a web application.</p>
+      <a class="btn btn-default btn-xs" href="/archive/notes/1-web-applications/1a-web-requests/1a2-curl/">more &hellip;</a>
+    </div>
+  </article>
+  <hr>
+  
+
+
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      <aside>
+
+
+<div id="aboutme">
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
+</div>
+
+
+<section class="well well-sm">
+  <ul class="list-group">
+
+    
+    <li class="list-group-item">
+      <h4>Social</h4>
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
+    </li>
+    
+
+    
+    
+    <li class="list-group-item">
+      <h4>Recent Posts</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/about/">Technical Biography</a></li>
+        
+        <li class="list-group-item"><a href="/manifesto/">Engineering Philosophy</a></li>
+        
+        <li class="list-group-item"><a href="/research/building-a-polymorphic-engine/">Polymorphic Engine Development</a></li>
+        
+        <li class="list-group-item"><a href="/research/stack-mechanics-and-overflows/">The Mechanical Inevitability of Buffer Overflows</a></li>
+        
+        <li class="list-group-item"><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Categories</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/research/">Research <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/archive/">Archives <span class="badge">18</span></a></li>
+        
+        <li class="list-group-item"><a href="/projects/">Projects <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/engineering/">Engineering <span class="badge">1</span></a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Tags</h4>
+      <div class="tag-cloud">
+        
+        <a href="/tags/assembly" class="tag-2">assembly</a>
+        
+        <a href="/tags/c2" class="tag-2">c2</a>
+        
+        <a href="/tags/ctfd" class="tag-2">ctfd</a>
+        
+        <a href="/tags/cti" class="tag-2">cti</a>
+        
+        <a href="/tags/databases" class="tag-2">databases</a>
+        
+        <a href="/tags/devsecops" class="tag-2">devsecops</a>
+        
+        <a href="/tags/docker" class="tag-2">docker</a>
+        
+        <a href="/tags/elk" class="tag-2">elk</a>
+        
+        <a href="/tags/engineering" class="tag-2">engineering</a>
+        
+        <a href="/tags/go" class="tag-2">go</a>
+        
+        <a href="/tags/grafana" class="tag-2">grafana</a>
+        
+        <a href="/tags/hardening" class="tag-2">hardening</a>
+        
+        <a href="/tags/infrastructure" class="tag-2">infrastructure</a>
+        
+        <a href="/tags/internals" class="tag-2">internals</a>
+        
+        <a href="/tags/linux" class="tag-2">linux</a>
+        
+        <a href="/tags/maldev" class="tag-2">maldev</a>
+        
+        <a href="/tags/monitoring" class="tag-2">monitoring</a>
+        
+        <a href="/tags/network-security" class="tag-2">network security</a>
+        
+        <a href="/tags/pentesting" class="tag-2">pentesting</a>
+        
+        <a href="/tags/portswigger" class="tag-2">portswigger</a>
+        
+        <a href="/tags/postgresql" class="tag-2">postgresql</a>
+        
+        <a href="/tags/python" class="tag-2">python</a>
+        
+        <a href="/tags/rce" class="tag-2">rce</a>
+        
+        <a href="/tags/red-team" class="tag-2">red team</a>
+        
+        <a href="/tags/research" class="tag-2">research</a>
+        
+        <a href="/tags/reverse-engineering" class="tag-2">reverse engineering</a>
+        
+        <a href="/tags/sqli" class="tag-2">sqli</a>
+        
+        <a href="/tags/ssrf" class="tag-2">ssrf</a>
+        
+        <a href="/tags/web-security" class="tag-2">web security</a>
+        
+      </div>
+    </li>
+    
+
+    
+    
+    
+    
+    <li class="list-group-item">
+      <h4>Archives</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item">2025</li>
+        
+        <li class="list-group-item">2024</li>
+        
+      </ul>
+    </li>
+    
+
+  </ul>
+</section>
+</aside>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        &copy; 2026 Giorgi Rcheulishvili
+        &middot; Powered by
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
+        <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
+        theme styled after
+        <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank" rel="noopener">pelican-bootstrap3</a>
+      </div>
+      <div class="col-xs-2">
+        <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

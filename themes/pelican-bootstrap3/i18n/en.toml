@@ -1,0 +1,66 @@
+[search]
+other = "Search"
+[about]
+other = "About"
+[min_read]
+other = "min read"
+[on_this_page]
+other = "On this page"
+[share]
+other = "Share"
+[newer]
+other = "Newer"
+[older]
+other = "Older"
+[empty]
+other = "No entries yet."
+[notfound]
+other = "The page you requested does not exist. It may have been moved or never existed."
+[footer_sig]
+other = "tools break. protocols do not."
+[read_writeup]
+other = "Read write-up"
+[view_source]
+other = "View source"
+[live_demo]
+other = "Live demo"
+[untranslated_cmd]
+other = 'grep "translation" content.md'
+[untranslated_err]
+other = 'grep: "translation" content.md: status 1 (Not Found)'
+[untranslated_title]
+other = "TODO: English version."
+[untranslated_body]
+other = "<b>Status -></b> Translation missing.<br><b>Reason -></b> Not written yet.<br><b>ETA -></b> soon."
+[untranslated_cta]
+other = "Read Original"
+[untranslated_home]
+other = "Back Home"
+[more]
+other = "more"
+[back_to_top]
+other = "Back to top"
+[powered_by]
+other = "Powered by"
+[recent_posts]
+other = "Recent Posts"
+[categories]
+other = "Categories"
+[archives]
+other = "Archives"
+[tags]
+other = "Tags"
+[about_me]
+other = "About Me"
+[social]
+other = "Social"
+[date]
+other = "Date"
+[category]
+other = "Category"
+[home]
+other = "Home"
+[all_tags]
+other = "All Tags"
+[all_years]
+other = "All Archives"

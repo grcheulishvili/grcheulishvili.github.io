@@ -1,0 +1,42 @@
+{{ define "main" }}
+<div class="wrap section-pad">
+  <div class="list-head">
+    <span class="eyebrow">projects</span>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  </div>
+
+  {{ with .Content }}<div class="prose" style="margin-bottom:2.5rem">{{ . }}</div>{{ end }}
+
+  {{ $pages := .RegularPagesRecursive }}
+  {{ if not $pages }}{{ $pages = .Pages }}{{ end }}
+  {{ $defSite := index site.Sites 0 }}
+  {{ if and (not $pages) (ne site.Language.Lang $defSite.Language.Lang) }}
+    {{ with $defSite.GetPage "/projects" }}{{ $pages = .RegularPagesRecursive }}{{ end }}
+  {{ end }}
+
+  <div class="showcase-grid">
+    {{ range $pages.ByDate.Reverse }}
+      <article class="proj">
+        <a class="proj-main" href="{{ .RelPermalink }}">
+          <div class="proj-top">
+            <h2 class="proj-title">{{ .Title }}</h2>
+            {{ with .Params.status }}<span class="proj-status">{{ . }}</span>{{ end }}
+          </div>
+          {{ with .Description }}<p class="proj-desc">{{ . }}</p>{{ end }}
+          {{ with .Params.stack }}
+          <div class="stack">{{ range . }}<span class="chip">{{ . }}</span>{{ end }}</div>
+          {{ end }}
+        </a>
+        <div class="proj-foot">
+          <a class="proj-read" href="{{ .RelPermalink }}">{{ i18n "read_writeup" | default "Read write-up" }} →</a>
+          <div class="proj-links">
+            {{ with .Params.repo }}{{ if . }}<a href="{{ . }}" target="_blank" rel="noopener" title="{{ i18n "view_source" | default "Source" }}">{{ partial "icon.html" "github" }}</a>{{ end }}{{ end }}
+            {{ with .Params.demo }}{{ if . }}<a href="{{ . }}" target="_blank" rel="noopener" title="{{ i18n "live_demo" | default "Live" }}">↗</a>{{ end }}{{ end }}
+          </div>
+        </div>
+      </article>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

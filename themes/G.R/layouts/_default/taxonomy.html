@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="wrap section-pad">
+  <div class="list-head">
+    <span class="eyebrow">{{ .Data.Singular }}</span>
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Pages.Len }} {{ i18n "entries" | default "entries" }}</p>
+  </div>
+  <div class="post-list">
+    {{ range .Pages.ByDate.Reverse }}
+      <a class="cover" href="{{ .RelPermalink }}">
+        <div class="post-row">
+          <div class="meta-col">{{ .Date.Format "Jan 02" }} <span class="yr">{{ .Date.Format "2006" }}</span></div>
+          <div>
+            <span class="ptitle">{{ .Title }}</span>
+            {{ with .Description }}<p class="pdesc">{{ . }}</p>{{ end }}
+          </div>
+        </div>
+      </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

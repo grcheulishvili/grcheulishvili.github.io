@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polymorphic Engine Development - G.R</title>
+<meta name="description" content="Analysis of dynamic code mutation in Go to bypass static signature detection.">
+<meta name="author" content="Giorgi Rcheulishvili">
+<link rel="canonical" href="http://localhost:1313/research/building-a-polymorphic-engine/">
+
+
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/pygments.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">G.R</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        
+          
+          <li class="active"><a href="/research/">Research</a></li>
+        
+          
+          <li><a href="/projects/">Projects</a></li>
+        
+          
+          <li><a href="/archive/">Archive</a></li>
+        
+          
+          <li><a href="/about/">About</a></li>
+        
+          
+          <li><a href="/manifesto/">Approach</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            
+            
+            
+            
+            
+            
+            <li class="active"><a href="/research/building-a-polymorphic-engine/" hreflang="en">EN</a></li>
+          
+            
+            
+            
+            
+            
+            
+            <li><a href="/ka/research/building-a-polymorphic-engine/" hreflang="ka">ქარ</a></li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      
+<ol class="breadcrumb">
+  <li><a href="/"><i class="fa fa-home"></i></a></li>
+  
+  <li><a href="/research/">Research</a></li>
+  
+  <li class="active">Polymorphic Engine Development</li>
+</ol>
+
+      
+
+<article>
+  <header class="page-header">
+    <h1>Polymorphic Engine Development</h1>
+  </header>
+
+  
+  <div class="panel panel-default">
+    <div class="panel-body post-info">
+      <span class="label label-success">5 min read</span>
+      
+      <span class="label label-default">Date</span>
+      <span class="published"><i class="fa fa-calendar"></i> <time datetime="2025-12-08">December 8, 2025</time></span>
+      
+      
+      <span class="label label-default">Category</span>
+      <a href="/research/">Research</a>
+      
+      
+      <span class="label label-default">Tags</span>
+      <a class="btn btn-default btn-xs" href="/tags/maldev">MalDev</a> <a class="btn btn-default btn-xs" href="/tags/go">Go</a> <a class="btn btn-default btn-xs" href="/tags/red-team">Red Team</a> 
+      
+    </div>
+  </div>
+  
+
+  <div class="entry-content">
+    <h2 id="the-make-trick-and-why-it-failed">The &ldquo;Make&rdquo; Trick (And Why It Failed)</h2>
+<p>My initial approach to evading static analysis was rudimentary and entry-level. I used a simple Makefile trick to inject a random <code>BUILD_ID</code> string into the binary metadata at compile time, which would alter the binary&rsquo;s hash.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># The &#34;Script Kiddie&#34; approach
+</span></span></span><span class="line"><span class="cl"><span class="nv">LDFLAGS</span> <span class="o">:=</span> -X main.buildID<span class="o">=</span><span class="k">$(</span>shell openssl rand -hex 8<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">go</span> <span class="err">build</span> <span class="nv">-ldflags</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>LDFLAGS<span class="k">)</span><span class="s2">&#34;</span> -o agent.exe <span class="c1"># Build with new metadata to change the hash</span>
+</span></span></code></pre></div><p><strong>Spoiler</strong></p>
+<p>It didn&rsquo;t work. While the hash changed, the actual code structure remained identical. The <code>.text</code> section retained the exact same entropy and byte sequence. Consequently, the Control Flow Graph (CFG) looked exactly the same in Ghidra. This meant a single YARA rule matching the function body caught every &ldquo;unique&rdquo; build instantly.</p>
+<p>Renaming a file or appending useless metadata isn&rsquo;t polymorphism. I needed to change the code itself before compilation.</p>
+<h2 id="code-mutation">Code Mutation</h2>
+<p>Regex and string replacement scripts are too fragile for code mutation because they easily break syntax. To do this right, I had to manipulate the code the way the compiler sees it: as an <strong>Abstract Syntax Tree (AST)</strong>.</p>
+<p>My goal was to build a pre-compiler tool that rewrites the Go source code logic before the binary is built. This required three distinct steps: altering the structure, hiding the data, and injecting the decryption logic.</p>
+<h3 id="1-reverse-engineering-the-compilers-view">1. Reverse Engineering the Compiler&rsquo;s View</h3>
+<p>First, I had to understand what Go code looks like as a data structure. I wrote a script to dump the AST of a simple assignment <code>_ = 1 + 2</code> inside a function.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">2: *ast.AssignStmt <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   .  Lhs: <span class="o">[</span>0: *ast.Ident <span class="o">{</span> Name: <span class="s2">&#34;_&#34;</span> <span class="o">}]</span>
+</span></span><span class="line"><span class="cl">   .  Tok: <span class="o">=</span>
+</span></span><span class="line"><span class="cl">   .  Rhs: <span class="o">[</span>0: *ast.BinaryExpr <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   .  .  .  X: <span class="o">{</span> Kind: INT, Value: <span class="s2">&#34;1&#34;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   .  .  .  Op: +
+</span></span><span class="line"><span class="cl">   .  .  .  Y: <span class="o">{</span> Kind: INT, Value: <span class="s2">&#34;2&#34;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">   .  <span class="o">}]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>This dump became my blueprint. Instead of just modifying text, my objective shifted to manipulating objects and structures that collectively represent the code.</p>
+<h3 id="2-improving-the-first-version-junk-code-injection">2. Improving the First Version: Junk Code Injection</h3>
+<p>The first step to changing the binary signature is altering the byte offsets of the functions. To do this, I built a generator that inserts randomized arithmetic operations. I know the function below is a crude implementation, but to grasp the process on a granular level, I prefer manual struct construction over relying completely on helper packages.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Generates: _ = &lt;RAND&gt; &lt;OP&gt; &lt;RAND&gt; : e.g., _ = 1 + 3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">generateJunk</span><span class="p">()</span><span class="w"> </span><span class="nx">ast</span><span class="p">.</span><span class="nx">Stmt</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">allowedTokens</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nx">token</span><span class="p">.</span><span class="nx">Token</span><span class="p">{</span><span class="nx">token</span><span class="p">.</span><span class="nx">ADD</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="p">.</span><span class="nx">SUB</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="p">.</span><span class="nx">MUL</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">lhs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Expr</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="o">&amp;</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Ident</span><span class="p">{</span><span class="w"> </span><span class="nx">NamePos</span><span class="p">:</span><span class="w"> </span><span class="nx">token</span><span class="p">.</span><span class="nx">NoPos</span><span class="p">,</span><span class="w"> </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;_&#34;</span><span class="w"> </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">rhs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Expr</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="o">&amp;</span><span class="nx">ast</span><span class="p">.</span><span class="nx">BinaryExpr</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nx">X</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ast</span><span class="p">.</span><span class="nx">BasicLit</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">Kind</span><span class="p">:</span><span class="w">  </span><span class="nx">token</span><span class="p">.</span><span class="nx">INT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nf">Itoa</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">IntN</span><span class="p">(</span><span class="mi">1000</span><span class="p">)),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nx">Op</span><span class="p">:</span><span class="w"> </span><span class="nx">allowedTokens</span><span class="p">[(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">IntN</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">allowedTokens</span><span class="p">)))],</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nx">Y</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ast</span><span class="p">.</span><span class="nx">BasicLit</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">Kind</span><span class="p">:</span><span class="w">  </span><span class="nx">token</span><span class="p">.</span><span class="nx">INT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nf">Itoa</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">IntN</span><span class="p">(</span><span class="mi">1000</span><span class="p">)),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ast</span><span class="p">.</span><span class="nx">AssignStmt</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">Lhs</span><span class="p">:</span><span class="w"> </span><span class="nx">lhs</span><span class="p">,</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">Tok</span><span class="p">:</span><span class="w"> </span><span class="nx">token</span><span class="p">.</span><span class="nx">ASSIGN</span><span class="p">,</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">Rhs</span><span class="p">:</span><span class="w"> </span><span class="nx">rhs</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>I didn&rsquo;t just dump these arithmetic operations into the function body, as the compiler might optimize them away as dead code. Instead, I wrapped this generated code in an <strong>Opaque Predicate</strong>```-a conditional like <code>if 1==1</code> that always evaluates to true. This forces the decompiler to draw a branching structure, effectively changing the visual signature of the function in reverse engineering tools.</p>
+<h3 id="3-destroying-embedded-string-signatures">3. Destroying Embedded String Signatures</h3>
+<p>Junk code handles the structure, but cleartext strings like <code>&quot;cmd.exe&quot;</code> are still visible to <code>strings</code> or YARA. I needed to locate every string and encrypt it to evade these detection mechanisms.</p>
+<p>I used the <code>golang.org/x/tools/go/ast/astutil</code> package to traverse the AST. My first attempt failed because I tried to blindly replace every string literal I encountered. This caused a compiler error because I accidentally mutated an import statement like <code>import &quot;fmt&quot;</code> into <code>import xor(&quot;fmt&quot;)</code>. In Go&rsquo;s AST, import paths are rigid types, not flexible expressions.</p>
+<p>I fixed this by filtering the walker to ignore <code>ImportSpec</code> nodes, targeting only strings within expression contexts. I then swapped the string node with a <code>xor(&quot;encrypted_blob&quot;)</code> function call.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">astutil</span><span class="p">.</span><span class="nf">Apply</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">*</span><span class="nx">astutil</span><span class="p">.</span><span class="nx">Cursor</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Import evasion logic...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Replacing with xor function</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">newCall</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ast</span><span class="p">.</span><span class="nx">CallExpr</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">Fun</span><span class="p">:</span><span class="w"> </span><span class="nx">ast</span><span class="p">.</span><span class="nf">NewIdent</span><span class="p">(</span><span class="s">&#34;xor&#34;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">Args</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Expr</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="o">&amp;</span><span class="nx">ast</span><span class="p">.</span><span class="nx">BasicLit</span><span class="p">{</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%q&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">encrypted</span><span class="p">)</span><span class="w"> </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">c</span><span class="p">.</span><span class="nf">Replace</span><span class="p">(</span><span class="nx">newCall</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">},</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><h3 id="4-portability-and-injection">4. Portability and Injection</h3>
+<p>We successfully replaced the strings with <code>xor</code> calls, but the target code doesn&rsquo;t actually have this function yet. If we tried to build it now, compilation would fail. Consider this obfuscated example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">hello</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Strings are now hidden</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">message</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">xor</span><span class="p">(</span><span class="s">&#34;\xc2\xcf\xc6...&#34;</span><span class="p">)</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>We are calling a <code>xor()</code> function that does not exist in this specific file. How is the compiler supposed to resolve this function to decrypt the text and output the data correctly at runtime?</p>
+<p>To solve this, I wrote an injector that parses a template of the <code>xor</code> helper function and programmatically appends the entire <code>*ast.FuncDecl</code> object to the bottom of the target file&rsquo;s AST. This makes the malware completely autonomous and self-contained.</p>
+<h2 id="the-verdict">The Verdict</h2>
+<p>I ran the mutator against a sample agent three times to generate three distinct variants.</p>
+<p>Below is how the whole picture comes together: the engine injected the Opaque Predicates (Step 2), encrypted the strings (Step 3), and appended the helper function (Step 4).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">hello</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Step 3: Strings are now hidden</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">message</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">xor</span><span class="p">(</span><span class="s">&#34;\xc2\xcf\xc6...&#34;</span><span class="p">)</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Step 2: Junk code changes the stack frame</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">552</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">256</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">250</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">715</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">message</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Step 4: Injected helper function</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">xor</span><span class="p">(</span><span class="nx">input</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>Comparing the build artifacts shows three mathematically distinct binaries with identical behavior.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sha256sum agent_*
+</span></span><span class="line"><span class="cl">e84808...1af *agent_1.exe
+</span></span><span class="line"><span class="cl">79e3f2...759 *agent_2.exe
+</span></span><span class="line"><span class="cl">89edec...11e *agent_3.exe
+</span></span></code></pre></div><h2 id="closing-thoughts">Closing Thoughts</h2>
+<p>This experiment proved that true polymorphism requires modifying the structure of the binary at the byte level. By treating source code as a data structure rather than text, we can generate functionally identical but structurally unique variants for every deployment.</p>
+<p>If you want to bypass modern EDR systems, stop relying on Makefiles or static variables, and start writing compiler middleware tools.</p>
+<blockquote>
+<p><em>The code demonstrated above is a simplified proof-of-concept. My internal engine expands on this logic to handle recursive directory processing, collision avoidance for multi-file packages, and per-file encryption key rotation. These features were omitted here to keep the code readable.</em></p>
+</blockquote>
+
+  </div>
+</article>
+
+    </div>
+    <div class="col-sm-3" id="sidebar">
+      <aside>
+
+
+<div id="aboutme">
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
+</div>
+
+
+<section class="well well-sm">
+  <ul class="list-group">
+
+    
+    <li class="list-group-item">
+      <h4>Social</h4>
+      <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
+      <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
+    </li>
+    
+
+    
+    
+    <li class="list-group-item">
+      <h4>Recent Posts</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/about/">Technical Biography</a></li>
+        
+        <li class="list-group-item"><a href="/manifesto/">Engineering Philosophy</a></li>
+        
+        <li class="list-group-item"><a href="/research/building-a-polymorphic-engine/">Polymorphic Engine Development</a></li>
+        
+        <li class="list-group-item"><a href="/research/stack-mechanics-and-overflows/">The Mechanical Inevitability of Buffer Overflows</a></li>
+        
+        <li class="list-group-item"><a href="/archive/ssrf-exploitation/">Research: Server-Side Request Forgery (SSRF) Mechanics</a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Categories</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item"><a href="/research/">Research <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/archive/">Archives <span class="badge">18</span></a></li>
+        
+        <li class="list-group-item"><a href="/projects/">Projects <span class="badge">3</span></a></li>
+        
+        <li class="list-group-item"><a href="/engineering/">Engineering <span class="badge">1</span></a></li>
+        
+      </ul>
+    </li>
+    
+
+    
+    <li class="list-group-item">
+      <h4>Tags</h4>
+      <div class="tag-cloud">
+        
+        <a href="/tags/assembly" class="tag-2">assembly</a>
+        
+        <a href="/tags/c2" class="tag-2">c2</a>
+        
+        <a href="/tags/ctfd" class="tag-2">ctfd</a>
+        
+        <a href="/tags/cti" class="tag-2">cti</a>
+        
+        <a href="/tags/databases" class="tag-2">databases</a>
+        
+        <a href="/tags/devsecops" class="tag-2">devsecops</a>
+        
+        <a href="/tags/docker" class="tag-2">docker</a>
+        
+        <a href="/tags/elk" class="tag-2">elk</a>
+        
+        <a href="/tags/engineering" class="tag-2">engineering</a>
+        
+        <a href="/tags/go" class="tag-2">go</a>
+        
+        <a href="/tags/grafana" class="tag-2">grafana</a>
+        
+        <a href="/tags/hardening" class="tag-2">hardening</a>
+        
+        <a href="/tags/infrastructure" class="tag-2">infrastructure</a>
+        
+        <a href="/tags/internals" class="tag-2">internals</a>
+        
+        <a href="/tags/linux" class="tag-2">linux</a>
+        
+        <a href="/tags/maldev" class="tag-2">maldev</a>
+        
+        <a href="/tags/monitoring" class="tag-2">monitoring</a>
+        
+        <a href="/tags/network-security" class="tag-2">network security</a>
+        
+        <a href="/tags/pentesting" class="tag-2">pentesting</a>
+        
+        <a href="/tags/portswigger" class="tag-2">portswigger</a>
+        
+        <a href="/tags/postgresql" class="tag-2">postgresql</a>
+        
+        <a href="/tags/python" class="tag-2">python</a>
+        
+        <a href="/tags/rce" class="tag-2">rce</a>
+        
+        <a href="/tags/red-team" class="tag-2">red team</a>
+        
+        <a href="/tags/research" class="tag-2">research</a>
+        
+        <a href="/tags/reverse-engineering" class="tag-2">reverse engineering</a>
+        
+        <a href="/tags/sqli" class="tag-2">sqli</a>
+        
+        <a href="/tags/ssrf" class="tag-2">ssrf</a>
+        
+        <a href="/tags/web-security" class="tag-2">web security</a>
+        
+      </div>
+    </li>
+    
+
+    
+    
+    
+    
+    <li class="list-group-item">
+      <h4>Archives</h4>
+      <ul class="list-group">
+        
+        <li class="list-group-item">2025</li>
+        
+        <li class="list-group-item">2024</li>
+        
+      </ul>
+    </li>
+    
+
+  </ul>
+</section>
+</aside>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-xs-10">
+        &copy; 2026 Giorgi Rcheulishvili
+        &middot; Powered by
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
+        <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
+        theme styled after
+        <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank" rel="noopener">pelican-bootstrap3</a>
+      </div>
+      <div class="col-xs-2">
+        <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
