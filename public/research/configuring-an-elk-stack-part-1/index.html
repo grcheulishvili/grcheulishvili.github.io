@@ -172,7 +172,7 @@
 <h3 id="base-setup">Base Setup</h3>
 <h4 id="docker-composeyml-setup-container">docker-compose.yml (&lsquo;setup&rsquo; container)</h4>
 <p><em>Note: From this point on, make sure syntax is correct in these configuration files. especially spelling and indentation. Otherwise docker will not setup the containers.</em></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.8&#34;</span><span class="w"> </span><span class="c">// This is deprecated. you can just remove this line</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.8&#34;</span><span class="w"> </span><span class="l">// This is deprecated. you can just remove this line</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">volumes</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">certs</span><span class="p">:</span><span class="w">
@@ -304,40 +304,40 @@
 <p><em>Note: <code>docker compose up</code> command should be run in the folder where <code>docker-compose.yml</code> resides.</em></p>
 <p>Here&rsquo;s my example:</p>
 <figure><img src="/.gitbook/assets/Pasted%20image%2020241205120451.png"
-			alt="SubRegisters">
+    alt="SubRegisters">
 </figure>
 
 <p>Here you can see that <code>elastic-network</code> and container has successfully run.</p>
 <p>In case you need docker composer commands, here are a few useful ones:</p>
 <table>
-	<thead>
-			<tr>
-					<th>Command</th>
-					<th>Description</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>docker compose up</td>
-					<td>Created and starts all containers within docker-compose.yml</td>
-			</tr>
-			<tr>
-					<td>docker compose down</td>
-					<td>Stops all containers and removes any networks relating to docker-compose.yml. Leaves Volumes intact and allows generated data to persist between builds</td>
-			</tr>
-			<tr>
-					<td>docker compose down -v</td>
-					<td>Same as above and removes Volumes. basically starting over.</td>
-			</tr>
-			<tr>
-					<td>docker compose start</td>
-					<td>starts existing containers</td>
-			</tr>
-			<tr>
-					<td>docker compose stop</td>
-					<td>Stops all containers. same as CTRL+C</td>
-			</tr>
-	</tbody>
+  <thead>
+      <tr>
+          <th>Command</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>docker compose up</td>
+          <td>Created and starts all containers within docker-compose.yml</td>
+      </tr>
+      <tr>
+          <td>docker compose down</td>
+          <td>Stops all containers and removes any networks relating to docker-compose.yml. Leaves Volumes intact and allows generated data to persist between builds</td>
+      </tr>
+      <tr>
+          <td>docker compose down -v</td>
+          <td>Same as above and removes Volumes. basically starting over.</td>
+      </tr>
+      <tr>
+          <td>docker compose start</td>
+          <td>starts existing containers</td>
+      </tr>
+      <tr>
+          <td>docker compose stop</td>
+          <td>Stops all containers. same as CTRL+C</td>
+      </tr>
+  </tbody>
 </table>
 <h4 id="copying-valid-certificates">Copying valid certificates</h4>
 <p>Now that the system is up and running I need to make sure that valid certificates for docker container is present in my local machine.</p>
@@ -660,7 +660,7 @@
 
 
 <div id="aboutme">
-  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/salamander.jpg" alt="Giorgi Rcheulishvili"></p>
   <p><strong>About Me: Giorgi Rcheulishvili</strong><br>Systems and infrastructure engineering - automation, containerization, and offensive security.</p>
 </div>
 

@@ -172,7 +172,7 @@
 <h3 id="საბაზისო-გამართვა">საბაზისო გამართვა</h3>
 <h4 id="docker-composeyml-კონტეინერი-setup">docker-compose.yml (კონტეინერი &lsquo;setup&rsquo;)</h4>
 <p><em>შენიშვნა: ამ ეტაპიდან აუცილებელია კონფიგურაციის ფაილებში სინტაქსის, განსაკუთრებით კი დაშორებების და მართლწერის სიზუსტის დაცვა. წინააღმდეგ შემთხვევაში, Docker კონტეინერებს ვერ ააწყობს.</em></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.8&#34;</span><span class="w"> </span><span class="c">// This is deprecated. you can just remove this line</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.8&#34;</span><span class="w"> </span><span class="l">// This is deprecated. you can just remove this line</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">volumes</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">certs</span><span class="p">:</span><span class="w">
@@ -304,40 +304,40 @@
 <p><em>შენიშვნა: ბრძანება <code>docker compose up</code> უნდა გაეშვას იმ დირექტორიაში, სადაც მდებარეობს <code>docker-compose.yml</code> ფაილი.</em></p>
 <p>აი მაგალითიც:</p>
 <figure><img src="/.gitbook/assets/Pasted%20image%2020241205120451.png"
-			alt="SubRegisters">
+    alt="SubRegisters">
 </figure>
 
 <p>აქ ჩანს, რომ <code>elastic-network</code> ქსელი და კონტეინერი წარმატებით გაეშვა.</p>
 <p>Docker Compose-თან მუშაობისთვის რამდენიმე სასარგებლო ბრძანება:</p>
 <table>
-	<thead>
-			<tr>
-					<th>ბრძანება</th>
-					<th>აღწერა</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>docker compose up</td>
-					<td>ქმნის და უშვებს ყველა კონტეინერს <code>docker-compose.yml</code> ფაილიდან</td>
-			</tr>
-			<tr>
-					<td>docker compose down</td>
-					<td>აჩერებს ყველა კონტეინერს და შლის <code>docker-compose.yml</code>-თან დაკავშირებულ ქსელებს. ტომებს ტოვებს ხელუხლებლად, რაც უზრუნველყოფს მონაცემთა შენარჩუნებას ბილდებს შორის</td>
-			</tr>
-			<tr>
-					<td>docker compose down -v</td>
-					<td>აკეთებს იგივეს და დამატებით შლის ტომებს. ფაქტობრივად, ყველაფერს იწყებს თავიდან</td>
-			</tr>
-			<tr>
-					<td>docker compose start</td>
-					<td>უშვებს უკვე არსებულ კონტეინერებს</td>
-			</tr>
-			<tr>
-					<td>docker compose stop</td>
-					<td>აჩერებს ყველა კონტეინერს (იგივეა, რაც CTRL+C)</td>
-			</tr>
-	</tbody>
+  <thead>
+      <tr>
+          <th>ბრძანება</th>
+          <th>აღწერა</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>docker compose up</td>
+          <td>ქმნის და უშვებს ყველა კონტეინერს <code>docker-compose.yml</code> ფაილიდან</td>
+      </tr>
+      <tr>
+          <td>docker compose down</td>
+          <td>აჩერებს ყველა კონტეინერს და შლის <code>docker-compose.yml</code>-თან დაკავშირებულ ქსელებს. ტომებს ტოვებს ხელუხლებლად, რაც უზრუნველყოფს მონაცემთა შენარჩუნებას ბილდებს შორის</td>
+      </tr>
+      <tr>
+          <td>docker compose down -v</td>
+          <td>აკეთებს იგივეს და დამატებით შლის ტომებს. ფაქტობრივად, ყველაფერს იწყებს თავიდან</td>
+      </tr>
+      <tr>
+          <td>docker compose start</td>
+          <td>უშვებს უკვე არსებულ კონტეინერებს</td>
+      </tr>
+      <tr>
+          <td>docker compose stop</td>
+          <td>აჩერებს ყველა კონტეინერს (იგივეა, რაც CTRL+C)</td>
+      </tr>
+  </tbody>
 </table>
 <h4 id="ვალიდური-სერტიფიკატების-კოპირება">ვალიდური სერტიფიკატების კოპირება</h4>
 <p>სისტემის გაშვების შემდეგ საჭიროა უზრუნველვყო Docker კონტეინერის ვალიდური სერტიფიკატების არსებობა ლოკალურ მანქანაზე.</p>
@@ -660,7 +660,7 @@
 
 
 <div id="aboutme">
-  <p><img class="img-thumbnail" src="http://localhost:1313/images/logo.png" alt="Giorgi Rcheulishvili"></p>
+  <p><img class="img-thumbnail" src="http://localhost:1313/images/salamander.jpg" alt="Giorgi Rcheulishvili"></p>
   <p><strong>ჩემ შესახებ: Giorgi Rcheulishvili</strong><br>სისტემური და ინფრასტრუქტურის ინჟინერია - ავტომატიზაცია, კონტეინერიზაცია და შეტევითი უსაფრთხოება.</p>
 </div>
 
@@ -670,7 +670,7 @@
 
     
     <li class="list-group-item">
-      <h4>სოციალური</h4>
+      <h4>პროფილები</h4>
       <a href="https://github.com/grcheulishvili" target="_blank" rel="noopener"><i class="fa fa-github-square fa-lg"></i></a> 
       <a href="https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/" target="_blank" rel="noopener"><i class="fa fa-linkedin-square fa-lg"></i></a>
     </li>
@@ -792,7 +792,7 @@
     <div class="row">
       <div class="col-xs-10">
         &copy; 2026 Giorgi Rcheulishvili
-        &middot; შექმნილია
+        &middot; გამოყენებულია
         <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>,
         <a href="https://getbootstrap.com/docs/3.4/" target="_blank" rel="noopener">Bootstrap</a>,
         theme styled after

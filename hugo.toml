@@ -27,7 +27,7 @@ summaryLength = 30
   [params.author]
     name = "Giorgi Rcheulishvili"
     email = ""
-    image = "/images/logo.png"
+    image = "/images/salamander.jpg"
   [params.social]
     github = "https://github.com/grcheulishvili"
     linkedin = "https://www.linkedin.com/in/giorgi-rcheulishvili-bba988260/"

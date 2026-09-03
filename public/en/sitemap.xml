@@ -6,234 +6,234 @@
     <lastmod>2025-12-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/manifesto/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/manifesto/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/manifesto/"
+                hreflang="en-US"
+                href="http://localhost:1313/manifesto/"
                 />
   </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2025-12-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/"
+                hreflang="en-US"
+                href="http://localhost:1313/"
                 />
   </url><url>
     <loc>http://localhost:1313/about/</loc>
     <lastmod>2025-12-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/about/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/about/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/about/"
+                hreflang="en-US"
+                href="http://localhost:1313/about/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/go/</loc>
     <lastmod>2025-12-08T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/go/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/go/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/go/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/go/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/maldev/</loc>
     <lastmod>2025-12-08T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/maldev/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/maldev/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/maldev/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/maldev/"
                 />
   </url><url>
     <loc>http://localhost:1313/research/building-a-polymorphic-engine/</loc>
     <lastmod>2025-12-08T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/research/building-a-polymorphic-engine/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/research/building-a-polymorphic-engine/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/research/building-a-polymorphic-engine/"
+                hreflang="en-US"
+                href="http://localhost:1313/research/building-a-polymorphic-engine/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/red-team/</loc>
     <lastmod>2025-12-08T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/red-team/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/red-team/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/red-team/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/red-team/"
                 />
   </url><url>
     <loc>http://localhost:1313/research/</loc>
     <lastmod>2025-12-08T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/research/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/research/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/research/"
+                hreflang="en-US"
+                href="http://localhost:1313/research/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-12-08T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/assembly/</loc>
     <lastmod>2025-11-28T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/assembly/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/assembly/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/assembly/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/assembly/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/internals/</loc>
     <lastmod>2025-11-28T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/internals/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/internals/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/internals/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/internals/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/reverse-engineering/</loc>
     <lastmod>2025-11-28T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/reverse-engineering/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/reverse-engineering/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/reverse-engineering/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/reverse-engineering/"
                 />
   </url><url>
     <loc>http://localhost:1313/research/stack-mechanics-and-overflows/</loc>
     <lastmod>2025-11-28T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/research/stack-mechanics-and-overflows/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/research/stack-mechanics-and-overflows/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/research/stack-mechanics-and-overflows/"
+                hreflang="en-US"
+                href="http://localhost:1313/research/stack-mechanics-and-overflows/"
                 />
   </url><url>
     <loc>http://localhost:1313/archive/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/archive/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/archive/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/archive/"
+                hreflang="en-US"
+                href="http://localhost:1313/archive/"
                 />
   </url><url>
     <loc>http://localhost:1313/projects/local-ctf-platform/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/projects/local-ctf-platform/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/projects/local-ctf-platform/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/projects/local-ctf-platform/"
+                hreflang="en-US"
+                href="http://localhost:1313/projects/local-ctf-platform/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/c2/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/c2/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/c2/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/c2/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/c2/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/ctfd/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/ctfd/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/ctfd/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/ctfd/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/ctfd/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/cti/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/cti/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/cti/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/cti/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/cti/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/databases/</loc>
@@ -246,13 +246,13 @@
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/grafana/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/grafana/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/grafana/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/grafana/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/hardening/</loc>
@@ -265,26 +265,26 @@
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/linux/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/linux/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/linux/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/linux/"
                 />
   </url><url>
     <loc>http://localhost:1313/projects/mantis-c2/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/projects/mantis-c2/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/projects/mantis-c2/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/projects/mantis-c2/"
+                hreflang="en-US"
+                href="http://localhost:1313/projects/mantis-c2/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/network-security/</loc>
@@ -300,39 +300,39 @@
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/postgresql/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/postgresql/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/postgresql/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/postgresql/"
                 />
   </url><url>
     <loc>http://localhost:1313/projects/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/projects/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/projects/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/projects/"
+                hreflang="en-US"
+                href="http://localhost:1313/projects/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/python/</loc>
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/python/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/python/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/python/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/python/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/rce/</loc>
@@ -342,13 +342,13 @@
     <lastmod>2025-11-27T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/projects/regional-threat-intel/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/projects/regional-threat-intel/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/projects/regional-threat-intel/"
+                hreflang="en-US"
+                href="http://localhost:1313/projects/regional-threat-intel/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/research/</loc>
@@ -403,13 +403,13 @@
     <lastmod>2024-05-12T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/research/configuring-an-elk-stack-part-1/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/research/configuring-an-elk-stack-part-1/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/research/configuring-an-elk-stack-part-1/"
+                hreflang="en-US"
+                href="http://localhost:1313/research/configuring-an-elk-stack-part-1/"
                 />
   </url><url>
     <loc>http://localhost:1313/engineering/configuring-an-elk-stack-part-1/</loc>
@@ -419,52 +419,52 @@
     <lastmod>2024-05-12T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/devsecops/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/devsecops/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/devsecops/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/devsecops/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/docker/</loc>
     <lastmod>2024-05-12T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/docker/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/docker/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/docker/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/docker/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/elk/</loc>
     <lastmod>2024-05-12T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/tags/elk/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/tags/elk/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/tags/elk/"
+                hreflang="en-US"
+                href="http://localhost:1313/tags/elk/"
                 />
   </url><url>
     <loc>http://localhost:1313/engineering/</loc>
     <lastmod>2024-05-12T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/engineering/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/engineering/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/engineering/"
+                hreflang="en-US"
+                href="http://localhost:1313/engineering/"
                 />
   </url><url>
     <loc>http://localhost:1313/tags/monitoring/</loc>
@@ -473,13 +473,13 @@
     <loc>http://localhost:1313/categories/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="en-US"
-                href="http://localhost:1313/categories/"
+                hreflang="ka-GE"
+                href="http://localhost:1313/ka/categories/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="ka-GE"
-                href="http://localhost:1313/ka/categories/"
+                hreflang="en-US"
+                href="http://localhost:1313/categories/"
                 />
   </url><url>
     <loc>http://localhost:1313/archive/notes/1-web-applications/1a-web-requests/1a2-curl/</loc>
